@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MeiWei</string>
+    <string name="password" translatable="false">密&#160;&#160;&#160;&#160;码</string>
+    <string name="get_code_again" translatable="false">%d s后重新获取</string>
 </resources>
