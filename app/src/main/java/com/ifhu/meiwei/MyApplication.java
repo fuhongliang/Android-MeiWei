@@ -5,7 +5,9 @@ import android.app.Application;
 import com.ifhu.meiwei.utils.AppInfo;
 import com.ifhu.meiwei.utils.SharedPreUtil;
 import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.PrettyFormatStrategy;
 
 /**
  * APP单例实例
@@ -25,8 +27,22 @@ public class MyApplication extends Application {
         super.onCreate();
         AppInfo.init(getApplicationContext());
         instance = this;
-        Logger.addLogAdapter(new AndroidLogAdapter());
+        initLogger();
         SharedPreUtil.getInstance();
     }
 
+    public void initLogger(){
+        FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
+                // (Optional) Whether to show thread info or not. Default true
+                .showThreadInfo(false)
+                // (Optional) How many method line to show. Default 2
+                .methodCount(0)
+                // (Optional) Hides internal method calls up to offset. Default 5
+                .methodOffset(7)
+                // (Optional) Global tag for every log. Default PRETTY_LOGGER
+                .tag("MeiWei")
+                .build();
+
+        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
+    }
 }
