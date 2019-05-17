@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/layout_header" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="133dp"
+            android:background="@drawable/quesehng_ic_zagwuche" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="购物车没商品是多么痛的领悟呀"
+            android:textColor="@color/typed_text_color"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="购物车没商品是多么痛的领悟呀"
+            android:textColor="@color/hint_text_color"
+            android:textSize="12sp" />
+
+        <TextView
+            android:layout_width="75dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="19dp"
+            android:background="@drawable/address_main_color"
+            android:gravity="center"
+            android:text="去逛逛"
+            android:textColor="@color/main_color"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_discount"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header"
+        android:divider="@null"
+        android:dividerHeight="0dp" />
+
+
+</RelativeLayout>
