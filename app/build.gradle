@@ -2,6 +2,15 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
+
+    signingConfigs {
+        release {
+            keyAlias ReleasekeyAlias
+            keyPassword ReleasekeyPassword
+            storeFile file(ReleasestoreFile)
+            storePassword ReleasestorePassword
+        }
+    }
     defaultConfig {
         applicationId "com.ifhu.meiwei"
         minSdkVersion 21
@@ -10,12 +19,40 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
-        release {
+        release {//正式环境
+            // 如果没有提供混淆规则文件，则设置默认的混淆规则文件（SDK/tools/proguard/proguard-android.txt）
+            pseudoLocalesEnabled true
+            // 显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            buildConfigField "String", "STRING_API_ENV", "\"0\""
+            signingConfig signingConfigs.release
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "ZhMeiWei_v${defaultConfig.versionName}_${releaseTime()}_${variant.flavorName}.apk"
+                }
+            }
+        }
+
+        beta {//预发布环境
+            applicationIdSuffix '.beta'//包名添加后缀.beta
+            buildConfigField "String", "STRING_API_ENV", "\"1\""
+            signingConfig signingConfigs.release
+        }
+
+        debug {//开发环境
+            applicationIdSuffix '.debug'//包名添加后缀.debug
+            buildConfigField "String", "STRING_API_ENV", "\"2\""
+            signingConfig signingConfigs.release
         }
     }
+}
+
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 }
 
 dependencies {
