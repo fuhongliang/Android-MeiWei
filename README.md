@@ -17,7 +17,6 @@
 - 点击Build Variants
 - 选择所需要的环境  
 
-------
 如何设置不同环境接口环境：
 - 打开RetrofitApiManager.java文件进行更改即可
 
