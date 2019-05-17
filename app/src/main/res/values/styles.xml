@@ -8,9 +8,22 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="base_phone_edit" parent="base_edit">
+       <item name="android:inputType">phone</item>
+        <item name="android:maxLength">11</item>
+    </style>
+
+    <style name="base_password_edit" parent="base_edit">
+       <item name="android:inputType">textPassword</item>
+        <item name="android:maxLength">16</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
     <style name="base_edit">
         <item name="android:textColorHint">@color/hint_text_color</item>
         <item name="android:textColor">@color/typed_text_color</item>
+        <item name="android:background">@null</item>
     </style>
 
     <style name="dividing_line">

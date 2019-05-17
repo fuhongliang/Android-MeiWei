@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import com.ifhu.meiwei.ui.loading.LoadingDialog;
 import com.ifhu.meiwei.utils.ActivityCollector;
+import com.ifhu.meiwei.utils.Utils;
 
 /**
  *
@@ -67,5 +68,87 @@ public class BaseActivity  extends AppCompatActivity {
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
         return super.dispatchTouchEvent(event);
+    }
+
+
+    /**
+     * 添加fragment
+     *
+     * @param fragment
+     * @param frameId
+     */
+    protected void addFragment(BaseFragment fragment, @IdRes int frameId) {
+        Utils.checkNotNull(fragment);
+        getSupportFragmentManager().beginTransaction()
+                .add(frameId, fragment, fragment.getClass().getSimpleName())
+                .addToBackStack(fragment.getClass().getSimpleName())
+                .commitAllowingStateLoss();
+
+    }
+
+
+    /**
+     * 替换fragment
+     * @param fragment
+     * @param frameId
+     */
+    protected void replaceFragment(BaseFragment fragment, @IdRes int frameId) {
+        Utils.checkNotNull(fragment);
+        getSupportFragmentManager().beginTransaction()
+                .replace(frameId, fragment, fragment.getClass().getSimpleName())
+                .addToBackStack(fragment.getClass().getSimpleName())
+                .commitAllowingStateLoss();
+
+    }
+
+
+    /**
+     * 隐藏fragment
+     * @param fragment
+     */
+    protected void hideFragment(BaseFragment fragment) {
+        Utils.checkNotNull(fragment);
+        getSupportFragmentManager().beginTransaction()
+                .hide(fragment)
+                .commitAllowingStateLoss();
+
+    }
+
+
+    /**
+     * 显示fragment
+     * @param fragment
+     */
+    protected void showFragment(BaseFragment fragment) {
+        Utils.checkNotNull(fragment);
+        getSupportFragmentManager().beginTransaction()
+                .show(fragment)
+                .commitAllowingStateLoss();
+
+    }
+
+
+    /**
+     * 移除fragment
+     * @param fragment
+     */
+    protected void removeFragment(BaseFragment fragment) {
+        Utils.checkNotNull(fragment);
+        getSupportFragmentManager().beginTransaction()
+                .remove(fragment)
+                .commitAllowingStateLoss();
+
+    }
+
+
+    /**
+     * 弹出栈顶部的Fragment
+     */
+    protected void popFragment() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            finish();
+        }
     }
 }
