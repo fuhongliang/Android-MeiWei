@@ -11,7 +11,18 @@ public class BaseEntity<T> {
     public int code = 0;
     public String msg;
     public T data;
-
+    /**
+     * Token失效、伪造等
+     */
+    public static int TOKENMISSION_CODE = 3001;
+    public static int TOKENTFAKE_CODE = 3000;
+    public static int TOKENTIMEOUT_CODE = 3002;
+    public boolean isTokenTimeOut() {
+        if (code == TOKENTIMEOUT_CODE || code == TOKENMISSION_CODE || code == TOKENTFAKE_CODE) {
+            return true;
+        }
+        return false;
+    }
 
     public boolean isSuccess() {
         if (code == SUCCESS_CODE) {

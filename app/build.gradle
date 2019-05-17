@@ -88,4 +88,10 @@ dependencies {
      *  eventbus 全局通知
      */
     implementation 'org.greenrobot:eventbus:3.0.0'
+
+    /**
+     *  Loading加载对话框
+     */
+    implementation 'com.github.rahatarmanahmed:circularprogressview:2.5.0'
+
 }

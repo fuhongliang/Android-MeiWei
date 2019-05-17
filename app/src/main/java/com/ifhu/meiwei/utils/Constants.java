@@ -16,6 +16,10 @@ public class Constants {
      * 保存用户对象
      */
     public static final String USER = "mei_wei_user";
+    /**
+     * 退出登录
+     */
+    public static final String LOGOUT = "logout_event";
 
 
 }

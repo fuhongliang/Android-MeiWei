@@ -1,4 +1,4 @@
-package com.ifhu.meiwei.ui;
+package com.ifhu.meiwei.ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
