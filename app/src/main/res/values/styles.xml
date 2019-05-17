@@ -27,4 +27,11 @@
         <item name="android:layout_marginRight">2dp</item>
         <item name="android:layout_gravity">center</item>
     </style>
+
+    <style name="line_fff">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">#F0F0F0</item>
+        <item name="android:layout_marginLeft">15dp</item>
+    </style>
 </resources>
