@@ -1,11 +1,8 @@
 package com.ifhu.meiwei.ui.activity;
-
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -15,6 +12,7 @@ import com.ifhu.meiwei.bean.MessageEvent;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
 import com.ifhu.meiwei.ui.base.ViewManager;
+import com.ifhu.meiwei.ui.fragment.HomeFragment;
 import com.ifhu.meiwei.ui.fragment.MeFragment;
 import com.ifhu.meiwei.utils.UserLogic;
 
@@ -86,7 +84,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initViewPager() {
-        ViewManager.getInstance().addFragment(0, MeFragment.newInstance());
+        ViewManager.getInstance().addFragment(0, HomeFragment.newInstance());
         ViewManager.getInstance().addFragment(1, MeFragment.newInstance());
         ViewManager.getInstance().addFragment(2, MeFragment.newInstance());
         mFragments = ViewManager.getInstance().getAllFragment();
