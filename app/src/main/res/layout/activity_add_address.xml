@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/category_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_header" />
+
+    <TextView
+        style="@style/dividing_line"
+        android:layout_marginLeft="0dp" />
+    <!--联系人-->
+    <RelativeLayout
+        style="@style/input_box"
+        android:paddingLeft="15dp">
+
+        <TextView
+            style="@style/text"
+            android:text="联系人" />
+
+        <EditText
+            style="@style/edit_text"
+            android:layout_marginLeft="115dp"
+            android:hint="请输入收货人姓名" />
+
+        <ImageView style="@style/line_fff" />
+
+    </RelativeLayout>
+    <!--<RadioGroup-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="44dp"-->
+    <!--android:background="@color/bg_white"-->
+    <!--android:orientation="horizontal">-->
+
+    <!--<RadioButton-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:checked="true"-->
+    <!--android:text="先生"-->
+    <!--android:textColor="@color/black"-->
+    <!--android:textSize="17sp" />-->
+
+    <!--<RadioButton-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="女士"-->
+    <!--android:textColor="@color/black"-->
+    <!--android:textSize="17sp" />-->
+
+    <!--</RadioGroup>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/bg_white"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="115dp"
+            android:background="@drawable/bg_address_selector" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:text="先生"
+            android:textColor="@color/black"
+            android:textSize="17sp" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="43dp"
+            android:background="@drawable/bg_address_selector" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:text="女士"
+            android:textColor="@color/black"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+    <!--手机号-->
+    <RelativeLayout
+        style="@style/input_box"
+        android:paddingLeft="15dp">
+
+        <TextView
+            style="@style/text"
+            android:text="手机号" />
+
+        <EditText
+            style="@style/edit_text"
+            android:layout_marginLeft="115dp"
+            android:hint="请输入手机号码" />
+
+        <ImageView style="@style/line_fff" />
+
+    </RelativeLayout>
+    <!--收货地址-->
+    <RelativeLayout
+        style="@style/input_box"
+        android:paddingLeft="15dp">
+
+        <TextView
+            style="@style/text"
+            android:text="收货地址" />
+
+        <EditText
+            style="@style/edit_text"
+            android:layout_marginLeft="115dp"
+            android:hint="点击选择地址" />
+
+        <ImageView style="@style/arrow" />
+
+        <ImageView style="@style/line_fff" />
+
+
+    </RelativeLayout>
+    <!--门牌号-->
+    <RelativeLayout
+        style="@style/input_box"
+        android:paddingLeft="15dp">
+
+        <TextView
+            style="@style/text"
+            android:text="门牌号" />
+
+        <EditText
+            style="@style/edit_text"
+            android:layout_marginLeft="115dp"
+            android:hint="详细地址，例：1号楼103室" />
+
+        <ImageView style="@style/line_fff" />
+
+    </RelativeLayout>
+
+
+    <TextView
+        style="@style/button"
+        android:layout_marginTop="40dp"
+        android:text="保存" />
+</LinearLayout>
