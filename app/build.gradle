@@ -2,6 +2,15 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
+
+    signingConfigs {
+        release {
+            keyAlias ReleasekeyAlias
+            keyPassword ReleasekeyPassword
+            storeFile file(ReleasestoreFile)
+            storePassword ReleasestorePassword
+        }
+    }
     defaultConfig {
         applicationId "com.ifhu.meiwei"
         minSdkVersion 21
@@ -10,12 +19,44 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
-        release {
+        release {//正式环境
+            // 如果没有提供混淆规则文件，则设置默认的混淆规则文件（SDK/tools/proguard/proguard-android.txt）
+            pseudoLocalesEnabled true
+            // 显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            buildConfigField "String", "STRING_API_ENV", "\"0\""
+            signingConfig signingConfigs.release
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "ZhMeiWei_v${defaultConfig.versionName}_${releaseTime()}_${variant.flavorName}.apk"
+                }
+            }
+        }
+
+        beta {//预发布环境
+            applicationIdSuffix '.beta'//包名添加后缀.beta
+            buildConfigField "String", "STRING_API_ENV", "\"1\""
+            signingConfig signingConfigs.release
+        }
+
+        debug {//开发环境
+            applicationIdSuffix '.debug'//包名添加后缀.debug
+            buildConfigField "String", "STRING_API_ENV", "\"2\""
+            signingConfig signingConfigs.release
         }
     }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+}
+
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 }
 
 dependencies {
@@ -25,4 +66,32 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    implementation 'io.reactivex.rxjava2:rxjava:2.1.13'
+    /**
+     *  网络库
+     */
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    implementation 'com.facebook.stetho:stetho:1.4.1'
+    implementation 'com.facebook.stetho:stetho-urlconnection:1.4.1'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.4.1'
+    /**
+     * Log打印
+     */
+    implementation 'com.orhanobut:logger:2.2.0'
+
+    /**
+     *  eventbus 全局通知
+     */
+    implementation 'org.greenrobot:eventbus:3.0.0'
+
+    /**
+     *  Loading加载对话框
+     */
+    implementation 'com.github.rahatarmanahmed:circularprogressview:2.5.0'
+
 }
