@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="140dp"
+    android:padding="15dp">
+
+    <LinearLayout
+        android:id="@+id/ll_store_name"
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/tab_bnt_bj_xs" />
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:gravity="center_vertical"
+            android:text="正宗柳州螺蛳粉（粉."
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:layout_width="5dp"
+            android:layout_height="8dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="7dp"
+            android:background="@drawable/order_ic_xz1" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end|center_vertical"
+            android:text="订单已完成"
+            android:textColor="@color/hint_text_color"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/ll_store_name"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="10dp"
+        android:background="#fofofo" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_line"
+        android:layout_marginLeft="42dp"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/tv_product_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="黄焖鸡排骨饭"
+            android:textColor="@color/typed_text_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 等 2件商品"
+            android:textColor="@color/typed_text_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="￥99"
+            android:textColor="@color/typed_text_color"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_evaluation"
+        android:layout_width="74dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="15dp"
+        android:background="@drawable/address_main_color"
+        android:gravity="center"
+        android:text="评价"
+        android:textColor="@color/main_color"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="74dp"
+        android:layout_height="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@id/tv_evaluation"
+        android:background="@drawable/bg_gray"
+        android:gravity="center"
+        android:text="再来一单"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+</RelativeLayout>
