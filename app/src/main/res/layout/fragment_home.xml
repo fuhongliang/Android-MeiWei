@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <!--头部-->
     <RelativeLayout
         android:id="@+id/rl_header"
@@ -40,21 +38,22 @@
             android:src="@drawable/top_ic_xlxz" />
 
         <ImageView
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="19dp"
+            android:layout_height="19dp"
             android:layout_alignParentEnd="true"
-            android:padding="15dp"
-            android:src="@drawable/top_ic_xxx" />
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/top_ic_xxx" />
 
     </RelativeLayout>
+
     <com.ifhu.meiwei.ui.view.MyScrollView
         android:id="@+id/scrollView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/white"
-        android:scrollbars="none"
         android:layout_below="@+id/rl_header"
-        >
+        android:background="@color/white"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -307,8 +306,8 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="8dp"
                     android:background="@drawable/tab_icon_youhui" />
@@ -335,14 +334,136 @@
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
                 android:paddingTop="10dp">
+                <!--限时折扣-->
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/tab_bnt_bj_xs">
 
-                <include
-                    android:id="@+id/limit_discount"
-                    layout="@layout/item_zone" />
+                    <ImageView
+                        android:layout_width="54dp"
+                        android:layout_height="18dp"
+                        android:background="@drawable/tab_bnt_xszk" />
 
-                <include layout="@layout/item_zone" />
+                    <RelativeLayout
+                        android:layout_width="90dp"
+                        android:layout_height="37dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/bg_home_zone_gray">
 
-                <include layout="@layout/item_zone" />
+                        <TextView
+                            android:id="@+id/tv_discounts_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="5dp"
+                            android:text="好店专享折扣"
+                            android:textColor="#262626"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:id="@+id/tv_discounts_subtitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_discounts_title"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="1dp"
+                            android:text="限时秒杀，手到擒来"
+                            android:textColor="@color/hint_text_color"
+                            android:textSize="9sp" />
+                    </RelativeLayout>
+                </RelativeLayout>
+                <!--满立减-->
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/tab_bnt_bj_tc">
+
+                    <ImageView
+                        android:layout_width="54dp"
+                        android:layout_height="18dp"
+                        android:background="@drawable/tab_bnt_mlj" />
+
+                    <RelativeLayout
+                        android:layout_width="90dp"
+                        android:layout_height="37dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/bg_home_zone_gray">
+
+                        <TextView
+                            android:id="@+id/tv_reduction_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="5dp"
+                            android:text="满减店铺推荐"
+                            android:textColor="#262626"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:id="@+id/tv_reduction_subtitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_reduction_title"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="1dp"
+                            android:text="大额满减，每日特价"
+                            android:textColor="@color/hint_text_color"
+                            android:textSize="9sp" />
+                    </RelativeLayout>
+                </RelativeLayout>
+                <!--优惠套餐-->
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/tab_bnt_bj_mlj">
+
+                    <ImageView
+                        android:layout_width="54dp"
+                        android:layout_height="18dp"
+                        android:background="@drawable/tab_bnt_yhtc" />
+
+                    <RelativeLayout
+                        android:layout_width="90dp"
+                        android:layout_height="37dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/bg_home_zone_gray">
+
+                        <TextView
+                            android:id="@+id/tv_package_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="5dp"
+                            android:text="餐餐巨实惠"
+                            android:textColor="#262626"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:id="@+id/tv_package_subtitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tv_package_title"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="1dp"
+                            android:text="热销套餐，畅快来袭"
+                            android:textColor="@color/hint_text_color"
+                            android:textSize="9sp" />
+                    </RelativeLayout>
+                </RelativeLayout>
 
             </LinearLayout>
             <!--附近商家-->
@@ -353,8 +474,8 @@
                 android:layout_marginTop="30dp">
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginRight="9dp"
                     android:background="@drawable/tab_icon_fujin" />
@@ -373,7 +494,7 @@
                     android:layout_gravity="bottom"
                     android:layout_marginLeft="10dp"
                     android:text="因你，味道可以延续"
-                    android:textColor="@color/hint_text_color"
+                    android:textColor="@color/typed_text_color"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -507,16 +628,15 @@
         android:id="@+id/fab"
         android:layout_width="44dp"
         android:layout_height="44dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_margin="15dp"
         android:src="@drawable/home_icon_gouwuche"
-        app:pressedTranslationZ="2dp"
-        app:elevation="2dp"
         app:backgroundTint="@color/white"
-        app:rippleColor="@color/white"
         app:borderWidth="0dp"
+        app:elevation="2dp"
         app:fabSize="normal"
-        />
+        app:pressedTranslationZ="2dp"
+        app:rippleColor="@color/white" />
 </RelativeLayout>
 
