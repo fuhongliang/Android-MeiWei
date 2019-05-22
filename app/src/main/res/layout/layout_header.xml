@@ -5,6 +5,7 @@
     android:background="#00000000">
 
     <RelativeLayout
+        android:id="@+id/rl_return"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -16,6 +17,7 @@
             android:src="@drawable/top_icon_fanhui" />
 
         <TextView
+            android:id="@+id/tv_return"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_toRightOf="@id/iv_back"
@@ -35,6 +37,7 @@
         android:textSize="18dp" />
 
     <TextView
+        android:id="@+id/tv_text"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
