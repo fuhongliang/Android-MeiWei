@@ -9,12 +9,12 @@
     </style>
 
     <style name="base_phone_edit" parent="base_edit">
-       <item name="android:inputType">phone</item>
+        <item name="android:inputType">phone</item>
         <item name="android:maxLength">11</item>
     </style>
 
     <style name="base_password_edit" parent="base_edit">
-       <item name="android:inputType">textPassword</item>
+        <item name="android:inputType">textPassword</item>
         <item name="android:maxLength">16</item>
         <item name="android:textSize">17sp</item>
         <item name="android:maxLines">1</item>
@@ -97,6 +97,7 @@
         <item name="android:layout_width">19dp</item>
         <item name="android:layout_height">19dp</item>
     </style>
+
     <style name="loadDialog" parent="android:Theme.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowFrame">@null</item>
@@ -128,7 +129,21 @@
         <!--指示器高度-->
         <attr name="indicator_height" format="dimension" />
         <!--指示器宽度-->
-        <attr name="indicator_width" format="dimension" />
+        <attr name="indicator_width" fobrmat="dimension" />
     </declare-styleable>
+
+    <style name="big_star">
+        <item name="android:layout_width">34dp</item>
+        <item name="android:layout_height">34dp</item>
+        <item name="android:background">@drawable/big_star_selector</item>
+        <item name="android:layout_marginLeft">16dp</item>
+    </style>
+
+    <style name="small_star">
+        <item name="android:layout_width">19dp</item>
+        <item name="android:layout_height">19dp</item>
+        <item name="android:background">@drawable/small_star_selector</item>
+        <item name="android:layout_marginLeft">12dp</item>
+    </style>
 
 </resources>

@@ -157,7 +157,7 @@
         android:layout_below="@id/tv_line"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:background="@drawable/bg_bottom_white">
+        android:background="@drawable/bg_bott_white">
 
         <TextView
             android:id="@+id/tv_pay"
