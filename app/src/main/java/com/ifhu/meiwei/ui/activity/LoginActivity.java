@@ -1,5 +1,6 @@
 package com.ifhu.meiwei.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -97,7 +98,6 @@ public class LoginActivity extends BaseActivity {
         return true;
     }
 
-    //判断两个输入框是否为空登陆按钮更换颜色
     public boolean checkPhonenumberAndMsgCode() {
         if (StringUtils.isEmpty(etNumber.getText().toString()) || etNumber.getText().toString().length() < 11) {
             return false;
@@ -161,6 +161,7 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.tv_text)
     public void onTvTextClicked() {
+        startActivity(new Intent(LoginActivity.this, PasswordActivity.class));
     }
 
 
