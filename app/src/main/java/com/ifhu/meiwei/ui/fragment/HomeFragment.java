@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -15,18 +14,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ifhu.meiwei.R;
+import com.ifhu.meiwei.ui.activity.home.ShippingAddressActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
 import com.ifhu.meiwei.ui.view.MyScrollView;
-import com.orhanobut.logger.Logger;
-
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -35,6 +32,8 @@ import butterknife.Unbinder;
  * @author fuhongliang
  */
 public class HomeFragment extends BaseFragment {
+    @BindView(R.id.tv_address)
+    TextView mTvAddress;
     private int lastY = 0;
     private int touchEventId = -9983761;
     boolean isOut = false;
@@ -67,11 +66,12 @@ public class HomeFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mScrollView.setOnTouchListener((v, event) -> {
-            if(event.getAction() == MotionEvent.ACTION_UP) {
-                handler.sendMessageDelayed(handler.obtainMessage(touchEventId,v), 5);
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                handler.sendMessageDelayed(handler.obtainMessage(touchEventId, v), 5);
             }
             return false;
         });
+
     }
 
     @SuppressLint("HandlerLeak")
@@ -79,16 +79,16 @@ public class HomeFragment extends BaseFragment {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            View scroller = (View)msg.obj;
-            if(msg.what==touchEventId) {
-                if(lastY ==scroller.getScrollY()) {
-                    if (isOut){
+            View scroller = (View) msg.obj;
+            if (msg.what == touchEventId) {
+                if (lastY == scroller.getScrollY()) {
+                    if (isOut) {
                         animateIn(mFab);
                     }
-                }else {
-                    handler.sendMessageDelayed(handler.obtainMessage(touchEventId,scroller), 1000);
+                } else {
+                    handler.sendMessageDelayed(handler.obtainMessage(touchEventId, scroller), 1000);
                     lastY = scroller.getScrollY();
-                    if (!isOut){
+                    if (!isOut) {
                         animateOut(mFab);
                     }
                 }
@@ -101,7 +101,7 @@ public class HomeFragment extends BaseFragment {
         isOut = true;
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) fab.getLayoutParams();
         int rightMargin = layoutParams.rightMargin;
-        fab.animate().translationX(fab.getWidth()/2 + rightMargin).setInterpolator(new LinearInterpolator()).start();
+        fab.animate().translationX(fab.getWidth() / 2 + rightMargin).setInterpolator(new LinearInterpolator()).start();
     }
 
     private void animateIn(FloatingActionButton fab) {
@@ -113,5 +113,15 @@ public class HomeFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.tv_address)
+    public void onMTvAddressClicked() {
+        goToActivity(ShippingAddressActivity.class, mTvAddress.getText().toString());
+    }
+
+    @OnClick(R.id.iv_notice)
+    public void onMIvNoticeClicked() {
+
     }
 }
