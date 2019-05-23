@@ -21,5 +21,8 @@ public class Constants {
      */
     public static final String LOGOUT = "logout_event";
 
-
+    /**
+     * 页面间数据传递字段
+     */
+    public static String DATA = "DATA";
 }

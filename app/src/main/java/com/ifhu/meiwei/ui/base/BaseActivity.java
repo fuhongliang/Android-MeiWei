@@ -1,5 +1,7 @@
 package com.ifhu.meiwei.ui.base;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
@@ -9,6 +11,7 @@ import android.view.View;
 import com.ifhu.meiwei.ui.loading.LoadingDialog;
 import com.ifhu.meiwei.utils.ActivityCollector;
 import com.ifhu.meiwei.utils.Utils;
+import static com.ifhu.meiwei.utils.Constants.DATA;
 
 /**
  *
@@ -17,6 +20,39 @@ import com.ifhu.meiwei.utils.Utils;
  * Copyright (c) 2019 KevinFu
  */
 public class BaseActivity  extends AppCompatActivity {
+    /**
+     * 跳转到页面 cls
+     * @param cls 目标页面
+     */
+    public void goToActivity(Class<?> cls){
+        Intent intent = new Intent(this,cls);
+        startActivity(intent);
+    }
+
+
+    /**
+     * 携带数据跳转
+     * @param cls 目标页面
+     * @param data 携带的数据，DATA
+     */
+    public void goToActivity(Class<?> cls,String data){
+        Intent intent = new Intent(this,cls);
+        intent.putExtra(DATA,data);
+        startActivity(intent);
+    }
+
+    /**
+     * 获取页面携带的字符串
+     * @return 如果字符串为空则返回空
+     */
+    public String getDATA(){
+        if (getIntent().getStringExtra(DATA) == null){
+            return "";
+        }else {
+            return getIntent().getStringExtra(DATA);
+
+        }
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

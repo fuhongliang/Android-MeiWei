@@ -61,7 +61,13 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        //判断输入是否填写、填写完成才能点击按钮
+        addTextChangedListener();
+    }
+
+    /**
+     *  判断输入是否填写、填写完成才能点击按钮
+     */
+    public void addTextChangedListener(){
         etNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -75,7 +81,8 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                tvObtainVerification.setEnabled(checkPhonenumber());
+                tvObtainVerification.setEnabled(checkContent(false));
+                tvLogin.setEnabled(checkContent(true));
             }
         });
         etVerificationNumber.addTextChangedListener(new TextWatcher() {
@@ -91,31 +98,15 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                tvLogin.setEnabled(checkPhonenumberAndMsgCode());
+                tvLogin.setEnabled(checkContent(true));
             }
         });
     }
 
-    //    判断是否为空
-    public boolean checkPhonenumber() {
-        if (StringUtils.isEmpty(etNumber.getText().toString()) || etNumber.getText().toString().length() < 11) {
-            icon();
-            return false;
-        }
-        return true;
-    }
 
-    public boolean checkPhonenumberAndMsgCode() {
-        if (StringUtils.isEmpty(etNumber.getText().toString()) || etNumber.getText().toString().length() < 11) {
-            return false;
-        }
-        if (StringUtils.isEmpty(etVerificationNumber.getText().toString()) || etVerificationNumber.getText().toString().length() < 4) {
-            return false;
-        }
-        return true;
-    }
-
-    //    获取验证码
+    /**
+     * 开始倒计时
+     */
     private void showCountDown() {
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
         executor.scheduleWithFixedDelay(
@@ -140,6 +131,7 @@ public class LoginActivity extends BaseActivity {
                 1000,
                 TimeUnit.MILLISECONDS);
     }
+
 
     //    获取验证码接口
     public void getVerificationCode() {
@@ -178,23 +170,30 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
-    //判断手机号和验证码是否输入才能登陆
+
+    /**
+     * 判断手机号合法才显示获取验证码可点击
+     * 验证码和手机号码合法才能登陆
+     *
+     */
+
     public boolean checkContent(boolean isCheckCode) {
-        if (StringUtils.isEmpty(etNumber.getText().toString().replaceAll(" ", ""))) {
-            ToastHelper.makeText("请输入手机号码").show();
+        setIconIndicator();
+        if (StringUtils.isEmpty(etNumber.getText().toString().replaceAll(" ", "")) || etNumber.getText().toString().length() < 11) {
             return false;
         }
         if (isCheckCode) {
-            if (StringUtils.isEmpty(etVerificationNumber.getText().toString().replaceAll(" ", ""))) {
-                ToastHelper.makeText("请输入验证码").show();
+            if (StringUtils.isEmpty(etVerificationNumber.getText().toString().replaceAll(" ", ""))  || etVerificationNumber.getText().toString().length() < 4) {
                 return false;
             }
         }
         return true;
     }
 
-    //    删除icon显示与隐藏
-    public void icon() {
+    /**
+     * 删除icon显示与隐藏
+     */
+    public void setIconIndicator() {
         if (etNumber.length() > 0) {
             ivIcon.setVisibility(View.VISIBLE);
         } else {

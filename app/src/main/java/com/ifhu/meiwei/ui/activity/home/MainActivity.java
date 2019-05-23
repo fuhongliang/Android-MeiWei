@@ -1,4 +1,4 @@
-package com.ifhu.meiwei.ui.activity;
+package com.ifhu.meiwei.ui.activity.home;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.support.design.widget.BottomNavigationView;
