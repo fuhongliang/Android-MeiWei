@@ -17,7 +17,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- *
  * @author KevinFu
  * @date 2019/5/17
  * Copyright (c) 2019 KevinFu
@@ -30,7 +29,7 @@ public class RetrofitApiManager {
     /**
      * 正式环境
      */
-    private static String RELEASE_URL = "http://正式url";
+    private static String RELEASE_URL = "http://47.111.27.189:88/u1/";
     /**
      * 预发布环境
      */
@@ -45,10 +44,12 @@ public class RetrofitApiManager {
     private static String BASE_URL = STRING_API_ENV.equals("0")
             ? RELEASE_URL : (STRING_API_ENV.equals("1") ? TEST_URL : DEV_URL);
 
-    private RetrofitApiManager() {}
+    private RetrofitApiManager() {
+    }
 
     /**
      * 获取Retrofit实例
+     *
      * @return Retrofit
      */
     public static Retrofit getClientApi() {
@@ -65,6 +66,7 @@ public class RetrofitApiManager {
 
     /**
      * 获取OkHttpClient
+     *
      * @return OkHttpClient
      */
     private static OkHttpClient genericClient() {

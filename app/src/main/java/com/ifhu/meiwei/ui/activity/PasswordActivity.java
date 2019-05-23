@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.utils.StringUtils;
-import com.ifhu.meiwei.utils.ToastHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,10 +93,6 @@ public class PasswordActivity extends BaseActivity {
         finish();
     }
 
-    @OnClick(R.id.tv_title)
-    public void onTvTitleClicked() {
-        startActivity(new Intent(PasswordActivity.this, LoginActivity.class));
-    }
 
     @OnClick(R.id.tv_number)
     public void onTvNumberClicked() {
@@ -114,5 +109,10 @@ public class PasswordActivity extends BaseActivity {
 
     @OnClick(R.id.ll_protocol)
     public void onLlProtocolClicked() {
+    }
+
+    @OnClick(R.id.tv_text)
+    public void onTvTextClicked() {
+        startActivity(new Intent(PasswordActivity.this, LoginActivity.class));
     }
 }

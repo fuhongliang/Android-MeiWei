@@ -22,7 +22,8 @@
         <EditText
             style="@style/edit_text"
             android:layout_marginLeft="115dp"
-            android:hint="请输入收货人姓名" />
+            android:hint="请输入收货人姓名"
+            android:maxLength="10" />
 
         <ImageView style="@style/line_fff" />
 
@@ -100,7 +101,8 @@
         <EditText
             style="@style/edit_text"
             android:layout_marginLeft="115dp"
-            android:hint="请输入手机号码" />
+            android:hint="请输入手机号码"
+            android:maxLength="11" />
 
         <ImageView style="@style/line_fff" />
 
@@ -137,7 +139,8 @@
         <EditText
             style="@style/edit_text"
             android:layout_marginLeft="115dp"
-            android:hint="详细地址，例：1号楼103室" />
+            android:hint="详细地址，例：1号楼103室"
+            android:maxLength="50" />
 
         <ImageView style="@style/line_fff" />
 

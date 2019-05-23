@@ -10,8 +10,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ifhu.meiwei.R;
+import com.ifhu.meiwei.bean.BaseEntity;
+import com.ifhu.meiwei.bean.LoginBean;
+import com.ifhu.meiwei.net.BaseObserver;
+import com.ifhu.meiwei.net.RetrofitApiManager;
+import com.ifhu.meiwei.net.SchedulerUtils;
+import com.ifhu.meiwei.net.service.UserService;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.utils.StringUtils;
 import com.ifhu.meiwei.utils.ToastHelper;
@@ -134,6 +141,43 @@ public class LoginActivity extends BaseActivity {
                 TimeUnit.MILLISECONDS);
     }
 
+    //    获取验证码接口
+    public void getVerificationCode() {
+        setLoadingMessageIndicator(true);
+        RetrofitApiManager.createUpload(UserService.class).getSms(etNumber.getText().toString().replaceAll(" ", ""))
+                .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<Object>(true) {
+            @Override
+            protected void onApiComplete() {
+                setLoadingMessageIndicator(false);
+            }
+
+            @Override
+            protected void onSuccees(BaseEntity t) throws Exception {
+                ToastHelper.makeText(t.getMessage()).show();
+                showCountDown();
+            }
+        });
+
+    }
+
+    //    验证码登录接口
+    public void smsLogin() {
+        setLoadingMessageIndicator(true);
+        RetrofitApiManager.createUpload(UserService.class).smsLogin(etNumber.getText().toString().replaceAll(" ", ""), etVerificationNumber.getText().toString(), "device_tokens", "1")
+                .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<LoginBean>(true) {
+            @Override
+            protected void onApiComplete() {
+                setLoadingMessageIndicator(false);
+            }
+
+            @Override
+            protected void onSuccees(BaseEntity<LoginBean> t) throws Exception {
+                ToastHelper.makeText(t.getMessage(), Toast.LENGTH_SHORT, ToastHelper.NORMALTOAST).show();
+                startActivity(new Intent(LoginActivity.this, SetpasswordActivity.class));
+            }
+        });
+    }
+
     //判断手机号和验证码是否输入才能登陆
     public boolean checkContent(boolean isCheckCode) {
         if (StringUtils.isEmpty(etNumber.getText().toString().replaceAll(" ", ""))) {
@@ -168,14 +212,14 @@ public class LoginActivity extends BaseActivity {
     @OnClick(R.id.tv_obtain_verification)
     public void onTvObtainVerificationClicked() {
         if (checkContent(true)) {
-
+            getVerificationCode();
         }
     }
 
     @OnClick(R.id.tv_login)
     public void onTvLoginClicked() {
         if (checkContent(true)) {
-            startActivity(new Intent(LoginActivity.this, SetpasswordActivity.class));
+            smsLogin();
         }
     }
 
