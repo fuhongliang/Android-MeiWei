@@ -1,21 +1,19 @@
 package com.ifhu.meiwei.bean;
 
-public class LoginBean {
+public class PasswordBean {
 
     /**
      * member_id : 25
      * member_mobile : 18594286622
      * member_name : 未设置_1558576106
      * member_avatar :
-     * need_pwd : false
-     * token : eyJpdiI6IjdGWDNCcEJNSnp3M2p6a3pYSXhlU0E9PSIsInZhbHVlIjoiVTNQQzJpMU9Veko4UmRnWWZKOW0wWWVDcWRUbitDZzl4N205MjlobktURT0iLCJtYWMiOiIxNDY4YmQ4NzQ4OWUzMDA2MzJmMTRiNDAxODg1YWI5YmQ3ZDI1OGFkMTkyMGU2MTc0N2VmMDU5MDA0OGI1MGFmIn0=
+     * token : eyJpdiI6InVtUEtOSDlzOXhFTUpJd1pwRG9Wb3c9PSIsInZhbHVlIjoiTWZtaHRLbUtJb1Q2QWpMZWhDNWdWckYyOUo0ZUttWGdrWUtoekd2RWJhWT0iLCJtYWMiOiI2ZWNjMzg3MTY5MDNiZTcyOTM5YTQ3ZDBlOWVhODMyYTAzNWU5MjZhMjM0NGQ4ZTY0MjJmNTY3ZWZmZTQ5ODdkIn0=
      */
 
     private int member_id;
     private String member_mobile;
     private String member_name;
     private String member_avatar;
-    private boolean need_pwd;
     private String token;
 
     public int getMember_id() {
@@ -48,14 +46,6 @@ public class LoginBean {
 
     public void setMember_avatar(String member_avatar) {
         this.member_avatar = member_avatar;
-    }
-
-    public boolean isNeed_pwd() {
-        return need_pwd;
-    }
-
-    public void setNeed_pwd(boolean need_pwd) {
-        this.need_pwd = need_pwd;
     }
 
     public String getToken() {

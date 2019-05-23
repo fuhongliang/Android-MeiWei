@@ -9,16 +9,28 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ifhu.meiwei.R;
+import com.ifhu.meiwei.bean.BaseEntity;
+import com.ifhu.meiwei.net.BaseObserver;
+import com.ifhu.meiwei.net.RetrofitApiManager;
+import com.ifhu.meiwei.net.SchedulerUtils;
+import com.ifhu.meiwei.net.service.UserService;
+import com.ifhu.meiwei.ui.activity.home.MainActivity;
+import com.ifhu.meiwei.ui.activity.home.ShippingAddressActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.utils.StringUtils;
 import com.ifhu.meiwei.utils.ToastHelper;
+import com.ifhu.meiwei.utils.UserLogic;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 设置密码登录页面
+ */
 public class SetpasswordActivity extends BaseActivity {
     @BindView(R.id.rl_return)
     RelativeLayout rlReturn;
@@ -37,6 +49,9 @@ public class SetpasswordActivity extends BaseActivity {
         setContentView(R.layout.activity_set_password);
         ButterKnife.bind(this);
         tvText.setVisibility(View.INVISIBLE);
+        /**
+         * 判断输入是否填写、填写完成才能点击按钮
+         */
         etNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -50,7 +65,7 @@ public class SetpasswordActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                tvLogin.setEnabled(checkPassword(etNumber,etPassword));
+                tvLogin.setEnabled(checkPassword(etNumber, etPassword));
             }
         });
         etPassword.addTextChangedListener(new TextWatcher() {
@@ -66,24 +81,38 @@ public class SetpasswordActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                tvLogin.setEnabled(checkPassword(etNumber,etPassword));
+                tvLogin.setEnabled(checkPassword(etNumber, etPassword));
             }
         });
 
     }
 
-    public boolean checkPassword(EditText etPassword,EditText etNewPassword) {
-        if (StringUtils.isEmpty(etPassword.getText().toString())) {
+    /**
+     * 判断输入是否为空
+     *
+     * @param etPassword
+     * @param etNewPassword
+     * @return
+     */
+    public boolean checkPassword(EditText etPassword, EditText etNewPassword) {
+        if (StringUtils.isEmpty(etPassword.getText().toString()) || etPassword.getText().toString().length() < 6 || etPassword.getText().toString().length() >16 ) {
             return false;
         }
-        if (StringUtils.isEmpty(etNewPassword.getText().toString())) {
+        if (StringUtils.isEmpty(etNewPassword.getText().toString()) || etNewPassword.getText().toString().length() < 6  || etNewPassword.getText().toString().length() > 16) {
             return false;
         }
         return true;
     }
 
-    public boolean isPassWord(String password,String anotherPassword) {
-        if(StringUtils.isEmpty(password)){
+    /**
+     * 判断两个密码算法输入一致
+     *
+     * @param password
+     * @param anotherPassword
+     * @return
+     */
+    public boolean isPassWord(String password, String anotherPassword) {
+        if (StringUtils.isEmpty(password)) {
             ToastHelper.makeText("密码不能为空，请重新输入").show();
             return false;
         }
@@ -94,6 +123,27 @@ public class SetpasswordActivity extends BaseActivity {
         return true;
     }
 
+    /**
+     * 设置密码接口
+     */
+    public void setPassword() {
+        setLoadingMessageIndicator(true);
+        RetrofitApiManager.createUpload(UserService.class).userAddPwd(UserLogic.getUser().getMember_id()+"", etNumber.getText().toString())
+                .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<Object>(true) {
+            @Override
+            protected void onApiComplete() {
+                setLoadingMessageIndicator(false);
+            }
+
+            @Override
+            protected void onSuccees(BaseEntity t) throws Exception {
+                ToastHelper.makeText(t.getMessage(), Toast.LENGTH_SHORT, ToastHelper.NORMALTOAST).show();
+                goToActivity(MainActivity.class);
+            }
+
+        });
+    }
+
     @OnClick(R.id.rl_return)
     public void onRlReturnClicked() {
         finish();
@@ -101,8 +151,8 @@ public class SetpasswordActivity extends BaseActivity {
 
     @OnClick(R.id.tv_login)
     public void onTvLoginClicked() {
-        if (isPassWord(etNumber.getText().toString(),etPassword.getText().toString())){
-            startActivity(new Intent(SetpasswordActivity.this,PasswordActivity.class));
+        if (isPassWord(etNumber.getText().toString(), etPassword.getText().toString())) {
+            setPassword();
         }
     }
 }

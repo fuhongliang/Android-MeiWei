@@ -9,15 +9,26 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ifhu.meiwei.R;
+import com.ifhu.meiwei.bean.BaseEntity;
+import com.ifhu.meiwei.bean.PasswordBean;
+import com.ifhu.meiwei.net.BaseObserver;
+import com.ifhu.meiwei.net.RetrofitApiManager;
+import com.ifhu.meiwei.net.SchedulerUtils;
+import com.ifhu.meiwei.net.service.UserService;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.utils.StringUtils;
+import com.ifhu.meiwei.utils.ToastHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 密码登录页面
+ */
 public class PasswordActivity extends BaseActivity {
 
     @BindView(R.id.tv_text)
@@ -39,7 +50,9 @@ public class PasswordActivity extends BaseActivity {
         setContentView(R.layout.activity_password_login);
         ButterKnife.bind(this);
         tvText.setText("验证码登录");
-        //判断输入是否填写、填写完成才能点击按钮
+        /**
+         * 判断输入是否填写、填写完成才能点击按钮
+         */
         etNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -75,8 +88,11 @@ public class PasswordActivity extends BaseActivity {
 
     }
 
-
-    //    判断是否为空
+    /**
+     * 判断是否为空
+     *
+     * @return
+     */
     public boolean checkPhoneNumber() {
         if (StringUtils.isEmpty(etNumber.getText().toString())) {
             return false;
@@ -86,6 +102,25 @@ public class PasswordActivity extends BaseActivity {
         }
 
         return true;
+    }
+
+    /**
+     * 账户密码登录接口
+     */
+    public void accountPassword() {
+        setLoadingMessageIndicator(true);
+        RetrofitApiManager.createUpload(UserService.class).userLogin(etNumber.getText().toString(), etPassword.getText().toString(), "device_tokens", "1")
+                .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<PasswordBean>(true) {
+            @Override
+            protected void onApiComplete() {
+                setLoadingMessageIndicator(false);
+            }
+
+            @Override
+            protected void onSuccees(BaseEntity<PasswordBean> t) throws Exception {
+                ToastHelper.makeText(t.getMessage(), Toast.LENGTH_SHORT, ToastHelper.NORMALTOAST).show();
+            }
+        });
     }
 
     @OnClick(R.id.rl_return)
@@ -104,7 +139,7 @@ public class PasswordActivity extends BaseActivity {
 
     @OnClick(R.id.tv_login)
     public void onTvLoginClicked() {
-
+        accountPassword();
     }
 
     @OnClick(R.id.ll_protocol)

@@ -33,11 +33,11 @@ public class RetrofitApiManager {
     /**
      * 预发布环境
      */
-    private static String TEST_URL = "http://测试url";
+    private static String TEST_URL = "http://47.111.27.189:88/u1/";
     /**
      * 开发环境
      */
-    private static String DEV_URL = "http://开发url";
+    private static String DEV_URL = "http://47.111.27.189:88/u1/";
 
     private static final String STRING_API_ENV = BuildConfig.STRING_API_ENV;
 

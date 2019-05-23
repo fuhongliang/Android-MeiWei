@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.bean.BaseEntity;
-import com.ifhu.meiwei.bean.LoginBean;
+import com.ifhu.meiwei.bean.UserBean;
 import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
@@ -22,6 +22,7 @@ import com.ifhu.meiwei.net.service.UserService;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.utils.StringUtils;
 import com.ifhu.meiwei.utils.ToastHelper;
+import com.ifhu.meiwei.utils.UserLogic;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -31,6 +32,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+/**
+ * 验证码登录页面
+ */
 public class LoginActivity extends BaseActivity {
     @BindView(R.id.rl_return)
     RelativeLayout rlReturn;
@@ -65,9 +69,9 @@ public class LoginActivity extends BaseActivity {
     }
 
     /**
-     *  判断输入是否填写、填写完成才能点击按钮
+     * 判断输入是否填写、填写完成才能点击按钮
      */
-    public void addTextChangedListener(){
+    public void addTextChangedListener() {
         etNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -132,11 +136,12 @@ public class LoginActivity extends BaseActivity {
                 TimeUnit.MILLISECONDS);
     }
 
-
-    //    获取验证码接口
+    /**
+     * 获取验证码接口
+     */
     public void getVerificationCode() {
         setLoadingMessageIndicator(true);
-        RetrofitApiManager.createUpload(UserService.class).getSms(etNumber.getText().toString().replaceAll(" ", ""))
+        RetrofitApiManager.createUpload(UserService.class).getSms(etNumber.getText().toString())
                 .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<Object>(true) {
             @Override
             protected void onApiComplete() {
@@ -152,18 +157,21 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    //    验证码登录接口
+    /**
+     * 验证码登录接口
+     */
     public void smsLogin() {
         setLoadingMessageIndicator(true);
         RetrofitApiManager.createUpload(UserService.class).smsLogin(etNumber.getText().toString().replaceAll(" ", ""), etVerificationNumber.getText().toString(), "device_tokens", "1")
-                .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<LoginBean>(true) {
+                .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<UserBean>(true) {
             @Override
             protected void onApiComplete() {
                 setLoadingMessageIndicator(false);
             }
 
             @Override
-            protected void onSuccees(BaseEntity<LoginBean> t) throws Exception {
+            protected void onSuccees(BaseEntity<UserBean> t) throws Exception {
+                UserLogic.saveUser(t.getData());
                 ToastHelper.makeText(t.getMessage(), Toast.LENGTH_SHORT, ToastHelper.NORMALTOAST).show();
                 startActivity(new Intent(LoginActivity.this, SetpasswordActivity.class));
             }
@@ -174,7 +182,6 @@ public class LoginActivity extends BaseActivity {
     /**
      * 判断手机号合法才显示获取验证码可点击
      * 验证码和手机号码合法才能登陆
-     *
      */
 
     public boolean checkContent(boolean isCheckCode) {
@@ -183,7 +190,7 @@ public class LoginActivity extends BaseActivity {
             return false;
         }
         if (isCheckCode) {
-            if (StringUtils.isEmpty(etVerificationNumber.getText().toString().replaceAll(" ", ""))  || etVerificationNumber.getText().toString().length() < 4) {
+            if (StringUtils.isEmpty(etVerificationNumber.getText().toString().replaceAll(" ", "")) || etVerificationNumber.getText().toString().length() < 4) {
                 return false;
             }
         }
@@ -201,7 +208,6 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-
     @OnClick(R.id.tv_text)
     public void onTvTextClicked() {
         startActivity(new Intent(LoginActivity.this, PasswordActivity.class));
@@ -210,7 +216,7 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.tv_obtain_verification)
     public void onTvObtainVerificationClicked() {
-        if (checkContent(true)) {
+        if (checkContent(false)) {
             getVerificationCode();
         }
     }
