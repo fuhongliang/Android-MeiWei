@@ -23,6 +23,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.PasswordActivity" />
+        <activity android:name=".ui.activity.SetpasswordActivity">
+
+        </activity>
     </application>
 
 </manifest>

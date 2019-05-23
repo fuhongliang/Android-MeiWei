@@ -175,6 +175,7 @@ public class LoginActivity extends BaseActivity {
     @OnClick(R.id.tv_login)
     public void onTvLoginClicked() {
         if (checkContent(true)) {
+            startActivity(new Intent(LoginActivity.this, SetpasswordActivity.class));
         }
     }
 

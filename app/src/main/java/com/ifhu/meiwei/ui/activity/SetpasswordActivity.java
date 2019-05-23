@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -19,28 +19,24 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class PasswordActivity extends BaseActivity {
-
+public class SetpasswordActivity extends BaseActivity {
+    @BindView(R.id.rl_return)
+    RelativeLayout rlReturn;
     @BindView(R.id.tv_text)
     TextView tvText;
     @BindView(R.id.et_number)
     EditText etNumber;
-    @BindView(R.id.tv_login)
-    TextView tvLogin;
-    @BindView(R.id.ll_protocol)
-    LinearLayout llProtocol;
-    @BindView(R.id.rl_return)
-    RelativeLayout rlReturn;
     @BindView(R.id.et_password)
     EditText etPassword;
+    @BindView(R.id.tv_login)
+    TextView tvLogin;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_password_login);
+        setContentView(R.layout.activity_set_password);
         ButterKnife.bind(this);
-        tvText.setText("验证码登录");
-        //判断输入是否填写、填写完成才能点击按钮
+        tvText.setVisibility(View.INVISIBLE);
         etNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -54,7 +50,7 @@ public class PasswordActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                tvLogin.setEnabled(checkPhoneNumber());
+                tvLogin.setEnabled(checkPassword(etNumber,etPassword));
             }
         });
         etPassword.addTextChangedListener(new TextWatcher() {
@@ -70,22 +66,31 @@ public class PasswordActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                tvLogin.setEnabled(checkPhoneNumber());
+                tvLogin.setEnabled(checkPassword(etNumber,etPassword));
             }
         });
 
     }
 
-
-    //    判断是否为空
-    public boolean checkPhoneNumber() {
-        if (StringUtils.isEmpty(etNumber.getText().toString())) {
-            return false;
-        }
+    public boolean checkPassword(EditText etPassword,EditText etNewPassword) {
         if (StringUtils.isEmpty(etPassword.getText().toString())) {
             return false;
         }
+        if (StringUtils.isEmpty(etNewPassword.getText().toString())) {
+            return false;
+        }
+        return true;
+    }
 
+    public boolean isPassWord(String password,String anotherPassword) {
+        if(StringUtils.isEmpty(password)){
+            ToastHelper.makeText("密码不能为空，请重新输入").show();
+            return false;
+        }
+        if (!password.equals(anotherPassword)) {
+            ToastHelper.makeText("密码不一致，请重新输入").show();
+            return false;
+        }
         return true;
     }
 
@@ -94,25 +99,9 @@ public class PasswordActivity extends BaseActivity {
         finish();
     }
 
-    @OnClick(R.id.tv_title)
-    public void onTvTitleClicked() {
-        startActivity(new Intent(PasswordActivity.this, LoginActivity.class));
-    }
-
-    @OnClick(R.id.tv_number)
-    public void onTvNumberClicked() {
-    }
-
-    @OnClick(R.id.et_number)
-    public void onEtNumberClicked() {
-    }
-
     @OnClick(R.id.tv_login)
     public void onTvLoginClicked() {
-
-    }
-
-    @OnClick(R.id.ll_protocol)
-    public void onLlProtocolClicked() {
+        if (isPassWord(etNumber.getText().toString(),etPassword.getText().toString()))
+        startActivity(new Intent(SetpasswordActivity.this,PasswordActivity.class));
     }
 }
