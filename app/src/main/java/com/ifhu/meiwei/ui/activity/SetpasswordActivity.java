@@ -101,7 +101,8 @@ public class SetpasswordActivity extends BaseActivity {
 
     @OnClick(R.id.tv_login)
     public void onTvLoginClicked() {
-        if (isPassWord(etNumber.getText().toString(),etPassword.getText().toString()))
-        startActivity(new Intent(SetpasswordActivity.this,PasswordActivity.class));
+        if (isPassWord(etNumber.getText().toString(),etPassword.getText().toString())){
+            startActivity(new Intent(SetpasswordActivity.this,PasswordActivity.class));
+        }
     }
 }
