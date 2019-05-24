@@ -33,4 +33,8 @@ public interface UserService {
     @POST("user_add_pwd")
     public Observable<BaseEntity<Object>> userAddPwd(@Field("member_id") String member_id, @Field("password") String password);
 
+    @FormUrlEncoded
+    @POST("user_address_save")
+    public Observable<BaseEntity<Object>> userAddressSave(@Field("address_id") int address_id, @Field("member_id") String member_id, @Field("true_name") String true_name, @Field("sex") int sex, @Field("mobile_phone") String mobile_phone, @Field("area_info") String area_info, @Field("address") String address, @Field("is_default") int is_default);
+
 }

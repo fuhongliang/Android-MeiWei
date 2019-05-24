@@ -71,6 +71,7 @@
         <item name="android:textColorHint">@color/hint_text_color</item>
         <item name="android:textColor">@color/typed_text_color</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="android:textSize">17sp</item>
     </style>
 
     <style name="arrow">
