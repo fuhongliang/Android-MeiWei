@@ -173,7 +173,11 @@ public class LoginActivity extends BaseActivity {
             protected void onSuccees(BaseEntity<UserBean> t) throws Exception {
                 UserLogic.saveUser(t.getData());
                 ToastHelper.makeText(t.getMessage(), Toast.LENGTH_SHORT, ToastHelper.NORMALTOAST).show();
-                startActivity(new Intent(LoginActivity.this, SetpasswordActivity.class));
+                if (t.getData().isNeed_pwd()){
+                    startActivity(new Intent(LoginActivity.this, SetpasswordActivity.class));
+                }else {
+                    finish();
+                }
             }
         });
     }

@@ -13,14 +13,16 @@ import android.widget.Toast;
 
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.bean.BaseEntity;
-import com.ifhu.meiwei.bean.PasswordBean;
+import com.ifhu.meiwei.bean.UserBean;
 import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.UserService;
+import com.ifhu.meiwei.ui.activity.me.MyAddressListActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.utils.StringUtils;
 import com.ifhu.meiwei.utils.ToastHelper;
+import com.ifhu.meiwei.utils.UserLogic;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -110,15 +112,17 @@ public class PasswordActivity extends BaseActivity {
     public void accountPassword() {
         setLoadingMessageIndicator(true);
         RetrofitApiManager.createUpload(UserService.class).userLogin(etNumber.getText().toString(), etPassword.getText().toString(), "device_tokens", "1")
-                .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<PasswordBean>(true) {
+                .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<UserBean>(true) {
             @Override
             protected void onApiComplete() {
                 setLoadingMessageIndicator(false);
             }
 
             @Override
-            protected void onSuccees(BaseEntity<PasswordBean> t) throws Exception {
+            protected void onSuccees(BaseEntity<UserBean> t) throws Exception {
                 ToastHelper.makeText(t.getMessage(), Toast.LENGTH_SHORT, ToastHelper.NORMALTOAST).show();
+                UserLogic.saveUser(t.getData());
+                goToActivity(MyAddressListActivity.class);
             }
         });
     }

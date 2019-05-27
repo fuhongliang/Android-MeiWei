@@ -86,6 +86,7 @@
             style="@style/edit_text"
             android:layout_marginLeft="115dp"
             android:hint="请输入手机号码"
+            android:inputType="number"
             android:maxLength="11" />
 
         <ImageView style="@style/line_fff" />

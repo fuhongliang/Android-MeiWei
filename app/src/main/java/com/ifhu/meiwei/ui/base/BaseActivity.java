@@ -42,6 +42,25 @@ public class BaseActivity  extends AppCompatActivity {
     }
 
     /**
+     * 携带数据跳转
+     * @param cls 目标页面
+     * @param data 携带的数据，DATA
+     */
+    public void goToActivity(Class<?> cls,int data){
+        Intent intent = new Intent(this,cls);
+        intent.putExtra(DATA,data);
+        startActivity(intent);
+    }
+
+    /**
+     * 获取页面携带的字符串
+     * @return 如果字符串为空则返回空
+     */
+    public int getDataInt(){
+        return getIntent().getIntExtra(DATA,0);
+    }
+
+    /**
      * 获取页面携带的字符串
      * @return 如果字符串为空则返回空
      */

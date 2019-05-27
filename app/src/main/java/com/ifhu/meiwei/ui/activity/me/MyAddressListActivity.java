@@ -1,10 +1,12 @@
-package com.ifhu.meiwei.ui.activity.home;
+package com.ifhu.meiwei.ui.activity.me;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ifhu.meiwei.R;
@@ -15,6 +17,8 @@ import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.UserService;
+import com.ifhu.meiwei.ui.activity.home.AddaddressActivity;
+import com.ifhu.meiwei.ui.activity.home.EditaddressActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.utils.UserLogic;
 
@@ -25,44 +29,40 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * 选择收货地址页面
- *
- * @author KevinFu
- * @date 2019/5/23
- * Copyright (c) 2019 KevinFu
- */
-public class ShippingAddressActivity extends BaseActivity {
+public class MyAddressListActivity extends BaseActivity {
 
-    @BindView(R.id.tv_cur_address)
-    TextView mTvCurAddress;
+    @BindView(R.id.tv_return)
+    TextView tvReturn;
+    @BindView(R.id.rl_return)
+    RelativeLayout rlReturn;
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_text)
     TextView tvText;
-    @BindView(R.id.tv_return)
-    TextView tvReturn;
 
+    @BindView(R.id.lv_address)
+    ListView lvAddress;
     List<MyAddressBean> myAddressBeanList = new ArrayList<>();
 
     MyAddressAdapter myAddressAdapter;
-    @BindView(R.id.lv_address)
-    ListView lvAddress;
-    @BindView(R.id.ll_empty)
-    LinearLayout llEmpty;
+    @BindView(R.id.ll_address)
+    LinearLayout llAddress;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shipping_address);
+        setContentView(R.layout.activity_my_address_list);
         ButterKnife.bind(this);
-        tvTitle.setText("选择收货地址");
-        tvText.setText("新增地址");
         tvReturn.setVisibility(View.INVISIBLE);
-        setTvCurAddress();
+        tvTitle.setText("我的收获地址");
+        tvText.setText("新增地址");
         receivingAddressList();
+
         myAddressAdapter = new MyAddressAdapter(myAddressBeanList, this);
         lvAddress.setAdapter(myAddressAdapter);
+
+        myAddressAdapter.setOnClickItem(position -> goToActivity(EditaddressActivity.class,myAddressBeanList.get(position).getAddress_id()));
+
     }
 
     /**
@@ -82,17 +82,13 @@ public class ShippingAddressActivity extends BaseActivity {
                 myAddressBeanList = t.getData();
                 myAddressAdapter.setmyAddressBeanList(myAddressBeanList);
                 if (myAddressAdapter.getCount() > 0) {
-                    llEmpty.setVisibility(View.GONE);
+                    llAddress.setVisibility(View.GONE);
                 } else {
-                    llEmpty.setVisibility(View.VISIBLE);
+                    llAddress.setVisibility(View.VISIBLE);
                 }
+
             }
         });
-    }
-
-
-    public void setTvCurAddress() {
-        mTvCurAddress.setText(getDATA());
     }
 
 
@@ -101,16 +97,13 @@ public class ShippingAddressActivity extends BaseActivity {
         finish();
     }
 
-
     @OnClick(R.id.tv_text)
     public void onTvTextClicked() {
         goToActivity(AddaddressActivity.class);
     }
 
-    @OnClick(R.id.tv_add_address)
-    public void onTvAddAddressClicked() {
+    @OnClick(R.id.tv_address)
+    public void onTvAddressClicked() {
         goToActivity(AddaddressActivity.class);
     }
-
-
 }

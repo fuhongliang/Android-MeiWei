@@ -38,4 +38,5 @@
         android:gravity="center"
         android:text="新增地址"
         android:textColor="@color/main_color" />
+
 </LinearLayout>

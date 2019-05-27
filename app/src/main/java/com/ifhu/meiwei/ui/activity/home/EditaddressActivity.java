@@ -8,16 +8,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.bean.BaseEntity;
-import com.ifhu.meiwei.bean.UserBean;
+import com.ifhu.meiwei.bean.EditadreessBean;
 import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.UserService;
-import com.ifhu.meiwei.ui.activity.LoginActivity;
-import com.ifhu.meiwei.ui.activity.me.MyAddressListActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.utils.StringUtils;
 import com.ifhu.meiwei.utils.ToastHelper;
@@ -28,11 +27,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * 新增地址页面
+ * 编辑地址页面
  */
-public class AddaddressActivity extends BaseActivity {
-    @BindView(R.id.tv_return)
-    TextView tvReturn;
+public class EditaddressActivity extends BaseActivity {
     @BindView(R.id.rl_return)
     RelativeLayout rlReturn;
     @BindView(R.id.tv_title)
@@ -41,6 +38,10 @@ public class AddaddressActivity extends BaseActivity {
     TextView tvText;
     @BindView(R.id.et_name)
     EditText etName;
+    @BindView(R.id.iv_man)
+    ImageView ivMan;
+    @BindView(R.id.iv_woman)
+    ImageView ivWoman;
     @BindView(R.id.et_phone_number)
     EditText etPhoneNumber;
     @BindView(R.id.et_address)
@@ -49,15 +50,9 @@ public class AddaddressActivity extends BaseActivity {
     EditText etHouseNumber;
     @BindView(R.id.tv_ok)
     TextView tvOk;
-
-    @BindView(R.id.iv_man)
-    ImageView ivMan;
-    @BindView(R.id.iv_woman)
-    ImageView ivWoman;
-
-    int address_id;
+    @BindView(R.id.tv_return)
+    TextView tvReturn;
     int sex = 1;
-    int is_default;
 
 
     @Override
@@ -66,10 +61,9 @@ public class AddaddressActivity extends BaseActivity {
         setContentView(R.layout.activity_add_address);
         ButterKnife.bind(this);
         tvReturn.setVisibility(View.INVISIBLE);
+        tvTitle.setText("编辑地址");
         tvText.setVisibility(View.INVISIBLE);
-        tvTitle.setText("新增地址");
-        ivMan.setSelected(true);
-
+        editAddress();
     }
 
 
@@ -77,48 +71,52 @@ public class AddaddressActivity extends BaseActivity {
      * 判断是否为空
      */
     public boolean checkair() {
-
         if (StringUtils.isEmpty(etName.getText().toString())) {
             ToastHelper.makeText("请输入收货人姓名").show();
             return false;
         }
-        if (StringUtils.isEmpty(etName.getText().toString())) {
-            ToastHelper.makeText("请输入手机号码").show();
+        if (StringUtils.isEmpty(etPhoneNumber.getText().toString())) {
+            ToastHelper.makeText("请输入手机号").show();
             return false;
         }
         if (StringUtils.isEmpty(etAddress.getText().toString())) {
-            ToastHelper.makeText("请选择地址").show();
+            ToastHelper.makeText("请输入地址").show();
             return false;
         }
         if (StringUtils.isEmpty(etHouseNumber.getText().toString())) {
-            ToastHelper.makeText("请输入你的详细地址").show();
+            ToastHelper.makeText("请输入门牌号").show();
             return false;
         }
         return true;
     }
 
-    public void setaddress() {
+    /**
+     * 编辑地址接口
+     */
+
+    public void editAddress() {
         setLoadingMessageIndicator(true);
-        RetrofitApiManager.createUpload(UserService.class).userAddressSave(address_id, UserLogic.getUser().getMember_id() + "",
-                etName.getText().toString(),
-                sex,
-                etPhoneNumber.getText().toString(),
-                etAddress.getText().toString(),
-                etHouseNumber.getText().toString(),
-                is_default).compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<Object>(true) {
+        RetrofitApiManager.createUpload(UserService.class).userAddressInfo(getDataInt())
+                .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<EditadreessBean>(true) {
             @Override
             protected void onApiComplete() {
                 setLoadingMessageIndicator(false);
             }
 
             @Override
-            protected void onSuccees(BaseEntity t) throws Exception {
-                ToastHelper.makeText(t.getMessage()).show();
-                finish();
+            protected void onSuccees(BaseEntity<EditadreessBean> t) throws Exception {
+                ToastHelper.makeText(t.getMessage(), Toast.LENGTH_SHORT, ToastHelper.NORMALTOAST).show();
+                initView(t.getData());
             }
-
         });
+    }
 
+    public void initView(EditadreessBean editadreessBean){
+        etName.setText(editadreessBean.getTrue_name());
+        etPhoneNumber.setText(editadreessBean.getMob_phone());
+        etAddress.setText(editadreessBean.getArea_info());
+        etPhoneNumber.setText(editadreessBean.getAddress());
+        selectedGender(editadreessBean.getSex() == 1);
     }
 
 
@@ -129,9 +127,30 @@ public class AddaddressActivity extends BaseActivity {
 
     @OnClick(R.id.tv_ok)
     public void onTvOkClicked() {
-        if(checkair()) {
+        if (checkair()){
             setaddress();
         }
+    }
+
+    public void setaddress() {
+        setLoadingMessageIndicator(true);
+        RetrofitApiManager.createUpload(UserService.class).userAddressSave(getDataInt(), UserLogic.getUser().getMember_id() + "",
+                etName.getText().toString(), sex, etPhoneNumber.getText().toString(), etAddress.getText().toString(),
+                etHouseNumber.getText().toString(), 1).compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<Object>(true) {
+            @Override
+            protected void onApiComplete() {
+                setLoadingMessageIndicator(false);
+            }
+
+            @Override
+            protected void onSuccees(BaseEntity t) throws Exception {
+                ToastHelper.makeText(t.getMessage()).show();
+                checkair();
+            }
+
+
+        });
+
     }
 
     @OnClick(R.id.iv_man)

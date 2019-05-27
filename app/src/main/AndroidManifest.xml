@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ifhu.meiwei">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -15,24 +14,27 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
+        <activity android:name=".ui.activity.me.MyAddressListActivity"/>
+
         <activity
             android:name=".ui.activity.home.MainActivity"
             android:launchMode="singleTask">
-
-        </activity>
-        <activity android:name=".ui.activity.LoginActivity">
-
-        </activity>
-        <activity android:name=".ui.activity.PasswordActivity" />
-        <activity android:name=".ui.activity.SetpasswordActivity" />
-        <activity android:name=".ui.activity.home.ShippingAddressActivity" />
-        <activity android:name=".ui.activity.home.AddaddressActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.activity.LoginActivity"/>
+        <activity android:name=".ui.activity.PasswordActivity" />
+        <activity android:name=".ui.activity.SetpasswordActivity" />
+        <activity android:name=".ui.activity.home.ShippingAddressActivity" />
+        <activity android:name=".ui.activity.home.AddaddressActivity">
+
+        </activity>
+        <activity android:name=".ui.activity.home.EditaddressActivity" />
     </application>
 
 </manifest>
