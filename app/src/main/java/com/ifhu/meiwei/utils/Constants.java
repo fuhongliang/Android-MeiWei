@@ -28,4 +28,6 @@ public class Constants {
 
     public static final String LOCATION_DATAUPDATA = "location";
 
+    public static final String IMGPATH = "http://pqk40fvkr.bkt.clouddn.com/";
+
 }

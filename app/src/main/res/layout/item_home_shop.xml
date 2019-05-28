@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     android:layout_marginBottom="10dp">
 
-    <ImageView
-        android:id="@+id/tv_commodity"
+    <com.baba.GlideImageView
+        android:id="@+id/iv_commodity"
         android:layout_width="62dp"
         android:layout_height="62dp"
         android:layout_margin="15dp"
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:layout_toRightOf="@id/tv_commodity">
+        android:layout_toRightOf="@id/iv_commodity">
 
         <TextView
             android:id="@+id/tv_commodity_name"
@@ -77,7 +77,7 @@
         android:id="@+id/iv_line"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_below="@id/tv_commodity"
+        android:layout_below="@id/iv_commodity"
         android:layout_marginLeft="92dp"
         android:layout_marginRight="15dp"
         android:background="@drawable/shop_line" />
@@ -100,7 +100,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_limit_discounts"
         android:layout_marginLeft="92dp"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:layout_width="45dp"
