@@ -15,6 +15,7 @@ import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.UserService;
+import com.ifhu.meiwei.ui.activity.login.LoginActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.utils.UserLogic;
 
@@ -60,7 +61,11 @@ public class ShippingAddressActivity extends BaseActivity {
         tvText.setText("新增地址");
         tvReturn.setVisibility(View.INVISIBLE);
         setTvCurAddress();
-        receivingAddressList();
+        if (!UserLogic.isLogin()){
+            goToActivity(LoginActivity.class);
+        }else {
+            receivingAddressList();
+        }
         myAddressAdapter = new MyAddressAdapter(myAddressBeanList, this);
         lvAddress.setAdapter(myAddressAdapter);
     }
@@ -70,7 +75,7 @@ public class ShippingAddressActivity extends BaseActivity {
      */
     public void receivingAddressList() {
         setLoadingMessageIndicator(true);
-        RetrofitApiManager.createUpload(UserService.class).userAddressList(UserLogic.getUser().getMember_id())
+        RetrofitApiManager.create(UserService.class).userAddressList(UserLogic.getUser().getMember_id())
                 .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<List<MyAddressBean>>(true) {
             @Override
             protected void onApiComplete() {
