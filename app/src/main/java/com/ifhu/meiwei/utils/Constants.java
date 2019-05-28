@@ -25,4 +25,7 @@ public class Constants {
      * 页面间数据传递字段
      */
     public static String DATA = "DATA";
+
+    public static final String LOCATION_DATAUPDATA = "location";
+
 }

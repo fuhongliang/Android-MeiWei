@@ -17,16 +17,28 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ifhu.meiwei.R;
+import com.ifhu.meiwei.bean.BaseEntity;
+import com.ifhu.meiwei.bean.HomeBean;
+import com.ifhu.meiwei.bean.MessageEvent;
+import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
+import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.HomeService;
 import com.ifhu.meiwei.ui.activity.home.ShippingAddressActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
 import com.ifhu.meiwei.ui.view.MyScrollView;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
+import static com.ifhu.meiwei.utils.Constants.LOCATION_DATAUPDATA;
+import static com.ifhu.meiwei.utils.Constants.LOGOUT;
 
 /**
  * 首页模块
@@ -73,7 +85,44 @@ public class HomeFragment extends BaseFragment {
             }
             return false;
         });
+        EventBus.getDefault().register(this);
+    }
 
+    /**
+     *
+     * @param mLongitude 经度
+     * @param mLatitude 经度
+     */
+    public void getData(String mLongitude,String mLatitude){
+        setLoadingMessageIndicator(true);
+        RetrofitApiManager.create(HomeService.class).keyword("",1,mLongitude,mLatitude,"1")
+                .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<HomeBean>(true) {
+            @Override
+            protected void onApiComplete() {
+                setLoadingMessageIndicator(false);
+            }
+
+            @Override
+            protected void onSuccees(BaseEntity<HomeBean> t) throws Exception {
+
+            }
+        });
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(MessageEvent messageEvent) {
+        switch (messageEvent.getMessage()) {
+            case LOCATION_DATAUPDATA:
+                mTvAddress.setText(messageEvent.getArrayList().get(0));
+                try {
+                    getData(messageEvent.getArrayList().get(1),messageEvent.getArrayList().get(2));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+            default:
+        }
     }
 
     @SuppressLint("HandlerLeak")
@@ -115,6 +164,7 @@ public class HomeFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
     }
 
     @OnClick(R.id.tv_address)
