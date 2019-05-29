@@ -23,6 +23,7 @@ import com.ifhu.meiwei.ui.base.BaseFragment;
 import com.ifhu.meiwei.ui.base.ViewManager;
 import com.ifhu.meiwei.ui.fragment.HomeFragment;
 import com.ifhu.meiwei.ui.fragment.MeFragment;
+import com.ifhu.meiwei.ui.fragment.OrdersFragment;
 import com.ifhu.meiwei.utils.UserLogic;
 import com.orhanobut.logger.Logger;
 import com.yanzhenjie.permission.Action;
@@ -117,7 +118,7 @@ public class MainActivity extends BaseActivity {
 
     private void initViewPager() {
         ViewManager.getInstance().addFragment(0, HomeFragment.newInstance());
-        ViewManager.getInstance().addFragment(1, MeFragment.newInstance());
+        ViewManager.getInstance().addFragment(1, OrdersFragment.newInstance());
         ViewManager.getInstance().addFragment(2, MeFragment.newInstance());
         mFragments = ViewManager.getInstance().getAllFragment();
         mPager = findViewById(R.id.container_pager);
@@ -182,12 +183,6 @@ public class MainActivity extends BaseActivity {
             if (location != null) {
                 if (location.getErrorCode() == 0) {
                     //可在其中解析amapLocation获取相应内容。
-                    Logger.e("//获取纬度:"+location.getLatitude());
-                    Logger.e("//获取经度:"+location.getLongitude());
-                    Logger.e("//getDistrict:"+location.getDistrict());
-                    Logger.e("//getPoiName:"+location.getPoiName());
-                    Logger.e("//getAddress:"+location.getAddress());
-                    Logger.e("//getLocationDetail:"+location.getLocationDetail());
                     ArrayList<String> data = new ArrayList<>();
                     data.add(location.getPoiName());
                     data.add(location.getLongitude()+"");
