@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/category_color"
@@ -28,8 +29,8 @@
 
                 <ImageView
                     android:id="@+id/iv_dw"
-                    android:layout_width="12dp"
-                    android:layout_height="14dp"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="13dp"
                     android:background="@drawable/top_ic_dw" />
@@ -199,9 +200,9 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/header"
             android:divider="@null"
-            android:dividerHeight="15dp"
+            android:defaultFocusHighlightEnabled="true"
             android:headerDividersEnabled="true"
-            android:footerDividersEnabled="false"
+            android:footerDividersEnabled="true"
             />
 
         <LinearLayout

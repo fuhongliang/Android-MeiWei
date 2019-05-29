@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:dividerHeight="15dp"
-        tools:listitem="@layout/itet_order" />
+        tools:listitem="@layout/item_order" />
 
 
 </LinearLayout>

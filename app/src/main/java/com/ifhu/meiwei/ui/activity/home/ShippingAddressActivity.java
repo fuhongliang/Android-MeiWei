@@ -96,6 +96,7 @@ public class ShippingAddressActivity extends BaseActivity {
     }
 
 
+
     public void setTvCurAddress() {
         mTvCurAddress.setText(getDATA());
     }

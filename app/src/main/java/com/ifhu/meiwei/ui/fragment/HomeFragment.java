@@ -273,8 +273,6 @@ public class HomeFragment extends BaseFragment {
                     mTvDiscountsSubtitle.setText(discount_data.get(0).getBrief());
                     mTvReductionTitle.setText(discount_data.get(1).getTitle());
                     mTvReductionSubtitle.setText(discount_data.get(1).getBrief());
-
-
                     break;
                 case 3:
                     mLlDiscountsZone.setVisibility(View.VISIBLE);
