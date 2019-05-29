@@ -66,11 +66,11 @@ public class OrderAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-                                                                                    //商店头像
+        viewHolder.ivPhoto.load(Constants.IMGPATH + orderBeanList.get(position).getStore_avatar());//商店头像
         viewHolder.tvStoreName.setText(orderBeanList.get(position).getStore_name());//商店名称
-        viewHolder.tvStatus.setText(orderBeanList.get(position).getOrder_state());//订单状态
-                                                                                    //商品名称
-        viewHolder.tvMoney.setText(orderBeanList.get(position).getTotal_amount());//总共价格
+//        viewHolder.tvStatus.setText(orderBeanList.get(position).getOrder_state());//订单状态
+        //商品名称
+//        viewHolder.tvMoney.setText(orderBeanList.get(position).getTotal_amount());//总共价格
 
         return convertView;
     }
