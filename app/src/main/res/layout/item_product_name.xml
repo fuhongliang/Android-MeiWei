@@ -7,7 +7,7 @@
     android:minHeight="120dp">
 
     <ImageView
-        android:id="@+id/vi_image"
+        android:id="@+id/iv_image"
         android:layout_width="86dp"
         android:layout_height="86dp"
         android:background="@drawable/tab_bnt_bj_xs" />
@@ -16,10 +16,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="12dp"
-        android:layout_toRightOf="@id/vi_image"
+        android:layout_toRightOf="@id/iv_image"
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_commodity_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="现切甜橙子"
@@ -27,6 +28,7 @@
             android:textSize="17sp" />
 
         <TextView
+            android:id="@+id/tv_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
@@ -49,6 +51,7 @@
             android:layout_marginTop="3dp">
 
             <TextView
+                android:id="@+id/tv_discount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="8.8折"
@@ -56,6 +59,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_limit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
@@ -79,6 +83,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -89,6 +94,7 @@
                 android:textSize="12sp" />
 
             <ImageView
+                android:id="@+id/iv_add"
                 android:layout_width="37dp"
                 android:layout_height="37dp"
                 android:layout_alignParentEnd="true"

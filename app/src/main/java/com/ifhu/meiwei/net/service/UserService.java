@@ -48,4 +48,8 @@ public interface UserService {
     @POST("user_address_list")
     public Observable<BaseEntity<List<MyAddressBean>>> userAddressList(@Field("member_id") int member_id);
 
+    @FormUrlEncoded
+    @POST("user_address_del")
+    public Observable<BaseEntity<Object>> userAddressDel(@Field("member_id") int member_id, @Field("address_id") int address_id);
+
 }

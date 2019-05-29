@@ -57,10 +57,8 @@ public class MyAddressListActivity extends BaseActivity {
         tvTitle.setText("我的收获地址");
         tvText.setText("新增地址");
         receivingAddressList();
-
         myAddressAdapter = new MyAddressAdapter(myAddressBeanList, this);
         lvAddress.setAdapter(myAddressAdapter);
-
         myAddressAdapter.setOnClickItem(position -> goToActivity(EditaddressActivity.class,myAddressBeanList.get(position).getAddress_id()));
 
     }
@@ -86,7 +84,6 @@ public class MyAddressListActivity extends BaseActivity {
                 } else {
                     llAddress.setVisibility(View.VISIBLE);
                 }
-
             }
         });
     }

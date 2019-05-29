@@ -30,6 +30,7 @@ public class MyAddressAdapter extends BaseAdapter {
 
     public void setmyAddressBeanList(List<MyAddressBean> myAddressBeanList) {
         this.myAddressBeanList = myAddressBeanList;
+        //通知适配器更新数据
         notifyDataSetChanged();
     }
 

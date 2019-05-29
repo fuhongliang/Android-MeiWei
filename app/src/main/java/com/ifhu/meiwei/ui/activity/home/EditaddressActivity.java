@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,7 +61,7 @@ public class EditaddressActivity extends BaseActivity {
         ButterKnife.bind(this);
         tvReturn.setVisibility(View.INVISIBLE);
         tvTitle.setText("编辑地址");
-        tvText.setVisibility(View.INVISIBLE);
+        tvText.setText("删除");
         editAddress();
     }
 
@@ -105,17 +104,16 @@ public class EditaddressActivity extends BaseActivity {
 
             @Override
             protected void onSuccees(BaseEntity<EditadreessBean> t) throws Exception {
-                ToastHelper.makeText(t.getMessage(), Toast.LENGTH_SHORT, ToastHelper.NORMALTOAST).show();
                 initView(t.getData());
             }
         });
     }
 
-    public void initView(EditadreessBean editadreessBean){
+    public void initView(EditadreessBean editadreessBean) {
         etName.setText(editadreessBean.getTrue_name());
         etPhoneNumber.setText(editadreessBean.getMob_phone());
         etAddress.setText(editadreessBean.getArea_info());
-        etPhoneNumber.setText(editadreessBean.getAddress());
+        etHouseNumber.setText(editadreessBean.getAddress());
         selectedGender(editadreessBean.getSex() == 1);
     }
 
@@ -127,7 +125,7 @@ public class EditaddressActivity extends BaseActivity {
 
     @OnClick(R.id.tv_ok)
     public void onTvOkClicked() {
-        if (checkair()){
+        if (checkair()) {
             setaddress();
         }
     }
@@ -172,5 +170,29 @@ public class EditaddressActivity extends BaseActivity {
         ivMan.setSelected(man);
         ivWoman.setSelected(!man);
         sex = man ? 1 : 2;
+    }
+
+    /**
+     * 删除收货地址接口
+     */
+    public void deleteAddress() {
+        setLoadingMessageIndicator(true);
+        RetrofitApiManager.createUpload(UserService.class).userAddressDel(UserLogic.getUser().getMember_id(),getDataInt())
+                .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<Object>(true) {
+            @Override
+            protected void onApiComplete() {
+                setLoadingMessageIndicator(false);
+            }
+
+            @Override
+            protected void onSuccees(BaseEntity<Object> t) throws Exception {
+                ToastHelper.makeText(t.getMessage()).show();
+            }
+        });
+    }
+
+    @OnClick(R.id.tv_text)
+    public void onTvTextClicked() {
+        deleteAddress();
     }
 }

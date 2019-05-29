@@ -239,13 +239,19 @@
         android:textColor="@color/hint_text_color"
         android:textSize="13sp" />
 
-    <ImageView
-        android:layout_width="19dp"
-        android:layout_height="12dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="15dp"
-        android:background="@drawable/meal_ic_shangla" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:layout_width="19dp"
+            android:layout_height="12dp"
+            android:layout_marginBottom="15dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/meal_ic_shangla" />
+    </RelativeLayout>
+
 
 </RelativeLayout>
 

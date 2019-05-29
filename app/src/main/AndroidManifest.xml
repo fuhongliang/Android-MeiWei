@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".ui.activity.me.MyAddressListActivity"/>
+        <activity android:name=".ui.activity.me.MyAddressListActivity" />
 
         <activity
             android:name=".ui.activity.home.MainActivity"
@@ -25,15 +25,14 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
-        <activity android:name=".ui.activity.LoginActivity"/>
+        <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.PasswordActivity" />
         <activity android:name=".ui.activity.SetpasswordActivity" />
         <activity android:name=".ui.activity.home.ShippingAddressActivity" />
-        <activity android:name=".ui.activity.home.AddaddressActivity">
-
-        </activity>
+        <activity android:name=".ui.activity.home.AddaddressActivity" />
         <activity android:name=".ui.activity.home.EditaddressActivity" />
     </application>
 
