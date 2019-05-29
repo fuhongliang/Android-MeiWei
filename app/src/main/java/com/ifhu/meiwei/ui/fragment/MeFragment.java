@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ifhu.meiwei.R;
-import com.ifhu.meiwei.ui.activity.LoginActivity;
+import com.ifhu.meiwei.ui.activity.login.LoginActivity;
 import com.ifhu.meiwei.ui.activity.me.MyAddressListActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
 import com.ifhu.meiwei.utils.UserLogic;

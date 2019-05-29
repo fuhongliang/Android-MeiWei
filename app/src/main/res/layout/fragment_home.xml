@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:tools="http://schemas.android.com/tools">
     <!--头部-->
     <RelativeLayout
         android:id="@+id/rl_header"
@@ -48,6 +49,11 @@
 
     </RelativeLayout>
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_below="@+id/rl_header"
+        android:id="@+id/layout_swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <com.ifhu.meiwei.ui.view.MyScrollView
         android:id="@+id/scrollView"
         android:layout_width="fill_parent"
@@ -101,206 +107,23 @@
                 android:layout_margin="15dp"
                 android:background="@drawable/bnt_banner" />
 
+            <!--分类第一排-->
             <LinearLayout
+                android:id="@+id/ll_category_one"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <!--美食-->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                android:orientation="horizontal"/>
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/home_ic_meishi" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="7dp"
-                        android:text="美食"
-                        android:textColor="@color/typed_text_color"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
-                <!--正餐-->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/home_ic_zc" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="7dp"
-                        android:text="正餐"
-                        android:textColor="@color/typed_text_color"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
-                <!--简餐-->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/home_ic_jianc" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="7dp"
-                        android:text="简餐"
-                        android:textColor="@color/typed_text_color"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
-                <!--夜宵-->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/home_ic_yexiao" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="7dp"
-                        android:text="夜宵"
-                        android:textColor="@color/typed_text_color"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
+            <!--分类第二排-->
             <LinearLayout
+                android:id="@+id/ll_category_two"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:orientation="horizontal">
-                <!--饮料-->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/home_ic_yinliao" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="7dp"
-                        android:text="饮料"
-                        android:textColor="@color/typed_text_color"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
-                <!--水果-->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/home_ic_shuiguo" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="7dp"
-                        android:text="水果"
-                        android:textColor="@color/typed_text_color"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
-                <!--小吃-->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/home_ic_xiaochi" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="7dp"
-                        android:text="小吃"
-                        android:textColor="@color/typed_text_color"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
-                <!--全部分类-->
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/home_ic_qbfl" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="7dp"
-                        android:text="全部分类"
-                        android:textColor="@color/typed_text_color"
-                        android:textSize="12sp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
+                android:orientation="horizontal"/>
 
             <LinearLayout
+                android:id="@+id/ll_discounts_zone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -338,11 +161,18 @@
                 android:paddingTop="10dp">
                 <!--限时折扣-->
                 <RelativeLayout
+                    android:id="@+id/rl_discount"
                     android:layout_width="0dp"
                     android:layout_height="120dp"
                     android:layout_marginLeft="15dp"
                     android:layout_weight="1"
-                    android:background="@drawable/tab_bnt_bj_xs">
+                    >
+
+                    <com.baba.GlideImageView
+                        android:id="@+id/iv_discount_background"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/tab_bnt_bj_xs"/>
 
                     <ImageView
                         android:layout_width="54dp"
@@ -381,11 +211,18 @@
                 </RelativeLayout>
                 <!--满立减-->
                 <RelativeLayout
+                    android:id="@+id/rl_full_cut"
                     android:layout_width="0dp"
                     android:layout_height="120dp"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:background="@drawable/tab_bnt_bj_tc">
+                  >
+
+                    <com.baba.GlideImageView
+                        android:id="@+id/iv_full_cut_background"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/tab_bnt_bj_tc"/>
 
                     <ImageView
                         android:layout_width="54dp"
@@ -424,13 +261,19 @@
                 </RelativeLayout>
                 <!--优惠套餐-->
                 <RelativeLayout
+                    android:id="@+id/rl_package"
                     android:layout_width="0dp"
                     android:layout_height="120dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="15dp"
                     android:layout_weight="1"
-                    android:background="@drawable/tab_bnt_bj_mlj">
+                   >
 
+                    <com.baba.GlideImageView
+                        android:id="@+id/iv_package_background"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/tab_bnt_bj_mlj"/>
                     <ImageView
                         android:layout_width="54dp"
                         android:layout_height="18dp"
@@ -507,20 +350,23 @@
                 android:orientation="horizontal">
                 <!--综合评价-->
                 <LinearLayout
+                    android:id="@+id/ll_total"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text="综合评价"
-                        android:textColor="@color/black"
+                        android:textColor="@color/home_tap_color"
                         android:textSize="16sp" />
 
                     <ImageView
+                        android:id="@+id/iv_indicator_total"
                         android:layout_width="20dp"
                         android:layout_height="3dp"
                         android:layout_gravity="center_horizontal"
@@ -530,20 +376,23 @@
 
                 <!--销量最高-->
                 <LinearLayout
+                    android:id="@+id/ll_hot_sell"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_hot_sell"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text="销量最高"
-                        android:textColor="@color/hint_text_color"
+                        android:textColor="@color/home_tap_color"
                         android:textSize="14sp" />
 
                     <ImageView
+                        android:id="@+id/iv_indicator_hot_sell"
                         android:layout_width="20dp"
                         android:layout_height="3dp"
                         android:layout_gravity="center_horizontal"
@@ -553,20 +402,23 @@
                 </LinearLayout>
                 <!--距离最近-->
                 <LinearLayout
+                    android:id="@+id/ll_near"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_near"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text="距离最近"
-                        android:textColor="@color/hint_text_color"
+                        android:textColor="@color/home_tap_color"
                         android:textSize="14sp" />
 
                     <ImageView
+                        android:id="@+id/iv_indicator_near"
                         android:layout_width="20dp"
                         android:layout_height="3dp"
                         android:layout_gravity="center_horizontal"
@@ -576,20 +428,23 @@
                 </LinearLayout>
                 <!--好评最多-->
                 <LinearLayout
+                    android:id="@+id/ll_best"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_best"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:text="好评最多"
-                        android:textColor="@color/hint_text_color"
+                        android:textColor="@color/home_tap_color"
                         android:textSize="14sp" />
 
                     <ImageView
+                        android:id="@+id/iv_indicator_best"
                         android:layout_width="20dp"
                         android:layout_height="3dp"
                         android:layout_gravity="center_horizontal"
@@ -599,33 +454,49 @@
                 </LinearLayout>
 
             </LinearLayout>
-            <!--缺省页-->
+
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="60dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="137dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/quesehng_ic_zwdjxxxa" />
-
-                <TextView
+                <com.ifhu.meiwei.ui.view.ExpandListView
+                    android:id="@+id/listview_store"
+                    android:divider="@null"
+                    android:dividerHeight="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/item_home_shop"/>
+                <!--缺省页-->
+                <LinearLayout
+                    android:id="@+id/ll_empty"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="74dp"
-                    android:text="附近暂无商家信息"
-                    android:textColor="@color/typed_text_color"
-                    android:textSize="15sp" />
+                    android:layout_marginTop="60dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="150dp"
+                        android:layout_height="137dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/quesehng_ic_zwdjxxxa" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="74dp"
+                        android:text="附近暂无商家信息"
+                        android:textColor="@color/typed_text_color"
+                        android:textSize="15sp" />
+                </LinearLayout>
             </LinearLayout>
+
         </LinearLayout>
     </com.ifhu.meiwei.ui.view.MyScrollView>
 
+    </android.support.v4.widget.SwipeRefreshLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="44dp"

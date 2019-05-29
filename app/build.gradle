@@ -18,6 +18,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            // 设置支持的 SO 库构架，一般而言，取你所有的库支持的构架的`交集`。
+            abiFilters 'armeabi','armeabi-v7a','x86',  'mips'//, 'x86_64','arm64-v8a',  'mips64'
+        }
     }
 
     buildTypes {
@@ -52,6 +56,13 @@ android {
     compileOptions {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
     }
 }
 
@@ -95,8 +106,19 @@ dependencies {
     implementation 'com.github.rahatarmanahmed:circularprogressview:2.5.0'
 
     implementation 'com.android.support:design:28.0.0'
-
+    /**
+     * 控件注入插件
+     */
     api 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    /**
+     * 高德地图定位
+     */
+    implementation 'com.amap.api:location:latest.integration'
 
+    /**
+     *  权限询问
+     */
+    implementation 'com.yanzhenjie:permission:2.0.0-rc3'
+    implementation project(path: ':glideImageView')
 }

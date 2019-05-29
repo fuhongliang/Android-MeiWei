@@ -92,6 +92,15 @@ public class RetrofitApiManager {
         return httpClient;
     }
 
+    /**
+     *
+     * @param service
+     * @param <T>
+     * @return
+     */
+    public static <T> T create(final Class<T> service) {
+        return getClientApi().create(service);
+    }
 
     /**
      * 上传专用

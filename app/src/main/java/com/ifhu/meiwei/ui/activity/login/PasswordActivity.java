@@ -1,4 +1,4 @@
-package com.ifhu.meiwei.ui.activity;
+package com.ifhu.meiwei.ui.activity.login;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -79,11 +79,6 @@ public class BaseActivity  extends AppCompatActivity {
         ActivityCollector.addActivity(this);
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
     public void goBack(View view) {
         super.onBackPressed();
     }
@@ -108,16 +103,6 @@ public class BaseActivity  extends AppCompatActivity {
         } else {
             LoadingDialog.progressCancel();
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
     }
 
     @Override
@@ -206,4 +191,5 @@ public class BaseActivity  extends AppCompatActivity {
             finish();
         }
     }
+
 }

@@ -20,7 +20,7 @@ import retrofit2.http.POST;
  */
 public interface HomeService {
     @FormUrlEncoded
-    @POST("keyword")
+    @POST("home_page")
     public Observable<BaseEntity<HomeBean>> keyword(@Field("keyword") String keyword, @Field("page") int page, @Field("longitude") String longitude, @Field("dimension") String dimension, @Field("type") String type);
 
     @FormUrlEncoded
