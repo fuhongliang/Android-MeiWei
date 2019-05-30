@@ -130,6 +130,9 @@ public class EditaddressActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 新增地址
+     */
     public void setaddress() {
         setLoadingMessageIndicator(true);
         RetrofitApiManager.createUpload(UserService.class).userAddressSave(getDataInt(), UserLogic.getUser().getMember_id() + "",
@@ -187,6 +190,7 @@ public class EditaddressActivity extends BaseActivity {
             @Override
             protected void onSuccees(BaseEntity<Object> t) throws Exception {
                 ToastHelper.makeText(t.getMessage()).show();
+                finish();
             }
         });
     }

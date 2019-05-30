@@ -73,24 +73,31 @@ public class OrderAdapter extends BaseAdapter {
         switch (orderBeanList.get(position).getOrder_state()) {                     //订单状态
             case 0:
                 viewHolder.tvStatus.setText("已取消");
+                viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.main_color));
                 break;
-            case 1:
+            case 10:
                 viewHolder.tvStatus.setText("未支付");
+                viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.main_color));
                 break;
-            case 2:
+            case 20:
                 viewHolder.tvStatus.setText("已付款");
+                viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.main_color));
                 break;
-            case 3:
+            case 25:
                 viewHolder.tvStatus.setText("商家已接单");
+                viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.main_color));
                 break;
-            case 4:
+            case 30:
                 viewHolder.tvStatus.setText("已发货");
+                viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.main_color));
                 break;
-            case 5:
+            case 35:
                 viewHolder.tvStatus.setText("骑手已接单");
+                viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.main_color));
                 break;
-            case 6:
+            case 40:
                 viewHolder.tvStatus.setText("已收货");
+                viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.main_color));
                 break;
 
             default:

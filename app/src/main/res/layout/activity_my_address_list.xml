@@ -13,6 +13,17 @@
         android:id="@+id/header"
         layout="@layout/layout_header" />
 
+    <ListView
+        android:id="@+id/lv_address"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/header"
+        android:divider="@null"
+        android:dividerHeight="15dp"
+        android:headerDividersEnabled="true"
+        android:footerDividersEnabled="false"
+        tools:listitem="@layout/item_my_address"/>
+
     <LinearLayout
         android:id="@+id/ll_address"
         android:layout_width="match_parent"
@@ -45,7 +56,7 @@
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/tv_address"
+            android:id="@+id/tv_add_address"
             android:layout_width="75dp"
             android:layout_height="30dp"
             android:layout_marginTop="19dp"
@@ -55,15 +66,4 @@
             android:textColor="@color/main_color" />
 
     </LinearLayout>
-
-    <ListView
-        android:id="@+id/lv_address"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/header"
-        android:divider="@null"
-        android:dividerHeight="15dp"
-        android:headerDividersEnabled="true"
-        android:footerDividersEnabled="false"
-        tools:listitem="@layout/item_my_address"/>
 </RelativeLayout>
