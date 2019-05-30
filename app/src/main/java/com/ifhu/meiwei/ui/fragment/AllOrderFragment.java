@@ -83,7 +83,6 @@ public class AllOrderFragment extends BaseFragment {
             protected void onSuccees(BaseEntity<List<OrderBean>> t) throws Exception {
                 orderBeanList = t.getData();
                 orderAdapter.setOrderBeanList(orderBeanList);
-
             }
         });
 

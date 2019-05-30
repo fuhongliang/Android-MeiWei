@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baba.GlideImageView;
@@ -68,9 +70,36 @@ public class OrderAdapter extends BaseAdapter {
         }
         viewHolder.ivPhoto.load(Constants.IMGPATH + orderBeanList.get(position).getStore_avatar());//商店头像
         viewHolder.tvStoreName.setText(orderBeanList.get(position).getStore_name());//商店名称
-//        viewHolder.tvStatus.setText(orderBeanList.get(position).getOrder_state());//订单状态
-        //商品名称
-//        viewHolder.tvMoney.setText(orderBeanList.get(position).getTotal_amount());//总共价格
+        switch (orderBeanList.get(position).getOrder_state()) {                     //订单状态
+            case 0:
+                viewHolder.tvStatus.setText("已取消");
+                break;
+            case 1:
+                viewHolder.tvStatus.setText("未支付");
+                break;
+            case 2:
+                viewHolder.tvStatus.setText("已付款");
+                break;
+            case 3:
+                viewHolder.tvStatus.setText("商家已接单");
+                break;
+            case 4:
+                viewHolder.tvStatus.setText("已发货");
+                break;
+            case 5:
+                viewHolder.tvStatus.setText("骑手已接单");
+                break;
+            case 6:
+                viewHolder.tvStatus.setText("已收货");
+                break;
+
+            default:
+                break;
+        }
+
+//        viewHolder.tvProductName.setText(.get(0).getGoods_name());
+        viewHolder.tvMoney.setText(" ¥ " + orderBeanList.get(position).getTotal_amount() + "");//总价格
+
 
         return convertView;
     }
@@ -83,12 +112,16 @@ public class OrderAdapter extends BaseAdapter {
         TextView tvStoreName;
         @BindView(R.id.tv_status)
         TextView tvStatus;
+        @BindView(R.id.ll_store_name)
+        LinearLayout llStoreName;
+        @BindView(R.id.iv_line)
+        ImageView ivLine;
         @BindView(R.id.tv_product_name)
         TextView tvProductName;
-        @BindView(R.id.tv_number)
-        TextView tvNumber;
         @BindView(R.id.tv_money)
         TextView tvMoney;
+        @BindView(R.id.ll_product_name)
+        LinearLayout llProductName;
         @BindView(R.id.tv_evaluation)
         TextView tvEvaluation;
         @BindView(R.id.tv_one_more)

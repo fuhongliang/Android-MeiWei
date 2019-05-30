@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="140dp"
     android:background="@drawable/bg_white"
     android:padding="15dp">
 
@@ -55,6 +54,7 @@
         android:background="#f0f0f0" />
 
     <LinearLayout
+        android:id="@+id/ll_product_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/iv_line"
@@ -69,13 +69,13 @@
             android:textColor="@color/typed_text_color"
             android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/tv_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" 等 2件商品"
-            android:textColor="@color/typed_text_color"
-            android:textSize="14sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/tv_number"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text=" 等 2件商品"-->
+            <!--android:textColor="@color/typed_text_color"-->
+            <!--android:textSize="14sp" />-->
 
         <TextView
             android:id="@+id/tv_money"
@@ -92,9 +92,10 @@
         android:id="@+id/tv_evaluation"
         android:layout_width="74dp"
         android:layout_height="30dp"
+        android:layout_below="@id/ll_product_name"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/address_main_color"
         android:gravity="center"
         android:text="评价"
@@ -105,7 +106,8 @@
         android:id="@+id/tv_one_more"
         android:layout_width="74dp"
         android:layout_height="30dp"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/ll_product_name"
+        android:layout_marginTop="15dp"
         android:layout_toLeftOf="@id/tv_evaluation"
         android:background="@drawable/bg_gray"
         android:gravity="center"
