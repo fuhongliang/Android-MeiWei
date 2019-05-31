@@ -121,4 +121,6 @@ dependencies {
      */
     implementation 'com.yanzhenjie:permission:2.0.0-rc3'
     implementation project(path: ':glideImageView')
+
+    implementation 'com.github.xiaohaibin:XBanner:1.6.7'
 }

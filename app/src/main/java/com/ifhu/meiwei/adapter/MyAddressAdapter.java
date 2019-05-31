@@ -93,7 +93,7 @@ public class MyAddressAdapter extends BaseAdapter {
         ViewHolder viewHolder;
 
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.item_my_address, null);  //加载视图
+            convertView = layoutInflater.inflate(R.layout.item_my_address, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {

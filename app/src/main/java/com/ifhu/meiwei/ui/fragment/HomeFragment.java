@@ -21,6 +21,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baba.GlideImageView;
+import com.baba.transformation.RadiusTransformation;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
+import com.ifhu.meiwei.MyApplication;
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.adapter.HomeStoreAdapter;
 import com.ifhu.meiwei.bean.BaseEntity;
@@ -30,12 +37,16 @@ import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.HomeService;
+import com.ifhu.meiwei.ui.activity.home.MainActivity;
 import com.ifhu.meiwei.ui.activity.home.ShippingAddressActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
 import com.ifhu.meiwei.ui.view.ExpandListView;
 import com.ifhu.meiwei.ui.view.MyScrollView;
 import com.ifhu.meiwei.utils.AppInfo;
 import com.ifhu.meiwei.utils.Constants;
+import com.ifhu.meiwei.utils.DeviceUtil;
+import com.ifhu.meiwei.utils.GlideRoundTransform;
+import com.stx.xhb.xbanner.XBanner;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -111,6 +122,8 @@ public class HomeFragment extends BaseFragment {
     LinearLayout mLlCategoryOne;
     @BindView(R.id.ll_category_two)
     LinearLayout mLlCategoryTwo;
+    @BindView(R.id.xbanner)
+    XBanner mXbanner;
     private int lastY = 0;
     private int touchEventId = -9983761;
     boolean isOut = false;
@@ -121,11 +134,11 @@ public class HomeFragment extends BaseFragment {
     MyScrollView mScrollView;
     HomeStoreAdapter mHomeStoreAdapter;
     private List<HomeBean.StorelistDataBean> storelist_data = new ArrayList<>();
-
+    private List<HomeBean.BannerDataBean> banner_data = new ArrayList<>();
     /**
      * 每行分类显示四个
      */
-    final  int oneLineCategoryNumber = 4;
+    final int oneLineCategoryNumber = 4;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -151,6 +164,7 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initBanner();
         mScrollView.setOnTouchListener((v, event) -> {
             if (event.getAction() == MotionEvent.ACTION_UP) {
                 handler.sendMessageDelayed(handler.obtainMessage(touchEventId, v), 5);
@@ -162,6 +176,27 @@ public class HomeFragment extends BaseFragment {
         mHomeStoreAdapter = new HomeStoreAdapter(getActivity(), storelist_data);
         mListviewStore.setAdapter(mHomeStoreAdapter);
         mTvTotal.setSelected(true);
+    }
+
+    public void initBanner(){
+        HomeBean.BannerDataBean bannerDataBean = new HomeBean.BannerDataBean();
+        bannerDataBean.getLink_url();
+        banner_data.add(bannerDataBean);
+        banner_data.add(bannerDataBean);
+        //加载广告图片
+        mXbanner.loadImage((banner, model, view, position) -> {
+//            HomeBean.BannerDataBean listBean = ((HomeBean.BannerDataBean) model);
+//            listBean = ((HomeBean.BannerDataBean) model);
+//           Glide.with(getActivity()).load(listBean.getLink_url()).into((ImageView) view);
+            loadRoundImage((ImageView) view,"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559290240259&di=bcaad77d72bd065357b08a9c8b1ee7c2&imgtype=0&src=http%3A%2F%2Fpic37.nipic.com%2F20140113%2F8800276_184927469000_2.png");
+        });
+    }
+
+    public static void loadRoundImage(ImageView view, String url) {
+        RequestOptions myOptions = new RequestOptions().optionalTransform
+                (new GlideRoundTransform(DeviceUtil.dip2px(6f)
+                        , GlideRoundTransform.CornerType.ALL));
+        Glide.with(view.getContext()).load(url).apply(myOptions).into(view);
     }
 
     @SuppressLint("ResourceAsColor")
@@ -189,11 +224,14 @@ public class HomeFragment extends BaseFragment {
 
             @Override
             protected void onSuccees(BaseEntity<HomeBean> t) throws Exception {
+                banner_data = t.getData().getBanner_data();
                 storelist_data = t.getData().getStorelist_data();
                 mHomeStoreAdapter.setStorelist_data(storelist_data);
                 handleEmpty(mHomeStoreAdapter.getCount() == 0);
                 handleCategoryDataInit(t.getData().getGcsort_data());
                 handleDiscountDataInit(t.getData().getDiscount_data());
+                mXbanner.setAutoPlayAble(banner_data.size() > 1);
+                mXbanner.setBannerData(banner_data);
             }
         });
     }
@@ -201,26 +239,27 @@ public class HomeFragment extends BaseFragment {
 
     /**
      * 处理首页请求回来分类数据显示
+     *
      * @param gcsort_data 分类数据
      */
-    public void handleCategoryDataInit(List<HomeBean.GcsortDataBean> gcsort_data){
+    public void handleCategoryDataInit(List<HomeBean.GcsortDataBean> gcsort_data) {
         mLlCategoryOne.removeAllViews();
         mLlCategoryTwo.removeAllViews();
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
         // 定义LayoutParam
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(AppInfo.width/4, ViewGroup.LayoutParams.WRAP_CONTENT);
-        if (gcsort_data != null && gcsort_data.size()>0){
-            for (int i = 0; i < gcsort_data.size(); i++){
-                View categoryView = layoutInflater.inflate(R.layout.item_home_category,null);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(AppInfo.width / 4, ViewGroup.LayoutParams.WRAP_CONTENT);
+        if (gcsort_data != null && gcsort_data.size() > 0) {
+            for (int i = 0; i < gcsort_data.size(); i++) {
+                View categoryView = layoutInflater.inflate(R.layout.item_home_category, null);
                 GlideImageView imageView = categoryView.findViewById(R.id.iv_category);
                 TextView name = categoryView.findViewById(R.id.tv_category_name);
                 name.setText(gcsort_data.get(i).getGc_name());
                 imageView.load(Constants.IMGPATH + gcsort_data.get(i).getIcon_image());
-                if (i <9){
-                    if (i < oneLineCategoryNumber){
-                        mLlCategoryOne.addView(categoryView,params);
-                    }else {
-                        mLlCategoryTwo.addView(categoryView,params);
+                if (i < 9) {
+                    if (i < oneLineCategoryNumber) {
+                        mLlCategoryOne.addView(categoryView, params);
+                    } else {
+                        mLlCategoryTwo.addView(categoryView, params);
                     }
                 }
             }
@@ -228,11 +267,11 @@ public class HomeFragment extends BaseFragment {
             /**
              * 大于四个分类显示两行
              */
-            if (gcsort_data.size() <= oneLineCategoryNumber){
+            if (gcsort_data.size() <= oneLineCategoryNumber) {
                 mLlCategoryTwo.setVisibility(View.GONE);
             }
 
-        }else {
+        } else {
             mLlCategoryOne.setVisibility(View.GONE);
             mLlCategoryTwo.setVisibility(View.GONE);
         }
@@ -411,5 +450,17 @@ public class HomeFragment extends BaseFragment {
         mTvBest.setSelected(best);
 
         getData("", type + "");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mXbanner.startAutoPlay();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mXbanner.stopAutoPlay();
     }
 }

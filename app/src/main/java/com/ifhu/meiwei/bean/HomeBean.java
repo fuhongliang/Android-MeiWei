@@ -1,5 +1,7 @@
 package com.ifhu.meiwei.bean;
 
+import com.stx.xhb.xbanner.entity.SimpleBannerInfo;
+
 import java.util.List;
 
 /**
@@ -44,7 +46,7 @@ public class HomeBean {
         this.storelist_data = storelist_data;
     }
 
-    public static class BannerDataBean {
+    public static class BannerDataBean  extends SimpleBannerInfo {
         /**
          * title :
          * image_name : huiewhfwehff.jpg
@@ -77,6 +79,11 @@ public class HomeBean {
 
         public void setLink_url(String link_url) {
             this.link_url = link_url;
+        }
+
+        @Override
+        public Object getXBannerUrl() {
+            return getLink_url();
         }
     }
 
