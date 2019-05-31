@@ -122,7 +122,7 @@ public class PasswordActivity extends BaseActivity {
             protected void onSuccees(BaseEntity<UserBean> t) throws Exception {
                 ToastHelper.makeText(t.getMessage(), Toast.LENGTH_SHORT, ToastHelper.NORMALTOAST).show();
                 UserLogic.saveUser(t.getData());
-                goToActivity(MyAddressListActivity.class);
+                finish();
             }
         });
     }

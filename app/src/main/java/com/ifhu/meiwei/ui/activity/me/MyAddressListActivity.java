@@ -1,9 +1,7 @@
 package com.ifhu.meiwei.ui.activity.me;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -47,6 +45,8 @@ public class MyAddressListActivity extends BaseActivity {
     MyAddressAdapter myAddressAdapter;
     @BindView(R.id.ll_address)
     LinearLayout llAddress;
+    @BindView(R.id.tv_add_address)
+    TextView tvAddAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +56,16 @@ public class MyAddressListActivity extends BaseActivity {
         tvReturn.setVisibility(View.INVISIBLE);
         tvTitle.setText("我的收获地址");
         tvText.setText("新增地址");
-        receivingAddressList();
-        myAddressAdapter = new MyAddressAdapter(myAddressBeanList, this);
+        myAddressAdapter = new MyAddressAdapter(myAddressBeanList, this, false);
         lvAddress.setAdapter(myAddressAdapter);
-        myAddressAdapter.setOnClickItem(position -> goToActivity(EditaddressActivity.class,myAddressBeanList.get(position).getAddress_id()));
+        myAddressAdapter.setOnClickItem(position -> goToActivity(EditaddressActivity.class, myAddressBeanList.get(position).getAddress_id()));
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        receivingAddressList();
     }
 
     /**
@@ -80,27 +85,35 @@ public class MyAddressListActivity extends BaseActivity {
                 myAddressBeanList = t.getData();
                 myAddressAdapter.setmyAddressBeanList(myAddressBeanList);
                 if (myAddressAdapter.getCount() > 0) {
-                    llAddress.setVisibility(View.GONE);
+                   handleEmpty(false);
                 } else {
-                    llAddress.setVisibility(View.VISIBLE);
+                    handleEmpty(true);
                 }
             }
         });
     }
 
+    public void handleEmpty(boolean isEmpty){
+        if (isEmpty){
+            llAddress.setVisibility(View.VISIBLE);
+        }else {
+            llAddress.setVisibility(View.GONE);
+        }
+    }
 
     @OnClick(R.id.rl_return)
     public void onRlReturnClicked() {
         finish();
     }
 
-    @OnClick(R.id.tv_text)
-    public void onTvTextClicked() {
-        goToActivity(AddaddressActivity.class);
-    }
 
-    @OnClick(R.id.tv_address)
-    public void onTvAddressClicked() {
-        goToActivity(AddaddressActivity.class);
+    @OnClick({R.id.tv_text, R.id.tv_add_address})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_text:
+            case R.id.tv_add_address:
+                goToActivity(AddaddressActivity.class);
+                break;
+        }
     }
 }
