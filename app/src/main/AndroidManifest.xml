@@ -41,6 +41,7 @@
         <activity android:name=".ui.activity.home.ShippingAddressActivity" />
         <activity android:name=".ui.activity.home.AddaddressActivity" />
         <activity android:name=".ui.activity.home.EditaddressActivity" />
+        <activity android:name=".ui.activity.order.OrdertrackingActivity" />
 
         <service android:name="com.amap.api.location.APSService" />
 

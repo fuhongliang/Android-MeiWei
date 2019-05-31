@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baba.GlideImageView;
@@ -39,7 +40,9 @@ public class OrderAdapter extends BaseAdapter {
     }
 
     public interface OnClickItem {
-        void editAddress(int position);
+        void editOrder(int position);
+
+        void deleteOrder(int position);
     }
 
     @Override
@@ -72,8 +75,8 @@ public class OrderAdapter extends BaseAdapter {
         viewHolder.tvStoreName.setText(orderBeanList.get(position).getStore_name());//商店名称
         switch (orderBeanList.get(position).getOrder_state()) {                     //订单状态
             case 0:
-                viewHolder.tvStatus.setText("已取消");
-                viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.main_color));
+                viewHolder.tvStatus.setText("订单已取消");
+                viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.hint_text_color));
                 break;
             case 10:
                 viewHolder.tvStatus.setText("未支付");
@@ -81,11 +84,11 @@ public class OrderAdapter extends BaseAdapter {
                 break;
             case 20:
                 viewHolder.tvStatus.setText("已付款");
-                viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.main_color));
+                viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.orange));
                 break;
             case 25:
                 viewHolder.tvStatus.setText("商家已接单");
-                viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.main_color));
+                viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.orange));
                 break;
             case 30:
                 viewHolder.tvStatus.setText("已发货");
@@ -97,9 +100,8 @@ public class OrderAdapter extends BaseAdapter {
                 break;
             case 40:
                 viewHolder.tvStatus.setText("已收货");
-                viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.main_color));
+                viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.hint_text_color));
                 break;
-
             default:
                 break;
         }
@@ -107,6 +109,10 @@ public class OrderAdapter extends BaseAdapter {
 //        viewHolder.tvProductName.setText(.get(0).getGoods_name());
         viewHolder.tvMoney.setText(" ¥ " + orderBeanList.get(position).getTotal_amount() + "");//总价格
 
+        if (onClickItem != null) {
+            viewHolder.rlAnnouncement.setOnClickListener(v -> onClickItem.deleteOrder(position));
+            viewHolder.llStoreName.setOnClickListener(v -> onClickItem.editOrder(position));
+        }
 
         return convertView;
     }
@@ -133,9 +139,13 @@ public class OrderAdapter extends BaseAdapter {
         TextView tvEvaluation;
         @BindView(R.id.tv_one_more)
         TextView tvOneMore;
+        @BindView(R.id.rl_announcement)
+        RelativeLayout rlAnnouncement;
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
     }
+
+
 }

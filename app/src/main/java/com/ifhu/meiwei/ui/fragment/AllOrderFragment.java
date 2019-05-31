@@ -1,6 +1,7 @@
 package com.ifhu.meiwei.ui.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.OrdersService;
+import com.ifhu.meiwei.ui.activity.order.OrdertrackingActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
 import com.ifhu.meiwei.utils.UserLogic;
 
@@ -67,6 +69,19 @@ public class AllOrderFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         orderAdapter = new OrderAdapter(orderBeanList, getActivity());
         lvList.setAdapter(orderAdapter);
+        orderAdapter.setOnClickItem(new OrderAdapter.OnClickItem() {
+            @Override
+            public void editOrder(int position) {
+
+            }
+
+            @Override
+            public void deleteOrder(int position) {
+                Intent intent = new Intent(getActivity(), OrdertrackingActivity.class);
+                intent.putExtra("order_id", orderBeanList.get(position).getOrder_id() + "");
+                startActivity(intent);
+            }
+        });
         getData();
     }
 
