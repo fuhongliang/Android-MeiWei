@@ -77,9 +77,10 @@ public class AllOrderFragment extends BaseFragment {
 
             @Override
             public void deleteOrder(int position) {
-                Intent intent = new Intent(getActivity(), OrdertrackingActivity.class);
-                intent.putExtra("order_id", orderBeanList.get(position).getOrder_id() + "");
-                startActivity(intent);
+//                Intent intent = new Intent(getActivity(), OrdertrackingActivity.class);
+//                intent.putExtra("order_id", orderBeanList.get(position).getOrder_id() + "");
+//                startActivity(intent);
+                goToActivity(OrdertrackingActivity.class,orderBeanList.get(position).getOrder_id());
             }
         });
         getData();

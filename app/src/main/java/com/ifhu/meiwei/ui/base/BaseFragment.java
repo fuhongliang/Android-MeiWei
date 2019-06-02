@@ -44,6 +44,17 @@ public abstract class BaseFragment extends Fragment {
         startActivity(intent);
     }
 
+    /**
+     * 携带数据跳转
+     * @param cls 目标页面
+     * @param data 携带的数据，DATA
+     */
+    public void goToActivity(Class<?> cls,int data){
+        Intent intent = new Intent(getHoldingActivity(),cls);
+        intent.putExtra(DATA,data);
+        startActivity(intent);
+    }
+
     protected BaseActivity mActivity;
 
     @Override
@@ -63,6 +74,14 @@ public abstract class BaseFragment extends Fragment {
             return getHoldingActivity().getIntent().getStringExtra(DATA);
 
         }
+    }
+
+    /**
+     * 获取页面携带的字符串
+     * @return 如果字符串为空则返回空
+     */
+    public int getDataInt(){
+      return getHoldingActivity().getIntent().getIntExtra(DATA,0);
     }
 
     @Nullable

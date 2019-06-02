@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -35,7 +36,7 @@
                     android:id="@+id/tv_text_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="等待商家接单"
+                    android:text=""
                     android:textColor="@color/text_white"
                     android:textSize="27sp"
                     android:textStyle="bold" />
@@ -66,7 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="5分钟内商家未接单，将自动取消订单"
+                    android:text=""
                     android:textColor="@color/hint_text_color"
                     android:textSize="15sp" />
             </LinearLayout>
@@ -75,11 +76,12 @@
         <!--订单送达时间-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="-95dp"
             android:layout_marginRight="15dp"
             android:background="@drawable/bg_white"
+            android:minHeight="150dp"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -94,6 +96,7 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/ll_service"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
@@ -126,11 +129,12 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_order_announcement"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
-                android:text="由商家提供配送服务"
+                android:text=""
                 android:textColor="@color/hint_text_color"
                 android:textSize="15sp" />
             <!--订单按钮-->
@@ -147,7 +151,7 @@
                     android:layout_marginLeft="15dp"
                     android:background="@drawable/bg_gray"
                     android:gravity="center"
-                    android:text="取消订单"
+                    android:text=""
                     android:textColor="@color/typed_text_color"
                     android:textSize="15sp" />
 
@@ -158,7 +162,7 @@
                     android:layout_marginLeft="15dp"
                     android:background="@drawable/bg_gray"
                     android:gravity="center"
-                    android:text="催单"
+                    android:text=""
                     android:textColor="@color/typed_text_color"
                     android:textSize="15sp" />
 
@@ -169,10 +173,40 @@
                     android:layout_marginLeft="15dp"
                     android:background="@drawable/address_main_color"
                     android:gravity="center"
-                    android:text="确认收货"
+                    android:text=""
                     android:textColor="@color/main_color"
                     android:textSize="15sp" />
             </LinearLayout>
+
+            <TextView style="@style/line_fff" />
+
+            <RelativeLayout
+                android:id="@+id/rl_refund"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:text="退款详情"
+                    android:textColor="@color/typed_text_color"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="35dp"
+                    android:text="退款中"
+                    android:textColor="#45ACFF"
+                    android:textSize="17sp" />
+
+                <ImageView style="@style/arrow" />
+            </RelativeLayout>
 
         </LinearLayout>
         <!--店铺名称-->
@@ -223,8 +257,14 @@
             </RelativeLayout>
 
             <TextView style="@style/line_fff" />
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_tracking_commodity" />
             <!--查看更多-->
             <LinearLayout
+                android:id="@+id/ll_expand"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginLeft="15dp"
@@ -263,6 +303,7 @@
                     android:textSize="17sp" />
 
                 <TextView
+                    android:id="@+id/tv_package"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -287,6 +328,7 @@
                     android:textSize="17sp" />
 
                 <TextView
+                    android:id="@+id/tv_delivery"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -311,6 +353,7 @@
                     android:textSize="17sp" />
 
                 <TextView
+                    android:id="@+id/tv_full_reduction"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -332,6 +375,7 @@
                     android:textSize="17sp" />
 
                 <TextView
+                    android:id="@+id/tv_voucher"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -487,6 +531,7 @@
                 android:layout_marginBottom="15dp">
 
                 <TextView
+                    android:id="@+id/tv_delivery_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="配送地址"
@@ -494,14 +539,17 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/tv_announcement"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="137dp"
-                    android:text="张铭明(先生)  15865482564海关大厦(20楼2010室)"
+                    android:layout_toRightOf="@id/tv_delivery_address"
+                    android:gravity="right"
+                    android:text="张铭明(先生) 15865482564海关大厦(20楼2010室)"
                     android:textColor="@color/typed_text_color"
                     android:textSize="15sp" />
+
             </RelativeLayout>
 
         </LinearLayout>
@@ -545,6 +593,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/tv_order_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -582,6 +631,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/tv_order_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -607,6 +657,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/tv_payment_method"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
