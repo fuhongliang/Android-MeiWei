@@ -43,6 +43,17 @@
         <activity android:name=".ui.activity.home.EditaddressActivity" />
         <activity android:name=".ui.activity.home.ShopHomeActivity"
             />
+        <activity android:name=".ui.activity.order.OrdertrackingActivity" />
+
+        <!--我的-->
+        <activity android:name=".ui.activity.me.MyAskActivity" />
+        <activity android:name=".ui.activity.me.MyCollectActivity" />
+        <activity android:name=".ui.activity.me.MyDiliverJoinActivity" />
+        <activity android:name=".ui.activity.me.MyHelpActivity" />
+        <activity android:name=".ui.activity.me.MyReviewActivity" />
+        <activity android:name=".ui.activity.me.MySettingsActivity" />
+        <activity android:name=".ui.activity.me.MyShopJoinActivity" />
+        <activity android:name=".ui.activity.me.MyVoucherActivity" />
 
         <service android:name="com.amap.api.location.APSService" />
 

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@id/iv_line"
+        style="@style/dividing_line"
+        android:layout_marginLeft="0dp" />
+
+    <ImageView
+        android:id="@+id/iv_photo"
+        android:layout_width="150dp"
+        android:layout_height="137dp"
+        android:layout_below="@id/iv_line"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/quesehng_ic_gndkf" />
+
+    <TextView
+        android:id="@+id/tv_title_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_photo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="功能正加速开发中，敬请期待"
+        android:textColor="@color/typed_text_color"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_title_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_title_one"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:text="试试其他关键词吧~"
+        android:textColor="@color/hint_text_color"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_button"
+        android:layout_width="75dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/tv_title_two"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="19dp"
+        android:background="@drawable/address_main_color"
+        android:gravity="center"
+        android:text="新增地址"
+        android:textColor="@color/main_color"
+        android:visibility="gone" />
+</RelativeLayout>

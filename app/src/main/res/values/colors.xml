@@ -13,4 +13,6 @@
     <color name="category_color">#F5F5F5</color>
     <color name="white">#FFFFFF</color>
     <color name="red">#FF4A4A</color>
+    <color name="orange">#FF853C</color>
+    <color name="fff">#F0F0F0</color>
 </resources>
