@@ -13,6 +13,14 @@ import android.widget.TextView;
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.ui.activity.login.LoginActivity;
 import com.ifhu.meiwei.ui.activity.me.MyAddressListActivity;
+import com.ifhu.meiwei.ui.activity.me.MyAskActivity;
+import com.ifhu.meiwei.ui.activity.me.MyCollectActivity;
+import com.ifhu.meiwei.ui.activity.me.MyDiliverJoinActivity;
+import com.ifhu.meiwei.ui.activity.me.MyHelpActivity;
+import com.ifhu.meiwei.ui.activity.me.MyReviewActivity;
+import com.ifhu.meiwei.ui.activity.me.MySettingsActivity;
+import com.ifhu.meiwei.ui.activity.me.MyShopJoinActivity;
+import com.ifhu.meiwei.ui.activity.me.MyVoucherActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
 import com.ifhu.meiwei.utils.UserLogic;
 
@@ -81,30 +89,37 @@ public class MeFragment extends BaseFragment {
 
     @OnClick({R.id.ll_address, R.id.ll_voucher, R.id.ll_collect, R.id.ll_review, R.id.ll_help, R.id.ll_ask, R.id.ll_shop_join, R.id.ll_diliver_join, R.id.ll_settings})
     public void onViewClicked(View view) {
-        if (UserLogic.isLogin()){
+        if (UserLogic.isLogin()) {
             switch (view.getId()) {
                 case R.id.ll_address:
                     goToActivity(MyAddressListActivity.class);
                     break;
                 case R.id.ll_voucher:
-
+                    goToActivity(MyVoucherActivity.class);
                     break;
                 case R.id.ll_collect:
+                    goToActivity(MyCollectActivity.class);
                     break;
                 case R.id.ll_review:
+                    goToActivity(MyReviewActivity.class);
                     break;
                 case R.id.ll_help:
+                    goToActivity(MyHelpActivity.class);
                     break;
                 case R.id.ll_ask:
+                    goToActivity(MyAskActivity.class);
                     break;
                 case R.id.ll_shop_join:
+                    goToActivity(MyShopJoinActivity.class);
                     break;
                 case R.id.ll_diliver_join:
+                    goToActivity(MyDiliverJoinActivity.class);
                     break;
                 case R.id.ll_settings:
+                    goToActivity(MySettingsActivity.class);
                     break;
             }
-        }else {
+        } else {
             goToActivity(LoginActivity.class);
         }
 

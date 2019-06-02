@@ -15,7 +15,7 @@
         android:layout_below="@id/iv_line"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
-        android:background="@drawable/quesehng_ic_zwdjxxxa" />
+        android:background="@drawable/quesehng_ic_gndkf" />
 
     <TextView
         android:id="@+id/tv_title_one"
@@ -24,7 +24,7 @@
         android:layout_below="@id/iv_photo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:text="抱歉，没有找到合适的结果..."
+        android:text="功能正加速开发中，敬请期待"
         android:textColor="@color/typed_text_color"
         android:textSize="15sp" />
 
@@ -37,7 +37,8 @@
         android:layout_marginTop="12dp"
         android:text="试试其他关键词吧~"
         android:textColor="@color/hint_text_color"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_button"
@@ -49,5 +50,6 @@
         android:background="@drawable/address_main_color"
         android:gravity="center"
         android:text="新增地址"
-        android:textColor="@color/main_color" />
+        android:textColor="@color/main_color"
+        android:visibility="gone" />
 </RelativeLayout>
