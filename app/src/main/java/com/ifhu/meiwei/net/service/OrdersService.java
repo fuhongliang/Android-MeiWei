@@ -24,7 +24,7 @@ public interface OrdersService {
 
     @FormUrlEncoded
     @POST("order_info")
-    public Observable<BaseEntity<Object>> order_info(@Field("order_id") int order_id);
+    public Observable<BaseEntity<OrderBean>> order_info(@Field("order_id") int order_id);
 
 
 }

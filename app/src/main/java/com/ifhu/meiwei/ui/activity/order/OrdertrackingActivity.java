@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -20,7 +19,6 @@ import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.OrdersService;
 import com.ifhu.meiwei.ui.base.BaseActivity;
-import com.ifhu.meiwei.utils.AppInfo;
 import com.ifhu.meiwei.utils.Constants;
 
 import java.util.List;
@@ -88,6 +86,8 @@ public class OrdertrackingActivity extends BaseActivity {
     LinearLayout llService;
     @BindView(R.id.tv_order_announcement)
     TextView tvOrderAnnouncement;
+    @BindView(R.id.ll_goods_item)
+    LinearLayout llGoodsItem;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -176,8 +176,8 @@ public class OrdertrackingActivity extends BaseActivity {
 
         try {
             double price = Double.parseDouble(orderinfoBean.getManjian()) + Double.parseDouble(orderinfoBean.getDaijinquan());
-            tvOfferMoney.setText( price + "");//已优惠
-        }catch (Exception e){
+            tvOfferMoney.setText(price + "");//已优惠
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -192,22 +192,46 @@ public class OrdertrackingActivity extends BaseActivity {
     public void handleCategoryDataInit(List<OrderinfoBean.OrderDetailBean> gcsort_data) {
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
         // 定义LayoutParam
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(AppInfo.width / 4, ViewGroup.LayoutParams.WRAP_CONTENT);
+        llGoodsItem.removeAllViews();
+
         if (gcsort_data != null && gcsort_data.size() > 0) {
-            for (int i = 0; i < gcsort_data.size(); i++) {
-                View categoryView = layoutInflater.inflate(R.layout.item_tracking_commodity, null);
-                GlideImageView imageView = categoryView.findViewById(R.id.iv_avatar);//商品图片
-                TextView product_name = categoryView.findViewById(R.id.tv_product_name);//商品名称
-                TextView now_price = categoryView.findViewById(R.id.tv_now_price);//商品现价
-                TextView original_price = categoryView.findViewById(R.id.tv_original_price);//商品原价
-                TextView tv_number = categoryView.findViewById(R.id.tv_number);//商品数量
-                imageView.load(Constants.IMGPATH + gcsort_data.get(i).getGoods_image());
-                product_name.setText(gcsort_data.get(i).getGoods_name());
-                now_price.setText("￥" + gcsort_data.get(i).getGoods_price());
-                original_price.setText("￥" + gcsort_data.get(i).getGoods_price());
-                original_price.getPaint().setFlags(Paint.ANTI_ALIAS_FLAG);//中划线
-                tv_number.setText("X" + gcsort_data.get(i).getGoods_num() + "");
+            if (gcsort_data.size()>2){
+                llExpand.setVisibility(View.VISIBLE);
+                for (int i = 0; i < 2; i++) {
+                    View categoryView = layoutInflater.inflate(R.layout.item_tracking_commodity, null);
+                    GlideImageView imageView = categoryView.findViewById(R.id.iv_avatar);//商品图片
+                    TextView product_name = categoryView.findViewById(R.id.tv_product_name);//商品名称
+                    TextView now_price = categoryView.findViewById(R.id.tv_now_price);//商品现价
+                    TextView original_price = categoryView.findViewById(R.id.tv_original_price);//商品原价
+                    TextView tv_number = categoryView.findViewById(R.id.tv_number);//商品数量
+                    imageView.load(Constants.IMGPATH + gcsort_data.get(i).getGoods_image());
+                    product_name.setText(gcsort_data.get(i).getGoods_name());
+                    now_price.setText("￥" + gcsort_data.get(i).getGoods_price());
+                    original_price.setText("￥" + gcsort_data.get(i).getGoods_price());
+                    original_price.getPaint().setFlags(Paint.ANTI_ALIAS_FLAG);//中划线
+                    tv_number.setText("X" + gcsort_data.get(i).getGoods_num() + "");
+                    llGoodsItem.addView(categoryView);
+                }
+
+            }else {
+                llExpand.setVisibility(View.GONE);
+                for (int i = 0; i < gcsort_data.size(); i++) {
+                    View categoryView = layoutInflater.inflate(R.layout.item_tracking_commodity, null);
+                    GlideImageView imageView = categoryView.findViewById(R.id.iv_avatar);//商品图片
+                    TextView product_name = categoryView.findViewById(R.id.tv_product_name);//商品名称
+                    TextView now_price = categoryView.findViewById(R.id.tv_now_price);//商品现价
+                    TextView original_price = categoryView.findViewById(R.id.tv_original_price);//商品原价
+                    TextView tv_number = categoryView.findViewById(R.id.tv_number);//商品数量
+                    imageView.load(Constants.IMGPATH + gcsort_data.get(i).getGoods_image());
+                    product_name.setText(gcsort_data.get(i).getGoods_name());
+                    now_price.setText("￥" + gcsort_data.get(i).getGoods_price());
+                    original_price.setText("￥" + gcsort_data.get(i).getGoods_price());
+                    original_price.getPaint().setFlags(Paint.ANTI_ALIAS_FLAG);//中划线
+                    tv_number.setText("X" + gcsort_data.get(i).getGoods_num() + "");
+                    llGoodsItem.addView(categoryView);
+                }
             }
+
         }
     }
 
