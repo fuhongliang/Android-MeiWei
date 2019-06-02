@@ -48,7 +48,6 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
         /**
          * 成功或者失败都将打印接口返回数据
          */
-        Logger.json(baseEntity.toString());
         if (baseEntity.isSuccess()) {
             try {
                 onSuccees(baseEntity);

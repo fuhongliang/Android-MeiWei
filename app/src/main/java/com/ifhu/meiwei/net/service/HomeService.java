@@ -2,9 +2,7 @@ package com.ifhu.meiwei.net.service;
 
 import com.ifhu.meiwei.bean.BaseEntity;
 import com.ifhu.meiwei.bean.HomeBean;
-import com.ifhu.meiwei.bean.MenuBean;
-
-import java.util.List;
+import com.ifhu.meiwei.bean.MerchantBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -25,7 +23,7 @@ public interface HomeService {
 
     @FormUrlEncoded
     @POST("store_info")
-    public Observable<BaseEntity<MenuBean>> storeInfo(@Field("store_id") String store_id, @Field("member_id") String member_id, @Field("class_id") String class_id, @Field("tab_id") int tab_id, @Field("type") int type);
+    public Observable<BaseEntity<MerchantBean>> storeInfo(@Field("store_id") String store_id, @Field("member_id") String member_id);
 
     @FormUrlEncoded
     @POST("get_voucher")

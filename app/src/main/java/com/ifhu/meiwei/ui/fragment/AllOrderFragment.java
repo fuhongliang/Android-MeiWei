@@ -67,7 +67,9 @@ public class AllOrderFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         orderAdapter = new OrderAdapter(orderBeanList, getActivity());
         lvList.setAdapter(orderAdapter);
-        getData();
+        if (UserLogic.isLogin()){
+            getData();
+        }
     }
 
     public void getData() {
