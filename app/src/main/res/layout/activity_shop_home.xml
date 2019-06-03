@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:background="@drawable/meal_bnt_beijing"
-        android:orientation="vertical">
+        android:layout_height="200dp"
+        >
 
+        <ImageView
+            android:id="@+id/iv_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/meal_bnt_beijing"
+            />
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="44dp">
+            android:layout_height="44dp"
+            android:layout_marginTop="30dp">
 
             <ImageView
                 android:id="@+id/iv_back"
@@ -39,7 +46,8 @@
                 android:src="@drawable/meal_ic_shoucang" />
         </RelativeLayout>
 
-    </LinearLayout>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -55,7 +63,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/iv_arrow"
+                android:id="@+id/iv_logo"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_margin="15dp"
@@ -76,6 +84,7 @@
                     android:textSize="18sp" />
 
                 <TextView
+                    android:id="@+id/tv_merchant_describe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
@@ -99,53 +108,13 @@
         </RelativeLayout>
         <!--满立减-->
         <LinearLayout
+            android:id="@+id/ll_full_cut"
             android:layout_width="match_parent"
             android:layout_height="19dp"
             android:layout_marginLeft="15dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"/>
 
-            <TextView
-                android:layout_width="44dp"
-                android:layout_height="17dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/bg_white_red"
-                android:gravity="center"
-                android:text="20减10"
-                android:textColor="@color/red"
-                android:textSize="10sp" />
-
-            <TextView
-                android:layout_width="44dp"
-                android:layout_height="17dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/bg_white_red"
-                android:gravity="center"
-                android:text="40减15"
-                android:textColor="@color/red"
-                android:textSize="10sp" />
-
-            <TextView
-                android:layout_width="44dp"
-                android:layout_height="17dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/bg_white_red"
-                android:gravity="center"
-                android:text="60减30"
-                android:textColor="@color/red"
-                android:textSize="10sp" />
-
-            <TextView
-                android:layout_width="44dp"
-                android:layout_height="17dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/bg_white_red"
-                android:gravity="center"
-                android:text="90减45"
-                android:textColor="@color/red"
-                android:textSize="10sp" />
-
-        </LinearLayout>
         <!--代金券-->
         <LinearLayout
             android:id="@+id/ll_voucher"
@@ -217,100 +186,30 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <com.ifhu.meiwei.ui.view.MySmartTabLayout
+        android:id="@+id/viewpagertab"
         android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
-        <!--菜单-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="21dp"
-            android:orientation="vertical">
+        android:layout_height="38dp"
+        android:background="#FFF"
+        app:stl_defaultTabBackground="@android:color/transparent"
+        app:stl_defaultTabTextColor="@drawable/tab_title_selector"
+        app:stl_defaultTabTextHorizontalPadding="10dp"
+        app:stl_defaultTabTextSize="14.5dp"
+        app:stl_distributeEvenly="true"
+        app:stl_dividerColor="@color/divide_line"
+        app:stl_dividerThickness="0dp"
+        app:stl_indicatorColor="#FBB000"
+        app:stl_indicatorGravity="bottom"
+        app:stl_indicatorInFront="true"
+        app:stl_indicatorInterpolation="linear"
+        app:stl_indicatorThickness="2dp"
+        app:stl_indicatorWidth="20dp"
+        app:stl_underlineColor="@color/divide_line"
+        app:stl_underlineThickness="0.5dp"
+        />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="菜单"
-                android:textColor="@color/black"
-                android:textSize="17sp" />
-
-            <TextView
-                android:layout_width="23dp"
-                android:layout_height="3dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:background="@color/main_color" />
-        </LinearLayout>
-        <!--评价-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="52dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="评价"
-                android:textColor="@color/hint_text_color"
-                android:textSize="17sp" />
-
-            <TextView
-                android:layout_width="23dp"
-                android:layout_height="3dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:background="@color/main_color"
-                android:visibility="invisible" />
-        </LinearLayout>
-        <!--商家-->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="52dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="商家"
-                android:textColor="@color/hint_text_color"
-                android:textSize="17sp" />
-
-            <TextView
-                android:layout_width="23dp"
-                android:layout_height="3dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:background="@color/main_color"
-                android:visibility="invisible" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <TextView style="@style/line_fff" />
-
-    <LinearLayout
+    <com.ifhu.meiwei.ui.view.MyViewPager
+        android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <ListView
-            android:id="@+id/lv_left"
-            android:layout_width="100dp"
-            android:layout_height="match_parent" />
-
-        <ListView
-            android:id="@+id/lv_right"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="15dp"
-            android:paddingTop="15dp"
-            tools:listitem="@layout/item_product_name" />
-    </LinearLayout>
-
+        android:layout_height="match_parent"/>
 </LinearLayout>

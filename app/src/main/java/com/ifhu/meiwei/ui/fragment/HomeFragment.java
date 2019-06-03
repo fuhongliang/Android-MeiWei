@@ -15,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -39,13 +40,16 @@ import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.HomeService;
 import com.ifhu.meiwei.ui.activity.home.MainActivity;
 import com.ifhu.meiwei.ui.activity.home.ShippingAddressActivity;
+import com.ifhu.meiwei.ui.activity.home.ShopHomeActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
+import com.ifhu.meiwei.ui.base.WebViewActivity;
 import com.ifhu.meiwei.ui.view.ExpandListView;
 import com.ifhu.meiwei.ui.view.MyScrollView;
 import com.ifhu.meiwei.utils.AppInfo;
 import com.ifhu.meiwei.utils.Constants;
 import com.ifhu.meiwei.utils.DeviceUtil;
 import com.ifhu.meiwei.utils.GlideRoundTransform;
+import com.ifhu.meiwei.utils.StringUtils;
 import com.stx.xhb.xbanner.XBanner;
 
 import org.greenrobot.eventbus.EventBus;
@@ -176,6 +180,10 @@ public class HomeFragment extends BaseFragment {
         mHomeStoreAdapter = new HomeStoreAdapter(getActivity(), storelist_data);
         mListviewStore.setAdapter(mHomeStoreAdapter);
         mTvTotal.setSelected(true);
+        mListviewStore.setOnItemClickListener((parent, view1, position, id) -> {
+            goToActivity(ShopHomeActivity.class,storelist_data.get(position).getStore_id()+"");
+        });
+        getData("", "1");
     }
 
     public void initBanner(){
@@ -185,10 +193,14 @@ public class HomeFragment extends BaseFragment {
         banner_data.add(bannerDataBean);
         //加载广告图片
         mXbanner.loadImage((banner, model, view, position) -> {
-//            HomeBean.BannerDataBean listBean = ((HomeBean.BannerDataBean) model);
-//            listBean = ((HomeBean.BannerDataBean) model);
-//           Glide.with(getActivity()).load(listBean.getLink_url()).into((ImageView) view);
-            loadRoundImage((ImageView) view,"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559290240259&di=bcaad77d72bd065357b08a9c8b1ee7c2&imgtype=0&src=http%3A%2F%2Fpic37.nipic.com%2F20140113%2F8800276_184927469000_2.png");
+            HomeBean.BannerDataBean listBean = ((HomeBean.BannerDataBean) model);
+            loadRoundImage((ImageView) view,listBean.getImage_name());
+        });
+        mXbanner.setOnItemClickListener((banner, model, view, position) -> {
+            HomeBean.BannerDataBean listBean = ((HomeBean.BannerDataBean) model);
+            if (!StringUtils.isEmpty(listBean.getLink_url())){
+                WebViewActivity.start(getActivity(),listBean.getLink_url(),"");
+            }
         });
     }
 
@@ -407,7 +419,6 @@ public class HomeFragment extends BaseFragment {
 
     @OnClick(R.id.iv_notice)
     public void onMIvNoticeClicked() {
-
     }
 
 

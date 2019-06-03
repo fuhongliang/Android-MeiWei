@@ -15,4 +15,6 @@
     <color name="red">#FF4A4A</color>
     <color name="orange">#FF853C</color>
     <color name="fff">#F0F0F0</color>
+    <color name="divide_line">#E5E5E5</color>
+
 </resources>

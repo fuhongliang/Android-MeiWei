@@ -34,7 +34,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity android:name=".ui.activity.login.LoginActivity" />
         <activity android:name=".ui.activity.login.PasswordActivity" />
@@ -42,6 +41,8 @@
         <activity android:name=".ui.activity.home.ShippingAddressActivity" />
         <activity android:name=".ui.activity.home.AddaddressActivity" />
         <activity android:name=".ui.activity.home.EditaddressActivity" />
+        <activity android:name=".ui.activity.home.ShopHomeActivity"
+            />
         <activity android:name=".ui.activity.order.OrdertrackingActivity" />
         <activity android:name=".ui.activity.home.EvaluationActivity" />
         <!--我的-->
@@ -53,7 +54,7 @@
         <activity android:name=".ui.activity.me.MySettingsActivity" />
         <activity android:name=".ui.activity.me.MyShopJoinActivity" />
         <activity android:name=".ui.activity.me.MyVoucherActivity" />
-
+        <activity android:name=".ui.base.WebViewActivity"/>
         <service android:name="com.amap.api.location.APSService" />
 
         <meta-data

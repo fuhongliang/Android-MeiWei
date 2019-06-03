@@ -70,6 +70,10 @@ public class AllOrderFragment extends BaseFragment {
         orderAdapter = new OrderAdapter(orderBeanList, getActivity());
         lvList.setAdapter(orderAdapter);
         lvList.setVerticalScrollBarEnabled(false);//取消滚动条
+        if (UserLogic.isLogin()) {
+            getData();
+        }
+
         orderAdapter.setOnClickItem(new OrderAdapter.OnClickItem() {
             @Override
             public void editOrder(int position) {
@@ -84,7 +88,6 @@ public class AllOrderFragment extends BaseFragment {
                 goToActivity(OrdertrackingActivity.class, orderBeanList.get(position).getOrder_id());
             }
         });
-        getData();
     }
 
     public void getData() {
