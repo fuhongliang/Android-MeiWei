@@ -58,7 +58,22 @@ public class LoginActivity extends BaseActivity {
     LinearLayout llProtocol;
     @BindView(R.id.iv_icon)
     ImageView ivIcon;
+    @BindView(R.id.iv_back)
+    ImageView mIvBack;
+    @BindView(R.id.tv_return)
+    TextView mTvReturn;
+    @BindView(R.id.tv_verification)
+    TextView mTvVerification;
+    @BindView(R.id.tv_number)
+    TextView mTvNumber;
+    @BindView(R.id.iv_expand)
+    ImageView mIvExpand;
+    @BindView(R.id.rl_number)
+    RelativeLayout mRlNumber;
+    @BindView(R.id.iv_wechat)
+    ImageView mIvWechat;
     private int mCurSecond = 60;
+    boolean isCodeLogin = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +81,23 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         addTextChangedListener();
+        initView();
     }
+
+    public void initView() {
+        if (isCodeLogin) {
+            tvText.setText("密码登录");
+            mTvVerification.setText("验证码登录");
+            tvObtainVerification.setVisibility(View.VISIBLE);
+            etVerificationNumber.setHint("请输入验证码");
+        } else {
+            tvText.setText("验证码登录");
+            mTvVerification.setText("密码登录");
+            tvObtainVerification.setVisibility(View.GONE);
+            etVerificationNumber.setHint("请输入密码");
+        }
+    }
+
 
     /**
      * 判断输入是否填写、填写完成才能点击按钮
@@ -173,9 +204,9 @@ public class LoginActivity extends BaseActivity {
             protected void onSuccees(BaseEntity<UserBean> t) throws Exception {
                 UserLogic.saveUser(t.getData());
                 ToastHelper.makeText(t.getMessage(), Toast.LENGTH_SHORT, ToastHelper.NORMALTOAST).show();
-                if (t.getData().isNeed_pwd()){
+                if (t.getData().isNeed_pwd()) {
                     startActivity(new Intent(LoginActivity.this, SetpasswordActivity.class));
-                }else {
+                } else {
                     finish();
                 }
             }
@@ -214,7 +245,8 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.tv_text)
     public void onTvTextClicked() {
-        startActivity(new Intent(LoginActivity.this, PasswordActivity.class));
+        isCodeLogin = !isCodeLogin;
+        initView();
     }
 
 
@@ -228,8 +260,33 @@ public class LoginActivity extends BaseActivity {
     @OnClick(R.id.tv_login)
     public void onTvLoginClicked() {
         if (checkContent(true)) {
-            smsLogin();
+            if (isCodeLogin){
+                smsLogin();
+            }else {
+                accountPassword();
+            }
         }
+    }
+
+    /**
+     * 账户密码登录接口
+     */
+    public void accountPassword() {
+        setLoadingMessageIndicator(true);
+        RetrofitApiManager.createUpload(UserService.class).userLogin(etNumber.getText().toString(), etVerificationNumber.getText().toString(), "device_tokens", "1")
+                .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<UserBean>(true) {
+            @Override
+            protected void onApiComplete() {
+                setLoadingMessageIndicator(false);
+            }
+
+            @Override
+            protected void onSuccees(BaseEntity<UserBean> t) throws Exception {
+                ToastHelper.makeText(t.getMessage(), Toast.LENGTH_SHORT, ToastHelper.NORMALTOAST).show();
+                UserLogic.saveUser(t.getData());
+                finish();
+            }
+        });
     }
 
     @OnClick(R.id.iv_wechat)

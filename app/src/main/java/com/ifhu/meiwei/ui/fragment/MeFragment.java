@@ -65,10 +65,13 @@ public class MeFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initView();
-
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initView();
+    }
 
     public void initView() {
         if (UserLogic.isLogin()) {
@@ -117,6 +120,8 @@ public class MeFragment extends BaseFragment {
                     break;
                 case R.id.ll_settings:
                     goToActivity(MySettingsActivity.class);
+                    break;
+                default:
                     break;
             }
         } else {
