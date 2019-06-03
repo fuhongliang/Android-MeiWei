@@ -44,7 +44,7 @@
         <activity android:name=".ui.activity.home.ShopHomeActivity"
             />
         <activity android:name=".ui.activity.order.OrdertrackingActivity" />
-
+        <activity android:name=".ui.activity.home.EvaluationActivity" />
         <!--我的-->
         <activity android:name=".ui.activity.me.MyAskActivity" />
         <activity android:name=".ui.activity.me.MyCollectActivity" />

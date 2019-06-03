@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ifhu.meiwei.R;
+import com.ifhu.meiwei.ui.activity.home.EvaluationActivity;
 import com.ifhu.meiwei.ui.activity.login.LoginActivity;
 import com.ifhu.meiwei.ui.activity.me.MyAddressListActivity;
 import com.ifhu.meiwei.ui.activity.me.MyAskActivity;
@@ -104,7 +105,7 @@ public class MeFragment extends BaseFragment {
                     goToActivity(MyCollectActivity.class);
                     break;
                 case R.id.ll_review:
-                    goToActivity(MyReviewActivity.class);
+                    goToActivity(EvaluationActivity.class);
                     break;
                 case R.id.ll_help:
                     goToActivity(MyHelpActivity.class);
