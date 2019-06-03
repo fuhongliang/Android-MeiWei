@@ -21,6 +21,7 @@ import com.ifhu.meiwei.net.service.OrdersService;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.utils.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -118,9 +119,27 @@ public class OrdertrackingActivity extends BaseActivity {
 
     }
 
+    String[] mStatusList = {"订单已取消","等待支付","等待商家接单","商家已接单","骑手正赶往商家","骑手正在送货","订单已完成"};
+    String[] mOrderAnnouncementList = {"您的订单已申请取消","由商家提供配送服务","由商家提供配送服务","由商家提供配送服务","由邻邻發骑手配送","由邻邻發骑手配送","感谢您对邻邻發的信任，期待再次光临"};
+    String[] mButtonList = {"逛逛别家","取消订单","取消订单","取消订单","申请售后","申请售后","申请售后"};
+
+
+    public void setOrderInfo(int color,boolean tips,String orderState,String tipMsg){
+        llOrderStatus.setBackgroundResource(R.color.category_color);
+        rlRefund.setVerticalGravity(View.VISIBLE);
+        tvTextStatus.setText("订单已取消");
+        tvOrderAnnouncement.setText("您的订单已申请取消");
+        tvButtonOne.setText("逛逛别家");
+        llRing.setVerticalGravity(View.GONE);
+        tvButtonTwo.setVisibility(View.GONE);
+        tvButtonThree.setVisibility(View.GONE);
+        llService.setVerticalGravity(View.GONE);
+        ivStorePhone.setVisibility(View.GONE);
+    }
+
     public void initView(OrderinfoBean orderinfoBean) {
         switch (orderinfoBean.getOrder_state()) {
-            case 0:
+            case 1:// 1:"订单已取消";
                 llOrderStatus.setBackgroundResource(R.color.category_color);
                 rlRefund.setVerticalGravity(View.VISIBLE);
                 tvTextStatus.setText("订单已取消");
@@ -132,7 +151,7 @@ public class OrdertrackingActivity extends BaseActivity {
                 llService.setVerticalGravity(View.GONE);
                 ivStorePhone.setVisibility(View.GONE);
                 break;
-            case 10:
+            case 2:// 2:"待支付";
                 llOrderStatus.setBackgroundResource(R.drawable.order_bnt_daizhfiu);
                 tvTextStatus.setText("等待支付");
                 tvOrderAnnouncement.setText("由商家提供配送服务");
@@ -142,16 +161,16 @@ public class OrdertrackingActivity extends BaseActivity {
                 tvButtonThree.setText("立即支付");
                 ivStorePhone.setVisibility(View.GONE);
                 break;
-            case 20:
+            case 3:// 3:"等待商家接单";
                 llOrderStatus.setBackgroundResource(R.drawable.order_bnt_jiedan);
                 tvTextStatus.setText("等待商家接单");
-                tvOrderAnnouncement.setText("由商家提供配送服务");
                 tvNotice.setText("5分钟内商家未接单，将自动取消订单");
+                tvOrderAnnouncement.setText("由商家提供配送服务");
                 tvButtonOne.setText("取消订单");
                 tvButtonTwo.setVisibility(View.GONE);
                 tvButtonThree.setVisibility(View.GONE);
                 break;
-            case 25:
+            case 4:// 4:"商家已接单，正准备商品";
                 llOrderStatus.setBackgroundResource(R.drawable.order_bnt_yjiedan);
                 tvTextStatus.setText("商家已接单");
                 tvNotice.setText("商家正在准备商品，请耐心等待");
@@ -160,11 +179,45 @@ public class OrdertrackingActivity extends BaseActivity {
                 tvButtonTwo.setText("催单");
                 tvButtonThree.setText("确认收货");
                 break;
-            case 30:
+            case 5:// 5:"骑手正赶往商家";
+                llOrderStatus.setBackgroundResource(R.drawable.order_bnt_ganwsj);
+                tvTextStatus.setText("骑手正赶往商家");
+                llRing.setVisibility(View.GONE);
+                tvOrderAnnouncement.setText("由邻邻發骑手配送");
+                tvButtonOne.setText("申请售后");
+                tvButtonTwo.setText("致电骑手");
+                tvButtonThree.setText("骑手消息");
+                tvButtonThree.setTextColor(tvButtonThree.getResources().getColor(R.color.typed_text_color));
+                tvButtonThree.setBackgroundResource(R.drawable.bg_gray);
                 break;
-            case 35:
+            case 6://6:"骑手正在送货";
+                llOrderStatus.setBackgroundResource(R.drawable.order_bnt_songhuo);
+                tvTextStatus.setText("骑手正在送货");
+                llRing.setVisibility(View.GONE);
+                tvOrderAnnouncement.setText("由邻邻發骑手配送");
+                tvButtonOne.setText("申请售后");
+                tvButtonTwo.setText("致电骑手");
+                tvButtonThree.setText("骑手消息");
+                tvButtonThree.setTextColor(tvButtonThree.getResources().getColor(R.color.typed_text_color));
+                tvButtonThree.setBackgroundResource(R.drawable.bg_gray);
                 break;
-            case 40:
+            case 7:// 7:"订单已完成";
+                llOrderStatus.setBackgroundResource(R.drawable.order_bnt_wancheng);
+                tvTextStatus.setText("订单已完成");
+                llRing.setVisibility(View.GONE);
+                llService.setVisibility(View.GONE);
+                tvOrderAnnouncement.setText("感谢您对邻邻發的信任，期待再次光临");
+                tvButtonOne.setText("申请售后");
+                tvButtonTwo.setText("再来一单");
+                tvButtonThree.setText("立即评价");
+                break;
+            case 8:// 8:退款中
+                break;
+            case 9://9:退款已完成
+                break;
+            case 10://10:"待评价";
+                break;
+            case 11://11:"已评价";
                 break;
             default:
                 break;
@@ -195,7 +248,7 @@ public class OrdertrackingActivity extends BaseActivity {
         llGoodsItem.removeAllViews();
 
         if (gcsort_data != null && gcsort_data.size() > 0) {
-            if (gcsort_data.size()>2){
+            if (gcsort_data.size() > 2) {
                 llExpand.setVisibility(View.VISIBLE);
                 for (int i = 0; i < 2; i++) {
                     View categoryView = layoutInflater.inflate(R.layout.item_tracking_commodity, null);
@@ -213,7 +266,7 @@ public class OrdertrackingActivity extends BaseActivity {
                     llGoodsItem.addView(categoryView);
                 }
 
-            }else {
+            } else {
                 llExpand.setVisibility(View.GONE);
                 for (int i = 0; i < gcsort_data.size(); i++) {
                     View categoryView = layoutInflater.inflate(R.layout.item_tracking_commodity, null);

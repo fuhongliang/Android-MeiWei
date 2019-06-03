@@ -253,17 +253,17 @@
                     android:layout_height="44dp"
                     android:layout_toLeftOf="@id/iv_store_phone"
                     android:padding="13dp"
-                    android:src="@drawable/order_ic_xiaoxi" />
+                    android:src="@drawable/order_ic_xiaoxi"
+                    android:visibility="gone" />
             </RelativeLayout>
 
             <TextView style="@style/line_fff" />
 
             <LinearLayout
+                android:id="@+id/ll_goods_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/ll_goods_item"
-                android:orientation="vertical"
-                />
+                android:orientation="vertical" />
             <!--查看更多-->
             <LinearLayout
                 android:id="@+id/ll_expand"

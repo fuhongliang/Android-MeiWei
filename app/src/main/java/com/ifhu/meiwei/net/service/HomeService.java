@@ -1,6 +1,7 @@
 package com.ifhu.meiwei.net.service;
 
 import com.ifhu.meiwei.bean.BaseEntity;
+import com.ifhu.meiwei.bean.EvaluationBean;
 import com.ifhu.meiwei.bean.HomeBean;
 import com.ifhu.meiwei.bean.MenuBean;
 
@@ -30,5 +31,10 @@ public interface HomeService {
     @FormUrlEncoded
     @POST("get_voucher")
     public Observable<BaseEntity<Object>> getVoucher(@Field("voucher_t_id") int voucher_t_id, @Field("member_id") int member_id);
+
+    @FormUrlEncoded
+    @POST("store_com")
+    public Observable<BaseEntity<EvaluationBean>> storeCom(@Field("order_id") String order_id, @Field("member_id") String member_id);
+
 
 }
