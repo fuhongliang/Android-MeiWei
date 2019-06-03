@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_full_cut"
+    android:layout_width="44dp"
+    android:layout_height="17dp"
+    android:layout_marginRight="10dp"
+    android:background="@drawable/bg_white_red"
+    android:gravity="center"
+    android:text="20减10"
+    android:textColor="@color/red"
+    android:textSize="10sp"/>

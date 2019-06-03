@@ -42,12 +42,14 @@ import com.ifhu.meiwei.ui.activity.home.MainActivity;
 import com.ifhu.meiwei.ui.activity.home.ShippingAddressActivity;
 import com.ifhu.meiwei.ui.activity.home.ShopHomeActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
+import com.ifhu.meiwei.ui.base.WebViewActivity;
 import com.ifhu.meiwei.ui.view.ExpandListView;
 import com.ifhu.meiwei.ui.view.MyScrollView;
 import com.ifhu.meiwei.utils.AppInfo;
 import com.ifhu.meiwei.utils.Constants;
 import com.ifhu.meiwei.utils.DeviceUtil;
 import com.ifhu.meiwei.utils.GlideRoundTransform;
+import com.ifhu.meiwei.utils.StringUtils;
 import com.stx.xhb.xbanner.XBanner;
 
 import org.greenrobot.eventbus.EventBus;
@@ -193,6 +195,12 @@ public class HomeFragment extends BaseFragment {
         mXbanner.loadImage((banner, model, view, position) -> {
             HomeBean.BannerDataBean listBean = ((HomeBean.BannerDataBean) model);
             loadRoundImage((ImageView) view,listBean.getImage_name());
+        });
+        mXbanner.setOnItemClickListener((banner, model, view, position) -> {
+            HomeBean.BannerDataBean listBean = ((HomeBean.BannerDataBean) model);
+            if (!StringUtils.isEmpty(listBean.getLink_url())){
+                WebViewActivity.start(getActivity(),listBean.getLink_url(),"");
+            }
         });
     }
 

@@ -42,6 +42,14 @@ public class MenuListFragment extends BaseFragment {
         // Required empty public constructor
     }
 
+    public List<MerchantBean.GoodsListBean> getGoodsListBeans() {
+        return mGoodsListBeans;
+    }
+
+    public void setGoodsListBeans(List<MerchantBean.GoodsListBean> goodsListBeans) {
+        mGoodsListBeans = goodsListBeans;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

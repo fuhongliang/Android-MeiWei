@@ -2,7 +2,8 @@ package com.ifhu.meiwei.ui.activity.home;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -19,12 +20,15 @@ import com.ifhu.meiwei.net.service.HomeService;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.ui.fragment.MenuListFragment;
 import com.ifhu.meiwei.ui.fragment.XWebViewFragment;
+import com.ifhu.meiwei.ui.view.MySmartTabLayout;
+import com.ifhu.meiwei.ui.view.MyViewPager;
 import com.ifhu.meiwei.utils.ToastHelper;
 import com.ifhu.meiwei.utils.UserLogic;
 import com.jaeger.library.StatusBarUtil;
-import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,9 +53,9 @@ public class ShopHomeActivity extends BaseActivity {
     @BindView(R.id.iv_bg)
     ImageView mIvBg;
     @BindView(R.id.viewpagertab)
-    SmartTabLayout mViewpagertab;
+    MySmartTabLayout mViewpagertab;
     @BindView(R.id.viewpager)
-    ViewPager mViewpager;
+    MyViewPager mViewpager;
     @BindView(R.id.iv_back)
     ImageView mIvBack;
     @BindView(R.id.iv_share_it)
@@ -62,6 +66,8 @@ public class ShopHomeActivity extends BaseActivity {
     ImageView mIvLogo;
     @BindView(R.id.tv_merchant_describe)
     TextView mTvMerchantDescribe;
+    @BindView(R.id.ll_full_cut)
+    LinearLayout mLlFullCut;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -95,16 +101,29 @@ public class ShopHomeActivity extends BaseActivity {
             }
 
             @Override
-            protected void onSuccees(BaseEntity<MerchantBean> t) throws Exception {
-                initMerchantInfo(t.getData().getStore_info());
+            protected void onSuccees(BaseEntity<MerchantBean> t) {
+                initMerchantInfo(t.getData().getStore_info(),t.getData().getManjian());
             }
         });
     }
 
-    public void initMerchantInfo(MerchantBean.StoreInfoBean storeInfoBean){
+    public void initMerchantInfo(MerchantBean.StoreInfoBean storeInfoBean, List<MerchantBean.ManjianBean> manjianBeanList) {
         tvStoreName.setText(storeInfoBean.getStore_name());
         mTvMerchantDescribe.setText("起送￥15｜配送￥3｜月售 " + storeInfoBean.getStore_sales());
-        tvEvaluation.setText(storeInfoBean.getStore_credit()+"评分");
+        tvEvaluation.setText(storeInfoBean.getStore_credit() + "评分");
+        mLlFullCut.setVisibility(View.VISIBLE);
+        mLlFullCut.removeAllViews();
+        if (manjianBeanList != null && manjianBeanList.size()>0){
+            for (MerchantBean.ManjianBean manjianBean:manjianBeanList){
+                LayoutInflater layoutInflater = LayoutInflater.from(this);
+                View view = layoutInflater.inflate(R.layout.item_shop_full_cut,null);
+                TextView textView = view.findViewById(R.id.tv_full_cut);
+                textView.setText("满"+manjianBean.getPrice()+"元减"+manjianBean.getDiscount()+"元");
+                mLlFullCut.addView(view);
+            }
+        }else {
+            mLlFullCut.setVisibility(View.GONE);
+        }
     }
 
     @OnClick(R.id.iv_back)

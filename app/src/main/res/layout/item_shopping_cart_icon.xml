@@ -3,8 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="44dp"
     android:background="@drawable/bg_left_black">
-
-
     <ImageView
         android:id="@+id/iv_icon"
         android:layout_width="50dp"
@@ -30,6 +28,7 @@
         android:layout_toRightOf="@id/iv_icon">
 
         <TextView
+            android:id="@+id/tv_total_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -39,6 +38,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/tv_shipping_fee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -49,22 +49,14 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-
+    <TextView
+        android:layout_alignParentEnd="true"
         android:layout_width="110dp"
         android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:background="@drawable/action_bar_selector">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="￥15起送"
-            android:textColor="@color/text_white"
-            android:textSize="17sp" />
-
-
-    </RelativeLayout>
-
+        android:layout_centerInParent="true"
+        android:text="￥15起送"
+        android:gravity="center"
+        android:textColor="@color/text_white"
+        android:background="@drawable/action_bar_selector"
+        android:textSize="17sp" />
 </RelativeLayout>
