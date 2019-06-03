@@ -28,6 +28,10 @@ public class Constants {
 
     public static final String LOCATION_DATAUPDATA = "location";
 
-    public static final String IMGPATH = "http://pqk40fvkr.bkt.clouddn.com/";
+    /**
+     * 重新定位事件
+     */
+    public static final String RELOCATION = "RELOCATION";
+
 
 }

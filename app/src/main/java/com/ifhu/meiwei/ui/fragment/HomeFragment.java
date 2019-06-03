@@ -266,7 +266,7 @@ public class HomeFragment extends BaseFragment {
                 GlideImageView imageView = categoryView.findViewById(R.id.iv_category);
                 TextView name = categoryView.findViewById(R.id.tv_category_name);
                 name.setText(gcsort_data.get(i).getGc_name());
-                imageView.load(Constants.IMGPATH + gcsort_data.get(i).getIcon_image());
+                imageView.load(gcsort_data.get(i).getIcon_image());
                 if (i < 9) {
                     if (i < oneLineCategoryNumber) {
                         mLlCategoryOne.addView(categoryView, params);

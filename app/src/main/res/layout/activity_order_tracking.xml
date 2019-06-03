@@ -10,26 +10,27 @@
         android:background="@color/category_color"
         android:orientation="vertical">
         <!--订单状态-->
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/ll_order_status"
             android:layout_width="match_parent"
             android:layout_height="270dp"
-            android:background="@drawable/order_bnt_jiedan"
             android:orientation="vertical"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
+            >
 
             <ImageView
-                android:id="@+id/iv_back"
-                android:layout_width="38dp"
-                android:layout_height="43dp"
-                android:layout_marginTop="21dp"
-                android:padding="15dp"
-                android:src="@drawable/order_ic_fanhuio" />
-
+                android:id="@+id/iv_bg_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/order_bnt_jiedan"
+                />
             <LinearLayout
+                android:id="@+id/ll_state"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_below="@+id/iv_back"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -51,9 +52,12 @@
             <!--订单通知-->
             <LinearLayout
                 android:id="@+id/ll_ring"
+                android:layout_below="@+id/ll_state"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="21dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
                 android:background="@drawable/bg_white">
 
                 <ImageView
@@ -72,13 +76,20 @@
                     android:textSize="15sp" />
             </LinearLayout>
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="38dp"
+                android:layout_height="43dp"
+                android:layout_marginTop="21dp"
+                android:padding="15dp"
+                android:src="@drawable/order_ic_fanhuio" />
+        </RelativeLayout>
         <!--订单送达时间-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="-95dp"
+            android:layout_marginTop="-70dp"
             android:layout_marginRight="15dp"
             android:background="@drawable/bg_white"
             android:minHeight="150dp"
@@ -94,6 +105,9 @@
                     android:layout_centerInParent="true"
                     android:background="@drawable/order_ic_tzhuai" />
             </RelativeLayout>
+
+
+
 
             <LinearLayout
                 android:id="@+id/ll_service"
@@ -668,8 +682,6 @@
                     android:textColor="@color/typed_text_color"
                     android:textSize="15sp" />
             </RelativeLayout>
-
         </LinearLayout>
-
     </LinearLayout>
 </ScrollView>

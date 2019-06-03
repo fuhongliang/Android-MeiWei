@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.adapter.MyAddressAdapter;
 import com.ifhu.meiwei.bean.BaseEntity;
+import com.ifhu.meiwei.bean.MessageEvent;
 import com.ifhu.meiwei.bean.MyAddressBean;
 import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
@@ -18,6 +19,11 @@ import com.ifhu.meiwei.net.service.UserService;
 import com.ifhu.meiwei.ui.activity.login.LoginActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.utils.UserLogic;
+import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +31,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.ifhu.meiwei.utils.Constants.LOCATION_DATAUPDATA;
+import static com.ifhu.meiwei.utils.Constants.RELOCATION;
 
 /**
  * 选择收货地址页面
@@ -61,13 +70,20 @@ public class ShippingAddressActivity extends BaseActivity {
         tvText.setText("新增地址");
         tvReturn.setVisibility(View.INVISIBLE);
         setTvCurAddress();
-        if (!UserLogic.isLogin()){
-            goToActivity(LoginActivity.class);
-        }else {
+        if (UserLogic.isLogin()) {
             receivingAddressList();
         }
         myAddressAdapter = new MyAddressAdapter(myAddressBeanList, this);
         lvAddress.setAdapter(myAddressAdapter);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     /**
@@ -96,7 +112,6 @@ public class ShippingAddressActivity extends BaseActivity {
     }
 
 
-
     public void setTvCurAddress() {
         mTvCurAddress.setText(getDATA());
     }
@@ -118,5 +133,23 @@ public class ShippingAddressActivity extends BaseActivity {
         goToActivity(AddaddressActivity.class);
     }
 
+
+    @OnClick(R.id.tv_re_locate)
+    public void onMTvReLocateClicked() {
+        setLoadingMessageIndicator(true);
+        EventBus.getDefault().post(new MessageEvent(RELOCATION));
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(MessageEvent messageEvent) {
+        switch (messageEvent.getMessage()) {
+            case LOCATION_DATAUPDATA:
+                mTvCurAddress.setText(messageEvent.getArrayList().get(0));
+                Logger.d("定位获取位置："+messageEvent.getArrayList().get(0));
+                setLoadingMessageIndicator(false);
+                break;
+            default:
+        }
+    }
 
 }

@@ -39,6 +39,7 @@ import java.util.List;
 
 import static com.ifhu.meiwei.utils.Constants.LOCATION_DATAUPDATA;
 import static com.ifhu.meiwei.utils.Constants.LOGOUT;
+import static com.ifhu.meiwei.utils.Constants.RELOCATION;
 
 /**
  * @author fuhongliang
@@ -157,6 +158,9 @@ public class MainActivity extends BaseActivity {
             case LOGOUT:
                 logout();
                 break;
+            case RELOCATION:
+                initLocationClient();
+                break;
             default:
         }
     }
@@ -176,25 +180,21 @@ public class MainActivity extends BaseActivity {
      * 声明定位回调监听器
      */
 
-    public AMapLocationListener mLocationListener = new AMapLocationListener() {
-        @Override
-        public void onLocationChanged(AMapLocation location) {
-            setLoadingMessageIndicator(false);
-            if (location != null) {
-                if (location.getErrorCode() == 0) {
-                    //可在其中解析amapLocation获取相应内容。
-                    ArrayList<String> data = new ArrayList<>();
-                    data.add(location.getPoiName());
-                    data.add(location.getLongitude()+"");
-                    data.add(location.getLatitude()+"");
-                    EventBus.getDefault().post(new MessageEvent(LOCATION_DATAUPDATA,data));
-
-                }else {
-                    //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
-                    Log.e("AmapError","location Error, ErrCode:"
-                            + location.getErrorCode() + ", errInfo:"
-                            + location.getErrorInfo());
-                }
+    public AMapLocationListener mLocationListener = location -> {
+        setLoadingMessageIndicator(false);
+        if (location != null) {
+            if (location.getErrorCode() == 0) {
+                //可在其中解析amapLocation获取相应内容。
+                ArrayList<String> data = new ArrayList<>();
+                data.add(location.getPoiName());
+                data.add(location.getLongitude()+"");
+                data.add(location.getLatitude()+"");
+                EventBus.getDefault().post(new MessageEvent(LOCATION_DATAUPDATA,data));
+            }else {
+                //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                Log.e("AmapError","location Error, ErrCode:"
+                        + location.getErrorCode() + ", errInfo:"
+                        + location.getErrorInfo());
             }
         }
     };

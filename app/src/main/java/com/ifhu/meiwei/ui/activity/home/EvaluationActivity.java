@@ -73,8 +73,6 @@ public class EvaluationActivity extends BaseActivity {
     GlideImageView ivStorePhoto;
     @BindView(R.id.lv_commodity)
     ListView lvCommodity;
-    @BindView(R.id.tv_announcement_name)
-    TextView tvAnnouncementName;
     @BindView(R.id.iv_like)
     ImageView ivLike;
     @BindView(R.id.iv_nolike)
@@ -110,11 +108,11 @@ public class EvaluationActivity extends BaseActivity {
     }
 
     public void initView(EvaluationBean evaluationBean) {
-        ivRiderPhoto.load(Constants.IMGPATH + evaluationBean.getQishou().getAvator());
+        ivRiderPhoto.load(evaluationBean.getQishou().getAvator());
         tvRiderName.setText(evaluationBean.getQishou().getMember_name());
         tvRiderTime.setText(evaluationBean.getQishou().getTime());
         tvStoreName.setText(evaluationBean.getInfo().getStore_name());
-        ivRiderPhoto.load(Constants.IMGPATH + evaluationBean.getInfo().getStore_avatar());
+        ivRiderPhoto.load(evaluationBean.getInfo().getStore_avatar());
     }
 
     @OnClick(R.id.iv_back)
