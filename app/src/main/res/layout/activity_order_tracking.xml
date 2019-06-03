@@ -258,10 +258,12 @@
 
             <TextView style="@style/line_fff" />
 
-            <ListView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/item_tracking_commodity" />
+                android:id="@+id/ll_goods_item"
+                android:orientation="vertical"
+                />
             <!--查看更多-->
             <LinearLayout
                 android:id="@+id/ll_expand"
