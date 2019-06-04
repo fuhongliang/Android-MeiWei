@@ -1,6 +1,5 @@
 package com.ifhu.meiwei.ui.fragment;
 
-
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -151,14 +150,15 @@ public class HomeFragment extends BaseFragment {
     public HomeFragment() {
         // Required empty public constructor
     }
-
+    /**
+     * 默认
+     */
     String mLongitude = "113.913761";
     String mLatitude = "22.572242";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
@@ -181,7 +181,9 @@ public class HomeFragment extends BaseFragment {
         mListviewStore.setAdapter(mHomeStoreAdapter);
         mTvTotal.setSelected(true);
         mListviewStore.setOnItemClickListener((parent, view1, position, id) -> {
-            goToActivity(ShopHomeActivity.class,storelist_data.get(position).getStore_id()+"");
+            if (isNotDuplication()){
+                goToActivity(ShopHomeActivity.class,storelist_data.get(position).getStore_id()+"");
+            }
         });
         getData("", "1");
     }
@@ -258,7 +260,6 @@ public class HomeFragment extends BaseFragment {
         mLlCategoryOne.removeAllViews();
         mLlCategoryTwo.removeAllViews();
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
-        // 定义LayoutParam
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(AppInfo.width / 4, ViewGroup.LayoutParams.WRAP_CONTENT);
         if (gcsort_data != null && gcsort_data.size() > 0) {
             for (int i = 0; i < gcsort_data.size(); i++) {
@@ -291,6 +292,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     /**
+     * 处理优惠专区
      * @param discount_data
      */
     public void handleDiscountDataInit(List<HomeBean.DiscountDataBean> discount_data) {

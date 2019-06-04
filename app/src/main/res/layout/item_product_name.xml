@@ -10,7 +10,9 @@
         android:id="@+id/iv_image"
         android:layout_width="86dp"
         android:layout_height="86dp"
-        android:background="@drawable/tab_bnt_bj_xs" />
+        android:scaleType="fitXY"
+        android:background="@drawable/home_zanwutupian"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"

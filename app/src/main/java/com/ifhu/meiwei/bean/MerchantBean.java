@@ -21,10 +21,26 @@ public class MerchantBean {
     public StoreInfoBean store_info;
     public boolean is_collect;
     public CartBean cart;
-    public String pignjia_url;
-    public String shangjia_url;
+    public String comment_url;
+    public String store_info_url;
     public List<ManjianBean> manjian;
     public List<GoodsListBean> goods_list;
+
+    public String getComment_url() {
+        return comment_url;
+    }
+
+    public void setComment_url(String comment_url) {
+        this.comment_url = comment_url;
+    }
+
+    public String getStore_info_url() {
+        return store_info_url;
+    }
+
+    public void setStore_info_url(String store_info_url) {
+        this.store_info_url = store_info_url;
+    }
 
     public StoreInfoBean getStore_info() {
         return store_info;
@@ -48,22 +64,6 @@ public class MerchantBean {
 
     public void setCart(CartBean cart) {
         this.cart = cart;
-    }
-
-    public String getPignjia_url() {
-        return pignjia_url;
-    }
-
-    public void setPignjia_url(String pignjia_url) {
-        this.pignjia_url = pignjia_url;
-    }
-
-    public String getShangjia_url() {
-        return shangjia_url;
-    }
-
-    public void setShangjia_url(String shangjia_url) {
-        this.shangjia_url = shangjia_url;
     }
 
     public List<ManjianBean> getManjian() {

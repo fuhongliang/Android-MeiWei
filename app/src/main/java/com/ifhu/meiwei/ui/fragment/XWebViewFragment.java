@@ -38,13 +38,18 @@ public class XWebViewFragment extends BaseFragment {
     @BindView(R.id.wv_view)
     WebView mWvView;
     Unbinder unbinder;
-
+    public String url = "";
     public static XWebViewFragment newInstance() {
         return new XWebViewFragment();
     }
 
     public XWebViewFragment() {
         // Required empty public constructor
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+        loadURL(false,url);
     }
 
     @Override
@@ -116,17 +121,17 @@ public class XWebViewFragment extends BaseFragment {
             WebView.setWebContentsDebuggingEnabled(true);
         }
 
-        loadURL(false);
+        loadURL(false,url);
     }
 
-    public void loadURL(boolean needToken){
+    public void loadURL(boolean needToken,String url){
         if (needToken) {
             HashMap<String, String> headers = new HashMap<String, String>();
             String dataToken = UserLogic.getUser().getToken();
             headers.put("token", dataToken);
-            mWvView.loadUrl("https://www.baidu.com/", headers);
+            mWvView.loadUrl(url, headers);
         } else {
-            mWvView.loadUrl("https://www.baidu.com/");
+            mWvView.loadUrl(url);
         }
     }
 
