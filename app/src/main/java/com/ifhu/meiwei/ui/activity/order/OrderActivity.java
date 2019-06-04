@@ -42,6 +42,7 @@ public class OrderActivity extends BaseActivity {
         ButterKnife.bind(this);
         orderAdapter = new OrderAdapter(orderBeanList, this);
         lvOrder.setAdapter(orderAdapter);
+        orderList();
     }
 
     /**

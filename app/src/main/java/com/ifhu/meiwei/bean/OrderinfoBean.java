@@ -1,8 +1,10 @@
 package com.ifhu.meiwei.bean;
 
+
 import java.util.List;
 
 public class OrderinfoBean {
+
 
     /**
      * order_state : 10

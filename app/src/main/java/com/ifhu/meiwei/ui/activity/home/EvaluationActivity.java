@@ -1,6 +1,10 @@
 package com.ifhu.meiwei.ui.activity.home;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,6 +24,8 @@ import com.ifhu.meiwei.net.service.HomeService;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.utils.UserLogic;
 
+import java.io.File;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -28,6 +34,7 @@ import butterknife.OnClick;
  * 评价页面
  */
 public class EvaluationActivity extends BaseActivity {
+    private static final int CAMERA_RESULT_CODE = 3;
     @BindView(R.id.iv_back)
     ImageView ivBack;
     @BindView(R.id.tv_return)
@@ -66,10 +73,9 @@ public class EvaluationActivity extends BaseActivity {
     GlideImageView ivStorePhoto;
     @BindView(R.id.lv_commodity)
     ListView lvCommodity;
-    @BindView(R.id.iv_like)
-    ImageView ivLike;
-    @BindView(R.id.iv_nolike)
-    ImageView ivNolike;
+
+
+    String imgName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -132,5 +138,13 @@ public class EvaluationActivity extends BaseActivity {
     public void onRlSatisfactionClicked() {
         selectedSatisfaction(true);
     }
+
+//    @OnClick(R.id.tv_add_phone)
+//    public void onTvAddPhoneClicked() {
+//        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(
+//                new File(Environment.getExternalStorageDirectory(), imgName)));
+//        startActivityForResult(cameraIntent, CAMERA_RESULT_CODE);
+//    }
 
 }

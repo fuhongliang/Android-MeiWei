@@ -119,9 +119,9 @@ public class AllOrderFragment extends BaseFragment {
                 orderBeanList = t.getData();
                 orderAdapter.setOrderBeanList(orderBeanList);
                 if (orderAdapter.getCount() > 0) {
-                    rlEmpty.setVerticalGravity(View.GONE);
+                    rlEmpty.setVisibility(View.GONE);
                 } else {
-                    rlEmpty.setVerticalGravity(View.VISIBLE);
+                    rlEmpty.setVisibility(View.VISIBLE);
                     ivPhoto.setBackgroundResource(R.drawable.quesehng_ic_zanwudingdan);
                     tvTitleOne.setText("近期暂无订单记录...");
                     tvTitleTwo.setVisibility(View.VISIBLE);
