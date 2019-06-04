@@ -66,8 +66,6 @@ public class EvaluationActivity extends BaseActivity {
     GlideImageView ivStorePhoto;
     @BindView(R.id.lv_commodity)
     ListView lvCommodity;
-    @BindView(R.id.tv_announcement_name)
-    TextView tvAnnouncementName;
     @BindView(R.id.iv_like)
     ImageView ivLike;
     @BindView(R.id.iv_nolike)

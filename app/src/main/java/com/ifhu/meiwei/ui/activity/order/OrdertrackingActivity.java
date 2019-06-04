@@ -18,10 +18,11 @@ import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.OrdersService;
+import com.ifhu.meiwei.ui.activity.home.ShopHomeActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.utils.Constants;
+import com.jaeger.library.StatusBarUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,6 +31,9 @@ import butterknife.OnClick;
 
 import static com.ifhu.meiwei.utils.Utils.getContext;
 
+/**
+ * @author fuhongliang
+ */
 public class OrdertrackingActivity extends BaseActivity {
     @BindView(R.id.tv_text_status)
     TextView tvTextStatus;
@@ -49,8 +53,7 @@ public class OrdertrackingActivity extends BaseActivity {
     ImageView ivBack;
     @BindView(R.id.ll_ring)
     LinearLayout llRing;
-    @BindView(R.id.ll_order_status)
-    LinearLayout llOrderStatus;
+
     @BindView(R.id.iv_store_phone)
     ImageView ivStorePhone;
     @BindView(R.id.ll_expand)
@@ -89,12 +92,17 @@ public class OrdertrackingActivity extends BaseActivity {
     TextView tvOrderAnnouncement;
     @BindView(R.id.ll_goods_item)
     LinearLayout llGoodsItem;
+    @BindView(R.id.iv_bg_view)
+    ImageView mIvBgView;
+    @BindView(R.id.ll_state)
+    LinearLayout mLlState;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_tracking);
         ButterKnife.bind(this);
+        StatusBarUtil.setTranslucentForImageView(OrdertrackingActivity.this, 0, mIvBgView);
         orderDetails();
     }
 
@@ -119,13 +127,13 @@ public class OrdertrackingActivity extends BaseActivity {
 
     }
 
-    String[] mStatusList = {"订单已取消","等待支付","等待商家接单","商家已接单","骑手正赶往商家","骑手正在送货","订单已完成"};
-    String[] mOrderAnnouncementList = {"您的订单已申请取消","由商家提供配送服务","由商家提供配送服务","由商家提供配送服务","由邻邻發骑手配送","由邻邻發骑手配送","感谢您对邻邻發的信任，期待再次光临"};
-    String[] mButtonList = {"逛逛别家","取消订单","取消订单","取消订单","申请售后","申请售后","申请售后"};
+    String[] mStatusList = {"订单已取消", "等待支付", "等待商家接单", "商家已接单", "骑手正赶往商家", "骑手正在送货", "订单已完成"};
+    String[] mOrderAnnouncementList = {"您的订单已申请取消", "由商家提供配送服务", "由商家提供配送服务", "由商家提供配送服务", "由邻邻發骑手配送", "由邻邻發骑手配送", "感谢您对邻邻發的信任，期待再次光临"};
+    String[] mButtonList = {"逛逛别家", "取消订单", "取消订单", "取消订单", "申请售后", "申请售后", "申请售后"};
 
 
-    public void setOrderInfo(int color,boolean tips,String orderState,String tipMsg){
-        llOrderStatus.setBackgroundResource(R.color.category_color);
+    public void setOrderInfo(int color, boolean tips, String orderState, String tipMsg) {
+        mIvBgView.setBackgroundResource(R.color.category_color);
         rlRefund.setVerticalGravity(View.VISIBLE);
         tvTextStatus.setText("订单已取消");
         tvOrderAnnouncement.setText("您的订单已申请取消");
@@ -140,7 +148,7 @@ public class OrdertrackingActivity extends BaseActivity {
     public void initView(OrderinfoBean orderinfoBean) {
         switch (orderinfoBean.getOrder_state()) {
             case 1:// 1:"订单已取消";
-                llOrderStatus.setBackgroundResource(R.color.category_color);
+                mIvBgView.setBackgroundResource(R.color.category_color);
                 rlRefund.setVerticalGravity(View.VISIBLE);
                 tvTextStatus.setText("订单已取消");
                 tvOrderAnnouncement.setText("您的订单已申请取消");
@@ -152,7 +160,7 @@ public class OrdertrackingActivity extends BaseActivity {
                 ivStorePhone.setVisibility(View.GONE);
                 break;
             case 2:// 2:"待支付";
-                llOrderStatus.setBackgroundResource(R.drawable.order_bnt_daizhfiu);
+                mIvBgView.setBackgroundResource(R.drawable.order_bnt_daizhfiu);
                 tvTextStatus.setText("等待支付");
                 tvOrderAnnouncement.setText("由商家提供配送服务");
                 tvNotice.setText("超过15分钟未支付，订单将自动取消咯");
@@ -162,7 +170,7 @@ public class OrdertrackingActivity extends BaseActivity {
                 ivStorePhone.setVisibility(View.GONE);
                 break;
             case 3:// 3:"等待商家接单";
-                llOrderStatus.setBackgroundResource(R.drawable.order_bnt_jiedan);
+                mIvBgView.setBackgroundResource(R.drawable.order_bnt_jiedan);
                 tvTextStatus.setText("等待商家接单");
                 tvNotice.setText("5分钟内商家未接单，将自动取消订单");
                 tvOrderAnnouncement.setText("由商家提供配送服务");
@@ -171,7 +179,7 @@ public class OrdertrackingActivity extends BaseActivity {
                 tvButtonThree.setVisibility(View.GONE);
                 break;
             case 4:// 4:"商家已接单，正准备商品";
-                llOrderStatus.setBackgroundResource(R.drawable.order_bnt_yjiedan);
+                mIvBgView.setBackgroundResource(R.drawable.order_bnt_yjiedan);
                 tvTextStatus.setText("商家已接单");
                 tvNotice.setText("商家正在准备商品，请耐心等待");
                 tvOrderAnnouncement.setText("由商家提供配送服务");
@@ -180,7 +188,7 @@ public class OrdertrackingActivity extends BaseActivity {
                 tvButtonThree.setText("确认收货");
                 break;
             case 5:// 5:"骑手正赶往商家";
-                llOrderStatus.setBackgroundResource(R.drawable.order_bnt_ganwsj);
+                mIvBgView.setBackgroundResource(R.drawable.order_bnt_ganwsj);
                 tvTextStatus.setText("骑手正赶往商家");
                 llRing.setVisibility(View.GONE);
                 tvOrderAnnouncement.setText("由邻邻發骑手配送");
@@ -191,7 +199,7 @@ public class OrdertrackingActivity extends BaseActivity {
                 tvButtonThree.setBackgroundResource(R.drawable.bg_gray);
                 break;
             case 6://6:"骑手正在送货";
-                llOrderStatus.setBackgroundResource(R.drawable.order_bnt_songhuo);
+                mIvBgView.setBackgroundResource(R.drawable.order_bnt_songhuo);
                 tvTextStatus.setText("骑手正在送货");
                 llRing.setVisibility(View.GONE);
                 tvOrderAnnouncement.setText("由邻邻發骑手配送");
@@ -202,7 +210,7 @@ public class OrdertrackingActivity extends BaseActivity {
                 tvButtonThree.setBackgroundResource(R.drawable.bg_gray);
                 break;
             case 7:// 7:"订单已完成";
-                llOrderStatus.setBackgroundResource(R.drawable.order_bnt_wancheng);
+                mIvBgView.setBackgroundResource(R.drawable.order_bnt_wancheng);
                 tvTextStatus.setText("订单已完成");
                 llRing.setVisibility(View.GONE);
                 llService.setVisibility(View.GONE);
@@ -257,7 +265,7 @@ public class OrdertrackingActivity extends BaseActivity {
                     TextView now_price = categoryView.findViewById(R.id.tv_now_price);//商品现价
                     TextView original_price = categoryView.findViewById(R.id.tv_original_price);//商品原价
                     TextView tv_number = categoryView.findViewById(R.id.tv_number);//商品数量
-                    imageView.load(Constants.IMGPATH + gcsort_data.get(i).getGoods_image());
+                    imageView.load(gcsort_data.get(i).getGoods_image());
                     product_name.setText(gcsort_data.get(i).getGoods_name());
                     now_price.setText("￥" + gcsort_data.get(i).getGoods_price());
                     original_price.setText("￥" + gcsort_data.get(i).getGoods_price());
@@ -275,7 +283,7 @@ public class OrdertrackingActivity extends BaseActivity {
                     TextView now_price = categoryView.findViewById(R.id.tv_now_price);//商品现价
                     TextView original_price = categoryView.findViewById(R.id.tv_original_price);//商品原价
                     TextView tv_number = categoryView.findViewById(R.id.tv_number);//商品数量
-                    imageView.load(Constants.IMGPATH + gcsort_data.get(i).getGoods_image());
+                    imageView.load(gcsort_data.get(i).getGoods_image());
                     product_name.setText(gcsort_data.get(i).getGoods_name());
                     now_price.setText("￥" + gcsort_data.get(i).getGoods_price());
                     original_price.setText("￥" + gcsort_data.get(i).getGoods_price());

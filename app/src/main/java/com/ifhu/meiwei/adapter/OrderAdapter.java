@@ -71,7 +71,7 @@ public class OrderAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.ivPhoto.load(Constants.IMGPATH + orderBeanList.get(position).getStore_avatar());//商店头像
+        viewHolder.ivPhoto.load(orderBeanList.get(position).getStore_avatar());//商店头像
         viewHolder.tvStoreName.setText(orderBeanList.get(position).getStore_name());//商店名称
         switch (orderBeanList.get(position).getOrder_state()) {                     //订单状态
             case 0:

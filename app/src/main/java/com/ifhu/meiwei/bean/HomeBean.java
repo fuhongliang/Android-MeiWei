@@ -185,8 +185,8 @@ public class HomeBean {
         private String store_avatar;
         private int store_sales;
         private int store_credit;
-//        private List<XianshiBean> xianshi;
-//        private List<ManjianBean> manjian;
+        private List<XianshiBean> xianshi;
+        private List<ManjianBean> manjian;
 
         public int getStore_id() {
             return store_id;
@@ -228,21 +228,21 @@ public class HomeBean {
             this.store_credit = store_credit;
         }
 
-//        public List<XianshiBean> getXianshi() {
-//            return xianshi;
-//        }
-//
-//        public void setXianshi(List<XianshiBean> xianshi) {
-//            this.xianshi = xianshi;
-//        }
-//
-//        public List<ManjianBean> getManjian() {
-//            return manjian;
-//        }
-//
-//        public void setManjian(List<ManjianBean> manjian) {
-//            this.manjian = manjian;
-//        }
+        public List<XianshiBean> getXianshi() {
+            return xianshi;
+        }
+
+        public void setXianshi(List<XianshiBean> xianshi) {
+            this.xianshi = xianshi;
+        }
+
+        public List<ManjianBean> getManjian() {
+            return manjian;
+        }
+
+        public void setManjian(List<ManjianBean> manjian) {
+            this.manjian = manjian;
+        }
 
         public static class XianshiBean {
             /**

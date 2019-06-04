@@ -62,11 +62,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <com.baba.GlideImageView
                 android:id="@+id/iv_logo"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_margin="15dp"
+                android:scaleType="fitXY"
                 android:background="@drawable/pingjia_ic_bumanyi1" />
 
             <RelativeLayout
@@ -79,7 +80,6 @@
                     android:id="@+id/tv_store_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="果实先生（新安店）"
                     android:textColor="@color/black"
                     android:textSize="18sp" />
 
@@ -102,7 +102,6 @@
                 android:layout_marginRight="15dp"
                 android:background="@drawable/meal_ic_pingfen"
                 android:gravity="center"
-                android:text="4.7评分"
                 android:textColor="@color/text_white"
                 android:textSize="12sp" />
         </RelativeLayout>

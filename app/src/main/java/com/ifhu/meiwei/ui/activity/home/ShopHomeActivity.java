@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baba.GlideImageView;
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.bean.BaseEntity;
 import com.ifhu.meiwei.bean.MerchantBean;
@@ -22,6 +23,7 @@ import com.ifhu.meiwei.ui.fragment.MenuListFragment;
 import com.ifhu.meiwei.ui.fragment.XWebViewFragment;
 import com.ifhu.meiwei.ui.view.MySmartTabLayout;
 import com.ifhu.meiwei.ui.view.MyViewPager;
+import com.ifhu.meiwei.utils.FullReductionUtils;
 import com.ifhu.meiwei.utils.ToastHelper;
 import com.ifhu.meiwei.utils.UserLogic;
 import com.jaeger.library.StatusBarUtil;
@@ -63,7 +65,7 @@ public class ShopHomeActivity extends BaseActivity {
     @BindView(R.id.iv_collection)
     ImageView mIvCollection;
     @BindView(R.id.iv_logo)
-    ImageView mIvLogo;
+    GlideImageView mIvLogo;
     @BindView(R.id.tv_merchant_describe)
     TextView mTvMerchantDescribe;
     @BindView(R.id.ll_full_cut)
@@ -110,19 +112,18 @@ public class ShopHomeActivity extends BaseActivity {
     public void initMerchantInfo(MerchantBean.StoreInfoBean storeInfoBean, List<MerchantBean.ManjianBean> manjianBeanList) {
         tvStoreName.setText(storeInfoBean.getStore_name());
         mTvMerchantDescribe.setText("起送￥15｜配送￥3｜月售 " + storeInfoBean.getStore_sales());
-        tvEvaluation.setText(storeInfoBean.getStore_credit() + "评分");
+        tvEvaluation.setText(storeInfoBean.getStore_credit() + "\n评分");
         mLlFullCut.setVisibility(View.VISIBLE);
-        mLlFullCut.removeAllViews();
-        if (manjianBeanList != null && manjianBeanList.size()>0){
-            for (MerchantBean.ManjianBean manjianBean:manjianBeanList){
-                LayoutInflater layoutInflater = LayoutInflater.from(this);
-                View view = layoutInflater.inflate(R.layout.item_shop_full_cut,null);
-                TextView textView = view.findViewById(R.id.tv_full_cut);
-                textView.setText("满"+manjianBean.getPrice()+"元减"+manjianBean.getDiscount()+"元");
-                mLlFullCut.addView(view);
-            }
+        FullReductionUtils.showShopFullReduction(mLlFullCut,manjianBeanList,LayoutInflater.from(this));
+        mIvLogo.load(storeInfoBean.getStore_avatar(),R.drawable.home_zanwutupian,2);
+        if (storeInfoBean.getDaijinquan()>0){
+            llVoucher.setVisibility(View.VISIBLE);
+            tvMoney.setText("￥" + storeInfoBean.getDaijinquan());
+            llVoucher.setOnClickListener(v -> {
+               ToastHelper.makeText("您点击了代金券");
+            });
         }else {
-            mLlFullCut.setVisibility(View.GONE);
+            llVoucher.setVisibility(View.GONE);
         }
     }
 

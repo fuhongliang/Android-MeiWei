@@ -69,11 +69,7 @@ public class AllOrderFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         orderAdapter = new OrderAdapter(orderBeanList, getActivity());
         lvList.setAdapter(orderAdapter);
-        lvList.setVerticalScrollBarEnabled(false);//取消滚动条
-        if (UserLogic.isLogin()) {
-            getData();
-        }
-
+        lvList.setVerticalScrollBarEnabled(false);
         orderAdapter.setOnClickItem(new OrderAdapter.OnClickItem() {
             @Override
             public void editOrder(int position) {
@@ -82,12 +78,17 @@ public class AllOrderFragment extends BaseFragment {
 
             @Override
             public void deleteOrder(int position) {
-//                Intent intent = new Intent(getActivity(), OrdertrackingActivity.class);
-//                intent.putExtra("order_id", orderBeanList.get(position).getOrder_id() + "");
-//                startActivity(intent);
                 goToActivity(OrdertrackingActivity.class, orderBeanList.get(position).getOrder_id());
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (UserLogic.isLogin()) {
+            getData();
+        }
     }
 
     public void getData() {
