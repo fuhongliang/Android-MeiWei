@@ -1,14 +1,16 @@
 package com.ifhu.meiwei.ui.fragment;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.adapter.OrderAdapter;
@@ -45,6 +47,18 @@ public class AllOrderFragment extends BaseFragment {
     @BindView(R.id.lv_list)
     ListView lvList;
     Unbinder unbinder;
+    @BindView(R.id.iv_line)
+    ImageView ivLine;
+    @BindView(R.id.iv_photo)
+    ImageView ivPhoto;
+    @BindView(R.id.tv_title_one)
+    TextView tvTitleOne;
+    @BindView(R.id.tv_title_two)
+    TextView tvTitleTwo;
+    @BindView(R.id.tv_button)
+    TextView tvButton;
+    @BindView(R.id.rl_empty)
+    RelativeLayout rlEmpty;
 
     public static AllOrderFragment newInstance() {
         return new AllOrderFragment();
@@ -104,6 +118,17 @@ public class AllOrderFragment extends BaseFragment {
             protected void onSuccees(BaseEntity<List<OrderBean>> t) throws Exception {
                 orderBeanList = t.getData();
                 orderAdapter.setOrderBeanList(orderBeanList);
+                if (orderAdapter.getCount() > 0) {
+                    rlEmpty.setVerticalGravity(View.GONE);
+                } else {
+                    rlEmpty.setVerticalGravity(View.VISIBLE);
+                    ivPhoto.setBackgroundResource(R.drawable.quesehng_ic_zanwudingdan);
+                    tvTitleOne.setText("近期暂无订单记录...");
+                    tvTitleTwo.setVisibility(View.VISIBLE);
+                    tvTitleTwo.setText("快动动小手准备下单吧~");
+                    tvButton.setVisibility(View.VISIBLE);
+                    tvButton.setText("去逛逛");
+                }
             }
         });
 
