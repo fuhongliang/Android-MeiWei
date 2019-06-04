@@ -2,7 +2,6 @@ package com.ifhu.meiwei.ui.activity.home;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -14,22 +13,16 @@ import com.baba.GlideImageView;
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.bean.BaseEntity;
 import com.ifhu.meiwei.bean.EvaluationBean;
-import com.ifhu.meiwei.bean.OrderinfoBean;
 import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.HomeService;
 import com.ifhu.meiwei.ui.base.BaseActivity;
-import com.ifhu.meiwei.utils.Constants;
 import com.ifhu.meiwei.utils.UserLogic;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.ifhu.meiwei.utils.Utils.getContext;
 
 /**
  * 评价页面
@@ -110,11 +103,11 @@ public class EvaluationActivity extends BaseActivity {
     }
 
     public void initView(EvaluationBean evaluationBean) {
-        ivRiderPhoto.load(Constants.IMGPATH + evaluationBean.getQishou().getAvator());
+        ivRiderPhoto.load(evaluationBean.getQishou().getAvator());
         tvRiderName.setText(evaluationBean.getQishou().getMember_name());
         tvRiderTime.setText(evaluationBean.getQishou().getTime());
         tvStoreName.setText(evaluationBean.getInfo().getStore_name());
-        ivRiderPhoto.load(Constants.IMGPATH + evaluationBean.getInfo().getStore_avatar());
+        ivRiderPhoto.load(evaluationBean.getInfo().getStore_avatar());
     }
 
     @OnClick(R.id.iv_back)
