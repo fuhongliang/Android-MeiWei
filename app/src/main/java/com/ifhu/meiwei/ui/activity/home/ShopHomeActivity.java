@@ -71,6 +71,13 @@ public class ShopHomeActivity extends BaseActivity {
     @BindView(R.id.ll_full_cut)
     LinearLayout mLlFullCut;
 
+    FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
+            getSupportFragmentManager(), FragmentPagerItems.with(this)
+            .add("菜单", MenuListFragment.class)
+            .add("评价", XWebViewFragment.class)
+            .add("商家", XWebViewFragment.class)
+            .create());
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,12 +90,6 @@ public class ShopHomeActivity extends BaseActivity {
 
     public void initView() {
         mViewpager.setOffscreenPageLimit(4);
-        FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
-                getSupportFragmentManager(), FragmentPagerItems.with(this)
-                .add("菜单", MenuListFragment.class)
-                .add("评价", XWebViewFragment.class)
-                .add("商家", XWebViewFragment.class)
-                .create());
         mViewpager.setAdapter(adapter);
         mViewpagertab.setViewPager(mViewpager);
     }
@@ -105,6 +106,12 @@ public class ShopHomeActivity extends BaseActivity {
             @Override
             protected void onSuccees(BaseEntity<MerchantBean> t) {
                 initMerchantInfo(t.getData().getStore_info(),t.getData().getManjian());
+                MenuListFragment menuListFragment = (MenuListFragment) adapter.getPage(0);
+                XWebViewFragment reviewFragment = (XWebViewFragment) adapter.getPage(1);
+                XWebViewFragment merchantInfoFragment = (XWebViewFragment) adapter.getPage(2);
+                menuListFragment.setGoodsListBeans(t.getData().getGoods_list());
+                reviewFragment.setUrl(t.getData().getComment_url());
+                merchantInfoFragment.setUrl(t.getData().getStore_info_url());
             }
         });
     }

@@ -192,4 +192,18 @@ public class BaseActivity  extends AppCompatActivity {
         }
     }
 
+    /**
+     * 判断是否短时间内重复点击
+     */
+
+    private long lastClick = 0;
+    public int twiceClickTime = 2500;
+
+    public boolean isNotDuplication() {
+        if (System.currentTimeMillis() - lastClick <= twiceClickTime) {
+            return false;
+        }
+        lastClick = System.currentTimeMillis();
+        return true;
+    }
 }
