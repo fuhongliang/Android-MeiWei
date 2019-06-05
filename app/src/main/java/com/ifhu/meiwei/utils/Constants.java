@@ -27,6 +27,7 @@ public class Constants {
     public static String DATA = "DATA";
 
     public static final String LOCATION_DATAUPDATA = "location";
+    public static final String LOCATION_DATAUPDATAFAIL = "LOCATION_DATAUPDATAFAIL";
 
     /**
      * 重新定位事件
@@ -36,4 +37,5 @@ public class Constants {
     public static final String ORDER_DATAUPDATA = "ORDER_DATAUPDATA";
 
 
+    public static final String MONEYUNIT = "￥";
 }

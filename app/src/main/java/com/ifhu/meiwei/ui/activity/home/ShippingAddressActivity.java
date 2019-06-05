@@ -16,10 +16,8 @@ import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.UserService;
-import com.ifhu.meiwei.ui.activity.login.LoginActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.utils.UserLogic;
-import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -33,6 +31,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.ifhu.meiwei.utils.Constants.LOCATION_DATAUPDATA;
+import static com.ifhu.meiwei.utils.Constants.LOCATION_DATAUPDATAFAIL;
 import static com.ifhu.meiwei.utils.Constants.RELOCATION;
 
 /**
@@ -60,6 +59,8 @@ public class ShippingAddressActivity extends BaseActivity {
     ListView lvAddress;
     @BindView(R.id.ll_empty)
     LinearLayout llEmpty;
+    @BindView(R.id.tv_re_locate)
+    TextView mTvReLocate;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -136,17 +137,20 @@ public class ShippingAddressActivity extends BaseActivity {
 
     @OnClick(R.id.tv_re_locate)
     public void onMTvReLocateClicked() {
-        setLoadingMessageIndicator(true);
         EventBus.getDefault().post(new MessageEvent(RELOCATION));
+        mTvReLocate.setText("正在定位...");
     }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(MessageEvent messageEvent) {
         switch (messageEvent.getMessage()) {
             case LOCATION_DATAUPDATA:
                 mTvCurAddress.setText(messageEvent.getArrayList().get(0));
-                Logger.d("定位获取位置："+messageEvent.getArrayList().get(0));
-                setLoadingMessageIndicator(false);
+                mTvReLocate.setText("重新定位");
+                break;
+            case LOCATION_DATAUPDATAFAIL:
+                mTvReLocate.setText("定位失败,请重新定位");
                 break;
             default:
         }

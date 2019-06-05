@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.ifhu.meiwei.utils.Constants.LOCATION_DATAUPDATA;
+import static com.ifhu.meiwei.utils.Constants.LOCATION_DATAUPDATAFAIL;
 import static com.ifhu.meiwei.utils.Constants.LOGOUT;
 import static com.ifhu.meiwei.utils.Constants.ORDER_DATAUPDATA;
 import static com.ifhu.meiwei.utils.Constants.RELOCATION;
@@ -193,7 +194,8 @@ public class MainActivity extends BaseActivity {
                 data.add(location.getLatitude()+"");
                 EventBus.getDefault().post(new MessageEvent(LOCATION_DATAUPDATA,data));
             }else {
-                //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                EventBus.getDefault().post(new MessageEvent(LOCATION_DATAUPDATAFAIL));
+                 //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
                 Log.e("AmapError","location Error, ErrCode:"
                         + location.getErrorCode() + ", errInfo:"
                         + location.getErrorInfo());

@@ -32,6 +32,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.ifhu.meiwei.utils.Constants.MONEYUNIT;
+
 /**
  * @author KevinFu
  * @date 2019-06-05
@@ -65,6 +67,22 @@ public class ConfirmOrderActivity extends BaseActivity {
     @BindView(R.id.tv_phone)
     TextView mTvPhone;
     MyAddressBean myAddressBean;
+
+    @BindView(R.id.tv_shipping_time)
+    TextView mTvShippingTime;
+    @BindView(R.id.tv_shipping_fee)
+    TextView mTvShippingFee;
+    @BindView(R.id.tv_vercher_fee)
+    TextView mTvVercherFee;
+    @BindView(R.id.tv_offer_money)
+    TextView mTvOfferMoney;
+    @BindView(R.id.tv_payment_money)
+    TextView mTvPaymentMoney;
+    @BindView(R.id.tv_coupon_money)
+    TextView mTvCouponMoney;
+    @BindView(R.id.tv_total_money)
+    TextView mTvTotalMoney;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,8 +108,18 @@ public class ConfirmOrderActivity extends BaseActivity {
                 myAddressBean = comformOrderBean.getAddress();
                 handleGoodsShow();
                 handeAddressShow(myAddressBean);
+                handleOtherFee();
             }
         });
+    }
+
+    public void handleOtherFee() {
+        mTvShippingFee.setText(MONEYUNIT + comformOrderBean.getPeisong_amount());
+        mTvVercherFee.setText("-"+MONEYUNIT + comformOrderBean.getManjian_amount());
+        mTvCouponMoney.setText(MONEYUNIT + comformOrderBean.getDaijinquan_amount());
+        mTvOfferMoney.setText(MONEYUNIT + (comformOrderBean.getManjian_amount() + comformOrderBean.getDaijinquan_amount()));
+        mTvPaymentMoney.setText(comformOrderBean.getTotal_amount()+"");
+        mTvTotalMoney.setText(MONEYUNIT + comformOrderBean.getTotal_amount());
     }
 
     public void handleGoodsShow() {
@@ -138,8 +166,8 @@ public class ConfirmOrderActivity extends BaseActivity {
 
     public void handeAddressShow(MyAddressBean myAddressBean) {
         mTvName.setText(myAddressBean.getTrue_name());
-        mTvAddress.setText(myAddressBean.getArea_info()+myAddressBean.getAddress());
-        mTvPhone.setText(myAddressBean.getMob_phone()+"");
+        mTvAddress.setText(myAddressBean.getArea_info() + myAddressBean.getAddress());
+        mTvPhone.setText(myAddressBean.getMob_phone() + "");
     }
 
     @OnClick(R.id.iv_back)
@@ -160,10 +188,10 @@ public class ConfirmOrderActivity extends BaseActivity {
         postOrderForm.setStore_id(getDATA());
         postOrderForm.setAddress_id(comformOrderBean.getAddress().getAddress_id() + "");
         postOrderForm.setMember_id(UserLogic.getUserId());
-        postOrderForm.setOrder_message("备注");
+        postOrderForm.setOrder_message("" + mEtNote.getText().toString());
         postOrderForm.setPayment_code("wxpay");
-        postOrderForm.setPeisong_amount("5");
-        postOrderForm.setShipping_time("立即送达");
+        postOrderForm.setPeisong_amount(comformOrderBean.getPeisong_amount() + "");
+        postOrderForm.setShipping_time(mTvShippingTime.getText().toString());
         postOrderForm.setVoucher_id("");
         RetrofitApiManager.create(OrdersService.class).buyStep(postOrderForm)
                 .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<Object>(true) {
@@ -182,13 +210,13 @@ public class ConfirmOrderActivity extends BaseActivity {
 
     @OnClick(R.id.rl_address)
     public void onMRlAddressClicked() {
-        startActivityForResult(new Intent(ConfirmOrderActivity.this, MyAddressListActivity.class).putExtra(MyAddressListActivity.IsFromOrder,true), REQUESTADDRESSCODE);
+        startActivityForResult(new Intent(ConfirmOrderActivity.this, MyAddressListActivity.class).putExtra(MyAddressListActivity.IsFromOrder, true), REQUESTADDRESSCODE);
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (resultCode == RESULT_OK){
+        if (resultCode == RESULT_OK) {
             if (requestCode == REQUESTADDRESSCODE) {
                 myAddressBean = (MyAddressBean) data.getSerializableExtra(MyAddressListActivity.ADDRESS);
                 handeAddressShow(myAddressBean);

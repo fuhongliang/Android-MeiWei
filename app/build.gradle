@@ -36,7 +36,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             android.applicationVariants.all { variant ->
                 variant.outputs.all {
-                    outputFileName = "ZhMeiWei_v${defaultConfig.versionName}_${releaseTime()}_${variant.flavorName}.apk"
+                    outputFileName = "MeiWei_v${defaultConfig.versionName}_${releaseTime()}_${variant.flavorName}.apk"
                 }
             }
         }

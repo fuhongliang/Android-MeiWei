@@ -89,7 +89,8 @@
                 android:layout_toRightOf="@id/iv_dingwei"
                 android:text="海天大厦20楼2010室"
                 android:textColor="@color/text_white"
-                android:textSize="17sp"
+                android:textSize="15sp"
+                android:ellipsize="end"
                 android:textStyle="bold" />
             <TextView
                 android:id="@+id/tv_name"
@@ -150,6 +151,7 @@
                     android:textSize="17sp" />
 
                 <TextView
+                    android:id="@+id/tv_shipping_time"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@id/iv_arrow"
@@ -280,10 +282,10 @@
                         android:textSize="17sp" />
 
                     <TextView
+                        android:id="@+id/tv_shipping_fee"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:text="￥2"
                         android:textColor="@color/black"
                         android:textSize="17sp" />
                 </RelativeLayout>
@@ -304,10 +306,10 @@
                         android:textSize="17sp" />
 
                     <TextView
+                        android:id="@+id/tv_vercher_fee"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
-                        android:text="-￥233"
                         android:textColor="@color/red"
                         android:textSize="17sp" />
                 </RelativeLayout>
@@ -326,6 +328,7 @@
                         android:textSize="17sp" />
 
                     <TextView
+                        android:id="@+id/tv_coupon_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_toLeftOf="@id/iv_tupian"
@@ -403,7 +406,6 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:text="60.8"
                         android:textColor="@color/red"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -464,11 +466,11 @@
             android:textSize="15dp" />
 
         <TextView
+            android:id="@+id/tv_total_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="50dp"
-            android:text="￥699"
             android:textColor="@color/red"
             android:textSize="17sp"
             android:textStyle="bold" />
