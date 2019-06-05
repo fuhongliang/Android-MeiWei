@@ -183,7 +183,7 @@ public class OrdertrackingActivity extends BaseActivity {
 
         tvPaymentMoney.setText(orderinfoBean.getTotal());//实付金额
         String sex = orderinfoBean.getPeisong_info().getSex() == 1 ? "先生" : "女士";
-        tvAnnouncementOne.setText(orderinfoBean.getPeisong_info().getUsername() + "(" + sex + ")" + orderinfoBean.getPeisong_info().getMobile());
+        tvAnnouncementOne.setText(orderinfoBean.getPeisong_info().getUsername() + " (" + sex + ") " + orderinfoBean.getPeisong_info().getMobile());
         tvAnnouncementTwo.setText(orderinfoBean.getPeisong_info().getAddress());//配送地址
         tvOrderNumber.setText(orderinfoBean.getOrder_info().getOrder_sn() + "");//订单号码
         tvOrderTime.setText(orderinfoBean.getOrder_info().getAdd_time());//下单时间
@@ -231,12 +231,6 @@ public class OrdertrackingActivity extends BaseActivity {
                 tvOrderAnnouncement.setText("由商家提供配送服务");
                 tvButtonOne.setText("取消订单");
                 tvButtonTwo.setText("催单");
-                tvButtonTwo.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        goToActivity(EvaluationActivity.class);
-                    }
-                });
                 tvButtonThree.setVisibility(View.GONE);
                 break;
             case 5:// 5:"骑手正赶往商家";

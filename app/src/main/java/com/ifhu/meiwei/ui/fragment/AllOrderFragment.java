@@ -20,6 +20,7 @@ import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.OrdersService;
+import com.ifhu.meiwei.ui.activity.home.EvaluationActivity;
 import com.ifhu.meiwei.ui.activity.order.OrdertrackingActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
 import com.ifhu.meiwei.utils.UserLogic;
@@ -93,6 +94,11 @@ public class AllOrderFragment extends BaseFragment {
             @Override
             public void deleteOrder(int position) {
                 goToActivity(OrdertrackingActivity.class, orderBeanList.get(position).getOrder_id());
+            }
+
+            @Override
+            public void evaluation(int position) {
+                goToActivity(EvaluationActivity.class, orderBeanList.get(position).getOrder_id());
             }
         });
     }

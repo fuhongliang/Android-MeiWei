@@ -42,6 +42,8 @@ public class OrderAdapter extends BaseAdapter {
         void editOrder(int position);
 
         void deleteOrder(int position);
+
+        void evaluation(int position);
     }
 
     @Override
@@ -118,6 +120,7 @@ public class OrderAdapter extends BaseAdapter {
         if (onClickItem != null) {
             viewHolder.rlAnnouncement.setOnClickListener(v -> onClickItem.deleteOrder(position));
             viewHolder.llStoreName.setOnClickListener(v -> onClickItem.editOrder(position));
+            viewHolder.tvEvaluation.setOnClickListener(v -> onClickItem.evaluation(position));
         }
 
         return convertView;
