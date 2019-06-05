@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.adapter.OrderAdapter;
 import com.ifhu.meiwei.bean.BaseEntity;
+import com.ifhu.meiwei.bean.MessageEvent;
 import com.ifhu.meiwei.bean.OrderBean;
 import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
@@ -24,12 +25,18 @@ import com.ifhu.meiwei.ui.activity.order.OrdertrackingActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
 import com.ifhu.meiwei.utils.UserLogic;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import static com.ifhu.meiwei.utils.Constants.LOCATION_DATAUPDATA;
+import static com.ifhu.meiwei.utils.Constants.ORDER_DATAUPDATA;
 
 
 /**
@@ -102,6 +109,16 @@ public class AllOrderFragment extends BaseFragment {
         super.onResume();
         if (UserLogic.isLogin()) {
             getData();
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(MessageEvent messageEvent) {
+        switch (messageEvent.getMessage()) {
+            case ORDER_DATAUPDATA:
+                getData();
+                break;
+            default:
         }
     }
 

@@ -1,9 +1,9 @@
 package com.ifhu.meiwei.ui.activity.home;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -16,11 +16,13 @@ import com.baba.GlideImageView;
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.bean.BaseEntity;
 import com.ifhu.meiwei.bean.ComformOrderBean;
+import com.ifhu.meiwei.bean.MyAddressBean;
 import com.ifhu.meiwei.bean.PostOrderForm;
 import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.OrdersService;
+import com.ifhu.meiwei.ui.activity.me.MyAddressListActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.utils.ToastHelper;
 import com.ifhu.meiwei.utils.UserLogic;
@@ -55,6 +57,14 @@ public class ConfirmOrderActivity extends BaseActivity {
     @BindView(R.id.et_note)
     EditText mEtNote;
 
+    final static int REQUESTADDRESSCODE = 88;
+    @BindView(R.id.tv_address)
+    TextView mTvAddress;
+    @BindView(R.id.tv_name)
+    TextView mTvName;
+    @BindView(R.id.tv_phone)
+    TextView mTvPhone;
+    MyAddressBean myAddressBean;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,7 +87,9 @@ public class ConfirmOrderActivity extends BaseActivity {
             @Override
             protected void onSuccees(BaseEntity<ComformOrderBean> t) throws Exception {
                 comformOrderBean = t.getData();
+                myAddressBean = comformOrderBean.getAddress();
                 handleGoodsShow();
+                handeAddressShow(myAddressBean);
             }
         });
     }
@@ -124,6 +136,12 @@ public class ConfirmOrderActivity extends BaseActivity {
         }
     }
 
+    public void handeAddressShow(MyAddressBean myAddressBean) {
+        mTvName.setText(myAddressBean.getTrue_name());
+        mTvAddress.setText(myAddressBean.getArea_info()+myAddressBean.getAddress());
+        mTvPhone.setText(myAddressBean.getMob_phone()+"");
+    }
+
     @OnClick(R.id.iv_back)
     public void onMRlReturnClicked() {
         finish();
@@ -147,7 +165,6 @@ public class ConfirmOrderActivity extends BaseActivity {
         postOrderForm.setPeisong_amount("5");
         postOrderForm.setShipping_time("立即送达");
         postOrderForm.setVoucher_id("");
-
         RetrofitApiManager.create(OrdersService.class).buyStep(postOrderForm)
                 .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<Object>(true) {
             @Override
@@ -161,5 +178,21 @@ public class ConfirmOrderActivity extends BaseActivity {
             }
         });
 
+    }
+
+    @OnClick(R.id.rl_address)
+    public void onMRlAddressClicked() {
+        startActivityForResult(new Intent(ConfirmOrderActivity.this, MyAddressListActivity.class).putExtra(MyAddressListActivity.IsFromOrder,true), REQUESTADDRESSCODE);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == RESULT_OK){
+            if (requestCode == REQUESTADDRESSCODE) {
+                myAddressBean = (MyAddressBean) data.getSerializableExtra(MyAddressListActivity.ADDRESS);
+                handeAddressShow(myAddressBean);
+            }
+        }
     }
 }

@@ -64,21 +64,22 @@ public class OrderAdapter extends BaseAdapter {
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         ViewHolder viewHolder;
         if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.item_order, null);  //加载视图
+            convertView = layoutInflater.inflate(R.layout.item_order, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.ivPhoto.load(orderBeanList.get(position).getStore_avatar());//商店头像
-        viewHolder.tvStoreName.setText(orderBeanList.get(position).getStore_name());//商店名称
-        switch (orderBeanList.get(position).getOrder_state()) {                     //订单状态
+        viewHolder.ivPhoto.load(orderBeanList.get(position).getStore_avatar());
+        viewHolder.tvStoreName.setText(orderBeanList.get(position).getStore_name());
+
+        switch (orderBeanList.get(position).getOrder_state()) {
             case 1://"订单已取消";
                 viewHolder.tvStatus.setText("订单已取消");
                 viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.hint_text_color));
                 break;
             case 2://"待支付";
-                viewHolder.tvStatus.setText("未支付");
+                viewHolder.tvStatus.setText("待支付");
                 viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.main_color));
                 break;
             case 3://"等待商家接单";
@@ -90,7 +91,7 @@ public class OrderAdapter extends BaseAdapter {
                 viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.orange));
                 break;
             case 5://"骑手正赶往商家";
-                viewHolder.tvStatus.setText("已发货");
+                viewHolder.tvStatus.setText("等待骑手接单");
                 viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.main_color));
                 break;
             case 6://"骑手正在送货";
@@ -98,7 +99,7 @@ public class OrderAdapter extends BaseAdapter {
                 viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.main_color));
                 break;
             case 7://"订单已完成";
-                viewHolder.tvStatus.setText("已收货");
+                viewHolder.tvStatus.setText("订单已完成");
                 viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.hint_text_color));
                 break;
             case 8://:退款中
@@ -112,8 +113,13 @@ public class OrderAdapter extends BaseAdapter {
             default:
                 break;
         }
-        viewHolder.tvProductName.setText(orderBeanList.get(position).getGoods_list().get(0).getGoods_name());//商品名称
-        viewHolder.tvMoney.setText(" ¥ " + orderBeanList.get(position).getTotal_amount() + "");//总价格
+        if (orderBeanList.get(position).getGoods_list().size()>1){
+            viewHolder.tvProductName.setText(orderBeanList.get(position).getGoods_list().get(0).getGoods_name()+" 等"+ orderBeanList.get(position).getGoods_list().size() + "件商品");
+        }else {
+            viewHolder.tvProductName.setText(orderBeanList.get(position).getGoods_list().get(0).getGoods_name());
+        }
+
+        viewHolder.tvMoney.setText(" ¥ " + orderBeanList.get(position).getTotal_amount() + "");
 
         if (onClickItem != null) {
             viewHolder.rlAnnouncement.setOnClickListener(v -> onClickItem.deleteOrder(position));

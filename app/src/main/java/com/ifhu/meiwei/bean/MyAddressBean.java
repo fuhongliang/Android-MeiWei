@@ -1,6 +1,8 @@
 package com.ifhu.meiwei.bean;
 
-public class MyAddressBean {
+import java.io.Serializable;
+
+public class MyAddressBean implements Serializable {
 
     /**
      * address_id : 1

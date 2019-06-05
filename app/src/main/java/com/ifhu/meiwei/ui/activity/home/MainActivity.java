@@ -39,6 +39,7 @@ import java.util.List;
 
 import static com.ifhu.meiwei.utils.Constants.LOCATION_DATAUPDATA;
 import static com.ifhu.meiwei.utils.Constants.LOGOUT;
+import static com.ifhu.meiwei.utils.Constants.ORDER_DATAUPDATA;
 import static com.ifhu.meiwei.utils.Constants.RELOCATION;
 
 /**
@@ -65,6 +66,7 @@ public class MainActivity extends BaseActivity {
         } else if (i == R.id.navigation_orders) {
             item.setIcon(R.drawable.bottom_ic_ordered);
             mPager.setCurrentItem(1);
+            EventBus.getDefault().post(new MessageEvent(ORDER_DATAUPDATA));
             return true;
         } else if (i == R.id.navigation_me) {
             item.setIcon(R.drawable.bottom_ic_med);

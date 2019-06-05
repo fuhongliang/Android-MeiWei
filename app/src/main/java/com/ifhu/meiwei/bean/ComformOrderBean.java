@@ -19,7 +19,7 @@ public class ComformOrderBean {
      * total_amount : 0
      */
 
-    private AddressBean address;
+    private MyAddressBean address;
     private StoreDetailBean store_detail;
     private int peisong_amount;
     private int manjian_amount;
@@ -28,11 +28,11 @@ public class ComformOrderBean {
     private List<GoodsDetailBean> goods_detail;
     private List<DaijinquanListBean> daijinquan_list;
 
-    public AddressBean getAddress() {
+    public MyAddressBean getAddress() {
         return address;
     }
 
-    public void setAddress(AddressBean address) {
+    public void setAddress(MyAddressBean address) {
         this.address = address;
     }
 
@@ -90,62 +90,6 @@ public class ComformOrderBean {
 
     public void setDaijinquan_list(List<DaijinquanListBean> daijinquan_list) {
         this.daijinquan_list = daijinquan_list;
-    }
-
-    public static class AddressBean {
-        /**
-         * true_name : 11
-         * mob_phone : 11
-         * area_info : 四川省自贡市
-         * address : 湍河街道办
-         * address_id : 1
-         */
-
-        private String true_name;
-        private String mob_phone;
-        private String area_info;
-        private String address;
-        private int address_id;
-
-        public String getTrue_name() {
-            return true_name;
-        }
-
-        public void setTrue_name(String true_name) {
-            this.true_name = true_name;
-        }
-
-        public String getMob_phone() {
-            return mob_phone;
-        }
-
-        public void setMob_phone(String mob_phone) {
-            this.mob_phone = mob_phone;
-        }
-
-        public String getArea_info() {
-            return area_info;
-        }
-
-        public void setArea_info(String area_info) {
-            this.area_info = area_info;
-        }
-
-        public String getAddress() {
-            return address;
-        }
-
-        public void setAddress(String address) {
-            this.address = address;
-        }
-
-        public int getAddress_id() {
-            return address_id;
-        }
-
-        public void setAddress_id(int address_id) {
-            this.address_id = address_id;
-        }
     }
 
     public static class StoreDetailBean {

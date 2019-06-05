@@ -33,5 +33,7 @@ public class Constants {
      */
     public static final String RELOCATION = "RELOCATION";
 
+    public static final String ORDER_DATAUPDATA = "ORDER_DATAUPDATA";
+
 
 }

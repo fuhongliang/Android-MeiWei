@@ -1,7 +1,9 @@
 package com.ifhu.meiwei.ui.activity.me;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -48,6 +50,9 @@ public class MyAddressListActivity extends BaseActivity {
     @BindView(R.id.tv_add_address)
     TextView tvAddAddress;
 
+    public final static String ADDRESS = "ADDRESS";
+    public final static String IsFromOrder = "IsFromOrder";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +64,12 @@ public class MyAddressListActivity extends BaseActivity {
         myAddressAdapter = new MyAddressAdapter(myAddressBeanList, this, true);
         lvAddress.setAdapter(myAddressAdapter);
         myAddressAdapter.setOnClickItem(position -> goToActivity(EditaddressActivity.class, myAddressBeanList.get(position).getAddress_id()));
-
+        lvAddress.setOnItemClickListener((parent, view, position, id) -> {
+            Intent intent = new Intent();
+            intent.putExtra(ADDRESS,myAddressBeanList.get(position));
+            setResult(RESULT_OK,intent);
+            finish();
+        });
     }
 
     @Override
@@ -103,7 +113,13 @@ public class MyAddressListActivity extends BaseActivity {
 
     @OnClick(R.id.rl_return)
     public void onRlReturnClicked() {
-        finish();
+        if (getIntent().getBooleanExtra(IsFromOrder,false)){
+            Intent intent = new Intent();
+            setResult(RESULT_CANCELED,intent);
+            finish();
+        }else {
+            finish();
+        }
     }
 
 
