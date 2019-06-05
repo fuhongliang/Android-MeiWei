@@ -4,10 +4,12 @@ import com.ifhu.meiwei.bean.BaseEntity;
 import com.ifhu.meiwei.bean.ComformOrderBean;
 import com.ifhu.meiwei.bean.OrderBean;
 import com.ifhu.meiwei.bean.OrderinfoBean;
+import com.ifhu.meiwei.bean.PostOrderForm;
 
 import java.util.List;
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -30,7 +32,9 @@ public interface OrdersService {
 
     @FormUrlEncoded
     @POST("go_settlement")
-    public Observable<BaseEntity<ComformOrderBean>> goSettlement(@Field("member_id") String member_id, @Field("order_id") String order_id);
+    public Observable<BaseEntity<ComformOrderBean>> goSettlement(@Field("member_id") String member_id, @Field("store_id") String store_id);
 
+    @POST("buy_step")
+    public Observable<BaseEntity<Object>> buyStep(@Body PostOrderForm postOrderForm);
 
 }

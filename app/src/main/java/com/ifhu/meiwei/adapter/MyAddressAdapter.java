@@ -23,7 +23,7 @@ public class MyAddressAdapter extends BaseAdapter {
     OnClickItem onClickItem;
     Context mContext;
 
-    boolean needShowEditIcon = true;
+    boolean needShowEditIcon = false;
 
     public MyAddressAdapter(List<MyAddressBean> myAddressBeanList, Context mContext, boolean needShowEditIcon) {
         this.myAddressBeanList = myAddressBeanList;

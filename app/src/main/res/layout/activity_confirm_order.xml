@@ -242,17 +242,27 @@
                     android:textSize="17sp"
                     android:textStyle="bold" />
 
-                <TextView style="@style/line_fff" />
+                <LinearLayout
+                    android:id="@+id/ll_goods"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </LinearLayout>
+
+
                 <!--查看更多-->
                 <LinearLayout
+                    android:id="@+id/ll_more"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/bg_button_gray"
                     android:gravity="center">
 
                     <TextView
+                        android:id="@+id/tv_all_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:gravity="center"
@@ -424,6 +434,8 @@
                 android:minHeight="100dp"
                 android:orientation="vertical"
                 android:paddingLeft="15dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:paddingTop="15dp">
 
                 <TextView
@@ -434,11 +446,13 @@
                     android:textSize="17sp" />
 
                 <EditText
+                    android:id="@+id/et_note"
                     style="@style/base_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:hint="请输入备注信息"
+                    android:inputType="none"
                     android:textSize="15sp" />
             </LinearLayout>
         </LinearLayout>
@@ -473,6 +487,7 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/tv_post_order"
             android:layout_width="160dp"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
@@ -482,6 +497,5 @@
             android:textColor="@color/text_white"
             android:textSize="18sp"
             android:textStyle="bold" />
-
     </RelativeLayout>
 </RelativeLayout>

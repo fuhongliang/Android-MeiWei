@@ -53,7 +53,7 @@ public class AddaddressActivity extends BaseActivity {
 
     int address_id;
     int sex = 1;
-    int is_default;
+    int is_default = 1;
 
 
     @Override
