@@ -34,5 +34,9 @@ public interface HomeService {
     @POST("store_com_info")
     public Observable<BaseEntity<EvaluationBean>> storeComInfo(@Field("order_id") String order_id, @Field("member_id") String member_id);
 
+    @FormUrlEncoded
+    @POST("add_cart")
+    public Observable<BaseEntity<MerchantBean.CartBean>> addCart(@Field("store_id") String store_id, @Field("member_id") String member_id, @Field("stc_id") String stc_id, @Field("goods_id") int goods_id, @Field("nums") int nums);
+
 
 }

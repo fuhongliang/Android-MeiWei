@@ -273,8 +273,17 @@ public class MerchantBean {
             private String goods_marketprice;
             private String goods_desc;
             private String img_name;
+            private String goods_detail_url;
             private int goods_salenum;
             private int zan;
+
+            public String getGoods_detail_url() {
+                return goods_detail_url;
+            }
+
+            public void setGoods_detail_url(String goods_detail_url) {
+                this.goods_detail_url = goods_detail_url;
+            }
 
             public int getGoods_id() {
                 return goods_id;

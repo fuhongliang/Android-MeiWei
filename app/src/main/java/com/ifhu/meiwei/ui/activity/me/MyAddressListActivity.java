@@ -56,7 +56,7 @@ public class MyAddressListActivity extends BaseActivity {
         tvReturn.setVisibility(View.INVISIBLE);
         tvTitle.setText("我的收获地址");
         tvText.setText("新增地址");
-        myAddressAdapter = new MyAddressAdapter(myAddressBeanList, this, false);
+        myAddressAdapter = new MyAddressAdapter(myAddressBeanList, this, true);
         lvAddress.setAdapter(myAddressAdapter);
         myAddressAdapter.setOnClickItem(position -> goToActivity(EditaddressActivity.class, myAddressBeanList.get(position).getAddress_id()));
 

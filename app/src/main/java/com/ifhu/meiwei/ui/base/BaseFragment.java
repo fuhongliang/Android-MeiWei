@@ -182,7 +182,7 @@ public abstract class BaseFragment extends Fragment {
      * 判断是否短时间内重复点击
      */
     private long lastClick = 0;
-    public int twiceClickTime = 2500;
+    public int twiceClickTime = 1500;
 
     public boolean isNotDuplication() {
         if (System.currentTimeMillis() - lastClick <= twiceClickTime) {

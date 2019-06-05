@@ -197,7 +197,7 @@ public class BaseActivity  extends AppCompatActivity {
      */
 
     private long lastClick = 0;
-    public int twiceClickTime = 2500;
+    public int twiceClickTime = 1500;
 
     public boolean isNotDuplication() {
         if (System.currentTimeMillis() - lastClick <= twiceClickTime) {
