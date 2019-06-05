@@ -55,11 +55,13 @@
         <activity android:name=".ui.activity.me.MyShopJoinActivity" />
         <activity android:name=".ui.activity.me.MyVoucherActivity" />
         <activity android:name=".ui.base.WebViewActivity"/>
+        <activity android:name=".ui.activity.home.ConfirmOrderActivity"/>
         <service android:name="com.amap.api.location.APSService" />
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="61e1cc9209040a90b23dbf3bd91f0980"></meta-data>
+
     </application>
 
 </manifest>

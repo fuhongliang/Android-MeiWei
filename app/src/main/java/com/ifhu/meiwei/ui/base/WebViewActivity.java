@@ -176,6 +176,7 @@ public class WebViewActivity extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+
                 mWvView.setVisibility(View.VISIBLE);
             }
 
@@ -271,7 +272,7 @@ public class WebViewActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    @OnClick(R.id.iv_back)
+    @OnClick(R.id.rl_return)
     public void onViewClicked() {
         finish();
     }

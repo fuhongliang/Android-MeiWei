@@ -109,7 +109,7 @@ public class ShopHomeActivity extends BaseActivity {
                 MenuListFragment menuListFragment = (MenuListFragment) adapter.getPage(0);
                 XWebViewFragment reviewFragment = (XWebViewFragment) adapter.getPage(1);
                 XWebViewFragment merchantInfoFragment = (XWebViewFragment) adapter.getPage(2);
-                menuListFragment.setGoodsListBeans(t.getData().getGoods_list());
+                menuListFragment.setData(getDATA(),t.getData().getCart(),t.getData().getGoods_list());
                 reviewFragment.setUrl(t.getData().getComment_url());
                 merchantInfoFragment.setUrl(t.getData().getStore_info_url());
             }

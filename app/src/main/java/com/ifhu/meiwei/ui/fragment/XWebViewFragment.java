@@ -32,12 +32,10 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
+ * 评价跟商家介绍
  * @author fuhongliang
  */
 public class XWebViewFragment extends BaseFragment {
-
-    boolean loadError = false;
-    public static final int PROGRESS_MAX_VALUE = 100;
     @BindView(R.id.progress_web)
     ProgressBar mProgressWeb;
     @BindView(R.id.wv_view)
@@ -60,7 +58,6 @@ public class XWebViewFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_web_view, container, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
@@ -83,34 +80,20 @@ public class XWebViewFragment extends BaseFragment {
                     Intent intent = Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_EMAIL);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                }else if (url.contains("license")){
-                    WebViewActivity.start(getActivity(),url,"营业执照");
-                } else {
+                }else {
                     view.loadUrl(url);
                 }
                 return true;
             }
-
-//            @Override
-//            public void doUpdateVisitedHistory(com.tencent.smtt.sdk.WebView view, String s, boolean b) {
-//                if (s.contains("license")){
-//                    if (mWvView.canGoBack()) {
-//                        mWvView.goBack();
-//                    }
-//                    WebViewActivity.start(getActivity(),s,"营业执照");
-//                } else {
-//                    super.doUpdateVisitedHistory(view, s, b);
-//                }
-//            }
         });
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(true);
         }
-        mWvView.addJavascriptInterface(new JsJavaBridge(getActivity(), mWvView), "$App");
-        loadURL(false,url);
     }
 
     public void loadURL(boolean needToken,String url){
+        mWvView.addJavascriptInterface(new JsJavaBridge(getActivity(), mWvView), "$App");
         if (needToken) {
             HashMap<String, String> headers = new HashMap<String, String>();
             String dataToken = UserLogic.getUser().getToken();

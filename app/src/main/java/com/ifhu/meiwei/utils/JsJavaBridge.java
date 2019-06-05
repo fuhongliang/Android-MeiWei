@@ -5,6 +5,7 @@ import android.webkit.JavascriptInterface;
 
 import com.ifhu.meiwei.ui.base.WebViewActivity;
 import com.ifhu.meiwei.ui.view.X5WebView;
+import com.orhanobut.logger.Logger;
 
 /**
  * Created by KevinFu on 2019-06-04.
@@ -26,7 +27,15 @@ public class JsJavaBridge {
 
     @JavascriptInterface
     public void showLicensePage(String url) {
-        ToastHelper.makeText(url).show();
-//      WebViewActivity.start(getActivity(),url,"营业执照");
+        WebViewActivity.start(activity, url, "营业执照");
+    }
+
+    /**
+     * 选择城市
+     * @param city 返回的城市
+     */
+    @JavascriptInterface
+    public void chooseCity(String city) {
+        Logger.d(city);
     }
 }

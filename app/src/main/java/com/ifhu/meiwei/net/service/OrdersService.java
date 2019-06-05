@@ -1,6 +1,7 @@
 package com.ifhu.meiwei.net.service;
 
 import com.ifhu.meiwei.bean.BaseEntity;
+import com.ifhu.meiwei.bean.ComformOrderBean;
 import com.ifhu.meiwei.bean.OrderBean;
 import com.ifhu.meiwei.bean.OrderinfoBean;
 
@@ -26,6 +27,10 @@ public interface OrdersService {
     @FormUrlEncoded
     @POST("order_info")
     public Observable<BaseEntity<OrderinfoBean>> orderInfo(@Field("order_id") int order_id);
+
+    @FormUrlEncoded
+    @POST("go_settlement")
+    public Observable<BaseEntity<ComformOrderBean>> goSettlement(@Field("member_id") String member_id, @Field("order_id") String order_id);
 
 
 }

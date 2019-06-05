@@ -7,30 +7,32 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
-import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.chad.library.adapter.base.util.MultiTypeDelegate;
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.adapter.BaseHeaderAdapter;
 import com.ifhu.meiwei.adapter.CategoryAdapter;
+import com.ifhu.meiwei.bean.BaseEntity;
 import com.ifhu.meiwei.bean.MerchantBean;
 import com.ifhu.meiwei.bean.PinnedHeaderEntity;
-import com.ifhu.meiwei.ui.activity.home.MainActivity;
+import com.ifhu.meiwei.net.BaseObserver;
+import com.ifhu.meiwei.net.RetrofitApiManager;
+import com.ifhu.meiwei.net.SchedulerUtils;
+import com.ifhu.meiwei.net.service.HomeService;
+import com.ifhu.meiwei.ui.activity.home.ConfirmOrderActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
 import com.ifhu.meiwei.ui.base.WebViewActivity;
-import com.orhanobut.logger.Logger;
+import com.ifhu.meiwei.utils.UserLogic;
 import com.oushangfeng.pinnedsectionitemdecoration.PinnedHeaderItemDecoration;
 
 import java.util.ArrayList;
@@ -39,12 +41,15 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 /**
  * @author fuhongliang
  */
 public class MenuListFragment extends BaseFragment {
 
     List<MerchantBean.GoodsListBean> mGoodsListBeans = new ArrayList<>();
+    MerchantBean.CartBean mCartBean = new MerchantBean.CartBean();
+
     @BindView(R.id.lv_category)
     ListView mLvCategory;
     @BindView(R.id.lv_product)
@@ -53,9 +58,27 @@ public class MenuListFragment extends BaseFragment {
 
     boolean isCurCategoryGoodEmpty = false;
     int findFirstVisibleItemPosition = 0;
+    @BindView(R.id.iv_shop_cat)
+    ImageView mIvShopCat;
+    @BindView(R.id.tv_total_price)
+    TextView mTvTotalPrice;
+    @BindView(R.id.tv_shipping_fee)
+    TextView mTvShippingFee;
+    @BindView(R.id.rl_price)
+    RelativeLayout mRlPrice;
+    @BindView(R.id.tv_at_less)
+    TextView mTvAtLess;
+
+    String mStoreId;
+    @BindView(R.id.tv_car_amount)
+    TextView mTvCarAmount;
+    @BindView(R.id.tv_tips)
+    TextView mTvTips;
 
     private BaseHeaderAdapter<PinnedHeaderEntity<MerchantBean.GoodsListBean.GoodsBean>> mAdapter;
+
     CategoryAdapter mCategoryAdapter;
+
     public static MenuListFragment newInstance() {
         return new MenuListFragment();
     }
@@ -64,8 +87,10 @@ public class MenuListFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    public void setGoodsListBeans(List<MerchantBean.GoodsListBean> goodsListBeans) {
+    public void setData(String storeId, MerchantBean.CartBean cartBean, List<MerchantBean.GoodsListBean> goodsListBeans) {
         mGoodsListBeans = goodsListBeans;
+        mCartBean = cartBean;
+        mStoreId = storeId;
         initData();
     }
 
@@ -76,10 +101,12 @@ public class MenuListFragment extends BaseFragment {
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
+
     List<PinnedHeaderEntity<MerchantBean.GoodsListBean.GoodsBean>> data = new ArrayList<>();
 
-    public void initData(){
-        for (MerchantBean.GoodsListBean goodsListBeans:mGoodsListBeans){
+    public void initData() {
+        handleCarBean();
+        for (MerchantBean.GoodsListBean goodsListBeans : mGoodsListBeans) {
             data.add(new PinnedHeaderEntity<>(null, BaseHeaderAdapter.TYPE_HEADER, goodsListBeans.getStc_name()));
             for (MerchantBean.GoodsListBean.GoodsBean goodsBean : goodsListBeans.getGoods()) {
                 data.add(new PinnedHeaderEntity<>(goodsBean, BaseHeaderAdapter.TYPE_DATA, goodsListBeans.getStc_name()));
@@ -89,19 +116,37 @@ public class MenuListFragment extends BaseFragment {
         mCategoryAdapter.setmDataList(mGoodsListBeans);
     }
 
+    public void handleCarBean() {
+        if (mCartBean.getNums() > 0) {
+            mIvShopCat.setBackgroundResource(R.drawable.meal_bnt_gouwuche1);
+            mTvCarAmount.setText(mCartBean.getNums()+"");
+            mRlPrice.setVisibility(View.VISIBLE);
+            mTvTotalPrice.setText("￥" + mCartBean.getAmount());
+            mTvTips.setVisibility(View.GONE);
+            mTvShippingFee.setText("另需配送费 ￥" + "5");
+            mTvAtLess.setSelected(true);
+            mTvAtLess.setText("选好了");
+        }else {
+            mIvShopCat.setBackgroundResource(R.drawable.meal_bnt_gouwuche);
+            mTvTips.setVisibility(View.VISIBLE);
+            mRlPrice.setVisibility(View.INVISIBLE);
+            mTvAtLess.setSelected(false);
+        }
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initRecyclerView();
         mCategoryAdapter = new CategoryAdapter(mGoodsListBeans, getActivity(), position -> {
             int totalItem = 0;
-            for (int i = 0; i<position;i++){
-                totalItem = totalItem + mGoodsListBeans.get(i).getGoods().size()+1;
+            for (int i = 0; i < position; i++) {
+                totalItem = totalItem + mGoodsListBeans.get(i).getGoods().size() + 1;
             }
-            if (mGoodsListBeans.get(position).getGoods().size() == 0){
-                isCurCategoryGoodEmpty= true;
-            }else {
-                isCurCategoryGoodEmpty= false;
+            if (mGoodsListBeans.get(position).getGoods().size() == 0) {
+                isCurCategoryGoodEmpty = true;
+            } else {
+                isCurCategoryGoodEmpty = false;
             }
 
             LinearSmoothScroller linearSmoothScroller = new TopSmoothScroller(getActivity());
@@ -110,9 +155,32 @@ public class MenuListFragment extends BaseFragment {
             mCategoryAdapter.notifyDataSetChanged();
         });
         mLvCategory.setAdapter(mCategoryAdapter);
+        mTvAtLess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToActivity(ConfirmOrderActivity.class,mStoreId);
+            }
+        });
     }
 
-    public void initRecyclerView(){
+    public void addToShopingCar(int goods_id, int amount) {
+        setLoadingMessageIndicator(true);
+        RetrofitApiManager.create(HomeService.class).addCart(mStoreId, UserLogic.getUserId(), mStoreId, goods_id, amount)
+                .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<MerchantBean.CartBean>(true) {
+            @Override
+            protected void onApiComplete() {
+                setLoadingMessageIndicator(false);
+            }
+
+            @Override
+            protected void onSuccees(BaseEntity<MerchantBean.CartBean> t) throws Exception {
+                mCartBean = t.getData();
+                handleCarBean();
+            }
+        });
+    }
+
+    public void initRecyclerView() {
         mAdapter = new BaseHeaderAdapter<PinnedHeaderEntity<MerchantBean.GoodsListBean.GoodsBean>>(data) {
 
             @Override
@@ -130,6 +198,23 @@ public class MenuListFragment extends BaseFragment {
                     case BaseHeaderAdapter.TYPE_DATA:
                         holder.setText(R.id.tv_commodity_name, item.getData().getGoods_name() + "");
                         Glide.with(getActivity()).load(item.getData().getImg_name()).into((ImageView) holder.getView(R.id.iv_image));
+                        holder.getView(R.id.iv_delete).setVisibility(View.INVISIBLE);
+                        holder.getView(R.id.tv_amount).setVisibility(View.INVISIBLE);
+                        holder.getView(R.id.ll_goods_description).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                WebViewActivity.start(true, getActivity(), item.getData().getGoods_detail_url(), "商品详情");
+                            }
+                        });
+                        //暂时处理
+                        holder.getView(R.id.iv_add).setOnClickListener(v -> {
+                            addToShopingCar(item.getData().getGoods_id(), 1);
+                            holder.getView(R.id.iv_delete).setVisibility(View.VISIBLE);
+                            holder.getView(R.id.tv_amount).setVisibility(View.VISIBLE);
+                            ((TextView) holder.getView(R.id.tv_amount)).setText("1");
+                        });
+
+
                         break;
                     default:
                         break;
@@ -137,25 +222,23 @@ public class MenuListFragment extends BaseFragment {
             }
         };
 
-        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
-            @Override
-            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int i) {
-                switch (mAdapter.getItemViewType(i)) {
-                    case BaseHeaderAdapter.TYPE_DATA:
-                        MerchantBean.GoodsListBean.GoodsBean goodsBean = mAdapter.getData().get(i).getData();
-                        WebViewActivity.start(true,getActivity(),"http://47.111.27.189:88/users/#/p_detail/1/" + goodsBean.getGoods_id(),"商品详情");
-                        break;
-                    case BaseHeaderAdapter.TYPE_HEADER:
-                        break;
-                        default:
-                            break;
-                }
-            }
-        });
+//        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+//            @Override
+//            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int i) {
+//                switch (mAdapter.getItemViewType(i)) {
+//                    case BaseHeaderAdapter.TYPE_DATA:
+//                        break;
+//                    case BaseHeaderAdapter.TYPE_HEADER:
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
+//        });
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.addItemDecoration(new PinnedHeaderItemDecoration.Builder(BaseHeaderAdapter.TYPE_HEADER)
-                        .setDividerId(R.drawable.divider).enableDivider(false).create());
+                .setDividerId(R.drawable.divider).enableDivider(false).create());
         mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -168,43 +251,24 @@ public class MenuListFragment extends BaseFragment {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
-                //获取LayoutManager
-                //经过测试LinearLayoutManager和GridLayoutManager有以下的方法,这里只针对LinearLayoutManager
                 if (manager instanceof LinearLayoutManager) {
-                    //经测试第一个完整的可见的item位置，若为0则是最上方那个;在item超过屏幕高度的时候只有第一个item出现的时候为0 ，其他时候会是一个负的值
-                    //此方法常用作判断是否能下拉刷新，来解决滑动冲突
-//                    int findFirstCompletelyVisibleItemPosition = ((LinearLayoutManager) manager).findFirstCompletelyVisibleItemPosition();
-//                    //最后一个完整的可见的item位置
-//                    int findLastCompletelyVisibleItemPosition =  ((LinearLayoutManager) manager).findLastCompletelyVisibleItemPosition();
-//                    //第一个可见的位置
-                    findFirstVisibleItemPosition =  ((LinearLayoutManager) manager).findFirstVisibleItemPosition();
+                    findFirstVisibleItemPosition = ((LinearLayoutManager) manager).findFirstVisibleItemPosition();
                     handleGoodListScroll(findFirstVisibleItemPosition);
-                    //最后一个可见的位置
-//                    int findLastVisibleItemPosition =  ((LinearLayoutManager) manager).findLastVisibleItemPosition();
-
-                    //如果有滑动冲突--可以用以下方法解决(如果可见位置是position==0的话才能有下拉刷新否则禁掉)
-//                    mSwipeRefreshLayout.setEnabled(findFirstCompletelyVisibleItemPosition==0);
-//                    //在网上还看到一种解决滑动冲突的方法
-//                    int topPosition =
-//                            (recyclerView == null || recyclerView.getChildCount() == 0) ? 0 : recyclerView.getChildAt(0).getTop();
-//                    Log.e("touch", "onScroll:" + topPosition);
-//
-//                    mSwipeRefreshLayout.setEnabled(topPosition >= 0);
                 }
             }
         });
 
     }
 
-    public void handleGoodListScroll(int position){
-        if (!isCurCategoryGoodEmpty){
+    public void handleGoodListScroll(int position) {
+        if (!isCurCategoryGoodEmpty) {
             int mPosition = 0;
             int mTotalGoods = 0;
-            for (MerchantBean.GoodsListBean goodsListBean:mGoodsListBeans){
+            for (MerchantBean.GoodsListBean goodsListBean : mGoodsListBeans) {
                 mTotalGoods = mTotalGoods + goodsListBean.getGoods().size();
-                if (position > mTotalGoods){
+                if (position > mTotalGoods) {
                     mPosition = mPosition + 1;
-                }else {
+                } else {
                     mCategoryAdapter.setCurPosition(mPosition);
                 }
             }
