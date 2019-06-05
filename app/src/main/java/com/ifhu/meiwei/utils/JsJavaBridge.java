@@ -27,6 +27,6 @@ public class JsJavaBridge {
     @JavascriptInterface
     public void showLicensePage(String url) {
         ToastHelper.makeText(url).show();
-//        WebViewActivity.start(getActivity(),url,"营业执照");
+//      WebViewActivity.start(getActivity(),url,"营业执照");
     }
 }
