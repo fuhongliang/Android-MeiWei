@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <include
@@ -129,6 +129,7 @@
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
+                        android:clickable="true"
                         android:layout_marginRight="10dp"
                         android:background="@drawable/selected_satisfaction"
                         android:gravity="center">
@@ -228,15 +229,25 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp">
 
-                    <ImageView style="@style/big_star" />
+                    <ImageView
+                        android:id="@+id/iv_star1"
+                        style="@style/big_star" />
 
-                    <ImageView style="@style/big_star" />
+                    <ImageView
+                        android:id="@+id/iv_star2"
+                        style="@style/big_star" />
 
-                    <ImageView style="@style/big_star" />
+                    <ImageView
+                        android:id="@+id/iv_star3"
+                        style="@style/big_star" />
 
-                    <ImageView style="@style/big_star" />
+                    <ImageView
+                        android:id="@+id/iv_star4"
+                        style="@style/big_star" />
 
-                    <ImageView style="@style/big_star" />
+                    <ImageView
+                        android:id="@+id/iv_star5"
+                        style="@style/big_star" />
 
                 </LinearLayout>
                 <!--口味-->
@@ -255,15 +266,25 @@
                         android:textColor="@color/typed_text_color"
                         android:textSize="16sp" />
 
-                    <ImageView style="@style/small_star" />
+                    <ImageView
+                        android:id="@+id/iv_taste_star1"
+                        style="@style/small_star" />
 
-                    <ImageView style="@style/small_star" />
+                    <ImageView
+                        android:id="@+id/iv_taste_star2"
+                        style="@style/small_star" />
 
-                    <ImageView style="@style/small_star" />
+                    <ImageView
+                        android:id="@+id/iv_taste_star3"
+                        style="@style/small_star" />
 
-                    <ImageView style="@style/small_star" />
+                    <ImageView
+                        android:id="@+id/iv_taste_star4"
+                        style="@style/small_star" />
 
-                    <ImageView style="@style/small_star" />
+                    <ImageView
+                        android:id="@+id/iv_taste_star5"
+                        style="@style/small_star" />
 
                 </LinearLayout>
                 <!--包装-->
@@ -283,15 +304,25 @@
                         android:textColor="@color/typed_text_color"
                         android:textSize="16sp" />
 
-                    <ImageView style="@style/small_star" />
+                    <ImageView
+                        android:id="@+id/iv_package_star1"
+                        style="@style/small_star" />
 
-                    <ImageView style="@style/small_star" />
+                    <ImageView
+                        android:id="@+id/iv_package_star2"
+                        style="@style/small_star" />
 
-                    <ImageView style="@style/small_star" />
+                    <ImageView
+                        android:id="@+id/iv_package_star3"
+                        style="@style/small_star" />
 
-                    <ImageView style="@style/small_star" />
+                    <ImageView
+                        android:id="@+id/iv_package_star4"
+                        style="@style/small_star" />
 
-                    <ImageView style="@style/small_star" />
+                    <ImageView
+                        android:id="@+id/iv_package_star5"
+                        style="@style/small_star" />
 
                 </LinearLayout>
 

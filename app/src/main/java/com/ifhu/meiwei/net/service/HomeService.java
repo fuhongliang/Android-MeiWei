@@ -31,8 +31,8 @@ public interface HomeService {
     public Observable<BaseEntity<Object>> getVoucher(@Field("voucher_t_id") int voucher_t_id, @Field("member_id") int member_id);
 
     @FormUrlEncoded
-    @POST("store_com")
-    public Observable<BaseEntity<EvaluationBean>> storeCom(@Field("order_id") String order_id, @Field("member_id") String member_id);
+    @POST("store_com_info")
+    public Observable<BaseEntity<EvaluationBean>> storeComInfo(@Field("order_id") String order_id, @Field("member_id") String member_id);
 
     @FormUrlEncoded
     @POST("add_cart")
