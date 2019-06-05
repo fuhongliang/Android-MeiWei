@@ -112,7 +112,7 @@ public class MyAddressAdapter extends BaseAdapter {
         viewHolder.tvAddress.setText(myAddressBeanList.get(position).getArea_info());
         viewHolder.tvHouseNumber.setText(myAddressBeanList.get(position).getAddress());
         viewHolder.tvName.setText(myAddressBeanList.get(position).getTrue_name());
-        viewHolder.tvGender.setText(myAddressBeanList.get(position).getSex() == 1? "男士" : "女士");
+        viewHolder.tvGender.setText(myAddressBeanList.get(position).getSex() == 1? "先生" : "女士");
         viewHolder.tvPhone.setText(myAddressBeanList.get(position).getMob_phone());
         viewHolder.edit.setVisibility(needShowEditIcon? View.VISIBLE:View.INVISIBLE);
 
