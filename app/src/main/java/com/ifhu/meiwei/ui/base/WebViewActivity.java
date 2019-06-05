@@ -51,6 +51,7 @@ public class WebViewActivity extends BaseActivity {
     public static final String TITLE = "title";
     public static final String HTML_DATA = "html_data";
     public static final String ISNEEDTOKEN = "need_token";
+    public static final String ISNEEDShare= "ISNEEDShare";
     public static final String ISNEEDPermission = "ISNEEDPermission";
     @BindView(R.id.ll_web_content)
     LinearLayout mLlWebContent;
@@ -64,6 +65,11 @@ public class WebViewActivity extends BaseActivity {
     RelativeLayout mRlReturn;
     @BindView(R.id.tv_text)
     TextView mTvText;
+    @BindView(R.id.iv_share_it)
+    ImageView mIvShareIt;
+    @BindView(R.id.iv_collection)
+    ImageView mIvCollection;
+    boolean isNeedShare = false;
 
     public static void startLoadAssetsHtml(Context context, String fileName, String title) {
         Intent intent = new Intent(context, WebViewActivity.class);
@@ -84,6 +90,13 @@ public class WebViewActivity extends BaseActivity {
         Intent intent = new Intent(context, WebViewActivity.class);
         intent.putExtra(URL, url);
         intent.putExtra(TITLE, title);
+        context.startActivity(intent);
+    }
+    public static void start(boolean isNeedShare,Context context, String url, String title) {
+        Intent intent = new Intent(context, WebViewActivity.class);
+        intent.putExtra(URL, url);
+        intent.putExtra(TITLE, title);
+        intent.putExtra(ISNEEDShare, isNeedShare);
         context.startActivity(intent);
     }
 
@@ -116,8 +129,15 @@ public class WebViewActivity extends BaseActivity {
         showWebTitle();
         initWebView();
         loadData();
+        if (getIntent().getBooleanExtra(ISNEEDShare,false)){
+            initShareView();
+        }
     }
 
+    public void initShareView(){
+        mIvShareIt.setVisibility(View.VISIBLE);
+        mIvCollection.setVisibility(View.VISIBLE);
+    }
     public void requestPermission() {
         AndPermission.with(WebViewActivity.this)
                 .permission(Permission.READ_EXTERNAL_STORAGE, Permission.CAMERA)
@@ -156,6 +176,7 @@ public class WebViewActivity extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+                mWvView.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -183,12 +204,15 @@ public class WebViewActivity extends BaseActivity {
                 } else {
                     mProgressWeb.setVisibility(View.VISIBLE);
                     mProgressWeb.setProgress(newProgress);
+                    mWvView.setVisibility(View.INVISIBLE);
                 }
             }
         });
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(true);
         }
+
     }
 
     public void showWebTitle() {

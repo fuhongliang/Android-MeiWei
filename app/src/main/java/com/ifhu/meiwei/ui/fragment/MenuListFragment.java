@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.chad.library.adapter.base.util.MultiTypeDelegate;
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.adapter.BaseHeaderAdapter;
@@ -28,6 +29,7 @@ import com.ifhu.meiwei.bean.MerchantBean;
 import com.ifhu.meiwei.bean.PinnedHeaderEntity;
 import com.ifhu.meiwei.ui.activity.home.MainActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
+import com.ifhu.meiwei.ui.base.WebViewActivity;
 import com.orhanobut.logger.Logger;
 import com.oushangfeng.pinnedsectionitemdecoration.PinnedHeaderItemDecoration;
 
@@ -119,7 +121,6 @@ public class MenuListFragment extends BaseFragment {
                 addItemType(BaseHeaderAdapter.TYPE_DATA, R.layout.item_product_name);
             }
 
-
             @Override
             protected void convert(BaseViewHolder holder, final PinnedHeaderEntity<MerchantBean.GoodsListBean.GoodsBean> item) {
                 switch (holder.getItemViewType()) {
@@ -135,6 +136,22 @@ public class MenuListFragment extends BaseFragment {
                 }
             }
         };
+
+        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int i) {
+                switch (mAdapter.getItemViewType(i)) {
+                    case BaseHeaderAdapter.TYPE_DATA:
+                        MerchantBean.GoodsListBean.GoodsBean goodsBean = mAdapter.getData().get(i).getData();
+                        WebViewActivity.start(true,getActivity(),"http://47.111.27.189:88/users/#/p_detail/1/" + goodsBean.getGoods_id(),"商品详情");
+                        break;
+                    case BaseHeaderAdapter.TYPE_HEADER:
+                        break;
+                        default:
+                            break;
+                }
+            }
+        });
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.addItemDecoration(new PinnedHeaderItemDecoration.Builder(BaseHeaderAdapter.TYPE_HEADER)
@@ -176,6 +193,7 @@ public class MenuListFragment extends BaseFragment {
                 }
             }
         });
+
     }
 
     public void handleGoodListScroll(int position){

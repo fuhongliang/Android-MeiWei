@@ -13,14 +13,19 @@ import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.ui.base.BaseFragment;
+import com.ifhu.meiwei.ui.base.WebViewActivity;
+import com.ifhu.meiwei.ui.view.X5WebView;
+import com.ifhu.meiwei.utils.JsJavaBridge;
 import com.ifhu.meiwei.utils.UserLogic;
+import com.tencent.smtt.sdk.WebViewClient;
+
 import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,7 +41,7 @@ public class XWebViewFragment extends BaseFragment {
     @BindView(R.id.progress_web)
     ProgressBar mProgressWeb;
     @BindView(R.id.wv_view)
-    WebView mWvView;
+    X5WebView mWvView;
     Unbinder unbinder;
     public String url = "";
     public static XWebViewFragment newInstance() {
@@ -69,58 +74,39 @@ public class XWebViewFragment extends BaseFragment {
     @SuppressLint("SetJavaScriptEnabled")
     public void initWebView() {
         mWvView.setWebViewClient(new WebViewClient() {
+            /**
+             * 防止加载网页时调起系统浏览器
+             */
             @Override
-            public boolean shouldOverrideUrlLoading(android.webkit.WebView view, String url) {
+            public boolean shouldOverrideUrlLoading(com.tencent.smtt.sdk.WebView view, String url) {
                 if (url.startsWith("mailto:")) {
                     Intent intent = Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_EMAIL);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
+                }else if (url.contains("license")){
+                    WebViewActivity.start(getActivity(),url,"营业执照");
                 } else {
                     view.loadUrl(url);
                 }
                 return true;
             }
 
-            @Override
-            public void onPageFinished(android.webkit.WebView view, String url) {
-                super.onPageFinished(view, url);
-            }
-
-            @Override
-            public void onReceivedError(android.webkit.WebView view, WebResourceRequest request, WebResourceError error) {
-                super.onReceivedError(view, request, error);
-                loadError = true;
-            }
+//            @Override
+//            public void doUpdateVisitedHistory(com.tencent.smtt.sdk.WebView view, String s, boolean b) {
+//                if (s.contains("license")){
+//                    if (mWvView.canGoBack()) {
+//                        mWvView.goBack();
+//                    }
+//                    WebViewActivity.start(getActivity(),s,"营业执照");
+//                } else {
+//                    super.doUpdateVisitedHistory(view, s, b);
+//                }
+//            }
         });
-        WebSettings setting = mWvView.getSettings();
-        setting.setJavaScriptEnabled(true);
-        setting.setDomStorageEnabled(true);
-        setting.setAllowFileAccess(true);
-        setting.setAppCacheEnabled(true);
-        setting.setSupportMultipleWindows(false);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mWvView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-        }
-
-        mWvView.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public void onProgressChanged(android.webkit.WebView view, int newProgress) {
-                if (mProgressWeb != null){
-                    if (newProgress == PROGRESS_MAX_VALUE) {
-                        mProgressWeb.setVisibility(View.GONE);
-                    } else {
-                        mProgressWeb.setVisibility(View.VISIBLE);
-                        mProgressWeb.setProgress(newProgress);
-                    }
-                }
-            }
-        });
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(true);
         }
-
+        mWvView.addJavascriptInterface(new JsJavaBridge(getActivity(), mWvView), "$App");
         loadURL(false,url);
     }
 
@@ -139,5 +125,11 @@ public class XWebViewFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mWvView.setVisibility(View.VISIBLE);
     }
 }

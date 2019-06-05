@@ -9,7 +9,7 @@
         android:layout_height="2dp"
         android:progressDrawable="@drawable/progress_style"
         android:visibility="gone"/>
-    <WebView
+    <com.ifhu.meiwei.ui.view.X5WebView
         android:layout_below="@+id/progress_web"
         android:id="@+id/wv_view"
         android:layout_width="fill_parent"
