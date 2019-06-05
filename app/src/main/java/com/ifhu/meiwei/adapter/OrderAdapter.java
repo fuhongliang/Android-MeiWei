@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.baba.GlideImageView;
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.bean.OrderBean;
-import com.ifhu.meiwei.utils.Constants;
 
 import java.util.List;
 
@@ -74,39 +73,46 @@ public class OrderAdapter extends BaseAdapter {
         viewHolder.ivPhoto.load(orderBeanList.get(position).getStore_avatar());//商店头像
         viewHolder.tvStoreName.setText(orderBeanList.get(position).getStore_name());//商店名称
         switch (orderBeanList.get(position).getOrder_state()) {                     //订单状态
-            case 0:
+            case 1://"订单已取消";
                 viewHolder.tvStatus.setText("订单已取消");
                 viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.hint_text_color));
                 break;
-            case 10:
+            case 2://"待支付";
                 viewHolder.tvStatus.setText("未支付");
                 viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.main_color));
                 break;
-            case 20:
+            case 3://"等待商家接单";
                 viewHolder.tvStatus.setText("已付款");
                 viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.orange));
                 break;
-            case 25:
+            case 4://"商家已接单，正准备商品";
                 viewHolder.tvStatus.setText("商家已接单");
                 viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.orange));
                 break;
-            case 30:
+            case 5://"骑手正赶往商家";
                 viewHolder.tvStatus.setText("已发货");
                 viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.main_color));
                 break;
-            case 35:
+            case 6://"骑手正在送货";
                 viewHolder.tvStatus.setText("骑手已接单");
                 viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.main_color));
                 break;
-            case 40:
+            case 7://"订单已完成";
                 viewHolder.tvStatus.setText("已收货");
                 viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.hint_text_color));
+                break;
+            case 8://:退款中
+                break;
+            case 9://退款已完成
+                break;
+            case 10://"待评价";
+                break;
+            case 11://"已评价";
                 break;
             default:
                 break;
         }
-
-//        viewHolder.tvProductName.setText(.get(0).getGoods_name());
+        viewHolder.tvProductName.setText(orderBeanList.get(position).getGoods_list().get(0).getGoods_name());//商品名称
         viewHolder.tvMoney.setText(" ¥ " + orderBeanList.get(position).getTotal_amount() + "");//总价格
 
         if (onClickItem != null) {

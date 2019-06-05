@@ -95,31 +95,31 @@ public class MeFragment extends BaseFragment {
     public void onViewClicked(View view) {
         if (UserLogic.isLogin()) {
             switch (view.getId()) {
-                case R.id.ll_address:
+                case R.id.ll_address://收货地址
                     goToActivity(MyAddressListActivity.class);
                     break;
-                case R.id.ll_voucher:
+                case R.id.ll_voucher://我的代金券
                     goToActivity(MyVoucherActivity.class);
                     break;
-                case R.id.ll_collect:
+                case R.id.ll_collect://我的收藏
                     goToActivity(MyCollectActivity.class);
                     break;
-                case R.id.ll_review:
+                case R.id.ll_review://我的评价
                     goToActivity(EvaluationActivity.class);
                     break;
-                case R.id.ll_help:
+                case R.id.ll_help://帮助与反馈
                     goToActivity(MyHelpActivity.class);
                     break;
-                case R.id.ll_ask:
+                case R.id.ll_ask://客服咨询
                     goToActivity(MyAskActivity.class);
                     break;
-                case R.id.ll_shop_join:
+                case R.id.ll_shop_join://商家入驻
                     goToActivity(MyShopJoinActivity.class);
                     break;
-                case R.id.ll_diliver_join:
+                case R.id.ll_diliver_join://骑手入驻
                     goToActivity(MyDiliverJoinActivity.class);
                     break;
-                case R.id.ll_settings:
+                case R.id.ll_settings://设置
                     goToActivity(MySettingsActivity.class);
                     break;
                 default:

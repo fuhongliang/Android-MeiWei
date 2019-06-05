@@ -25,7 +25,7 @@
             android:layout_marginLeft="12dp"
             android:gravity="center_vertical"
             android:maxWidth="156dp"
-            android:text="正宗柳州螺蛳粉（粉."
+            android:text=""
             android:textColor="@color/black"
             android:textSize="16sp" />
 
@@ -70,7 +70,7 @@
             android:id="@+id/tv_product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="黄焖鸡排骨饭"
+            android:text=""
             android:textColor="@color/typed_text_color"
             android:textSize="14sp" />
 
