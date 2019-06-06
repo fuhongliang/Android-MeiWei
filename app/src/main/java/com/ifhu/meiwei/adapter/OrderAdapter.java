@@ -79,6 +79,10 @@ public class OrderAdapter extends BaseAdapter {
             case 1://"订单已取消";
                 viewHolder.tvStatus.setText("订单已取消");
                 viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.hint_text_color));
+                viewHolder.tvOneMore.setVisibility(View.GONE);
+                viewHolder.tvEvaluation.setText("逛逛别家");
+                viewHolder.tvEvaluation.setTextColor(mContext.getResources().getColor(R.color.black));
+                viewHolder.tvEvaluation.setBackgroundResource(R.drawable.bg_gray);
                 break;
             case 2://"待支付";
                 viewHolder.tvStatus.setText("待支付");
@@ -103,10 +107,18 @@ public class OrderAdapter extends BaseAdapter {
             case 7://"订单已完成";
                 viewHolder.tvStatus.setText("订单已完成");
                 viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.hint_text_color));
+                viewHolder.tvOneMore.setVisibility(View.GONE);
+                viewHolder.tvEvaluation.setText("再来一单");
+                viewHolder.tvEvaluation.setTextColor(mContext.getResources().getColor(R.color.black));
+                viewHolder.tvEvaluation.setBackgroundResource(R.drawable.bg_gray);
                 break;
             case 8://:退款中
                 break;
             case 9://退款已完成
+                viewHolder.tvStatus.setText("退款成功");
+                viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.hint_text_color));
+                viewHolder.tvOneMore.setText("再来一单");
+                viewHolder.tvEvaluation.setText("退款详情");
                 break;
             case 10://"待评价";
                 break;
@@ -115,9 +127,9 @@ public class OrderAdapter extends BaseAdapter {
             default:
                 break;
         }
-        if (orderBeanList.get(position).getGoods_list().size()>1){
-            viewHolder.tvProductName.setText(orderBeanList.get(position).getGoods_list().get(0).getGoods_name()+" 等"+ orderBeanList.get(position).getGoods_list().size() + "件商品");
-        }else {
+        if (orderBeanList.get(position).getGoods_list().size() > 1) {
+            viewHolder.tvProductName.setText(orderBeanList.get(position).getGoods_list().get(0).getGoods_name() + " 等" + orderBeanList.get(position).getGoods_list().size() + "件商品");
+        } else {
             viewHolder.tvProductName.setText(orderBeanList.get(position).getGoods_list().get(0).getGoods_name());
         }
 
