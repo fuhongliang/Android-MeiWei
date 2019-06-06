@@ -1,5 +1,5 @@
 <paths>
     <external-path
-        name="my_images"
-        path="Android/data/com.thunder.sample.fileprovider/files/Pictures"/>
+        name="my_image"
+        path="Android/data/com.ifhu.meiwei.fileprovider/files/Pictures"/>
 </paths>

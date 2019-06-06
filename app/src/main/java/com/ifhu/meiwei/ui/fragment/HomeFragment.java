@@ -151,7 +151,7 @@ public class HomeFragment extends BaseFragment {
         // Required empty public constructor
     }
     /**
-     * 默认
+     * 默认经纬度
      */
     String mLongitude = "113.913761";
     String mLatitude = "22.572242";

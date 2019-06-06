@@ -18,9 +18,11 @@
                 则 返回一个URI   content://com.example.myapp.fileprovider/myimages/default_image.jpg
     -->
     <!--当path 为空时 5个全配置就可以解决-->
+
     <!--下载文件-->
-    <external-path path="" name="sdcard_files" />
+    <external-path path="images" name="sdcard_files" />
     <!--相机相册裁剪-->
     <external-files-path   path="file/" name="camera_has_sdcard"/>
+
     <files-path path=""     name="camera_no_sdcard"/>
 </paths>

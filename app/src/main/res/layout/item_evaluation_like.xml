@@ -23,7 +23,7 @@
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/meal_ic_dianzan" />
+            android:background="@drawable/like_or_not_selector" />
 
         <TextView
             android:layout_width="wrap_content"

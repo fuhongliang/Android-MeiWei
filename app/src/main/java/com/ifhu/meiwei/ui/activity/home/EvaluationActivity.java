@@ -1,26 +1,39 @@
 package com.ifhu.meiwei.ui.activity.home;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baba.GlideImageView;
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.bean.BaseEntity;
 import com.ifhu.meiwei.bean.EvaluationBean;
+import com.ifhu.meiwei.bean.PostReviewsForm;
 import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.HomeService;
+import com.ifhu.meiwei.net.service.OrdersService;
 import com.ifhu.meiwei.ui.base.BaseActivity;
+import com.ifhu.meiwei.utils.ImageChooseUtil;
+import com.ifhu.meiwei.utils.ToastHelper;
 import com.ifhu.meiwei.utils.UserLogic;
+import com.yalantis.ucrop.UCrop;
+import com.zhihu.matisse.Matisse;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,8 +64,7 @@ public class EvaluationActivity extends BaseActivity {
     TextView tvStoreName;
     @BindView(R.id.tv_store_suggest)
     TextView tvStoreSuggest;
-    @BindView(R.id.tv_add_phone)
-    TextView tvAddPhone;
+
     @BindView(R.id.tv_upload)
     TextView tvUpload;
     @BindView(R.id.rl_nosatisfaction)
@@ -69,8 +81,7 @@ public class EvaluationActivity extends BaseActivity {
     GlideImageView ivRiderPhoto;
     @BindView(R.id.iv_store_photo)
     GlideImageView ivStorePhoto;
-    @BindView(R.id.lv_commodity)
-    ListView lvCommodity;
+
     @BindView(R.id.iv_star1)
     ImageView ivStar1;
     @BindView(R.id.iv_star2)
@@ -106,7 +117,11 @@ public class EvaluationActivity extends BaseActivity {
     @BindView(R.id.iv_package_star5)
     ImageView ivPackageStar5;
     List<ImageView> viewPackageList = new ArrayList<>();
-
+    @BindView(R.id.ll_goods)
+    LinearLayout mLlGoods;
+    List<EvaluationBean.InfoBean.GoodsInfoBean> gcsort_data;
+    @BindView(R.id.ll_image_views)
+    LinearLayout mLlImageViews;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -121,7 +136,7 @@ public class EvaluationActivity extends BaseActivity {
         selectedSatisfaction(true);
     }
 
-    public void initData(){
+    public void initData() {
         viewList.add(ivStar1);
         viewList.add(ivStar2);
         viewList.add(ivStar3);
@@ -158,7 +173,8 @@ public class EvaluationActivity extends BaseActivity {
             @Override
             protected void onSuccees(BaseEntity<EvaluationBean> t) throws Exception {
                 initView(t.getData());
-                handleCategoryDataInit(t.getData().getInfo().getGoods_info());
+                gcsort_data = t.getData().getInfo().getGoods_info();
+                handleGoodsList();
             }
         });
     }
@@ -171,17 +187,26 @@ public class EvaluationActivity extends BaseActivity {
         ivStorePhoto.load(evaluationBean.getInfo().getStore_avatar());
     }
 
-    public void handleCategoryDataInit(List<EvaluationBean.InfoBean.GoodsInfoBean> gcsort_data) {
+    public void handleGoodsList() {
         LayoutInflater layoutInflater = LayoutInflater.from(this);
-        lvCommodity.removeAllViews();
+        mLlGoods.removeAllViews();
         if (gcsort_data != null && gcsort_data.size() > 0) {
             for (int i = 0; i < gcsort_data.size(); i++) {
                 View categoryView = layoutInflater.inflate(R.layout.item_evaluation_like, null);
                 TextView tvAnnouncementName = categoryView.findViewById(R.id.tv_announcement_name);
                 tvAnnouncementName.setText(gcsort_data.get(i).getGoods_name());
-                lvCommodity.addView(categoryView);
+                ImageView mlike = categoryView.findViewById(R.id.iv_like);
+                ImageView mNolike = categoryView.findViewById(R.id.iv_nolike);
+                final int i1 = i;
+                mlike.setOnClickListener(v -> handlelikeOrNoLike(true, i1));
+                mNolike.setOnClickListener(v -> handlelikeOrNoLike(false, i1));
+                mLlGoods.addView(categoryView);
             }
         }
+    }
+
+    public void handlelikeOrNoLike(boolean isLike, int position) {
+        gcsort_data.get(position).setLike(isLike);
     }
 
 
@@ -192,6 +217,30 @@ public class EvaluationActivity extends BaseActivity {
 
     @OnClick(R.id.tv_ok)
     public void onTvOkClicked() {
+        List<String> zan_goods_id = new ArrayList<>();
+        for (EvaluationBean.InfoBean.GoodsInfoBean infoBean : gcsort_data) {
+            if (infoBean.isLike()) {
+                zan_goods_id.add(infoBean.getGoods_id() + "");
+            }
+        }
+        PostReviewsForm postReviewsForm = new PostReviewsForm();
+
+
+        postReviewsForm.setZan_goods_id(zan_goods_id);
+        setLoadingMessageIndicator(true);
+        RetrofitApiManager.create(OrdersService.class).storeCom(postReviewsForm)
+                .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<Object>(false) {
+            @Override
+            protected void onApiComplete() {
+                setLoadingMessageIndicator(false);
+            }
+
+            @Override
+            protected void onSuccees(BaseEntity<Object> t) throws Exception {
+                ToastHelper.makeText(t.getMessage()).show();
+            }
+        });
+
     }
 
     /**
@@ -317,5 +366,69 @@ public class EvaluationActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 跳转选择图片页面
+     */
+    public void showSelectPicPage() {
+        ImageChooseUtil.startChooseImage(EvaluationActivity.this, ImageChooseUtil.REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case ImageChooseUtil.REQUEST_CODE:
+                    List<Uri> stringList = Matisse.obtainResult(data);
+                    startCrop(stringList.get(0));
+                    break;
+                case UCrop.REQUEST_CROP:
+                    handleCropResult(data);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void handleCropResult(@NonNull Intent result) {
+        final Uri resultUri = UCrop.getOutput(result);
+        if (resultUri != null) {
+            LayoutInflater layoutInflater = LayoutInflater.from(EvaluationActivity.this);
+            View view = layoutInflater.inflate(R.layout.item_image,null);
+            GlideImageView glideImageView = view.findViewById(R.id.iv_photo);
+            glideImageView.load(resultUri.getPath());
+            mLlImageViews.addView(view);
+        } else {
+            Toast.makeText(this, "剪切失败，请重新选择", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void startCrop(@NonNull Uri uri) {
+        String destinationFileName = System.currentTimeMillis() + ".jpg";
+        UCrop uCrop = UCrop.of(uri, Uri.fromFile(new File(getCacheDir(), destinationFileName)));
+        uCrop = basisConfig(uCrop);
+        uCrop = advancedConfig(uCrop);
+        uCrop.start(this);
+    }
+
+    private UCrop advancedConfig(@NonNull UCrop uCrop) {
+        UCrop.Options options = new UCrop.Options();
+        options.setCompressionFormat(Bitmap.CompressFormat.JPEG);
+        options.setCompressionQuality(90);
+        options.setHideBottomControls(false);
+        options.setFreeStyleCropEnabled(true);
+        return uCrop.withOptions(options);
+    }
+
+    private UCrop basisConfig(@NonNull UCrop uCrop) {
+        uCrop = uCrop.useSourceImageAspectRatio();
+        return uCrop;
+    }
+
+    @OnClick(R.id.tv_add_photo)
+    public void onMTvAddPhotoClicked() {
+        showSelectPicPage();
+    }
 
 }

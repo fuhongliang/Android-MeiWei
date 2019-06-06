@@ -5,6 +5,7 @@ import com.ifhu.meiwei.bean.ComformOrderBean;
 import com.ifhu.meiwei.bean.OrderBean;
 import com.ifhu.meiwei.bean.OrderinfoBean;
 import com.ifhu.meiwei.bean.PostOrderForm;
+import com.ifhu.meiwei.bean.PostReviewsForm;
 
 import java.util.List;
 
@@ -36,5 +37,8 @@ public interface OrdersService {
 
     @POST("buy_step")
     public Observable<BaseEntity<Object>> buyStep(@Body PostOrderForm postOrderForm);
+
+    @POST("store_com")
+    public Observable<BaseEntity<Object>> storeCom(@Body PostReviewsForm reviewsForm);
 
 }
