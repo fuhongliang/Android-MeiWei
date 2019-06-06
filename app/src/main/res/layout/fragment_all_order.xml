@@ -5,7 +5,6 @@
     android:background="@color/category_color"
     android:orientation="vertical">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -16,10 +15,9 @@
             android:layout_height="match_parent"
             android:divider="@color/category_color"
             android:dividerHeight="15dp"
-            android:padding="15dp"
             tools:listitem="@layout/item_order" />
+
         <include layout="@layout/item_empty" />
 
     </RelativeLayout>
-
 </LinearLayout>

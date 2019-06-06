@@ -37,6 +37,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.ifhu.meiwei.utils.Constants.GOTOHOMEPAGE;
 import static com.ifhu.meiwei.utils.Constants.LOCATION_DATAUPDATA;
 import static com.ifhu.meiwei.utils.Constants.LOCATION_DATAUPDATAFAIL;
 import static com.ifhu.meiwei.utils.Constants.LOGOUT;
@@ -163,6 +164,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case RELOCATION:
                 initLocationClient();
+                break;
+            case GOTOHOMEPAGE:
+                navigation.setSelectedItemId(R.id.navigation_home);
                 break;
             default:
         }

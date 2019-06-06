@@ -1,5 +1,7 @@
 package com.ifhu.meiwei.utils;
 
+import com.ifhu.meiwei.MyApplication;
+
 /**
  * 静态字符串
  * @author KevinFu
@@ -28,6 +30,7 @@ public class Constants {
 
     public static final String LOCATION_DATAUPDATA = "location";
     public static final String LOCATION_DATAUPDATAFAIL = "LOCATION_DATAUPDATAFAIL";
+    public static final String GOTOHOMEPAGE = "GOTOHOMEPAGE";
 
     /**
      * 重新定位事件
@@ -38,4 +41,6 @@ public class Constants {
 
 
     public static final String MONEYUNIT = "￥";
+
+    public  static String FileProviderName = ProviderUtil.getFileProviderName(MyApplication.getApplication());
 }

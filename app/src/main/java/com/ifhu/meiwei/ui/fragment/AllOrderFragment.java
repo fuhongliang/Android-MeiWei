@@ -26,6 +26,7 @@ import com.ifhu.meiwei.ui.activity.order.OrdertrackingActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
 import com.ifhu.meiwei.utils.UserLogic;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -36,6 +37,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import static com.ifhu.meiwei.utils.Constants.GOTOHOMEPAGE;
 import static com.ifhu.meiwei.utils.Constants.LOCATION_DATAUPDATA;
 import static com.ifhu.meiwei.utils.Constants.ORDER_DATAUPDATA;
 
@@ -108,6 +110,8 @@ public class AllOrderFragment extends BaseFragment {
                 goToActivity(EvaluationActivity.class, orderBeanList.get(position).getOrder_id());
             }
         });
+        EventBus.getDefault().register(this);
+
     }
 
     @Override
@@ -115,6 +119,29 @@ public class AllOrderFragment extends BaseFragment {
         super.onResume();
         if (UserLogic.isLogin()) {
             getData();
+        }else {
+            handleEmptyPage(true);
+        }
+    }
+
+
+    public void handleEmptyPage(boolean isEmpty){
+        if (isEmpty){
+            rlEmpty.setVisibility(View.VISIBLE);
+            ivPhoto.setBackgroundResource(R.drawable.quesehng_ic_zanwudingdan);
+            tvTitleOne.setText("近期暂无订单记录...");
+            tvTitleTwo.setText("快动动小手准备下单吧~");
+            tvTitleTwo.setVisibility(View.VISIBLE);
+            tvButton.setText("去逛逛");
+            tvButton.setVisibility(View.VISIBLE);
+            tvButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().post(new MessageEvent(GOTOHOMEPAGE));
+                }
+            });
+        }else {
+            rlEmpty.setVisibility(View.GONE);
         }
     }
 
@@ -142,9 +169,9 @@ public class AllOrderFragment extends BaseFragment {
                 orderBeanList = t.getData();
                 orderAdapter.setOrderBeanList(orderBeanList);
                 if (orderAdapter.getCount() > 0) {
-                    rlEmpty.setVisibility(View.GONE);
+                    handleEmptyPage(false);
                 } else {
-                    rlEmpty.setVisibility(View.VISIBLE);
+                    handleEmptyPage(true);
                     ivPhoto.setBackgroundResource(R.drawable.quesehng_ic_zanwudingdan);
                     tvTitleOne.setText("近期暂无订单记录...");
                     tvTitleTwo.setVisibility(View.VISIBLE);
@@ -161,5 +188,6 @@ public class AllOrderFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
     }
 }

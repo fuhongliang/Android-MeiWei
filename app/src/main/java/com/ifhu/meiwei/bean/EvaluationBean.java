@@ -107,6 +107,15 @@ public class EvaluationBean {
 
             private int goods_id;
             private String goods_name;
+            boolean like;
+
+            public boolean isLike() {
+                return like;
+            }
+
+            public void setLike(boolean like) {
+                this.like = like;
+            }
 
             public int getGoods_id() {
                 return goods_id;
