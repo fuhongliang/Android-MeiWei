@@ -39,11 +39,13 @@ public class OrderAdapter extends BaseAdapter {
     }
 
     public interface OnClickItem {
-        void editOrder(int position);
+        void shopHomePage(int position);
 
-        void deleteOrder(int position);
+        void orderDetail(int position);
 
         void evaluation(int position);
+
+        void oneMore(int position);
     }
 
     @Override
@@ -103,18 +105,27 @@ public class OrderAdapter extends BaseAdapter {
             case 7://"订单已完成";
                 viewHolder.tvStatus.setText("订单已完成");
                 viewHolder.tvStatus.setTextColor(mContext.getResources().getColor(R.color.hint_text_color));
+
                 break;
             case 8://:退款中
                 break;
             case 9://退款已完成
                 break;
             case 10://"待评价";
+                viewHolder.tvEvaluation.setVisibility(View.VISIBLE);
                 break;
             case 11://"已评价";
                 break;
             default:
                 break;
         }
+
+        if (onClickItem != null) {
+            viewHolder.rlAnnouncement.setOnClickListener(v -> onClickItem.orderDetail(position));
+            viewHolder.llStoreName.setOnClickListener(v -> onClickItem.shopHomePage(position));
+            viewHolder.tvEvaluation.setOnClickListener(v -> onClickItem.evaluation(position));
+        }
+
         if (orderBeanList.get(position).getGoods_list().size()>1){
             viewHolder.tvProductName.setText(orderBeanList.get(position).getGoods_list().get(0).getGoods_name()+" 等"+ orderBeanList.get(position).getGoods_list().size() + "件商品");
         }else {
@@ -123,11 +134,6 @@ public class OrderAdapter extends BaseAdapter {
 
         viewHolder.tvMoney.setText(" ¥ " + orderBeanList.get(position).getTotal_amount() + "");
 
-        if (onClickItem != null) {
-            viewHolder.rlAnnouncement.setOnClickListener(v -> onClickItem.deleteOrder(position));
-            viewHolder.llStoreName.setOnClickListener(v -> onClickItem.editOrder(position));
-            viewHolder.tvEvaluation.setOnClickListener(v -> onClickItem.evaluation(position));
-        }
 
         return convertView;
     }

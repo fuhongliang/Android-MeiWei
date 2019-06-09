@@ -9,7 +9,6 @@
         android:id="@+id/header"
         layout="@layout/layout_header" />
 
-
     <!--等待支付-->
     <LinearLayout
         android:id="@+id/ll_wait"
@@ -69,7 +68,9 @@
             android:textSize="17sp" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/ll_goods"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <TextView

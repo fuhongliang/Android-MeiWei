@@ -74,14 +74,6 @@
             android:textColor="@color/typed_text_color"
             android:textSize="14sp" />
 
-        <!--<TextView-->
-        <!--android:id="@+id/tv_number"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text=" 等 2件商品"-->
-        <!--android:textColor="@color/typed_text_color"-->
-        <!--android:textSize="14sp" />-->
-
         <TextView
             android:id="@+id/tv_money"
             android:layout_width="match_parent"
@@ -103,6 +95,7 @@
         android:layout_marginTop="15dp"
         android:background="@drawable/address_main_color"
         android:gravity="center"
+        android:visibility="invisible"
         android:text="评价"
         android:textColor="@color/main_color"
         android:textSize="14sp" />
@@ -116,6 +109,7 @@
         android:layout_toLeftOf="@id/tv_evaluation"
         android:background="@drawable/bg_gray"
         android:gravity="center"
+        android:visibility="invisible"
         android:text="再来一单"
         android:textColor="@color/black"
         android:textSize="14sp" />

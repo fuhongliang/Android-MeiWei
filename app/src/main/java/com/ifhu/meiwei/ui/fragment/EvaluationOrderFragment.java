@@ -38,7 +38,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 import static com.ifhu.meiwei.utils.Constants.GOTOHOMEPAGE;
-import static com.ifhu.meiwei.utils.Constants.LOCATION_DATAUPDATA;
 import static com.ifhu.meiwei.utils.Constants.ORDER_DATAUPDATA;
 
 
@@ -47,9 +46,9 @@ import static com.ifhu.meiwei.utils.Constants.ORDER_DATAUPDATA;
  *
  * @author fuhongliang
  */
-public class AllOrderFragment extends BaseFragment {
+public class EvaluationOrderFragment extends BaseFragment {
 
-    int type = 1;
+    int type = 2;
 
     List<OrderBean> orderBeanList = new ArrayList<>();
     OrderAdapter orderAdapter;
@@ -70,11 +69,11 @@ public class AllOrderFragment extends BaseFragment {
     @BindView(R.id.rl_empty)
     RelativeLayout rlEmpty;
 
-    public static AllOrderFragment newInstance() {
-        return new AllOrderFragment();
+    public static EvaluationOrderFragment newInstance() {
+        return new EvaluationOrderFragment();
     }
 
-    public AllOrderFragment() {
+    public EvaluationOrderFragment() {
         // Required empty public constructor
     }
 
@@ -95,6 +94,7 @@ public class AllOrderFragment extends BaseFragment {
         lvList.setAdapter(orderAdapter);
         lvList.setVerticalScrollBarEnabled(false);
         orderAdapter.setOnClickItem(new OrderAdapter.OnClickItem() {
+
 
             @Override
             public void shopHomePage(int position) {
@@ -117,7 +117,6 @@ public class AllOrderFragment extends BaseFragment {
             }
         });
         EventBus.getDefault().register(this);
-
     }
 
     @Override

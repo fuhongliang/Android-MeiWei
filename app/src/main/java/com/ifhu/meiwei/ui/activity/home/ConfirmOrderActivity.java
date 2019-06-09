@@ -23,6 +23,7 @@ import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.OrdersService;
 import com.ifhu.meiwei.ui.activity.me.MyAddressListActivity;
+import com.ifhu.meiwei.ui.activity.order.ConfirmPaymentActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.utils.ToastHelper;
 import com.ifhu.meiwei.utils.UserLogic;
@@ -203,6 +204,7 @@ public class ConfirmOrderActivity extends BaseActivity {
             @Override
             protected void onSuccees(BaseEntity<Object> t) throws Exception {
                 ToastHelper.makeText(t.getMessage()).show();
+                goToActivity(ConfirmPaymentActivity.class);
             }
         });
 
