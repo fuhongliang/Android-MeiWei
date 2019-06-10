@@ -74,6 +74,15 @@ public class EvaluationBean {
         private String store_name;
         private String store_avatar;
         private List<GoodsInfoBean> goods_info;
+        private int store_id;
+
+        public int getStore_id() {
+            return store_id;
+        }
+
+        public void setStore_id(int store_id) {
+            this.store_id = store_id;
+        }
 
         public String getStore_name() {
             return store_name;
@@ -107,7 +116,7 @@ public class EvaluationBean {
 
             private int goods_id;
             private String goods_name;
-            boolean like;
+            boolean like = true;
 
             public boolean isLike() {
                 return like;

@@ -3,13 +3,13 @@ package com.ifhu.meiwei.ui.activity.home;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -58,12 +58,8 @@ public class EvaluationActivity extends BaseActivity {
     TextView tvRiderName;
     @BindView(R.id.tv_rider_time)
     TextView tvRiderTime;
-    @BindView(R.id.tv_rider_suggest)
-    TextView tvRiderSuggest;
     @BindView(R.id.tv_store_name)
     TextView tvStoreName;
-    @BindView(R.id.tv_store_suggest)
-    TextView tvStoreSuggest;
 
     @BindView(R.id.tv_upload)
     TextView tvUpload;
@@ -122,6 +118,16 @@ public class EvaluationActivity extends BaseActivity {
     List<EvaluationBean.InfoBean.GoodsInfoBean> gcsort_data;
     @BindView(R.id.ll_image_views)
     LinearLayout mLlImageViews;
+    @BindView(R.id.ev_rider_suggest)
+    EditText evRiderSuggest;
+    @BindView(R.id.ev_store_suggest)
+    EditText evStoreSuggest;
+
+    int tasteStarAmount = 5;
+    int packageStarAmount = 5;
+
+    List<String> imageList = new ArrayList<>();
+    EvaluationBean.InfoBean infoBean = new EvaluationBean.InfoBean();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -173,6 +179,7 @@ public class EvaluationActivity extends BaseActivity {
             @Override
             protected void onSuccees(BaseEntity<EvaluationBean> t) throws Exception {
                 initView(t.getData());
+                infoBean = t.getData().getInfo();
                 gcsort_data = t.getData().getInfo().getGoods_info();
                 handleGoodsList();
             }
@@ -180,13 +187,17 @@ public class EvaluationActivity extends BaseActivity {
     }
 
     public void initView(EvaluationBean evaluationBean) {
-//        ivRiderPhoto.load(evaluationBean.getQishou().getAvator());
-//        tvRiderName.setText(evaluationBean.getQishou().getMember_name());
-//        tvRiderTime.setText(evaluationBean.getQishou().getTime());
+        ivRiderPhoto.load(evaluationBean.getQishou().getAvator());
+        tvRiderName.setText(evaluationBean.getQishou().getMember_name());
+        tvRiderTime.setText(evaluationBean.getQishou().getTime());
         tvStoreName.setText(evaluationBean.getInfo().getStore_name());
         ivStorePhoto.load(evaluationBean.getInfo().getStore_avatar());
     }
 
+
+    /**
+     * 选择点赞与不点赞
+     */
     public void handleGoodsList() {
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         mLlGoods.removeAllViews();
@@ -195,18 +206,22 @@ public class EvaluationActivity extends BaseActivity {
                 View categoryView = layoutInflater.inflate(R.layout.item_evaluation_like, null);
                 TextView tvAnnouncementName = categoryView.findViewById(R.id.tv_announcement_name);
                 tvAnnouncementName.setText(gcsort_data.get(i).getGoods_name());
-                ImageView mlike = categoryView.findViewById(R.id.iv_like);
-                ImageView mNolike = categoryView.findViewById(R.id.iv_nolike);
+                RelativeLayout mlike = categoryView.findViewById(R.id.rl_like);
+                RelativeLayout mNolike = categoryView.findViewById(R.id.rl_nolike);
                 final int i1 = i;
-                mlike.setOnClickListener(v -> handlelikeOrNoLike(true, i1));
-                mNolike.setOnClickListener(v -> handlelikeOrNoLike(false, i1));
+                mlike.setSelected(true);
+                mNolike.setSelected(false);
+                mlike.setOnClickListener(v -> handlelikeOrNoLike(true, i1, mlike, mNolike));
+                mNolike.setOnClickListener(v -> handlelikeOrNoLike(false, i1, mlike, mNolike));
                 mLlGoods.addView(categoryView);
             }
         }
     }
 
-    public void handlelikeOrNoLike(boolean isLike, int position) {
+    public void handlelikeOrNoLike(boolean isLike, int position, RelativeLayout mlike, RelativeLayout mNolike) {
         gcsort_data.get(position).setLike(isLike);
+        mlike.setSelected(isLike);
+        mNolike.setSelected(!isLike);
     }
 
 
@@ -223,9 +238,15 @@ public class EvaluationActivity extends BaseActivity {
                 zan_goods_id.add(infoBean.getGoods_id() + "");
             }
         }
+
         PostReviewsForm postReviewsForm = new PostReviewsForm();
-
-
+        postReviewsForm.setMember_id(UserLogic.getUserId());
+        postReviewsForm.setOrder_id(getDataInt() + "");
+        postReviewsForm.setStore_id(infoBean.getStore_id() + "");
+        postReviewsForm.setContent(evStoreSuggest.getText().toString());
+        postReviewsForm.setKouwei(tasteStarAmount + "");
+        postReviewsForm.setBaozhuang(packageStarAmount + "");
+        postReviewsForm.setImages(imageList);
         postReviewsForm.setZan_goods_id(zan_goods_id);
         setLoadingMessageIndicator(true);
         RetrofitApiManager.create(OrdersService.class).storeCom(postReviewsForm)
@@ -317,7 +338,6 @@ public class EvaluationActivity extends BaseActivity {
             case R.id.iv_package_star5:
                 packageStar(4, viewPackageList);
                 break;
-
         }
     }
 
@@ -337,6 +357,7 @@ public class EvaluationActivity extends BaseActivity {
         }
     }
 
+
     /**
      * 口味星级评价
      */
@@ -348,6 +369,7 @@ public class EvaluationActivity extends BaseActivity {
                 viewTasteList.get(i).setSelected(false);
             }
         }
+        tasteStarAmount = starAmount;
     }
 
     /**
@@ -364,6 +386,8 @@ public class EvaluationActivity extends BaseActivity {
                 viewPackageList.get(i).setSelected(false);
             }
         }
+        packageStarAmount = starAmount;
+
     }
 
     /**
@@ -395,7 +419,7 @@ public class EvaluationActivity extends BaseActivity {
         final Uri resultUri = UCrop.getOutput(result);
         if (resultUri != null) {
             LayoutInflater layoutInflater = LayoutInflater.from(EvaluationActivity.this);
-            View view = layoutInflater.inflate(R.layout.item_image,null);
+            View view = layoutInflater.inflate(R.layout.item_image, null);
             GlideImageView glideImageView = view.findViewById(R.id.iv_photo);
             glideImageView.load(resultUri.getPath());
             mLlImageViews.addView(view);

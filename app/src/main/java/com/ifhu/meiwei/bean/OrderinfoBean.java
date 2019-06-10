@@ -29,6 +29,15 @@ public class OrderinfoBean {
     private PeisongInfoBean peisong_info;
     private OrderInfoBean order_info;
     private List<OrderDetailBean> order_detail;
+    private int store_id;
+
+    public int getStore_id() {
+        return store_id;
+    }
+
+    public void setStore_id(int store_id) {
+        this.store_id = store_id;
+    }
 
     public int getOrder_state() {
         return order_state;

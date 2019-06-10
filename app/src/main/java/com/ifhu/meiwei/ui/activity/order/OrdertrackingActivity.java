@@ -30,6 +30,7 @@ import com.ifhu.meiwei.ui.activity.home.EvaluationActivity;
 import com.ifhu.meiwei.ui.activity.home.MainActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.ui.fragment.HomeFragment;
+import com.ifhu.meiwei.utils.UserLogic;
 import com.jaeger.library.StatusBarUtil;
 
 import java.util.List;
@@ -263,7 +264,7 @@ public class OrdertrackingActivity extends BaseActivity {
                 tvButtonThree.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        goToActivity(EvaluationActivity.class);
+                        goToActivity(EvaluationActivity.class, getDataInt());
                     }
                 });
                 break;

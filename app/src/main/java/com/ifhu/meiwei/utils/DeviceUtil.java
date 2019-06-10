@@ -20,6 +20,7 @@ import java.util.Objects;
 /**
  * author: tommy
  * date:   On 2018/8/9
+ *
  * @author fuhongliang
  */
 public class DeviceUtil {
@@ -31,8 +32,6 @@ public class DeviceUtil {
         wm.getDefaultDisplay().getMetrics(dm);
         return dm.widthPixels;
     }
-
-
 
 
     /**

@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ifhu.meiwei">
+
     <uses-permission android:name="android.permission.CAMERA" /> <!-- 允许程序连接到已配对的蓝牙设备 -->
     <!-- 用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 用于访问GPS定位 -->
@@ -15,6 +16,7 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" /> <!-- 用于申请获取蓝牙信息进行室内定位 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /><!--判断网络连接是否可用及监控网络状态-->
 
 
     <application
@@ -43,8 +45,7 @@
         <activity android:name=".ui.activity.home.ShippingAddressActivity" />
         <activity android:name=".ui.activity.home.AddaddressActivity" />
         <activity android:name=".ui.activity.home.EditaddressActivity" />
-        <activity android:name=".ui.activity.home.ShopHomeActivity"
-            />
+        <activity android:name=".ui.activity.home.ShopHomeActivity" />
         <activity android:name=".ui.activity.order.OrdertrackingActivity" />
         <activity android:name=".ui.activity.home.EvaluationActivity" />
         <!--我的-->
@@ -56,8 +57,8 @@
         <activity android:name=".ui.activity.me.MySettingsActivity" />
         <activity android:name=".ui.activity.me.MyShopJoinActivity" />
         <activity android:name=".ui.activity.me.MyVoucherActivity" />
-        <activity android:name=".ui.base.WebViewActivity"/>
-        <activity android:name=".ui.activity.home.ConfirmOrderActivity"/>
+        <activity android:name=".ui.base.WebViewActivity" />
+        <activity android:name=".ui.activity.home.ConfirmOrderActivity" />
         <activity android:name="com.yalantis.ucrop.UCropActivity" />
 
         <service android:name="com.amap.api.location.APSService" />
