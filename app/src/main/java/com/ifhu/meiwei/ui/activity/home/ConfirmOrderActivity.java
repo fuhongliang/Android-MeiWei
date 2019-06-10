@@ -18,6 +18,7 @@ import com.ifhu.meiwei.bean.BaseEntity;
 import com.ifhu.meiwei.bean.ComformOrderBean;
 import com.ifhu.meiwei.bean.MyAddressBean;
 import com.ifhu.meiwei.bean.PostOrderForm;
+import com.ifhu.meiwei.bean.WXPayBean;
 import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
@@ -91,6 +92,7 @@ public class ConfirmOrderActivity extends BaseActivity {
         StatusBarUtil.setTranslucentForImageView(ConfirmOrderActivity.this, 0, mIvBg);
         ButterKnife.bind(this);
         getData();
+
     }
 
 
@@ -195,16 +197,18 @@ public class ConfirmOrderActivity extends BaseActivity {
         postOrderForm.setShipping_time(mTvShippingTime.getText().toString());
         postOrderForm.setVoucher_id("");
         RetrofitApiManager.create(OrdersService.class).buyStep(postOrderForm)
-                .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<Object>(true) {
+                .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<WXPayBean>(true) {
             @Override
             protected void onApiComplete() {
                 setLoadingMessageIndicator(false);
             }
 
             @Override
-            protected void onSuccees(BaseEntity<Object> t) throws Exception {
+            protected void onSuccees(BaseEntity<WXPayBean> t) throws Exception {
                 ToastHelper.makeText(t.getMessage()).show();
-                goToActivity(ConfirmPaymentActivity.class);
+                Intent intent = new Intent(ConfirmOrderActivity.this,ConfirmPaymentActivity.class);
+                intent.putExtra("WXPay",t.getData());
+                startActivity(intent);
             }
         });
 
@@ -222,6 +226,7 @@ public class ConfirmOrderActivity extends BaseActivity {
             if (requestCode == REQUESTADDRESSCODE) {
                 myAddressBean = (MyAddressBean) data.getSerializableExtra(MyAddressListActivity.ADDRESS);
                 handeAddressShow(myAddressBean);
+                comformOrderBean.setAddress(myAddressBean);
             }
         }
     }

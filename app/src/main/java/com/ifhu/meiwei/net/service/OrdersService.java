@@ -6,6 +6,7 @@ import com.ifhu.meiwei.bean.OrderBean;
 import com.ifhu.meiwei.bean.OrderinfoBean;
 import com.ifhu.meiwei.bean.PostOrderForm;
 import com.ifhu.meiwei.bean.PostReviewsForm;
+import com.ifhu.meiwei.bean.WXPayBean;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public interface OrdersService {
     public Observable<BaseEntity<ComformOrderBean>> goSettlement(@Field("member_id") String member_id, @Field("store_id") String store_id);
 
     @POST("buy_step")
-    public Observable<BaseEntity<Object>> buyStep(@Body PostOrderForm postOrderForm);
+    public Observable<BaseEntity<WXPayBean>> buyStep(@Body PostOrderForm postOrderForm);
 
     @POST("store_com")
     public Observable<BaseEntity<Object>> storeCom(@Body PostReviewsForm reviewsForm);

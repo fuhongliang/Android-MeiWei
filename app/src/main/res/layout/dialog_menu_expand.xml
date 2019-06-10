@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/meal_bnt_baisebj"
+    android:background="@drawable/bg_white"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -96,36 +96,13 @@
             android:textColor="#FEFEFE"
             android:textSize="12sp" />
     </LinearLayout>
-    <!--公告-->
-    <RelativeLayout
-        android:id="@+id/rl_announcement"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/ll_voucher"
-        android:layout_marginTop="12dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:text="公告：欢迎光临，很高兴为您服务~"
-            android:textColor="@color/hint_text_color"
-            android:textSize="12sp" />
-
-        <ImageView
-            android:layout_width="8dp"
-            android:layout_height="5dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/common_xiala" />
-    </RelativeLayout>
     <!--满立减-->
     <LinearLayout
         android:id="@+id/ll_reduction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rl_announcement"
+        android:layout_below="@id/ll_voucher"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="12dp">
 
@@ -239,18 +216,14 @@
         android:textColor="@color/hint_text_color"
         android:textSize="13sp" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="44dp"
-        android:layout_alignParentBottom="true">
-
-        <ImageView
-            android:layout_width="19dp"
-            android:layout_height="12dp"
-            android:layout_marginBottom="15dp"
-            android:layout_centerInParent="true"
-            android:background="@drawable/meal_ic_shangla" />
-    </RelativeLayout>
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="100dp"
+        android:layout_height="52dp"
+        android:padding="20dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/meal_ic_shangla"
+        android:layout_alignParentBottom="true"/>
 
 
 </RelativeLayout>

@@ -134,7 +134,6 @@ public class OrderAdapter extends BaseAdapter {
 
         viewHolder.tvMoney.setText(" ¥ " + orderBeanList.get(position).getTotal_amount() + "");
 
-
         return convertView;
     }
 

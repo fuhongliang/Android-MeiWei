@@ -2,17 +2,23 @@ package com.ifhu.meiwei.ui.activity.order;
 
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baba.GlideImageView;
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.bean.ComformOrderBean;
-import com.ifhu.meiwei.ui.activity.home.ConfirmOrderActivity;
+import com.ifhu.meiwei.bean.WXPayBean;
 import com.ifhu.meiwei.ui.base.BaseActivity;
+import com.orhanobut.logger.Logger;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +35,8 @@ public class ConfirmPaymentActivity extends BaseActivity {
     TextView mTvText;
     @BindView(R.id.ll_goods)
     LinearLayout mLlGoods;
+    @BindView(R.id.tv_ok)
+    TextView mTvOk;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,12 +44,8 @@ public class ConfirmPaymentActivity extends BaseActivity {
         setContentView(R.layout.activity_confirm_payment);
         ButterKnife.bind(this);
         mTvText.setVisibility(View.INVISIBLE);
-        getData();
     }
 
-    public void getData(){
-
-    }
 
     @OnClick(R.id.rl_return)
     public void onMRlReturnClicked() {
@@ -49,6 +53,7 @@ public class ConfirmPaymentActivity extends BaseActivity {
     }
 
     ComformOrderBean comformOrderBean = new ComformOrderBean();
+
     public void showGoods() {
         mLlGoods.removeAllViews();
         for (int i = 0; i < comformOrderBean.getGoods_detail().size(); i++) {
@@ -66,6 +71,38 @@ public class ConfirmPaymentActivity extends BaseActivity {
             tvOriginalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             tvNumber.setText("x" + goodsDetailBean.getGoods_num());
             mLlGoods.addView(mView);
+        }
+    }
+
+    @OnClick(R.id.tv_ok)
+    public void onMTvOkClicked() {
+        Logger.d("tv_ok");
+        wxPay();
+    }
+
+    public void wxPay() {
+        WXPayBean wxPay = (WXPayBean) getIntent().getSerializableExtra("WXPay");
+        if (null != wxPay) {
+            PayReq req = new PayReq();
+            req.appId = wxPay.getAppid();
+            req.partnerId = wxPay.getPartnerid();
+            req.prepayId = wxPay.getPrepayid();
+            req.nonceStr = wxPay.getNoncestr();
+            req.timeStamp = String.valueOf(wxPay.getTimestamp());
+            req.packageValue = wxPay.getPackageX();
+            req.sign = wxPay.getSign();
+            req.extData = "app data";
+            Toast.makeText(ConfirmPaymentActivity.this, "正常调起支付", Toast.LENGTH_SHORT).show();
+            IWXAPI msgApi = WXAPIFactory.createWXAPI(ConfirmPaymentActivity.this, null);
+            msgApi.registerApp(wxPay.getAppid());
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    msgApi.sendReq(req);
+                }
+            },500);
+        } else {
+            Toast.makeText(ConfirmPaymentActivity.this, "返回错误", Toast.LENGTH_SHORT).show();
         }
     }
 }
