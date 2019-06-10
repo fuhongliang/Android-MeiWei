@@ -1,4 +1,4 @@
-package com.ifhu.meiwei.ui.activity.home;
+package com.ifhu.meiwei.ui.activity.order;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -28,6 +28,7 @@ import com.ifhu.meiwei.net.service.HomeService;
 import com.ifhu.meiwei.net.service.OrdersService;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.utils.ImageChooseUtil;
+import com.ifhu.meiwei.utils.StringUtils;
 import com.ifhu.meiwei.utils.ToastHelper;
 import com.ifhu.meiwei.utils.UserLogic;
 import com.yalantis.ucrop.UCrop;
@@ -232,6 +233,8 @@ public class EvaluationActivity extends BaseActivity {
 
     @OnClick(R.id.tv_ok)
     public void onTvOkClicked() {
+
+
         List<String> zan_goods_id = new ArrayList<>();
         for (EvaluationBean.InfoBean.GoodsInfoBean infoBean : gcsort_data) {
             if (infoBean.isLike()) {
@@ -243,7 +246,7 @@ public class EvaluationActivity extends BaseActivity {
         postReviewsForm.setMember_id(UserLogic.getUserId());
         postReviewsForm.setOrder_id(getDataInt() + "");
         postReviewsForm.setStore_id(infoBean.getStore_id() + "");
-        postReviewsForm.setContent(evStoreSuggest.getText().toString());
+        postReviewsForm.setContent(StringUtils.isEmpty(evStoreSuggest.getText().toString()) ? "好评~" : evStoreSuggest.getText().toString());
         postReviewsForm.setKouwei(tasteStarAmount + "");
         postReviewsForm.setBaozhuang(packageStarAmount + "");
         postReviewsForm.setImages(imageList);

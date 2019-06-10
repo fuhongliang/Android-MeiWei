@@ -11,15 +11,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ifhu.meiwei.R;
-import com.ifhu.meiwei.ui.activity.home.EvaluationActivity;
+import com.ifhu.meiwei.ui.activity.order.EvaluationActivity;
 import com.ifhu.meiwei.ui.activity.login.LoginActivity;
 import com.ifhu.meiwei.ui.activity.me.MyAddressListActivity;
 import com.ifhu.meiwei.ui.activity.me.MyAskActivity;
 import com.ifhu.meiwei.ui.activity.me.MyCollectActivity;
 import com.ifhu.meiwei.ui.activity.me.MyDiliverJoinActivity;
 import com.ifhu.meiwei.ui.activity.me.MyHelpActivity;
-import com.ifhu.meiwei.ui.activity.me.MyReviewActivity;
-import com.ifhu.meiwei.ui.activity.me.MySettingsActivity;
 import com.ifhu.meiwei.ui.activity.me.MyShopJoinActivity;
 import com.ifhu.meiwei.ui.activity.me.MyVoucherActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
@@ -120,7 +118,9 @@ public class MeFragment extends BaseFragment {
                     goToActivity(MyDiliverJoinActivity.class);
                     break;
                 case R.id.ll_settings://设置
-                    goToActivity(MySettingsActivity.class);
+//                    goToActivity(MySettingsActivity.class);
+                    UserLogic.loginOut();
+                    goToActivity(LoginActivity.class);
                     break;
                 default:
                     break;

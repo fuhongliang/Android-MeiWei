@@ -134,6 +134,11 @@ public class OrderAdapter extends BaseAdapter {
         }
 
         viewHolder.tvMoney.setText(" ¥ " + orderBeanList.get(position).getTotal_amount() + "");
+        if (onClickItem != null) {
+            viewHolder.rlAnnouncement.setOnClickListener(v -> onClickItem.orderDetail(position));
+            viewHolder.llStoreName.setOnClickListener(v -> onClickItem.shopHomePage(position));
+            viewHolder.tvEvaluation.setOnClickListener(v -> onClickItem.evaluation(position));
+        }
 
         return convertView;
     }

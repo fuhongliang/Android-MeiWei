@@ -21,7 +21,7 @@ import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.OrdersService;
-import com.ifhu.meiwei.ui.activity.home.EvaluationActivity;
+import com.ifhu.meiwei.ui.activity.order.EvaluationActivity;
 import com.ifhu.meiwei.ui.activity.order.OrdertrackingActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
 import com.ifhu.meiwei.utils.UserLogic;
@@ -38,7 +38,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 import static com.ifhu.meiwei.utils.Constants.GOTOHOMEPAGE;
-import static com.ifhu.meiwei.utils.Constants.LOCATION_DATAUPDATA;
 import static com.ifhu.meiwei.utils.Constants.ORDER_DATAUPDATA;
 
 

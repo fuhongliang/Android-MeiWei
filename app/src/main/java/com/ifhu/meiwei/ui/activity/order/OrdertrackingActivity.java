@@ -1,10 +1,7 @@
 package com.ifhu.meiwei.ui.activity.order;
 
-import android.app.AlertDialog;
-import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.net.Uri;
@@ -26,11 +23,8 @@ import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.OrdersService;
-import com.ifhu.meiwei.ui.activity.home.EvaluationActivity;
-import com.ifhu.meiwei.ui.activity.home.MainActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.ui.fragment.HomeFragment;
-import com.ifhu.meiwei.utils.UserLogic;
 import com.jaeger.library.StatusBarUtil;
 
 import java.util.List;
