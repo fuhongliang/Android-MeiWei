@@ -48,6 +48,7 @@
         <activity android:name=".ui.activity.home.ShopHomeActivity" />
         <activity android:name=".ui.activity.order.OrdertrackingActivity" />
         <activity android:name=".ui.activity.order.EvaluationActivity" />
+        <activity android:name=".ui.activity.order.EvaluationSuccessActivity" />
         <!--我的-->
         <activity android:name=".ui.activity.me.MyAskActivity" />
         <activity android:name=".ui.activity.me.MyCollectActivity" />
@@ -77,13 +78,13 @@
                 android:resource="@xml/file_paths_public" />
         </provider>
 
-        <activity android:name=".ui.activity.order.ConfirmPaymentActivity"/>
+        <activity android:name=".ui.activity.order.ConfirmPaymentActivity" />
 
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
             android:label="微信支付结果"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

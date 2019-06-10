@@ -262,6 +262,7 @@ public class EvaluationActivity extends BaseActivity {
             @Override
             protected void onSuccees(BaseEntity<Object> t) throws Exception {
                 ToastHelper.makeText(t.getMessage()).show();
+                goToActivity(EvaluationSuccessActivity.class);
             }
         });
 
