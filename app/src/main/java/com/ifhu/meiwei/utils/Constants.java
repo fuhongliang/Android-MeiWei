@@ -43,4 +43,9 @@ public class Constants {
     public static final String MONEYUNIT = "￥";
 
     public  static String FileProviderName = ProviderUtil.getFileProviderName(MyApplication.getApplication());
+    public  static String APP_ID = "wxbcdccb2c1d95e94b";
+
+
+    public static final String PAYSUCCESSWITHWXPAY = "PAYSUCCESSWITHWXPAY";
+
 }
