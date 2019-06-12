@@ -16,10 +16,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ifhu.meiwei.R;
+import com.ifhu.meiwei.ui.activity.home.ShoppingCartActivity;
 import com.ifhu.meiwei.adapter.BaseHeaderAdapter;
 import com.ifhu.meiwei.adapter.CategoryAdapter;
 import com.ifhu.meiwei.bean.BaseEntity;
@@ -119,14 +118,14 @@ public class MenuListFragment extends BaseFragment {
     public void handleCarBean() {
         if (mCartBean.getNums() > 0) {
             mIvShopCat.setBackgroundResource(R.drawable.meal_bnt_gouwuche1);
-            mTvCarAmount.setText(mCartBean.getNums()+"");
+            mTvCarAmount.setText(mCartBean.getNums() + "");
             mRlPrice.setVisibility(View.VISIBLE);
             mTvTotalPrice.setText("￥" + mCartBean.getAmount());
             mTvTips.setVisibility(View.GONE);
             mTvShippingFee.setText("另需配送费 ￥" + "5");
             mTvAtLess.setSelected(true);
             mTvAtLess.setText("选好了");
-        }else {
+        } else {
             mIvShopCat.setBackgroundResource(R.drawable.meal_bnt_gouwuche);
             mTvTips.setVisibility(View.VISIBLE);
             mRlPrice.setVisibility(View.INVISIBLE);
@@ -158,7 +157,13 @@ public class MenuListFragment extends BaseFragment {
         mTvAtLess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToActivity(ConfirmOrderActivity.class,mStoreId);
+                goToActivity(ConfirmOrderActivity.class, mStoreId);
+            }
+        });
+        mIvShopCat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToActivity(ShoppingCartActivity.class);
             }
         });
     }

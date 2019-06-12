@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ifhu.meiwei.R;
+import com.ifhu.meiwei.ui.activity.home.ShoppingCartActivity;
 import com.ifhu.meiwei.ui.activity.order.EvaluationActivity;
 import com.ifhu.meiwei.ui.activity.login.LoginActivity;
 import com.ifhu.meiwei.ui.activity.me.MyAddressListActivity;
@@ -112,7 +113,7 @@ public class MeFragment extends BaseFragment {
                     goToActivity(MyAskActivity.class);
                     break;
                 case R.id.ll_shop_join://商家入驻
-                    goToActivity(MyShopJoinActivity.class);
+                    goToActivity(ShoppingCartActivity.class);
                     break;
                 case R.id.ll_diliver_join://骑手入驻
                     goToActivity(MyDiliverJoinActivity.class);

@@ -1,6 +1,5 @@
 package com.ifhu.meiwei.ui.activity.order;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,8 +10,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ifhu.meiwei.R;
+import com.ifhu.meiwei.ui.activity.home.MainActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
-import com.ifhu.meiwei.ui.fragment.HomeFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,7 +49,7 @@ public class EvaluationSuccessActivity extends BaseActivity {
         tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToActivity(HomeFragment.class);
+                goToActivity(MainActivity.class);
                 handler.sendEmptyMessage(1);
             }
         });
@@ -65,7 +64,7 @@ public class EvaluationSuccessActivity extends BaseActivity {
             count--;
 
             if (count == 0) {
-                goToActivity(HomeFragment.class);
+                goToActivity(MainActivity.class);
             } else {
                 handler.sendEmptyMessageDelayed(1, 1000);
                 tvLogin.setText("返回(" + count + ")");

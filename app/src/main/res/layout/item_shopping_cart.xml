@@ -29,6 +29,7 @@
             android:background="@drawable/common_ic_xuanze" />
 
         <ImageView
+            android:id="@+id/iv_delete"
             android:layout_width="49dp"
             android:layout_height="49dp"
             android:layout_alignParentEnd="true"
@@ -41,14 +42,14 @@
         style="@style/line_fff"
         android:layout_marginLeft="15dp" />
 
-    <ListView
+    <LinearLayout
+        android:id="@+id/ll_commodity"
         android:layout_width="match_parent"
-        android:layout_height="144dp"
-        tools:listitem="@layout/item_commodity">
-
-    </ListView>
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
 
     <RelativeLayout
+        android:id="@+id/rl_expand"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:gravity="center">
@@ -93,9 +94,10 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/tv_original_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4000"
+                android:text="40"
                 android:textColor="#FF4A4A"
                 android:textSize="14sp" />
 
@@ -122,9 +124,10 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/tv_current_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="￥6000"
+                android:text=""
                 android:textColor="#FF4A4A"
                 android:textSize="17sp"
                 android:textStyle="bold" />

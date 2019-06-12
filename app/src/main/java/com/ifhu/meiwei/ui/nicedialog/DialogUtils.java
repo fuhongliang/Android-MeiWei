@@ -21,4 +21,19 @@ public class DialogUtils {
         confirmDialog.setButtonOnclick(buttonOnclick);
         confirmDialog.show(manager);
     }
+
+    /**
+     * 弹出对话框
+     * @param title 标题
+     * @param message 内容
+     * @param manager 管理器
+     * @param buttonOnclick 点击
+     */
+    public static void showConfirmDialog(String title, String message, FragmentManager manager, ConfirmDialog.ButtonOnclick buttonOnclick) {
+        ConfirmDialog confirmDialog = ConfirmDialog.newInstance(title, message);
+        confirmDialog.setMargin(15);
+        confirmDialog.setOutCancel(false);
+        confirmDialog.setButtonOnclick(buttonOnclick);
+        confirmDialog.show(manager);
+    }
 }

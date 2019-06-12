@@ -453,6 +453,7 @@
         android:id="@+id/rl_order"
         android:layout_width="match_parent"
         android:layout_height="49dp"
+        android:layout_marginTop="15dp"
         android:layout_alignParentBottom="true"
         android:background="@color/bg_white">
 

@@ -16,8 +16,7 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" /> <!-- 用于申请获取蓝牙信息进行室内定位 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /><!--判断网络连接是否可用及监控网络状态-->
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".MyApplication"
@@ -29,6 +28,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ui.activity.home.ShoppingCartActivity" />
         <activity android:name=".ui.activity.me.MyAddressListActivity" />
         <activity
             android:name=".ui.activity.home.MainActivity"
@@ -49,7 +49,7 @@
         <activity android:name=".ui.activity.order.OrdertrackingActivity" />
         <activity android:name=".ui.activity.order.EvaluationActivity" />
         <activity android:name=".ui.activity.order.EvaluationSuccessActivity" />
-        <!--我的-->
+        <!-- 我的 -->
         <activity android:name=".ui.activity.me.MyAskActivity" />
         <activity android:name=".ui.activity.me.MyCollectActivity" />
         <activity android:name=".ui.activity.me.MyDiliverJoinActivity" />
@@ -66,7 +66,7 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="61e1cc9209040a90b23dbf3bd91f0980"></meta-data>
+            android:value="61e1cc9209040a90b23dbf3bd91f0980" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -79,7 +79,6 @@
         </provider>
 
         <activity android:name=".ui.activity.order.ConfirmPaymentActivity" />
-
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
