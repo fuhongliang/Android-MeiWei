@@ -145,7 +145,7 @@ public class ShoppingCartActivity extends BaseActivity {
                 shoppingCartAdapter.setOnClickItem(new ShoppingCartAdapter.OnClickItem() {
                     @Override
                     public void Settlement(int position) {
-                        goToActivity(ConfirmOrderActivity.class,shoppingCartBeanList.get(position).getStore().getStore_id()+"");
+                        goToActivity(ConfirmOrderActivity.class, shoppingCartBeanList.get(position).getStore().getStore_id() + "");
                     }
                 });
             }
