@@ -8,9 +8,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ListView;
+
 import com.ifhu.meiwei.ui.loading.LoadingDialog;
 import com.ifhu.meiwei.utils.ActivityCollector;
 import com.ifhu.meiwei.utils.Utils;
+
+import java.util.List;
+
 import static com.ifhu.meiwei.utils.Constants.DATA;
 
 /**
@@ -206,4 +211,17 @@ public class BaseActivity  extends AppCompatActivity {
         lastClick = System.currentTimeMillis();
         return true;
     }
+
+    public void hideOrShowView(List<View> views, boolean hide){
+        if (hide){
+            for (View view:views){
+                view.setVisibility(View.GONE);
+            }
+        }else {
+            for (View view:views){
+                view.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
 }

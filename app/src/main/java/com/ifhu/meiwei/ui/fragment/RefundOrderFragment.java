@@ -1,9 +1,11 @@
 package com.ifhu.meiwei.ui.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +70,8 @@ public class RefundOrderFragment extends BaseFragment {
     TextView tvButton;
     @BindView(R.id.rl_empty)
     RelativeLayout rlEmpty;
+    @BindView(R.id.layout_swipe_refresh)
+    SwipeRefreshLayout mLayoutSwipeRefresh;
 
     public static RefundOrderFragment newInstance() {
         return new RefundOrderFragment();
@@ -115,22 +119,31 @@ public class RefundOrderFragment extends BaseFragment {
             }
         });
         EventBus.getDefault().register(this);
-
+        setRefreshLayout();
     }
+
+    @SuppressLint("ResourceAsColor")
+    public void setRefreshLayout() {
+        mLayoutSwipeRefresh.setColorSchemeResources(R.color.colorPrimary,R.color.colorPrimaryDark);
+        mLayoutSwipeRefresh.setOnRefreshListener(() -> {
+            getData(false);
+        });
+    }
+
 
     @Override
     public void onResume() {
         super.onResume();
         if (UserLogic.isLogin()) {
             getData(false);
-        }else {
+        } else {
             handleEmptyPage(true);
         }
     }
 
 
-    public void handleEmptyPage(boolean isEmpty){
-        if (isEmpty){
+    public void handleEmptyPage(boolean isEmpty) {
+        if (isEmpty) {
             rlEmpty.setVisibility(View.VISIBLE);
             ivPhoto.setBackgroundResource(R.drawable.quesehng_ic_zanwudingdan);
             tvTitleOne.setText("近期暂无订单记录...");
@@ -138,13 +151,8 @@ public class RefundOrderFragment extends BaseFragment {
             tvTitleTwo.setVisibility(View.VISIBLE);
             tvButton.setText("去逛逛");
             tvButton.setVisibility(View.VISIBLE);
-            tvButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    EventBus.getDefault().post(new MessageEvent(GOTOHOMEPAGE));
-                }
-            });
-        }else {
+            tvButton.setOnClickListener(v -> EventBus.getDefault().post(new MessageEvent(GOTOHOMEPAGE)));
+        } else {
             rlEmpty.setVisibility(View.GONE);
         }
     }
@@ -165,6 +173,7 @@ public class RefundOrderFragment extends BaseFragment {
                 .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<List<OrderBean>>(true) {
             @Override
             protected void onApiComplete() {
+                mLayoutSwipeRefresh.setRefreshing(false);
                 setLoadingMessageIndicator(false);
             }
 

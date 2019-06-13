@@ -87,7 +87,6 @@ public class ShopHomeActivity extends BaseActivity {
     }
 
     FragmentPagerItemAdapter adapter;
-
     public void initView() {
         adapter = new FragmentPagerItemAdapter(
                 getSupportFragmentManager(), FragmentPagerItems.with(this)

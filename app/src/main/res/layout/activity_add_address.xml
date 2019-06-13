@@ -101,8 +101,8 @@
             style="@style/text"
             android:text="收货地址" />
 
-        <EditText
-            android:id="@+id/et_address"
+        <TextView
+            android:id="@+id/tv_address"
             style="@style/edit_text"
             android:layout_marginLeft="115dp"
             android:hint="点击选择地址" />

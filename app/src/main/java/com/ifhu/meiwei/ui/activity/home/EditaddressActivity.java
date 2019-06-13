@@ -43,8 +43,8 @@ public class EditaddressActivity extends BaseActivity {
     ImageView ivWoman;
     @BindView(R.id.et_phone_number)
     EditText etPhoneNumber;
-    @BindView(R.id.et_address)
-    EditText etAddress;
+    @BindView(R.id.tv_address)
+    TextView tvAddress;
     @BindView(R.id.et_house_number)
     EditText etHouseNumber;
     @BindView(R.id.tv_ok)
@@ -78,7 +78,7 @@ public class EditaddressActivity extends BaseActivity {
             ToastHelper.makeText("请输入手机号").show();
             return false;
         }
-        if (StringUtils.isEmpty(etAddress.getText().toString())) {
+        if (StringUtils.isEmpty(tvAddress.getText().toString())) {
             ToastHelper.makeText("请输入地址").show();
             return false;
         }
@@ -112,7 +112,7 @@ public class EditaddressActivity extends BaseActivity {
     public void initView(EditadreessBean editadreessBean) {
         etName.setText(editadreessBean.getTrue_name());
         etPhoneNumber.setText(editadreessBean.getMob_phone());
-        etAddress.setText(editadreessBean.getArea_info());
+        tvAddress.setText(editadreessBean.getArea_info());
         etHouseNumber.setText(editadreessBean.getAddress());
         selectedGender(editadreessBean.getSex() == 1);
     }
@@ -136,7 +136,7 @@ public class EditaddressActivity extends BaseActivity {
     public void setaddress() {
         setLoadingMessageIndicator(true);
         RetrofitApiManager.createUpload(UserService.class).userAddressSave(getDataInt(), UserLogic.getUser().getMember_id() + "",
-                etName.getText().toString(), sex, etPhoneNumber.getText().toString(), etAddress.getText().toString(),
+                etName.getText().toString(), sex, etPhoneNumber.getText().toString(), tvAddress.getText().toString(),
                 etHouseNumber.getText().toString(), 1).compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<Object>(true) {
             @Override
             protected void onApiComplete() {

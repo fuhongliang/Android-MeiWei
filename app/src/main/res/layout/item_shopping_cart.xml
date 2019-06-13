@@ -124,7 +124,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/tv_current_price"
+                android:id="@+id/tv_total_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""

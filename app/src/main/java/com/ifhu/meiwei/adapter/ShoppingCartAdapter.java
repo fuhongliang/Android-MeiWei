@@ -161,7 +161,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
         RelativeLayout rlExpand;
         @BindView(R.id.tv_original_price)
         TextView tvOriginalPrice;
-        @BindView(R.id.tv_current_price)
+        @BindView(R.id.tv_total_price)
         TextView tvCurrentPrice;
         @BindView(R.id.tv_settlement)
         TextView tvSettlement;

@@ -1,4 +1,4 @@
-package com.ifhu.meiwei.ui.activity.home;
+package com.ifhu.meiwei.ui.activity.order;
 
 import android.content.Intent;
 import android.graphics.Paint;
@@ -24,7 +24,6 @@ import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.OrdersService;
 import com.ifhu.meiwei.ui.activity.me.MyAddressListActivity;
-import com.ifhu.meiwei.ui.activity.order.ConfirmPaymentActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.utils.ToastHelper;
 import com.ifhu.meiwei.utils.UserLogic;
@@ -84,6 +83,10 @@ public class ConfirmOrderActivity extends BaseActivity {
     TextView mTvCouponMoney;
     @BindView(R.id.tv_total_money)
     TextView mTvTotalMoney;
+    @BindView(R.id.rl_add_address)
+    RelativeLayout mRlAddAddress;
+    @BindView(R.id.rl_address)
+    RelativeLayout mRlAddress;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -118,16 +121,16 @@ public class ConfirmOrderActivity extends BaseActivity {
 
     public void handleOtherFee() {
         mTvShippingFee.setText(MONEYUNIT + comformOrderBean.getPeisong_amount());
-        mTvVercherFee.setText("-"+MONEYUNIT + comformOrderBean.getManjian_amount());
+        mTvVercherFee.setText("-" + MONEYUNIT + comformOrderBean.getManjian_amount());
         mTvCouponMoney.setText(MONEYUNIT + comformOrderBean.getDaijinquan_amount());
         mTvOfferMoney.setText(MONEYUNIT + (comformOrderBean.getManjian_amount() + comformOrderBean.getDaijinquan_amount()));
-        mTvPaymentMoney.setText(comformOrderBean.getTotal_amount()+"");
+        mTvPaymentMoney.setText(comformOrderBean.getTotal_amount() + "");
         mTvTotalMoney.setText(MONEYUNIT + comformOrderBean.getTotal_amount());
     }
 
     public void handleGoodsShow() {
         mLlGoods.removeAllViews();
-        if (comformOrderBean.getGoods_detail().size() > showLessNumber && isNeedExpend) {
+        if (comformOrderBean.getGoods_detail().size() <= showLessNumber){
             for (int i = 0; i < comformOrderBean.getGoods_detail().size(); i++) {
                 View mView = LayoutInflater.from(ConfirmOrderActivity.this).inflate(R.layout.item_tracking_commodity, null);
                 GlideImageView imageView = mView.findViewById(R.id.iv_avatar);
@@ -145,32 +148,59 @@ public class ConfirmOrderActivity extends BaseActivity {
                 mLlGoods.addView(mView);
             }
             mLlMore.setVisibility(View.GONE);
-        } else {
-            for (int i = 0; i < showLessNumber; i++) {
-                View mView = LayoutInflater.from(ConfirmOrderActivity.this).inflate(R.layout.item_tracking_commodity, null);
-                GlideImageView imageView = mView.findViewById(R.id.iv_avatar);
-                ComformOrderBean.GoodsDetailBean goodsDetailBean = comformOrderBean.getGoods_detail().get(i);
-                imageView.load(goodsDetailBean.getGoods_image());
-                TextView name = mView.findViewById(R.id.tv_product_name);
-                TextView nowPrice = mView.findViewById(R.id.tv_now_price);
-                TextView tvOriginalPrice = mView.findViewById(R.id.tv_original_price);
-                TextView tvNumber = mView.findViewById(R.id.tv_number);
-                name.setText(goodsDetailBean.getGoods_name());
-                nowPrice.setText(goodsDetailBean.getGoods_marketprice());
-                tvOriginalPrice.setText(goodsDetailBean.getGoods_price());
-                tvOriginalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-                tvNumber.setText("x" + goodsDetailBean.getGoods_num());
-                mLlGoods.addView(mView);
+        }else {
+            if (isNeedExpend){
+                for (int i = 0; i < comformOrderBean.getGoods_detail().size(); i++) {
+                    View mView = LayoutInflater.from(ConfirmOrderActivity.this).inflate(R.layout.item_tracking_commodity, null);
+                    GlideImageView imageView = mView.findViewById(R.id.iv_avatar);
+                    ComformOrderBean.GoodsDetailBean goodsDetailBean = comformOrderBean.getGoods_detail().get(i);
+                    imageView.load(goodsDetailBean.getGoods_image());
+                    TextView name = mView.findViewById(R.id.tv_product_name);
+                    TextView nowPrice = mView.findViewById(R.id.tv_now_price);
+                    TextView tvOriginalPrice = mView.findViewById(R.id.tv_original_price);
+                    TextView tvNumber = mView.findViewById(R.id.tv_number);
+                    name.setText(goodsDetailBean.getGoods_name());
+                    nowPrice.setText(goodsDetailBean.getGoods_marketprice());
+                    tvOriginalPrice.setText(goodsDetailBean.getGoods_price());
+                    tvOriginalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                    tvNumber.setText("x" + goodsDetailBean.getGoods_num());
+                    mLlGoods.addView(mView);
+                }
+                mLlMore.setVisibility(View.GONE);
+            }else {
+                for (int i = 0; i < showLessNumber; i++) {
+                    View mView = LayoutInflater.from(ConfirmOrderActivity.this).inflate(R.layout.item_tracking_commodity, null);
+                    GlideImageView imageView = mView.findViewById(R.id.iv_avatar);
+                    ComformOrderBean.GoodsDetailBean goodsDetailBean = comformOrderBean.getGoods_detail().get(i);
+                    imageView.load(goodsDetailBean.getGoods_image());
+                    TextView name = mView.findViewById(R.id.tv_product_name);
+                    TextView nowPrice = mView.findViewById(R.id.tv_now_price);
+                    TextView tvOriginalPrice = mView.findViewById(R.id.tv_original_price);
+                    TextView tvNumber = mView.findViewById(R.id.tv_number);
+                    name.setText(goodsDetailBean.getGoods_name());
+                    nowPrice.setText(goodsDetailBean.getGoods_marketprice());
+                    tvOriginalPrice.setText(goodsDetailBean.getGoods_price());
+                    tvOriginalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                    tvNumber.setText("x" + goodsDetailBean.getGoods_num());
+                    mLlGoods.addView(mView);
+                }
+                mLlMore.setVisibility(View.VISIBLE);
+                mTvAllAmount.setText("共" + comformOrderBean.getGoods_detail().size() + "件商品");
             }
-            mLlMore.setVisibility(View.VISIBLE);
-            mTvAllAmount.setText("共" + comformOrderBean.getGoods_detail().size() + "件商品");
         }
     }
 
     public void handeAddressShow(MyAddressBean myAddressBean) {
-        mTvName.setText(myAddressBean.getTrue_name());
-        mTvAddress.setText(myAddressBean.getArea_info() + myAddressBean.getAddress());
-        mTvPhone.setText(myAddressBean.getMob_phone() + "");
+        if (myAddressBean.getAddress_id() == 0) {
+            mRlAddAddress.setVisibility(View.VISIBLE);
+            mRlAddress.setVisibility(View.GONE);
+        } else {
+            mRlAddress.setVisibility(View.VISIBLE);
+            mRlAddAddress.setVisibility(View.GONE);
+            mTvName.setText(myAddressBean.getTrue_name());
+            mTvAddress.setText(myAddressBean.getArea_info() + myAddressBean.getAddress());
+            mTvPhone.setText(myAddressBean.getMob_phone() + "");
+        }
     }
 
     @OnClick(R.id.iv_back)
@@ -206,15 +236,15 @@ public class ConfirmOrderActivity extends BaseActivity {
             @Override
             protected void onSuccees(BaseEntity<WXPayBean> t) throws Exception {
                 ToastHelper.makeText(t.getMessage()).show();
-                Intent intent = new Intent(ConfirmOrderActivity.this,ConfirmPaymentActivity.class);
-                intent.putExtra("WXPay",t.getData());
+                Intent intent = new Intent(ConfirmOrderActivity.this, ConfirmPaymentActivity.class);
+                intent.putExtra("WXPay", t.getData());
                 startActivity(intent);
             }
         });
 
     }
 
-    @OnClick(R.id.rl_address)
+    @OnClick({R.id.rl_address,R.id.rl_add_address})
     public void onMRlAddressClicked() {
         startActivityForResult(new Intent(ConfirmOrderActivity.this, MyAddressListActivity.class).putExtra(MyAddressListActivity.IsFromOrder, true), REQUESTADDRESSCODE);
     }

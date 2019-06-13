@@ -17,6 +17,7 @@ import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.HomeService;
+import com.ifhu.meiwei.ui.activity.order.ConfirmOrderActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.ui.nicedialog.ConfirmDialog;
 import com.ifhu.meiwei.ui.nicedialog.DialogUtils;

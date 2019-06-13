@@ -189,7 +189,7 @@ public class HomeFragment extends BaseFragment {
                 goToActivity(ShopHomeActivity.class,storelist_data.get(position).getStore_id()+"");
             }
         });
-        getData("", "1");
+        getData(true,"", "1");
         mFab.setOnClickListener(v -> {
             if (UserLogic.isLogin()){
                 goToActivity(ShoppingCartActivity.class);
@@ -224,19 +224,17 @@ public class HomeFragment extends BaseFragment {
 
     @SuppressLint("ResourceAsColor")
     public void setRefreshLayout() {
-        mLayoutSwipeRefresh.setColorSchemeColors(R.color.colorPrimaryDark,
-                R.color.colorPrimaryDark,
-                R.color.colorPrimaryDark,
-                R.color.colorPrimaryDark);
-
+        mLayoutSwipeRefresh.setColorSchemeResources(R.color.colorPrimary,R.color.colorPrimaryDark);
         mLayoutSwipeRefresh.setOnRefreshListener(() -> {
-            getData("", "1");
+            getData(false,"", "1");
         });
     }
 
 
-    public void getData(String keyWord, String type) {
-        setLoadingMessageIndicator(true);
+    public void getData(boolean showLoading,String keyWord, String type) {
+        if (showLoading){
+            setLoadingMessageIndicator(true);
+        }
         RetrofitApiManager.create(HomeService.class).keyword(keyWord, 1, mLongitude, mLatitude, type)
                 .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<HomeBean>(true) {
             @Override
@@ -373,7 +371,7 @@ public class HomeFragment extends BaseFragment {
                 try {
                     mLongitude = messageEvent.getArrayList().get(1);
                     mLatitude = messageEvent.getArrayList().get(2);
-                    getData("", "1");
+                    getData(true,"", "1");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -470,7 +468,7 @@ public class HomeFragment extends BaseFragment {
         mTvNear.setSelected(near);
         mTvBest.setSelected(best);
 
-        getData("", type + "");
+        getData(true,"", type + "");
     }
 
     @Override

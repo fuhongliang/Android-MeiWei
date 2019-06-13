@@ -27,7 +27,7 @@ import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.HomeService;
-import com.ifhu.meiwei.ui.activity.home.ConfirmOrderActivity;
+import com.ifhu.meiwei.ui.activity.order.ConfirmOrderActivity;
 import com.ifhu.meiwei.ui.activity.home.ShoppingCartActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
 import com.ifhu.meiwei.ui.base.WebViewActivity;
