@@ -175,7 +175,7 @@ public class ShopHomeActivity extends BaseActivity {
     @OnClick(R.id.iv_expand_info)
     public void onMIvExpandInfoClicked() {
         View view = getLayoutInflater().inflate(R.layout.dialog_menu_expand, null);
-        DialogUtils.showExpandMerchantInfoDialog("修改价格","", getSupportFragmentManager(), discount_price -> {
+        DialogUtils.showExpandMerchantInfoDialog("","", getSupportFragmentManager(), discount_price -> {
 
         });
     }

@@ -43,7 +43,7 @@ public interface HomeService {
 
     @FormUrlEncoded
     @POST("my_cart")
-    public Observable<BaseEntity<List<ShoppingCartBean>>> myCart(@Field("member_id") int member_id);
+    public Observable<BaseEntity<List<ShoppingCartBean>>> myCart(@Field("member_id") String member_id);
 
     @FormUrlEncoded
     @POST("clear_cart")

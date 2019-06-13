@@ -17,7 +17,7 @@ public class DialogUtils {
         MerchantInfoExpandDialog confirmDialog = MerchantInfoExpandDialog.newInstance(title, message);
         confirmDialog.setMargin(15);
         confirmDialog.setMarginTop(50);
-        confirmDialog.setOutCancel(false);
+        confirmDialog.setOutCancel(true);
         confirmDialog.setButtonOnclick(buttonOnclick);
         confirmDialog.show(manager);
     }

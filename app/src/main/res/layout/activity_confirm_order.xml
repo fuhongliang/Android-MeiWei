@@ -72,7 +72,7 @@
             android:id="@+id/rl_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:layout_marginLeft="15dp">
 
             <ImageView
@@ -83,10 +83,11 @@
 
             <TextView
                 android:id="@+id/tv_address"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="11dp"
                 android:layout_toRightOf="@id/iv_dingwei"
+                android:layout_marginRight="10dp"
                 android:text="海天大厦20楼2010室"
                 android:textColor="@color/text_white"
                 android:textSize="15sp"
@@ -107,7 +108,7 @@
                 android:id="@+id/tv_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="29dp"
+                android:layout_marginLeft="20dp"
                 android:layout_below="@+id/tv_address"
                 android:layout_toRightOf="@id/tv_name"
                 android:text="159****2586"
@@ -121,94 +122,97 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <ScrollView
+    <!--送达时间-->
+    <RelativeLayout
         android:layout_below="@+id/iv_bg"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="-48dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/bg_top_white">
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="送达时间"
+            android:textColor="@color/black"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/tv_shipping_time"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/iv_arrow"
+            android:layout_toRightOf="@id/tv_time"
+            android:gravity="end|center_vertical"
+            android:text="立即送达(17:00送达)"
+            android:textColor="#45ACFF"
+            android:textSize="17sp" />
+
+        <ImageView
+            android:id="@+id/iv_arrow"
+            style="@style/arrow"
+            android:layout_marginLeft="8dp" />
+    </RelativeLayout>
+    <!--分割线-->
+    <ImageView
+        android:id="@+id/tv_line"
+        style="@style/line_fff"
+        android:layout_below="@id/ll_address"
+        android:layout_alignParentBottom="false"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"/>
+    <!--支付方式-->
+    <RelativeLayout
+        android:id="@+id/rl_pay"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/tv_line"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/bg_bott_white">
+
+        <TextView
+            android:id="@+id/tv_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="支付方式"
+            android:textColor="@color/black"
+            android:textSize="17sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/iv_icon"
+            android:layout_toRightOf="@id/tv_pay"
+            android:gravity="end|center_vertical"
+            android:text="微信支付"
+            android:textColor="#45ACFF"
+            android:textSize="17sp" />
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            style="@style/arrow"
+            android:layout_marginLeft="8dp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_below="@+id/rl_pay"
         android:layout_above="@+id/rl_order"
         android:scrollbars="none"
-        android:layout_marginTop="-48dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <!--送达时间-->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/bg_top_white">
-
-                <TextView
-                    android:id="@+id/tv_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"
-                    android:text="送达时间"
-                    android:textColor="@color/black"
-                    android:textSize="17sp" />
-
-                <TextView
-                    android:id="@+id/tv_shipping_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_toLeftOf="@id/iv_arrow"
-                    android:layout_toRightOf="@id/tv_time"
-                    android:gravity="end|center_vertical"
-                    android:text="立即送达(17:00送达)"
-                    android:textColor="#45ACFF"
-                    android:textSize="17sp" />
-
-                <ImageView
-                    android:id="@+id/iv_arrow"
-                    style="@style/arrow"
-                    android:layout_marginLeft="8dp" />
-            </RelativeLayout>
-            <!--分割线-->
-            <ImageView
-                android:id="@+id/tv_line"
-                style="@style/line_fff"
-                android:layout_below="@id/ll_address"
-                android:layout_alignParentBottom="false"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"/>
-            <!--支付方式-->
-            <RelativeLayout
-                android:id="@+id/rl_pay"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_below="@id/tv_line"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="@drawable/bg_bott_white">
-
-                <TextView
-                    android:id="@+id/tv_pay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="15dp"
-                    android:text="支付方式"
-                    android:textColor="@color/black"
-                    android:textSize="17sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_toLeftOf="@id/iv_icon"
-                    android:layout_toRightOf="@id/tv_pay"
-                    android:gravity="end|center_vertical"
-                    android:text="微信支付"
-                    android:textColor="#45ACFF"
-                    android:textSize="17sp" />
-
-                <ImageView
-                    android:id="@+id/iv_icon"
-                    style="@style/arrow"
-                    android:layout_marginLeft="8dp" />
-            </RelativeLayout>
+            android:orientation="vertical"
+            android:layout_marginBottom="15dp">
 
             <!--店铺名称-->
             <LinearLayout
@@ -453,7 +457,6 @@
         android:id="@+id/rl_order"
         android:layout_width="match_parent"
         android:layout_height="49dp"
-        android:layout_marginTop="15dp"
         android:layout_alignParentBottom="true"
         android:background="@color/bg_white">
 

@@ -11,6 +11,7 @@
         android:background="@color/white" />
     <!--头像-->
     <RelativeLayout
+        android:id="@+id/rl_account_info"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@color/bg_white">

@@ -8,19 +8,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.ui.activity.home.ShoppingCartActivity;
-import com.ifhu.meiwei.ui.activity.order.EvaluationActivity;
 import com.ifhu.meiwei.ui.activity.login.LoginActivity;
 import com.ifhu.meiwei.ui.activity.me.MyAddressListActivity;
 import com.ifhu.meiwei.ui.activity.me.MyAskActivity;
 import com.ifhu.meiwei.ui.activity.me.MyCollectActivity;
 import com.ifhu.meiwei.ui.activity.me.MyDiliverJoinActivity;
 import com.ifhu.meiwei.ui.activity.me.MyHelpActivity;
-import com.ifhu.meiwei.ui.activity.me.MyShopJoinActivity;
 import com.ifhu.meiwei.ui.activity.me.MyVoucherActivity;
+import com.ifhu.meiwei.ui.activity.order.EvaluationActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
 import com.ifhu.meiwei.utils.UserLogic;
 
@@ -43,6 +43,8 @@ public class MeFragment extends BaseFragment {
     TextView tvName;
     @BindView(R.id.tv_phone)
     TextView tvPhone;
+    @BindView(R.id.rl_account_info)
+    RelativeLayout mRlAccountInfo;
 
     public static MeFragment newInstance() {
         return new MeFragment();
@@ -78,8 +80,9 @@ public class MeFragment extends BaseFragment {
             tvName.setText(UserLogic.getUser().getMember_name());
             tvPhone.setText(UserLogic.getUser().getMember_mobile());
         } else {
-            tvName.setText("未登录");
-            tvPhone.setText("");
+            tvName.setText("点击登录");
+            tvPhone.setText("暂无手机号码");
+            mRlAccountInfo.setOnClickListener(v -> goToActivity(LoginActivity.class));
         }
     }
 

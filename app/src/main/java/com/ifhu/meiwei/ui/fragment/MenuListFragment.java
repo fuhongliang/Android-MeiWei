@@ -227,20 +227,6 @@ public class MenuListFragment extends BaseFragment {
             }
         };
 
-//        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
-//            @Override
-//            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int i) {
-//                switch (mAdapter.getItemViewType(i)) {
-//                    case BaseHeaderAdapter.TYPE_DATA:
-//                        break;
-//                    case BaseHeaderAdapter.TYPE_HEADER:
-//                        break;
-//                    default:
-//                        break;
-//                }
-//            }
-//        });
-
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         mRecyclerView.addItemDecoration(new PinnedHeaderItemDecoration.Builder(BaseHeaderAdapter.TYPE_HEADER)
                 .setDividerId(R.drawable.divider).enableDivider(false).create());

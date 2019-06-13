@@ -40,6 +40,7 @@ import com.ifhu.meiwei.net.service.HomeService;
 import com.ifhu.meiwei.ui.activity.home.MainActivity;
 import com.ifhu.meiwei.ui.activity.home.ShippingAddressActivity;
 import com.ifhu.meiwei.ui.activity.home.ShopHomeActivity;
+import com.ifhu.meiwei.ui.activity.home.ShoppingCartActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
 import com.ifhu.meiwei.ui.base.WebViewActivity;
 import com.ifhu.meiwei.ui.view.ExpandListView;
@@ -50,6 +51,7 @@ import com.ifhu.meiwei.utils.DeviceUtil;
 import com.ifhu.meiwei.utils.GlideRoundTransform;
 import com.ifhu.meiwei.utils.SharedPreUtil;
 import com.ifhu.meiwei.utils.StringUtils;
+import com.ifhu.meiwei.utils.UserLogic;
 import com.stx.xhb.xbanner.XBanner;
 
 import org.greenrobot.eventbus.EventBus;
@@ -188,6 +190,11 @@ public class HomeFragment extends BaseFragment {
             }
         });
         getData("", "1");
+        mFab.setOnClickListener(v -> {
+            if (UserLogic.isLogin()){
+                goToActivity(ShoppingCartActivity.class);
+            }
+        });
     }
 
     public void initBanner(){

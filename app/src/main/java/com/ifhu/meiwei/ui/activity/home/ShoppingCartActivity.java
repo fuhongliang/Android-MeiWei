@@ -87,7 +87,7 @@ public class ShoppingCartActivity extends BaseActivity {
      */
     public void myCart() {
         setLoadingMessageIndicator(true);
-        RetrofitApiManager.create(HomeService.class).myCart(UserLogic.getUser().getMember_id())
+        RetrofitApiManager.create(HomeService.class).myCart(UserLogic.getUserId())
                 .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<List<ShoppingCartBean>>(true) {
             @Override
             protected void onApiComplete() {
