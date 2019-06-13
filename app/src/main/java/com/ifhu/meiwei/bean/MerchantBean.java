@@ -9,38 +9,22 @@ public class MerchantBean {
 
 
     /**
-     * store_info : {"store_id":5,"store_name":"lijing店铺1","store_avatar":"7mnpQn1EEfPKD6TjPPnJi66AspqMLiLyi8wqKdqD.jpeg","store_sales":0,"store_credit":0,"store_description":"热滴我陪你走","daijinquan":0}
+     * store_info : {"store_id":2,"store_name":"多味丫","store_avatar":"http://goods-images-bucket.oss-cn-beijing.aliyuncs.com/625fb8226c6703dfbe523897b0c7884c.jpg","store_sales":0,"store_credit":0,"store_description":""}
      * is_collect : false
-     * manjian : [{"rule_id":1,"price":10,"discount":5}]
-     * goods_list : [{"stc_id":"hot","stc_name":"热销","goods":[{"goods_id":40,"goods_name":"嗯","goods_price":"5.00","goods_marketprice":"55.00","goods_desc":"","img_name":"BekaQ0OvEA8OpJkQrAg9meaRAztXVz9bmW6kqAmF.jpeg","goods_salenum":1,"zan":0},{"goods_id":38,"goods_name":"111","goods_price":"1111.00","goods_marketprice":"111.00","goods_desc":"11","img_name":"11","goods_salenum":0,"zan":0},{"goods_id":39,"goods_name":"莫1","goods_price":"88.00","goods_marketprice":"888.00","goods_desc":"","img_name":"WYlqzgedvgUJfXVwjTU7OB7MRjAN1838aws44RNZ.jpeg","goods_salenum":0,"zan":0}]},{"stc_id":"xianshi","stc_name":"折扣","goods":[{"goods_id":40,"goods_name":"嗯","goods_price":"5.00","goods_marketprice":"55.00","goods_desc":"","img_name":"BekaQ0OvEA8OpJkQrAg9meaRAztXVz9bmW6kqAmF.jpeg","goods_salenum":1,"zan":0}]},{"stc_id":"taozhuang","stc_name":"优惠","goods":[{"goods_id":40,"goods_name":"嗯","goods_price":"5.00","goods_marketprice":"55.00","goods_desc":"","img_name":"BekaQ0OvEA8OpJkQrAg9meaRAztXVz9bmW6kqAmF.jpeg","goods_salenum":1,"zan":0}]},{"stc_id":"3","stc_name":"分类一","goods":[{"goods_id":39,"goods_name":"莫1","goods_price":"88.00","goods_marketprice":"888.00","goods_desc":"","img_name":"WYlqzgedvgUJfXVwjTU7OB7MRjAN1838aws44RNZ.jpeg","goods_salenum":0,"zan":0},{"goods_id":40,"goods_name":"嗯","goods_price":"5.00","goods_marketprice":"55.00","goods_desc":"","img_name":"BekaQ0OvEA8OpJkQrAg9meaRAztXVz9bmW6kqAmF.jpeg","goods_salenum":1,"zan":0}]}]
-     * cart : {"nums":0,"amount":0}
-     * pignjia_url : 8888888.com
-     * shangjia_url : 99999999.com
+     * manjian : [{"price":1000,"discount":900}]
+     * goods_list : [{"stc_id":"hot","stc_name":"热销","cart_nums":0,"goods":[{"goods_id":6,"goods_name":"女人斌","goods_price":"33.00","goods_marketprice":"36.00","goods_desc":"","img_name":"http://goods-images-bucket.oss-cn-beijing.aliyuncs.com/f7fc395b80b1aca1b1bb0318810fd050.jpg","goods_salenum":0,"store_id":2,"zan":0,"goods_detail_url":"http://47.111.27.189:88/users/#/p_detail/2/6/"}]},{"stc_id":"22","stc_name":"水果","cart_nums":0,"goods":[{"goods_id":8,"goods_name":"水果茶","goods_price":"60.00","goods_marketprice":"80.00","goods_desc":"","img_name":"http://goods-images-bucket.oss-cn-beijing.aliyuncs.com/85592e0945d66340f40559b6077ad43a.jpg","goods_salenum":0,"store_id":2,"zan":0,"goods_detail_url":"http://47.111.27.189:88/users/#/p_detail/2/8/6"}]},{"stc_id":"1","stc_name":"女人味","cart_nums":1,"goods":[{"goods_id":6,"goods_name":"女人斌","goods_price":"33.00","goods_marketprice":"36.00","goods_desc":"","img_name":"http://goods-images-bucket.oss-cn-beijing.aliyuncs.com/f7fc395b80b1aca1b1bb0318810fd050.jpg","goods_salenum":0,"store_id":2,"zan":0,"goods_detail_url":"http://47.111.27.189:88/users/#/p_detail/2/6/6"},{"goods_id":7,"goods_name":"女女的","goods_price":"33.00","goods_marketprice":"69.00","goods_desc":"","img_name":"http://goods-images-bucket.oss-cn-beijing.aliyuncs.com/5b14107eebdf0c59ea516fc484cfb789.jpg","goods_salenum":0,"store_id":2,"zan":0,"goods_detail_url":"http://47.111.27.189:88/users/#/p_detail/2/7/6"}]}]
+     * cart : {"peisong":5,"goods":[{"goods_num":2,"img_name":"http://goods-images-bucket.oss-cn-beijing.aliyuncs.com/f7fc395b80b1aca1b1bb0318810fd050.jpg","goods_price":"33.00","goods_name":"女人斌"}]}
+     * comment_url : http://47.111.27.189:88/users/#/evaluate/2/evaluateall
+     * store_info_url : http://47.111.27.189:88/users/#/business/2
      */
 
-    public StoreInfoBean store_info;
-    public boolean is_collect;
-    public CartBean cart;
-    public String comment_url;
-    public String store_info_url;
-    public List<ManjianBean> manjian;
-    public List<GoodsListBean> goods_list;
-
-    public String getComment_url() {
-        return comment_url;
-    }
-
-    public void setComment_url(String comment_url) {
-        this.comment_url = comment_url;
-    }
-
-    public String getStore_info_url() {
-        return store_info_url;
-    }
-
-    public void setStore_info_url(String store_info_url) {
-        this.store_info_url = store_info_url;
-    }
+    private StoreInfoBean store_info;
+    private boolean is_collect;
+    private CartBean cart;
+    private String comment_url;
+    private String store_info_url;
+    private List<ManjianBean> manjian;
+    private List<GoodsListBean> goods_list;
 
     public StoreInfoBean getStore_info() {
         return store_info;
@@ -66,6 +50,22 @@ public class MerchantBean {
         this.cart = cart;
     }
 
+    public String getComment_url() {
+        return comment_url;
+    }
+
+    public void setComment_url(String comment_url) {
+        this.comment_url = comment_url;
+    }
+
+    public String getStore_info_url() {
+        return store_info_url;
+    }
+
+    public void setStore_info_url(String store_info_url) {
+        this.store_info_url = store_info_url;
+    }
+
     public List<ManjianBean> getManjian() {
         return manjian;
     }
@@ -84,13 +84,12 @@ public class MerchantBean {
 
     public static class StoreInfoBean {
         /**
-         * store_id : 5
-         * store_name : lijing店铺1
-         * store_avatar : 7mnpQn1EEfPKD6TjPPnJi66AspqMLiLyi8wqKdqD.jpeg
+         * store_id : 2
+         * store_name : 多味丫
+         * store_avatar : http://goods-images-bucket.oss-cn-beijing.aliyuncs.com/625fb8226c6703dfbe523897b0c7884c.jpg
          * store_sales : 0
          * store_credit : 0
-         * store_description : 热滴我陪你走
-         * daijinquan : 0
+         * store_description :
          */
 
         private int store_id;
@@ -99,7 +98,6 @@ public class MerchantBean {
         private int store_sales;
         private int store_credit;
         private String store_description;
-        private int daijinquan;
 
         public int getStore_id() {
             return store_id;
@@ -148,60 +146,97 @@ public class MerchantBean {
         public void setStore_description(String store_description) {
             this.store_description = store_description;
         }
-
-        public int getDaijinquan() {
-            return daijinquan;
-        }
-
-        public void setDaijinquan(int daijinquan) {
-            this.daijinquan = daijinquan;
-        }
     }
 
     public static class CartBean {
         /**
-         * nums : 0
-         * amount : 0
+         * peisong : 5
+         * goods : [{"goods_num":2,"img_name":"http://goods-images-bucket.oss-cn-beijing.aliyuncs.com/f7fc395b80b1aca1b1bb0318810fd050.jpg","goods_price":"33.00","goods_name":"女人斌"}]
          */
 
-        private int nums;
-        private int amount;
+        private int peisong;
+        private List<GoodsBean> goods;
 
-        public int getNums() {
-            return nums;
+        public int getPeisong() {
+            return peisong;
         }
 
-        public void setNums(int nums) {
-            this.nums = nums;
+        public void setPeisong(int peisong) {
+            this.peisong = peisong;
         }
 
-        public int getAmount() {
-            return amount;
+        public List<GoodsBean> getGoods() {
+            return goods;
         }
 
-        public void setAmount(int amount) {
-            this.amount = amount;
+        public void setGoods(List<GoodsBean> goods) {
+            this.goods = goods;
+        }
+
+        public static class GoodsBean {
+            /**
+             * goods_num : 2
+             * img_name : http://goods-images-bucket.oss-cn-beijing.aliyuncs.com/f7fc395b80b1aca1b1bb0318810fd050.jpg
+             * goods_price : 33.00
+             * goods_name : 女人斌
+             */
+
+            private int goods_num;
+            private String goods_id;
+            private String img_name;
+            private String goods_price;
+            private String goods_name;
+
+            public String getGoods_id() {
+                return goods_id;
+            }
+
+            public void setGoods_id(String goods_id) {
+                this.goods_id = goods_id;
+            }
+
+            public int getGoods_num() {
+                return goods_num;
+            }
+
+            public void setGoods_num(int goods_num) {
+                this.goods_num = goods_num;
+            }
+
+            public String getImg_name() {
+                return img_name;
+            }
+
+            public void setImg_name(String img_name) {
+                this.img_name = img_name;
+            }
+
+            public String getGoods_price() {
+                return goods_price;
+            }
+
+            public void setGoods_price(String goods_price) {
+                this.goods_price = goods_price;
+            }
+
+            public String getGoods_name() {
+                return goods_name;
+            }
+
+            public void setGoods_name(String goods_name) {
+                this.goods_name = goods_name;
+            }
         }
     }
 
     public static class ManjianBean {
         /**
-         * rule_id : 1
-         * price : 10
-         * discount : 5
+         * price : 1000
+         * discount : 900
          */
 
-        private int rule_id;
         private int price;
         private int discount;
-
-        public int getRule_id() {
-            return rule_id;
-        }
-
-        public void setRule_id(int rule_id) {
-            this.rule_id = rule_id;
-        }
 
         public int getPrice() {
             return price;
@@ -224,12 +259,14 @@ public class MerchantBean {
         /**
          * stc_id : hot
          * stc_name : 热销
-         * goods : [{"goods_id":40,"goods_name":"嗯","goods_price":"5.00","goods_marketprice":"55.00","goods_desc":"","img_name":"BekaQ0OvEA8OpJkQrAg9meaRAztXVz9bmW6kqAmF.jpeg","goods_salenum":1,"zan":0},{"goods_id":38,"goods_name":"111","goods_price":"1111.00","goods_marketprice":"111.00","goods_desc":"11","img_name":"11","goods_salenum":0,"zan":0},{"goods_id":39,"goods_name":"莫1","goods_price":"88.00","goods_marketprice":"888.00","goods_desc":"","img_name":"WYlqzgedvgUJfXVwjTU7OB7MRjAN1838aws44RNZ.jpeg","goods_salenum":0,"zan":0}]
+         * cart_nums : 0
+         * goods : [{"goods_id":6,"goods_name":"女人斌","goods_price":"33.00","goods_marketprice":"36.00","goods_desc":"","img_name":"http://goods-images-bucket.oss-cn-beijing.aliyuncs.com/f7fc395b80b1aca1b1bb0318810fd050.jpg","goods_salenum":0,"store_id":2,"zan":0,"goods_detail_url":"http://47.111.27.189:88/users/#/p_detail/2/6/"}]
          */
 
         private String stc_id;
         private String stc_name;
-        private List<GoodsBean> goods;
+        private int cart_nums;
+        private List<GoodsBeanX> goods;
 
         public String getStc_id() {
             return stc_id;
@@ -247,42 +284,54 @@ public class MerchantBean {
             this.stc_name = stc_name;
         }
 
-        public List<GoodsBean> getGoods() {
+        public int getCart_nums() {
+            return cart_nums;
+        }
+
+        public void setCart_nums(int cart_nums) {
+            this.cart_nums = cart_nums;
+        }
+
+        public List<GoodsBeanX> getGoods() {
             return goods;
         }
 
-        public void setGoods(List<GoodsBean> goods) {
+        public void setGoods(List<GoodsBeanX> goods) {
             this.goods = goods;
         }
 
-        public static class GoodsBean {
+        public static class GoodsBeanX {
             /**
-             * goods_id : 40
-             * goods_name : 嗯
-             * goods_price : 5.00
-             * goods_marketprice : 55.00
+             * goods_id : 6
+             * goods_name : 女人斌
+             * goods_price : 33.00
+             * goods_marketprice : 36.00
              * goods_desc :
-             * img_name : BekaQ0OvEA8OpJkQrAg9meaRAztXVz9bmW6kqAmF.jpeg
-             * goods_salenum : 1
+             * img_name : http://goods-images-bucket.oss-cn-beijing.aliyuncs.com/f7fc395b80b1aca1b1bb0318810fd050.jpg
+             * goods_salenum : 0
+             * store_id : 2
              * zan : 0
+             * goods_detail_url : http://47.111.27.189:88/users/#/p_detail/2/6/
              */
 
             private int goods_id;
+            private int goods_number_in_cart = 0;
             private String goods_name;
             private String goods_price;
             private String goods_marketprice;
             private String goods_desc;
             private String img_name;
-            private String goods_detail_url;
             private int goods_salenum;
+            private int store_id;
             private int zan;
+            private String goods_detail_url;
 
-            public String getGoods_detail_url() {
-                return goods_detail_url;
+            public int getGoods_number_in_cart() {
+                return goods_number_in_cart;
             }
 
-            public void setGoods_detail_url(String goods_detail_url) {
-                this.goods_detail_url = goods_detail_url;
+            public void setGoods_number_in_cart(int goods_number_in_cart) {
+                this.goods_number_in_cart = goods_number_in_cart;
             }
 
             public int getGoods_id() {
@@ -341,12 +390,28 @@ public class MerchantBean {
                 this.goods_salenum = goods_salenum;
             }
 
+            public int getStore_id() {
+                return store_id;
+            }
+
+            public void setStore_id(int store_id) {
+                this.store_id = store_id;
+            }
+
             public int getZan() {
                 return zan;
             }
 
             public void setZan(int zan) {
                 this.zan = zan;
+            }
+
+            public String getGoods_detail_url() {
+                return goods_detail_url;
+            }
+
+            public void setGoods_detail_url(String goods_detail_url) {
+                this.goods_detail_url = goods_detail_url;
             }
         }
     }

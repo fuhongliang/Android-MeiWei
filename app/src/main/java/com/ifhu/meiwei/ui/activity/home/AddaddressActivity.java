@@ -1,5 +1,6 @@
 package com.ifhu.meiwei.ui.activity.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.UserService;
+import com.ifhu.meiwei.ui.activity.me.ChooseAddressPointActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.utils.StringUtils;
 import com.ifhu.meiwei.utils.ToastHelper;
@@ -22,6 +24,8 @@ import com.ifhu.meiwei.utils.UserLogic;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.ifhu.meiwei.ui.activity.me.ChooseAddressPointActivity.ADDRESS;
 
 /**
  * 新增地址页面
@@ -39,8 +43,8 @@ public class AddaddressActivity extends BaseActivity {
     EditText etName;
     @BindView(R.id.et_phone_number)
     EditText etPhoneNumber;
-    @BindView(R.id.et_address)
-    EditText etAddress;
+    @BindView(R.id.tv_address)
+    TextView tvAddress;
     @BindView(R.id.et_house_number)
     EditText etHouseNumber;
     @BindView(R.id.tv_ok)
@@ -82,7 +86,7 @@ public class AddaddressActivity extends BaseActivity {
             ToastHelper.makeText("请输入手机号码").show();
             return false;
         }
-        if (StringUtils.isEmpty(etAddress.getText().toString())) {
+        if (StringUtils.isEmpty(tvAddress.getText().toString())) {
             ToastHelper.makeText("请选择地址").show();
             return false;
         }
@@ -99,7 +103,7 @@ public class AddaddressActivity extends BaseActivity {
                 etName.getText().toString(),
                 sex,
                 etPhoneNumber.getText().toString(),
-                etAddress.getText().toString(),
+                tvAddress.getText().toString(),
                 etHouseNumber.getText().toString(),
                 is_default).compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<Object>(true) {
             @Override
@@ -125,7 +129,7 @@ public class AddaddressActivity extends BaseActivity {
 
     @OnClick(R.id.tv_ok)
     public void onTvOkClicked() {
-        if(checkair()) {
+        if (checkair()) {
             setaddress();
         }
     }
@@ -149,5 +153,17 @@ public class AddaddressActivity extends BaseActivity {
         ivMan.setSelected(man);
         ivWoman.setSelected(!man);
         sex = man ? 1 : 2;
+    }
+
+    @OnClick(R.id.tv_address)
+    public void onMTvAddressClicked() {
+        startActivityForResult(new Intent(AddaddressActivity.this,ChooseAddressPointActivity.class),888);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == RESULT_OK){
+            tvAddress.setText(data.getStringExtra(ADDRESS));
+        }
     }
 }

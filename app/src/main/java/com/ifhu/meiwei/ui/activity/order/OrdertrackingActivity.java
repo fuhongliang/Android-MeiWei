@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.ui.fragment.HomeFragment;
 import com.jaeger.library.StatusBarUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -101,13 +103,21 @@ public class OrdertrackingActivity extends BaseActivity {
     TextView tvAnnouncementOne;
     @BindView(R.id.tv_announcement_two)
     TextView tvAnnouncementTwo;
+    @BindView(R.id.ll_order_status)
+    RelativeLayout mLlOrderStatus;
+    @BindView(R.id.sv_order_detail)
+    ScrollView mSvOrderDetail;
+    List<View> views = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_tracking);
-        ButterKnife.bind(this);
         StatusBarUtil.setTranslucentForImageView(OrdertrackingActivity.this, 0, mIvBgView);
+        ButterKnife.bind(this);
+        views.add(mLlOrderStatus);
+        views.add(mSvOrderDetail);
+        hideOrShowView(views,true);
         orderDetails();
     }
 
@@ -127,6 +137,7 @@ public class OrdertrackingActivity extends BaseActivity {
             protected void onSuccees(BaseEntity<OrderinfoBean> t) throws Exception {
                 initView(t.getData());
                 handleCategoryDataInit(t.getData().getOrder_detail());
+                hideOrShowView(views,false);
             }
         });
     }
@@ -150,31 +161,25 @@ public class OrdertrackingActivity extends BaseActivity {
     }
 
     public void initView(OrderinfoBean orderinfoBean) {
-        tvStoreName.setText(orderinfoBean.getStore_name());//商店名称
-        tvPackage.setText(orderinfoBean.getPeisong());//配送费
-        tvFullReduction.setText(orderinfoBean.getManjian());//满立减
-        tvVoucher.setText(orderinfoBean.getDaijinquan());//代金券
+        tvStoreName.setText(orderinfoBean.getStore_name());
+        tvPackage.setText(orderinfoBean.getPeisong());
+        tvFullReduction.setText(orderinfoBean.getManjian());
+        tvVoucher.setText(orderinfoBean.getDaijinquan());
 
-
-        ivStorePhone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(Intent.ACTION_DIAL);
-                Uri data = Uri.parse("tel:" + orderinfoBean.getStore_phone() + "");
-                intent.setData(data);
-                startActivity(intent);
-            }
+        ivStorePhone.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            Uri data = Uri.parse("tel:" + orderinfoBean.getStore_phone() + "");
+            intent.setData(data);
+            startActivity(intent);
         });
-
 
         try {
             double price = Double.parseDouble(orderinfoBean.getManjian()) + Double.parseDouble(orderinfoBean.getDaijinquan());
-            tvOfferMoney.setText(price + "");//已优惠
+            //已优惠
+            tvOfferMoney.setText(price + "");
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
         tvPaymentMoney.setText(orderinfoBean.getTotal());//实付金额
         String sex = orderinfoBean.getPeisong_info().getSex() == 1 ? "先生" : "女士";
@@ -273,7 +278,6 @@ public class OrdertrackingActivity extends BaseActivity {
             default:
                 break;
         }
-
     }
 
     public void handleCategoryDataInit(List<OrderinfoBean.OrderDetailBean> gcsort_data) {

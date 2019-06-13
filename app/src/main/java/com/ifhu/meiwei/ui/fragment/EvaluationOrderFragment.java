@@ -1,9 +1,11 @@
 package com.ifhu.meiwei.ui.fragment;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +70,8 @@ public class EvaluationOrderFragment extends BaseFragment {
     TextView tvButton;
     @BindView(R.id.rl_empty)
     RelativeLayout rlEmpty;
+    @BindView(R.id.layout_swipe_refresh)
+    SwipeRefreshLayout mLayoutSwipeRefresh;
 
     public static EvaluationOrderFragment newInstance() {
         return new EvaluationOrderFragment();
@@ -117,21 +121,31 @@ public class EvaluationOrderFragment extends BaseFragment {
             }
         });
         EventBus.getDefault().register(this);
+        setRefreshLayout();
     }
+
+    @SuppressLint("ResourceAsColor")
+    public void setRefreshLayout() {
+        mLayoutSwipeRefresh.setColorSchemeResources(R.color.colorPrimary,R.color.colorPrimaryDark);
+        mLayoutSwipeRefresh.setOnRefreshListener(() -> {
+            getData(false);
+        });
+    }
+
 
     @Override
     public void onResume() {
         super.onResume();
         if (UserLogic.isLogin()) {
             getData(false);
-        }else {
+        } else {
             handleEmptyPage(true);
         }
     }
 
 
-    public void handleEmptyPage(boolean isEmpty){
-        if (isEmpty){
+    public void handleEmptyPage(boolean isEmpty) {
+        if (isEmpty) {
             rlEmpty.setVisibility(View.VISIBLE);
             ivPhoto.setBackgroundResource(R.drawable.quesehng_ic_zanwudingdan);
             tvTitleOne.setText("近期暂无订单记录...");
@@ -145,7 +159,7 @@ public class EvaluationOrderFragment extends BaseFragment {
                     EventBus.getDefault().post(new MessageEvent(GOTOHOMEPAGE));
                 }
             });
-        }else {
+        } else {
             rlEmpty.setVisibility(View.GONE);
         }
     }
@@ -166,6 +180,7 @@ public class EvaluationOrderFragment extends BaseFragment {
                 .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<List<OrderBean>>(true) {
             @Override
             protected void onApiComplete() {
+                mLayoutSwipeRefresh.setRefreshing(false);
                 setLoadingMessageIndicator(false);
             }
 

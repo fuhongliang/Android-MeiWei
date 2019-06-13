@@ -18,7 +18,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ifhu.meiwei.R;
-import com.ifhu.meiwei.ui.activity.home.ShoppingCartActivity;
 import com.ifhu.meiwei.adapter.BaseHeaderAdapter;
 import com.ifhu.meiwei.adapter.CategoryAdapter;
 import com.ifhu.meiwei.bean.BaseEntity;
@@ -28,7 +27,8 @@ import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.HomeService;
-import com.ifhu.meiwei.ui.activity.home.ConfirmOrderActivity;
+import com.ifhu.meiwei.ui.activity.order.ConfirmOrderActivity;
+import com.ifhu.meiwei.ui.activity.home.ShoppingCartActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
 import com.ifhu.meiwei.ui.base.WebViewActivity;
 import com.ifhu.meiwei.utils.UserLogic;
@@ -73,8 +73,10 @@ public class MenuListFragment extends BaseFragment {
     TextView mTvCarAmount;
     @BindView(R.id.tv_tips)
     TextView mTvTips;
+    @BindView(R.id.iv_shop_cart_empty)
+    ImageView mIvShopCartEmpty;
 
-    private BaseHeaderAdapter<PinnedHeaderEntity<MerchantBean.GoodsListBean.GoodsBean>> mAdapter;
+    private BaseHeaderAdapter<PinnedHeaderEntity<MerchantBean.GoodsListBean.GoodsBeanX>> mAdapter;
 
     CategoryAdapter mCategoryAdapter;
 
@@ -101,13 +103,13 @@ public class MenuListFragment extends BaseFragment {
         return view;
     }
 
-    List<PinnedHeaderEntity<MerchantBean.GoodsListBean.GoodsBean>> data = new ArrayList<>();
+    List<PinnedHeaderEntity<MerchantBean.GoodsListBean.GoodsBeanX>> data = new ArrayList<>();
 
     public void initData() {
         handleCarBean();
         for (MerchantBean.GoodsListBean goodsListBeans : mGoodsListBeans) {
             data.add(new PinnedHeaderEntity<>(null, BaseHeaderAdapter.TYPE_HEADER, goodsListBeans.getStc_name()));
-            for (MerchantBean.GoodsListBean.GoodsBean goodsBean : goodsListBeans.getGoods()) {
+            for (MerchantBean.GoodsListBean.GoodsBeanX goodsBean : goodsListBeans.getGoods()) {
                 data.add(new PinnedHeaderEntity<>(goodsBean, BaseHeaderAdapter.TYPE_DATA, goodsListBeans.getStc_name()));
             }
         }
@@ -116,20 +118,37 @@ public class MenuListFragment extends BaseFragment {
     }
 
     public void handleCarBean() {
-        if (mCartBean.getNums() > 0) {
-            mIvShopCat.setBackgroundResource(R.drawable.meal_bnt_gouwuche1);
-            mTvCarAmount.setText(mCartBean.getNums() + "");
+        if (mCartBean.getGoods().size() > 0) {
+            mIvShopCat.setVisibility(View.VISIBLE);
+            mIvShopCartEmpty.setVisibility(View.INVISIBLE);
+            mTvCarAmount.setVisibility(View.VISIBLE);
+            int mCarAmount = 0;
+            double mTotalPrice = 0;
+            try {
+                for (MerchantBean.CartBean.GoodsBean goodsBean : mCartBean.getGoods()) {
+                    mCarAmount = mCarAmount + goodsBean.getGoods_num();
+                    mTotalPrice = mTotalPrice + Double.parseDouble(goodsBean.getGoods_price());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            mTvCarAmount.setText(mCarAmount + "");
             mRlPrice.setVisibility(View.VISIBLE);
-            mTvTotalPrice.setText("￥" + mCartBean.getAmount());
+            mTvTotalPrice.setText("￥" + mTotalPrice);
             mTvTips.setVisibility(View.GONE);
-            mTvShippingFee.setText("另需配送费 ￥" + "5");
+            mTvShippingFee.setText("另需配送费 ￥" + mCartBean.getPeisong());
             mTvAtLess.setSelected(true);
+            mTvAtLess.setEnabled(true);
             mTvAtLess.setText("选好了");
         } else {
-            mIvShopCat.setBackgroundResource(R.drawable.meal_bnt_gouwuche);
+            mIvShopCat.setVisibility(View.INVISIBLE);
+            mTvCarAmount.setVisibility(View.INVISIBLE);
+
+            mIvShopCartEmpty.setVisibility(View.VISIBLE);
             mTvTips.setVisibility(View.VISIBLE);
             mRlPrice.setVisibility(View.INVISIBLE);
             mTvAtLess.setSelected(false);
+            mTvAtLess.setEnabled(false);
         }
     }
 
@@ -154,18 +173,8 @@ public class MenuListFragment extends BaseFragment {
             mCategoryAdapter.notifyDataSetChanged();
         });
         mLvCategory.setAdapter(mCategoryAdapter);
-        mTvAtLess.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToActivity(ConfirmOrderActivity.class, mStoreId);
-            }
-        });
-        mIvShopCat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToActivity(ShoppingCartActivity.class);
-            }
-        });
+        mTvAtLess.setOnClickListener(v -> goToActivity(ConfirmOrderActivity.class, mStoreId));
+        mIvShopCat.setOnClickListener(v -> goToActivity(ShoppingCartActivity.class));
     }
 
     public void addToShopingCar(int goods_id, int amount) {
@@ -185,8 +194,21 @@ public class MenuListFragment extends BaseFragment {
         });
     }
 
+    public int getGoodsInCartNumber(int goodsId) {
+        try {
+            for (MerchantBean.CartBean.GoodsBean goodsBean : mCartBean.getGoods()) {
+                if (goodsBean.getGoods_id().equals(goodsId)) {
+                    return goodsBean.getGoods_num();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public void initRecyclerView() {
-        mAdapter = new BaseHeaderAdapter<PinnedHeaderEntity<MerchantBean.GoodsListBean.GoodsBean>>(data) {
+        mAdapter = new BaseHeaderAdapter<PinnedHeaderEntity<MerchantBean.GoodsListBean.GoodsBeanX>>(data) {
 
             @Override
             protected void addItemTypes() {
@@ -195,7 +217,7 @@ public class MenuListFragment extends BaseFragment {
             }
 
             @Override
-            protected void convert(BaseViewHolder holder, final PinnedHeaderEntity<MerchantBean.GoodsListBean.GoodsBean> item) {
+            protected void convert(BaseViewHolder holder, final PinnedHeaderEntity<MerchantBean.GoodsListBean.GoodsBeanX> item) {
                 switch (holder.getItemViewType()) {
                     case BaseHeaderAdapter.TYPE_HEADER:
                         holder.setText(R.id.tv_pinned_header, item.getPinnedHeaderName());
@@ -216,10 +238,18 @@ public class MenuListFragment extends BaseFragment {
                             addToShopingCar(item.getData().getGoods_id(), 1);
                             holder.getView(R.id.iv_delete).setVisibility(View.VISIBLE);
                             holder.getView(R.id.tv_amount).setVisibility(View.VISIBLE);
-                            ((TextView) holder.getView(R.id.tv_amount)).setText("1");
+                            ((TextView) holder.getView(R.id.tv_amount)).setText("" + (item.getData().getGoods_number_in_cart() + 1));
                         });
-
-
+                        int amount = getGoodsInCartNumber(item.getData().getGoods_id());
+                        item.getData().setGoods_number_in_cart(amount);
+                        if (amount == 0) {
+                            holder.getView(R.id.iv_delete).setVisibility(View.INVISIBLE);
+                            holder.getView(R.id.tv_amount).setVisibility(View.INVISIBLE);
+                        } else {
+                            holder.getView(R.id.iv_delete).setVisibility(View.VISIBLE);
+                            holder.getView(R.id.tv_amount).setVisibility(View.VISIBLE);
+                            ((TextView) holder.getView(R.id.tv_amount)).setText("" + amount);
+                        }
                         break;
                     default:
                         break;

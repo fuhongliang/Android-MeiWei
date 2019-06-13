@@ -41,6 +41,7 @@
 
         <!--新建收货地址-->
         <RelativeLayout
+            android:id="@+id/rl_add_address"
             android:layout_width="match_parent"
             android:layout_height="74dp"
             android:gravity="center"
@@ -61,6 +62,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/white"
                     android:layout_marginLeft="9dp"
                     android:layout_toRightOf="@id/iv_image"
                     android:text="新建收货地址" />

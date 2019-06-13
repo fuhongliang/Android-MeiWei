@@ -19,6 +19,8 @@ import com.ifhu.meiwei.ui.activity.me.MyAskActivity;
 import com.ifhu.meiwei.ui.activity.me.MyCollectActivity;
 import com.ifhu.meiwei.ui.activity.me.MyDiliverJoinActivity;
 import com.ifhu.meiwei.ui.activity.me.MyHelpActivity;
+import com.ifhu.meiwei.ui.activity.me.MyReviewActivity;
+import com.ifhu.meiwei.ui.activity.me.MyShopJoinActivity;
 import com.ifhu.meiwei.ui.activity.me.MyVoucherActivity;
 import com.ifhu.meiwei.ui.activity.order.EvaluationActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
@@ -107,7 +109,7 @@ public class MeFragment extends BaseFragment {
                     goToActivity(MyCollectActivity.class);
                     break;
                 case R.id.ll_review://我的评价
-                    goToActivity(EvaluationActivity.class);
+                    goToActivity(MyReviewActivity.class);
                     break;
                 case R.id.ll_help://帮助与反馈
                     goToActivity(MyHelpActivity.class);
@@ -116,7 +118,7 @@ public class MeFragment extends BaseFragment {
                     goToActivity(MyAskActivity.class);
                     break;
                 case R.id.ll_shop_join://商家入驻
-                    goToActivity(ShoppingCartActivity.class);
+                    goToActivity(MyShopJoinActivity.class);
                     break;
                 case R.id.ll_diliver_join://骑手入驻
                     goToActivity(MyDiliverJoinActivity.class);

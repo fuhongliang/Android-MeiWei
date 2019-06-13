@@ -111,6 +111,9 @@ dependencies {
      *   高德地图定位
      */
     implementation 'com.amap.api:location:latest.integration'
+    implementation 'com.amap.api:search:latest.integration'
+    implementation 'com.amap.api:3dmap:latest.integration'
+
     /**
      *    权限询问
      */
@@ -135,4 +138,6 @@ dependencies {
     implementation project(path: ':matise')
     implementation 'com.github.yalantis:ucrop:2.2.3-native'
     implementation files('libs/libammsdk.jar')
+
+
 }

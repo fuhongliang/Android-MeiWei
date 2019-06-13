@@ -89,6 +89,13 @@ public class ShoppingCartAdapter extends BaseAdapter {
         viewHolder.tvCurrentPrice.setText(shoppingCartBeanList.get(position).getAmount());
         getCommodity(shoppingCartBeanList.get(position).getList(), viewHolder.llCommodity, shoppingCartBeanList.get(position).isExpend());
 
+        if (shoppingCartBeanList.get(position).isExpend()){
+            viewHolder.rlExpand.setVisibility(View.GONE);
+        }else {
+            viewHolder.rlExpand.setVisibility(View.VISIBLE);
+            viewHolder.tvExpand.setText("展开其他"+(shoppingCartBeanList.get(position).getList().size()-2)+"商品");
+        }
+
         viewHolder.rlExpand.setOnClickListener(v -> {
             shoppingCartBeanList.get(position).setExpend(true);
             notifyDataSetChanged();
@@ -107,9 +114,9 @@ public class ShoppingCartAdapter extends BaseAdapter {
      * 获取商品列表数据
      */
     public void getCommodity(List<ShoppingCartBean.ListBean> gcsort_data, LinearLayout linearLayout, boolean isExpend) {
+        linearLayout.removeAllViews();
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
         if (gcsort_data != null && gcsort_data.size() > 0) {
-
             if (isExpend) {
                 for (int i = 0; i < gcsort_data.size(); i++) {
                     View categoryView = layoutInflater.inflate(R.layout.item_commodity, null);
@@ -137,7 +144,6 @@ public class ShoppingCartAdapter extends BaseAdapter {
                     linearLayout.addView(categoryView);
                 }
             }
-
         }
 
     }
@@ -155,7 +161,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
         RelativeLayout rlExpand;
         @BindView(R.id.tv_original_price)
         TextView tvOriginalPrice;
-        @BindView(R.id.tv_current_price)
+        @BindView(R.id.tv_total_price)
         TextView tvCurrentPrice;
         @BindView(R.id.tv_settlement)
         TextView tvSettlement;
