@@ -127,7 +127,7 @@ public class MenuListFragment extends BaseFragment {
             try {
                 for (MerchantBean.CartBean.GoodsBean goodsBean : mCartBean.getGoods()) {
                     mCarAmount = mCarAmount + goodsBean.getGoods_num();
-                    mTotalPrice = mTotalPrice + Double.parseDouble(goodsBean.getGoods_price());
+                    mTotalPrice = mTotalPrice + goodsBean.getGoods_num() * Double.parseDouble(goodsBean.getGoods_price());
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -190,6 +190,7 @@ public class MenuListFragment extends BaseFragment {
             protected void onSuccees(BaseEntity<MerchantBean.CartBean> t) throws Exception {
                 mCartBean = t.getData();
                 handleCarBean();
+                mAdapter.notifyDataSetChanged();
             }
         });
     }
@@ -197,7 +198,7 @@ public class MenuListFragment extends BaseFragment {
     public int getGoodsInCartNumber(int goodsId) {
         try {
             for (MerchantBean.CartBean.GoodsBean goodsBean : mCartBean.getGoods()) {
-                if (goodsBean.getGoods_id().equals(goodsId)) {
+                if (goodsBean.getGoods_id().equals(goodsId+"")) {
                     return goodsBean.getGoods_num();
                 }
             }
@@ -240,6 +241,13 @@ public class MenuListFragment extends BaseFragment {
                             holder.getView(R.id.tv_amount).setVisibility(View.VISIBLE);
                             ((TextView) holder.getView(R.id.tv_amount)).setText("" + (item.getData().getGoods_number_in_cart() + 1));
                         });
+
+                        holder.getView(R.id.iv_delete).setOnClickListener(v -> {
+                            addToShopingCar(item.getData().getGoods_id(), -1);
+                            holder.getView(R.id.iv_delete).setVisibility(View.VISIBLE);
+                            holder.getView(R.id.tv_amount).setVisibility(View.VISIBLE);
+                            ((TextView) holder.getView(R.id.tv_amount)).setText("" + (item.getData().getGoods_number_in_cart() - 1));
+                        });
                         int amount = getGoodsInCartNumber(item.getData().getGoods_id());
                         item.getData().setGoods_number_in_cart(amount);
                         if (amount == 0) {
@@ -250,6 +258,12 @@ public class MenuListFragment extends BaseFragment {
                             holder.getView(R.id.tv_amount).setVisibility(View.VISIBLE);
                             ((TextView) holder.getView(R.id.tv_amount)).setText("" + amount);
                         }
+
+                        holder.setText(R.id.tv_money, item.getData().getGoods_marketprice() + "");
+                        holder.setText(R.id.tv_price, item.getData().getGoods_price() + "");
+                        holder.setText(R.id.tv_description, item.getData().getGoods_desc() + "");
+                        holder.setText(R.id.tv_sell_amount, "月售"+item.getData().getGoods_salenum() + "|点赞" + item.getData().getZan() );
+
                         break;
                     default:
                         break;

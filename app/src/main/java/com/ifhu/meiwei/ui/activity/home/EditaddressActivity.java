@@ -1,5 +1,6 @@
 package com.ifhu.meiwei.ui.activity.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.UserService;
+import com.ifhu.meiwei.ui.activity.me.ChooseAddressPointActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.utils.StringUtils;
 import com.ifhu.meiwei.utils.ToastHelper;
@@ -24,6 +26,8 @@ import com.ifhu.meiwei.utils.UserLogic;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.ifhu.meiwei.ui.activity.me.ChooseAddressPointActivity.ADDRESS;
 
 /**
  * 编辑地址页面
@@ -198,5 +202,17 @@ public class EditaddressActivity extends BaseActivity {
     @OnClick(R.id.tv_text)
     public void onTvTextClicked() {
         deleteAddress();
+    }
+
+    @OnClick(R.id.tv_address)
+    public void onMTvAddressClicked() {
+        startActivityForResult(new Intent(EditaddressActivity.this, ChooseAddressPointActivity.class),888);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == RESULT_OK){
+            tvAddress.setText(data.getStringExtra(ADDRESS));
+        }
     }
 }
