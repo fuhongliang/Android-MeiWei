@@ -79,8 +79,48 @@ public class ShoppingCartActivity extends BaseActivity {
         shoppingCartAdapter = new ShoppingCartAdapter(shoppingCartBeanList, this);
         lvShoppingCart.setAdapter(shoppingCartAdapter);
         myCart();
+        tvText.setOnClickListener(v -> DialogUtils.showConfirmDialog("温馨提示", "确认删除购物车中所有的商品？", getSupportFragmentManager(), new ConfirmDialog.ButtonOnclick() {
+            @Override
+            public void cancel() {
+            }
+
+            @Override
+            public void ok() {
+                //清空购物车商家商品
+                setLoadingMessageIndicator(true);
+                RetrofitApiManager.create(HomeService.class).clearCart(UserLogic.getUser().getMember_id())
+                        .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<Object>(true) {
+                    @Override
+                    protected void onApiComplete() {
+                        setLoadingMessageIndicator(false);
+                    }
+
+                    @Override
+                    protected void onSuccees(BaseEntity t) throws Exception {
+                        ToastHelper.makeText(t.getMessage(), Toast.LENGTH_SHORT, ToastHelper.NORMALTOAST).show();
+                        finish();
+                    }
+                });
+            }
+        }));
     }
 
+    public void isEmptyCart(boolean empty){
+        if (empty){
+            tvText.setEnabled(false);
+            rlEmpty.setVisibility(View.VISIBLE);
+            ivPhoto.setBackgroundResource(R.drawable.quesehng_ic_zagwuche);
+            tvTitleOne.setText("购物车没商品是多么痛的领悟呀");
+            tvTitleTwo.setVisibility(View.VISIBLE);
+            tvTitleTwo.setText("快去看看有哪些优惠商品吧~");
+            tvButton.setText("去逛逛");
+            tvButton.setVisibility(View.VISIBLE);
+            tvButton.setOnClickListener(v -> goToActivity(MainActivity.class));
+        }else {
+            rlEmpty.setVisibility(View.GONE);
+            tvText.setEnabled(true);
+        }
+    }
 
     /**
      * 购物车接口
@@ -99,55 +139,11 @@ public class ShoppingCartActivity extends BaseActivity {
                 shoppingCartBeanList = t.getData();
                 shoppingCartAdapter.setShoppingCartBeanList(shoppingCartBeanList);
                 if (shoppingCartAdapter.getCount() > 0) {
-                    rlEmpty.setVisibility(View.GONE);
+                   isEmptyCart(false);
                 } else {
-                    rlEmpty.setVisibility(View.VISIBLE);
-                    ivPhoto.setBackgroundResource(R.drawable.quesehng_ic_zagwuche);
-                    tvTitleOne.setText("购物车没商品是多么痛的领悟呀");
-                    tvTitleTwo.setVisibility(View.VISIBLE);
-                    tvTitleTwo.setText("快去看看有哪些优惠商品吧~");
-                    tvButton.setText("去逛逛");
-                    tvButton.setVisibility(View.VISIBLE);
-                    tvButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            goToActivity(MainActivity.class);
-                        }
-                    });
+                     isEmptyCart(true);
                 }
-                shoppingCartAdapter.setClickEvent(() -> DialogUtils.showConfirmDialog("温馨提示", "确认删除该商家的所有商品？", getSupportFragmentManager(), new ConfirmDialog.ButtonOnclick() {
-                    @Override
-                    public void cancel() {
-
-                    }
-
-                    @Override
-                    public void ok() {
-                        //清空购物车商家商品
-                        setLoadingMessageIndicator(true);
-                        RetrofitApiManager.create(HomeService.class).clearCart(UserLogic.getUser().getMember_id())
-                                .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<Object>(true) {
-                            @Override
-                            protected void onApiComplete() {
-                                setLoadingMessageIndicator(false);
-                            }
-
-                            @Override
-                            protected void onSuccees(BaseEntity t) throws Exception {
-                                ToastHelper.makeText(t.getMessage(), Toast.LENGTH_SHORT, ToastHelper.NORMALTOAST).show();
-                                finish();
-                            }
-
-
-                        });
-                    }
-                }));
-                shoppingCartAdapter.setOnClickItem(new ShoppingCartAdapter.OnClickItem() {
-                    @Override
-                    public void Settlement(int position) {
-                        goToActivity(ConfirmOrderActivity.class,shoppingCartBeanList.get(position).getStore().getStore_id()+"");
-                    }
-                });
+                shoppingCartAdapter.setOnClickItem(position -> goToActivity(ConfirmOrderActivity.class,shoppingCartBeanList.get(position).getStore().getStore_id()+""));
             }
         });
     }

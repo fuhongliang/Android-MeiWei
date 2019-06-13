@@ -33,7 +33,7 @@ public abstract class BaseNiceDialog extends DialogFragment {
     /**
      * 上下边距
      */
-    private int marginTop;
+    private int marginTop = 0;
 
     /**
      * 宽度
@@ -136,9 +136,14 @@ public abstract class BaseNiceDialog extends DialogFragment {
             } else {
                 lp.width = Utils.dp2px(getContext(), width);
             }
+
             //设置dialog高度
             if (height == 0) {
-                lp.height = Utils.getScreenHeight(getContext()) - 2 * Utils.dp2px(getContext(), marginTop);
+                if (marginTop == 0){
+                    lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+                }else {
+                    lp.height = Utils.getScreenHeight(getContext()) - 2 * Utils.dp2px(getContext(), marginTop);
+                }
             } else {
                 lp.height = Utils.dp2px(getContext(), height);
             }

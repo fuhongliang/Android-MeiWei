@@ -100,16 +100,27 @@
         android:layout_height="50dp"
         android:layout_marginLeft="29dp"
         android:layout_marginBottom="20dp"
+        android:visibility="invisible"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/meal_bnt_gouwuche1"/>
-
+        android:src="@drawable/meal_bnt_gouwuche1"
+        />
+    <ImageView
+        android:id="@+id/iv_shop_cart_empty"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="29dp"
+        android:layout_marginBottom="14dp"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/meal_bnt_gouwuche"
+        />
     <TextView
         android:id="@+id/tv_car_amount"
         android:layout_width="wrap_content"
         android:minWidth="20dp"
         android:layout_height="20dp"
         android:layout_marginLeft="-8dp"
-        android:text="10"
+        android:visibility="invisible"
+        android:text="0"
         android:gravity="center"
         android:layout_toRightOf="@+id/iv_shop_cat"
         android:layout_alignParentBottom="true"

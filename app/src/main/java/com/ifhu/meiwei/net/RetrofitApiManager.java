@@ -29,15 +29,20 @@ public class RetrofitApiManager {
     /**
      * 正式环境
      */
-    private static String RELEASE_URL = "http://47.111.27.189:88/u1/";
-    /**
-     * 预发布环境
-     */
-    private static String TEST_URL = "http://47.111.27.189:88/u1/";
+//    private static String RELEASE_URL = "https://api.ifhu.cn/u2/";
+    private static String RELEASE_URL = "http://47.111.27.189:88/u2/";
+
     /**
      * 开发环境
      */
-    private static String DEV_URL = "http://47.111.27.189:88/u1/";
+    private static String DEV_URL = "http://47.111.27.189:88/u2/";
+//    private static String DEV_URL = "https://testapi.ifhu.cn/u2/";
+
+    /**
+     * 预发布环境
+     */
+//    private static String TEST_URL = "https://testapi.ifhu.cn/u2/";
+    private static String TEST_URL = "http://47.111.27.189:88/u2/";
 
     private static final String STRING_API_ENV = BuildConfig.STRING_API_ENV;
 

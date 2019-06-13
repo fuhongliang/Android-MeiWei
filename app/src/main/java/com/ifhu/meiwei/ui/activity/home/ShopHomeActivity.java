@@ -129,15 +129,16 @@ public class ShopHomeActivity extends BaseActivity {
         mLlFullCut.setVisibility(View.VISIBLE);
         FullReductionUtils.showShopFullReduction(mLlFullCut, manjianBeanList, LayoutInflater.from(this));
         mIvLogo.load(storeInfoBean.getStore_avatar(), R.drawable.home_zanwutupian, 2);
-        if (storeInfoBean.getDaijinquan() > 0) {
-            llVoucher.setVisibility(View.VISIBLE);
-            tvMoney.setText("￥" + storeInfoBean.getDaijinquan());
-            llVoucher.setOnClickListener(v -> {
-                ToastHelper.makeText("您点击了代金券");
-            });
-        } else {
-            llVoucher.setVisibility(View.GONE);
-        }
+        //代金券字段没返回来
+//        if (storeInfoBean.get() > 0) {
+//            llVoucher.setVisibility(View.VISIBLE);
+//            tvMoney.setText("￥" + storeInfoBean.getDaijinquan());
+//            llVoucher.setOnClickListener(v -> {
+//                ToastHelper.makeText("您点击了代金券");
+//            });
+//        } else {
+//            llVoucher.setVisibility(View.GONE);
+//        }
     }
 
     @OnClick(R.id.iv_back)
