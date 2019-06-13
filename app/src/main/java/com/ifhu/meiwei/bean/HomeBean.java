@@ -8,11 +8,19 @@ import java.util.List;
  * @author fuhongliang
  */
 public class HomeBean {
-
+    public String city_list_url;
     private List<BannerDataBean> banner_data;
     private List<GcsortDataBean> gcsort_data;
     private List<DiscountDataBean> discount_data;
     private List<StorelistDataBean> storelist_data;
+
+    public String getCity_list_url() {
+        return city_list_url;
+    }
+
+    public void setCity_list_url(String city_list_url) {
+        this.city_list_url = city_list_url;
+    }
 
     public List<BannerDataBean> getBanner_data() {
         return banner_data;

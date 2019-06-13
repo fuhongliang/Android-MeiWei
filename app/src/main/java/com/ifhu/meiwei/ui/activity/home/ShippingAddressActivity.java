@@ -17,6 +17,8 @@ import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.UserService;
 import com.ifhu.meiwei.ui.base.BaseActivity;
+import com.ifhu.meiwei.ui.base.WebViewActivity;
+import com.ifhu.meiwei.utils.SharedPreUtil;
 import com.ifhu.meiwei.utils.UserLogic;
 
 import org.greenrobot.eventbus.EventBus;
@@ -30,6 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.ifhu.meiwei.utils.Constants.CHOOSECITY;
 import static com.ifhu.meiwei.utils.Constants.LOCATION_DATAUPDATA;
 import static com.ifhu.meiwei.utils.Constants.LOCATION_DATAUPDATAFAIL;
 import static com.ifhu.meiwei.utils.Constants.RELOCATION;
@@ -61,6 +64,8 @@ public class ShippingAddressActivity extends BaseActivity {
     LinearLayout llEmpty;
     @BindView(R.id.tv_re_locate)
     TextView mTvReLocate;
+    @BindView(R.id.tv_address)
+    TextView mTvAddress;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -141,7 +146,6 @@ public class ShippingAddressActivity extends BaseActivity {
         mTvReLocate.setText("正在定位...");
     }
 
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void Event(MessageEvent messageEvent) {
         switch (messageEvent.getMessage()) {
@@ -156,4 +160,8 @@ public class ShippingAddressActivity extends BaseActivity {
         }
     }
 
+    @OnClick(R.id.tv_address)
+    public void onMTvAddressClicked() {
+        WebViewActivity.start(ShippingAddressActivity.this, SharedPreUtil.getInstance().getString(CHOOSECITY, "") + mTvAddress.getText().toString(), "");
+    }
 }

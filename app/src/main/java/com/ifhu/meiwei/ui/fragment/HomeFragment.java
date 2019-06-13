@@ -48,6 +48,7 @@ import com.ifhu.meiwei.utils.AppInfo;
 import com.ifhu.meiwei.utils.Constants;
 import com.ifhu.meiwei.utils.DeviceUtil;
 import com.ifhu.meiwei.utils.GlideRoundTransform;
+import com.ifhu.meiwei.utils.SharedPreUtil;
 import com.ifhu.meiwei.utils.StringUtils;
 import com.stx.xhb.xbanner.XBanner;
 
@@ -63,6 +64,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
+import static com.ifhu.meiwei.utils.Constants.CHOOSECITY;
 import static com.ifhu.meiwei.utils.Constants.LOCATION_DATAUPDATA;
 
 /**
@@ -246,6 +248,7 @@ public class HomeFragment extends BaseFragment {
                 handleDiscountDataInit(t.getData().getDiscount_data());
                 mXbanner.setAutoPlayAble(banner_data.size() > 1);
                 mXbanner.setBannerData(banner_data);
+                SharedPreUtil.getInstance().saveString(CHOOSECITY,t.getData().getCity_list_url()+"cc/");
             }
         });
     }

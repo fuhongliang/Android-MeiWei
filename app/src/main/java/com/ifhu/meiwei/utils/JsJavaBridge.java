@@ -2,6 +2,7 @@ package com.ifhu.meiwei.utils;
 
 import android.app.Activity;
 import android.webkit.JavascriptInterface;
+import android.webkit.WebView;
 
 import com.ifhu.meiwei.ui.base.WebViewActivity;
 import com.ifhu.meiwei.ui.view.X5WebView;
@@ -14,10 +15,16 @@ import com.orhanobut.logger.Logger;
 public class JsJavaBridge {
     private Activity activity;
     private X5WebView webView;
+    private WebView mWebView;
 
     public JsJavaBridge(Activity activity, X5WebView webView) {
         this.activity = activity;
         this.webView = webView;
+    }
+
+    public JsJavaBridge(Activity activity, WebView webView) {
+        this.activity = activity;
+        this.mWebView = webView;
     }
 
     @JavascriptInterface

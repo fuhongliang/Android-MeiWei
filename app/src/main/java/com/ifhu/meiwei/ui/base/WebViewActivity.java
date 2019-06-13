@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ifhu.meiwei.R;
+import com.ifhu.meiwei.utils.JsJavaBridge;
 import com.ifhu.meiwei.utils.StringUtils;
 import com.ifhu.meiwei.utils.UserLogic;
 import com.yanzhenjie.permission.Action;
@@ -251,6 +252,7 @@ public class WebViewActivity extends BaseActivity {
 
 
     public void loadURL(boolean needToken) {
+        mWvView.addJavascriptInterface(new JsJavaBridge(WebViewActivity.this, mWvView), "$App");
         if (needToken) {
             HashMap<String, String> headers = new HashMap<String, String>();
             String dataToken = UserLogic.getUser().getToken();

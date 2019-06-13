@@ -48,4 +48,6 @@ public class Constants {
 
     public static final String PAYSUCCESSWITHWXPAY = "PAYSUCCESSWITHWXPAY";
 
+    public static final String CHOOSECITY = "CHOOSECITY";
+
 }
