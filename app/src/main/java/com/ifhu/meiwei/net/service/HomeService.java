@@ -4,6 +4,9 @@ import com.ifhu.meiwei.bean.BaseEntity;
 import com.ifhu.meiwei.bean.EvaluationBean;
 import com.ifhu.meiwei.bean.HomeBean;
 import com.ifhu.meiwei.bean.MerchantBean;
+import com.ifhu.meiwei.bean.ShoppingCartBean;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -37,6 +40,14 @@ public interface HomeService {
     @FormUrlEncoded
     @POST("add_cart")
     public Observable<BaseEntity<MerchantBean.CartBean>> addCart(@Field("store_id") String store_id, @Field("member_id") String member_id, @Field("stc_id") String stc_id, @Field("goods_id") int goods_id, @Field("nums") int nums);
+
+    @FormUrlEncoded
+    @POST("my_cart")
+    public Observable<BaseEntity<List<ShoppingCartBean>>> myCart(@Field("member_id") int member_id);
+
+    @FormUrlEncoded
+    @POST("clear_cart")
+    public Observable<BaseEntity<Object>> clearCart(@Field("member_id") int member_id);
 
 
 }
