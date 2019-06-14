@@ -100,8 +100,9 @@ public class ChooseAddressPointActivity extends BaseActivity implements Location
     private List<Tip> autoTips;
     private boolean isfirstinput = true;
     private PoiItem firstItem;
-    public static final String ADDRESS= "ADDRESS";
+    public static final String ADDRESS = "ADDRESS";
     String address = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,8 +118,8 @@ public class ChooseAddressPointActivity extends BaseActivity implements Location
         mTvText.setText("完成");
         mTvText.setOnClickListener(v -> {
             Intent intent = new Intent();
-            intent.putExtra("ADDRESS",address);
-            setResult(RESULT_OK,intent);
+            intent.putExtra("ADDRESS", address);
+            setResult(RESULT_OK, intent);
             finish();
         });
     }
@@ -435,7 +436,7 @@ public class ChooseAddressPointActivity extends BaseActivity implements Location
                 aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curLatlng, 16f));
                 searchResultAdapter.setSelectedPosition(position);
                 searchResultAdapter.notifyDataSetChanged();
-                address = poiItem.getCityName() + poiItem.getAdName() + poiItem.getSnippet()+poiItem.getTitle();
+                address = poiItem.getCityName() + poiItem.getAdName() + poiItem.getSnippet() + poiItem.getTitle();
             }
         }
     };
