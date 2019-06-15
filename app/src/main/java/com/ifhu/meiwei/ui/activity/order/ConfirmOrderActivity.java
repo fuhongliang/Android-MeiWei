@@ -36,6 +36,8 @@ import butterknife.OnClick;
 import static com.ifhu.meiwei.utils.Constants.MONEYUNIT;
 
 /**
+ * 确认订单页面
+ *
  * @author KevinFu
  * @date 2019-06-05
  * Copyright (c) 2019 KevinFu
@@ -130,7 +132,7 @@ public class ConfirmOrderActivity extends BaseActivity {
 
     public void handleGoodsShow() {
         mLlGoods.removeAllViews();
-        if (comformOrderBean.getGoods_detail().size() <= showLessNumber){
+        if (comformOrderBean.getGoods_detail().size() <= showLessNumber) {
             for (int i = 0; i < comformOrderBean.getGoods_detail().size(); i++) {
                 View mView = LayoutInflater.from(ConfirmOrderActivity.this).inflate(R.layout.item_tracking_commodity, null);
                 GlideImageView imageView = mView.findViewById(R.id.iv_avatar);
@@ -141,15 +143,15 @@ public class ConfirmOrderActivity extends BaseActivity {
                 TextView tvOriginalPrice = mView.findViewById(R.id.tv_original_price);
                 TextView tvNumber = mView.findViewById(R.id.tv_number);
                 name.setText(goodsDetailBean.getGoods_name());
-                nowPrice.setText(goodsDetailBean.getGoods_marketprice());
+                nowPrice.setText("￥" + goodsDetailBean.getGoods_marketprice());
                 tvOriginalPrice.setText(goodsDetailBean.getGoods_price());
                 tvOriginalPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
                 tvNumber.setText("x" + goodsDetailBean.getGoods_num());
                 mLlGoods.addView(mView);
             }
             mLlMore.setVisibility(View.GONE);
-        }else {
-            if (isNeedExpend){
+        } else {
+            if (isNeedExpend) {
                 for (int i = 0; i < comformOrderBean.getGoods_detail().size(); i++) {
                     View mView = LayoutInflater.from(ConfirmOrderActivity.this).inflate(R.layout.item_tracking_commodity, null);
                     GlideImageView imageView = mView.findViewById(R.id.iv_avatar);
@@ -167,7 +169,7 @@ public class ConfirmOrderActivity extends BaseActivity {
                     mLlGoods.addView(mView);
                 }
                 mLlMore.setVisibility(View.GONE);
-            }else {
+            } else {
                 for (int i = 0; i < showLessNumber; i++) {
                     View mView = LayoutInflater.from(ConfirmOrderActivity.this).inflate(R.layout.item_tracking_commodity, null);
                     GlideImageView imageView = mView.findViewById(R.id.iv_avatar);
@@ -244,7 +246,7 @@ public class ConfirmOrderActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.rl_address,R.id.rl_add_address})
+    @OnClick({R.id.rl_address, R.id.rl_add_address})
     public void onMRlAddressClicked() {
         startActivityForResult(new Intent(ConfirmOrderActivity.this, MyAddressListActivity.class).putExtra(MyAddressListActivity.IsFromOrder, true), REQUESTADDRESSCODE);
     }

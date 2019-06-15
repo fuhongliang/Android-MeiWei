@@ -8,8 +8,8 @@
         android:id="@+id/iv_bg"
         android:layout_width="match_parent"
         android:layout_height="196dp"
-        android:background="@drawable/bg_menu_gradient"
-        />
+        android:background="@drawable/bg_menu_gradient" />
+
     <LinearLayout
         android:id="@+id/ll_address"
         android:layout_width="match_parent"
@@ -20,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp">
+
             <ImageView
                 android:id="@+id/iv_back"
                 android:layout_width="44dp"
@@ -31,11 +32,10 @@
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:text="确认订单"
-                android:textSize="17dp"
                 android:layout_centerInParent="true"
-                />
+                android:text="确认订单"
+                android:textColor="@color/white"
+                android:textSize="17dp" />
 
         </RelativeLayout>
 
@@ -62,10 +62,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
                     android:layout_marginLeft="9dp"
                     android:layout_toRightOf="@id/iv_image"
-                    android:text="新建收货地址" />
+                    android:text="新建收货地址"
+                    android:textColor="@color/white" />
             </RelativeLayout>
 
         </RelativeLayout>
@@ -74,8 +74,8 @@
             android:id="@+id/rl_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginLeft="15dp">
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp">
 
             <ImageView
                 android:id="@+id/iv_dingwei"
@@ -88,20 +88,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="11dp"
-                android:layout_toRightOf="@id/iv_dingwei"
                 android:layout_marginRight="10dp"
+                android:layout_toRightOf="@id/iv_dingwei"
+                android:ellipsize="end"
                 android:text="海天大厦20楼2010室"
                 android:textColor="@color/text_white"
                 android:textSize="15sp"
-                android:ellipsize="end"
                 android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_address"
                 android:layout_marginLeft="29dp"
                 android:text="张铭明"
-                android:layout_below="@+id/tv_address"
                 android:textColor="@color/text_white"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -110,8 +111,8 @@
                 android:id="@+id/tv_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
                 android:layout_below="@+id/tv_address"
+                android:layout_marginLeft="20dp"
                 android:layout_toRightOf="@id/tv_name"
                 android:text="159****2586"
                 android:textColor="@color/text_white"
@@ -126,11 +127,11 @@
 
     <!--送达时间-->
     <RelativeLayout
-        android:layout_below="@+id/iv_bg"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginTop="-48dp"
+        android:layout_below="@+id/iv_bg"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="-48dp"
         android:layout_marginRight="15dp"
         android:background="@drawable/bg_top_white">
 
@@ -167,7 +168,7 @@
         android:layout_below="@id/ll_address"
         android:layout_alignParentBottom="false"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"/>
+        android:layout_marginRight="30dp" />
     <!--支付方式-->
     <RelativeLayout
         android:id="@+id/rl_pay"
@@ -205,16 +206,17 @@
     </RelativeLayout>
 
     <ScrollView
-        android:layout_below="@+id/rl_pay"
-        android:layout_above="@+id/rl_order"
-        android:scrollbars="none"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rl_order"
+        android:layout_below="@+id/rl_pay"
+        android:scrollbars="none">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginBottom="15dp">
+            android:layout_marginBottom="15dp"
+            android:orientation="vertical">
 
             <!--店铺名称-->
             <LinearLayout
@@ -227,10 +229,10 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_marginLeft="15dp"
                     android:id="@+id/tv_store_name"
                     android:layout_width="wrap_content"
                     android:layout_height="44dp"
+                    android:layout_marginLeft="15dp"
                     android:gravity="center_vertical"
                     android:text="水果先生"
                     android:textColor="@color/black"
@@ -239,10 +241,9 @@
 
                 <LinearLayout
                     android:id="@+id/ll_goods"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"></LinearLayout>
 
 
                 <!--查看更多-->
@@ -251,8 +252,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginRight="15dp"
                     android:background="@drawable/bg_button_gray"
                     android:gravity="center">
 
@@ -337,6 +338,7 @@
                         android:id="@+id/tv_coupon_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_toLeftOf="@id/iv_tupian"
                         android:text="暂无优惠"
                         android:textColor="@color/hint_text_color"
@@ -412,8 +414,9 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
+                        android:text=""
                         android:textColor="@color/red"
-                        android:textSize="14sp"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                 </RelativeLayout>
@@ -426,11 +429,11 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:background="@drawable/bg_white"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:minHeight="100dp"
                 android:orientation="vertical"
                 android:paddingLeft="15dp"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
                 android:paddingTop="15dp">
 
                 <TextView

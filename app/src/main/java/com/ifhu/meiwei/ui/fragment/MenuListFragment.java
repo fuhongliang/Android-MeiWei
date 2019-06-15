@@ -27,8 +27,8 @@ import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.HomeService;
-import com.ifhu.meiwei.ui.activity.order.ConfirmOrderActivity;
 import com.ifhu.meiwei.ui.activity.home.ShoppingCartActivity;
+import com.ifhu.meiwei.ui.activity.order.ConfirmOrderActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
 import com.ifhu.meiwei.ui.base.WebViewActivity;
 import com.ifhu.meiwei.utils.UserLogic;
@@ -198,7 +198,7 @@ public class MenuListFragment extends BaseFragment {
     public int getGoodsInCartNumber(int goodsId) {
         try {
             for (MerchantBean.CartBean.GoodsBean goodsBean : mCartBean.getGoods()) {
-                if (goodsBean.getGoods_id().equals(goodsId+"")) {
+                if (goodsBean.getGoods_id().equals(goodsId + "")) {
                     return goodsBean.getGoods_num();
                 }
             }
@@ -262,7 +262,7 @@ public class MenuListFragment extends BaseFragment {
                         holder.setText(R.id.tv_money, item.getData().getGoods_marketprice() + "");
                         holder.setText(R.id.tv_price, item.getData().getGoods_price() + "");
                         holder.setText(R.id.tv_description, item.getData().getGoods_desc() + "");
-                        holder.setText(R.id.tv_sell_amount, "月售"+item.getData().getGoods_salenum() + "|点赞" + item.getData().getZan() );
+                        holder.setText(R.id.tv_sell_amount, "月售" + item.getData().getGoods_salenum() + "|点赞" + item.getData().getZan());
 
                         break;
                     default:

@@ -102,7 +102,6 @@ public class SearchResultAdapter extends BaseAdapter {
             }
 
             PoiItem poiItem = data.get(position);
-
             textTitle.setText(poiItem.getTitle());
             textSubTitle.setText(poiItem.getCityName() + poiItem.getAdName() + poiItem.getSnippet());
 

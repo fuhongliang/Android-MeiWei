@@ -62,10 +62,7 @@ import butterknife.OnClick;
  */
 public class ChooseAddressPointActivity extends BaseActivity implements LocationSource,
         AMapLocationListener, GeocodeSearch.OnGeocodeSearchListener, PoiSearch.OnPoiSearchListener {
-    @BindView(R.id.tv_title)
-    TextView mTvTitle; // Inputtips.InputtipsListener
-    @BindView(R.id.tv_text)
-    TextView mTvText;
+
 
 
     private ListView listView;
@@ -102,13 +99,20 @@ public class ChooseAddressPointActivity extends BaseActivity implements Location
     private PoiItem firstItem;
     public static final String ADDRESS = "ADDRESS";
     String address = "";
-
+    @BindView(R.id.tv_title)
+    TextView mTvTitle; // Inputtips.InputtipsListener
+    @BindView(R.id.tv_text)
+    TextView mTvText;
+    @BindView(R.id.tv_return)
+    TextView tvReturn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_choose_address_point);
         ButterKnife.bind(this);
+        tvReturn.setVisibility(View.INVISIBLE);
+        mTvTitle.setText("选择收货地址");
 
         mapView = (MapView) findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);

@@ -1,21 +1,14 @@
 package com.ifhu.meiwei.ui.activity.order;
 
-import android.graphics.Paint;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baba.GlideImageView;
 import com.ifhu.meiwei.R;
-import com.ifhu.meiwei.bean.ComformOrderBean;
 import com.ifhu.meiwei.bean.WXPayBean;
 import com.ifhu.meiwei.ui.base.BaseActivity;
-import com.orhanobut.logger.Logger;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -25,6 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
+ * 地图页面
  * @author KevinFu
  * @date 2019-06-06
  * Copyright (c) 2019 KevinFu
@@ -39,12 +33,17 @@ public class ConfirmPaymentActivity extends BaseActivity {
     WXPayBean wxPay;
     PayReq req = new PayReq();
     IWXAPI msgApi;
+    @BindView(R.id.tv_return)
+    TextView tvReturn;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_payment);
         ButterKnife.bind(this);
         mTvText.setVisibility(View.INVISIBLE);
+        tvReturn.setVisibility(View.INVISIBLE);
+
         prparePay();
     }
 
@@ -58,7 +57,7 @@ public class ConfirmPaymentActivity extends BaseActivity {
         wxPay();
     }
 
-    public void prparePay(){
+    public void prparePay() {
         wxPay = (WXPayBean) getIntent().getSerializableExtra("WXPay");
         if (null != wxPay) {
             req.appId = wxPay.getAppid();
