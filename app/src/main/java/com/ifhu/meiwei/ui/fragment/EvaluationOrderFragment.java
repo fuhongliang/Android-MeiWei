@@ -23,6 +23,7 @@ import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.OrdersService;
+import com.ifhu.meiwei.ui.activity.home.ShopHomeActivity;
 import com.ifhu.meiwei.ui.activity.order.EvaluationActivity;
 import com.ifhu.meiwei.ui.activity.order.OrdertrackingActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
@@ -99,10 +100,14 @@ public class EvaluationOrderFragment extends BaseFragment {
         lvList.setVerticalScrollBarEnabled(false);
         orderAdapter.setOnClickItem(new OrderAdapter.OnClickItem() {
 
+            @Override
+            public void shopping(int position) {
+                EventBus.getDefault().post(new MessageEvent(GOTOHOMEPAGE));
+            }
 
             @Override
             public void shopHomePage(int position) {
-
+                goToActivity(ShopHomeActivity.class);
             }
 
             @Override
@@ -117,6 +122,10 @@ public class EvaluationOrderFragment extends BaseFragment {
 
             @Override
             public void oneMore(int position) {
+
+            }
+            @Override
+            public void payOrder(int position) {
 
             }
         });

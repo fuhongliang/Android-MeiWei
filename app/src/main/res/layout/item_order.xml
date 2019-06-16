@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_announcement"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bg_white"
@@ -85,33 +84,77 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_evaluation"
-        android:layout_width="74dp"
-        android:layout_height="30dp"
+    <LinearLayout
         android:layout_below="@id/ll_product_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/address_main_color"
-        android:gravity="center"
-        android:visibility="invisible"
-        android:text="评价"
-        android:textColor="@color/main_color"
-        android:textSize="14sp" />
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/tv_one_more"
-        android:layout_width="74dp"
-        android:layout_height="30dp"
-        android:layout_below="@id/ll_product_name"
-        android:layout_marginTop="15dp"
-        android:layout_toLeftOf="@id/tv_evaluation"
-        android:background="@drawable/bg_gray"
-        android:gravity="center"
-        android:visibility="invisible"
-        android:text="再来一单"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_one_more"
+            android:layout_width="74dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_gray"
+            android:gravity="center"
+            android:text="再来一单"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+
+        <TextView
+            android:id="@+id/tv_shopping"
+            android:layout_width="74dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_gray"
+            android:gravity="center"
+            android:text="逛逛别家"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_return"
+            android:layout_width="74dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/address_main_color"
+            android:gravity="center"
+            android:text="退款详情"
+            android:textColor="@color/main_color"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_evaluation"
+            android:layout_width="74dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/address_main_color"
+            android:gravity="center"
+            android:text="评价"
+            android:textColor="@color/main_color"
+            android:textSize="14sp" />
+        <TextView
+            android:id="@+id/tv_pay"
+            android:layout_width="74dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/address_main_color"
+            android:gravity="center"
+            android:text="立即支付"
+            android:textColor="@color/main_color"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+
 
 </RelativeLayout>

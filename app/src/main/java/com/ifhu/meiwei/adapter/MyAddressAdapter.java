@@ -22,7 +22,6 @@ public class MyAddressAdapter extends BaseAdapter {
     List<MyAddressBean> myAddressBeanList;
     OnClickItem onClickItem;
     Context mContext;
-
     boolean needShowEditIcon = false;
 
     public MyAddressAdapter(List<MyAddressBean> myAddressBeanList, Context mContext, boolean needShowEditIcon) {
@@ -109,8 +108,7 @@ public class MyAddressAdapter extends BaseAdapter {
         }
 
 
-        viewHolder.tvAddress.setText(myAddressBeanList.get(position).getArea_info());
-        viewHolder.tvHouseNumber.setText(myAddressBeanList.get(position).getAddress());
+        viewHolder.tvAddress.setText(myAddressBeanList.get(position).getArea_info()+myAddressBeanList.get(position).getAddress());
         viewHolder.tvName.setText(myAddressBeanList.get(position).getTrue_name());
         viewHolder.tvGender.setText(myAddressBeanList.get(position).getSex() == 1? "先生" : "女士");
         viewHolder.tvPhone.setText(myAddressBeanList.get(position).getMob_phone());
@@ -128,8 +126,6 @@ public class MyAddressAdapter extends BaseAdapter {
     static class ViewHolder {
         @BindView(R.id.tv_address)
         TextView tvAddress;
-        @BindView(R.id.tv_house_number)
-        TextView tvHouseNumber;
         @BindView(R.id.tv_name)
         TextView tvName;
         @BindView(R.id.tv_gender)

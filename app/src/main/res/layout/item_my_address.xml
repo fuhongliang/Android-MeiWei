@@ -2,36 +2,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:minHeight="71dp">
+    android:background="@color/white">
 
 
     <RelativeLayout
         android:id="@+id/rl_address"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="63dp"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="63dp">
 
         <TextView
             android:id="@+id/tv_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="新港中路"
             android:textColor="@color/black"
             android:textSize="17sp" />
 
-        <TextView
-            android:id="@+id/tv_house_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:paddingRight="63dp"
-            android:layout_toRightOf="@id/tv_address"
-            android:text="新港中路357六楼客村地..."
-            android:textColor="@color/black"
-            android:textSize="17sp" />
     </RelativeLayout>
 
     <RelativeLayout

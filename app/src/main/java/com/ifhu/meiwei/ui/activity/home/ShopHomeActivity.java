@@ -43,6 +43,7 @@ import butterknife.OnClick;
 
 
 /**
+ * 商家主页面
  * @author fuhongliang
  */
 public class ShopHomeActivity extends BaseActivity {
