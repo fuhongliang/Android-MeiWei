@@ -23,6 +23,10 @@ import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.OrdersService;
+import com.ifhu.meiwei.ui.activity.home.EditaddressActivity;
+import com.ifhu.meiwei.ui.activity.home.MainActivity;
+import com.ifhu.meiwei.ui.activity.home.ShopHomeActivity;
+import com.ifhu.meiwei.ui.activity.order.ConfirmOrderActivity;
 import com.ifhu.meiwei.ui.activity.order.EvaluationActivity;
 import com.ifhu.meiwei.ui.activity.order.OrdertrackingActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
@@ -100,7 +104,14 @@ public class AllOrderFragment extends BaseFragment {
         orderAdapter.setOnClickItem(new OrderAdapter.OnClickItem() {
 
             @Override
+            public void shopping(int position) {
+                EventBus.getDefault().post(new MessageEvent(GOTOHOMEPAGE));
+
+            }
+
+            @Override
             public void shopHomePage(int position) {
+                goToActivity(ShopHomeActivity.class);
 
             }
 
@@ -111,11 +122,21 @@ public class AllOrderFragment extends BaseFragment {
 
             @Override
             public void evaluation(int position) {
-                goToActivity(EvaluationActivity.class, orderBeanList.get(position).getOrder_id());
+                goToActivity(EditaddressActivity.class, orderBeanList.get(position).getOrder_id());
             }
 
             @Override
             public void oneMore(int position) {
+                //添加订单中的商品到购物车
+                List<OrderBean.GoodsListBean> goodsListBeans = orderBeanList.get(position).getGoods_list();
+                //通过添加购物车接口添加商品
+
+                //然后再跳转
+                goToActivity(ShopHomeActivity.class);
+            }
+
+            @Override
+            public void payOrder(int position) {
 
             }
         });
@@ -125,7 +146,7 @@ public class AllOrderFragment extends BaseFragment {
 
     @SuppressLint("ResourceAsColor")
     public void setRefreshLayout() {
-        mLayoutSwipeRefresh.setColorSchemeResources(R.color.colorPrimary,R.color.colorPrimaryDark);
+        mLayoutSwipeRefresh.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimaryDark);
         mLayoutSwipeRefresh.setOnRefreshListener(() -> {
             getData(false);
         });

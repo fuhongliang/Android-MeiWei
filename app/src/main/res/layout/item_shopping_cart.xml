@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/rl_shopping"
         android:layout_width="match_parent"
         android:layout_height="44dp">
 
@@ -25,6 +26,7 @@
             android:layout_width="5dp"
             android:layout_height="8dp"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="7dp"
             android:layout_toRightOf="@id/tv_name"
             android:background="@drawable/common_ic_xuanze" />
 

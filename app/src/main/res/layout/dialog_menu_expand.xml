@@ -103,8 +103,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_voucher"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="12dp">
+        android:layout_marginTop="12dp"
+        android:paddingLeft="15dp">
 
         <ImageView
             android:layout_width="18dp"
@@ -127,8 +127,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_reduction"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="12dp">
+        android:layout_marginTop="12dp"
+        android:paddingLeft="15dp">
 
         <ImageView
             android:layout_width="18dp"
@@ -151,8 +151,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_discounts"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="12dp">
+        android:layout_marginTop="12dp"
+        android:paddingLeft="15dp">
 
         <ImageView
             android:layout_width="18dp"
@@ -175,8 +175,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_package"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="12dp">
+        android:layout_marginTop="12dp"
+        android:paddingLeft="15dp">
 
         <ImageView
             android:layout_width="18dp"
@@ -220,10 +220,10 @@
         android:id="@+id/iv_close"
         android:layout_width="100dp"
         android:layout_height="52dp"
-        android:padding="20dp"
+        android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
-        android:src="@drawable/meal_ic_shangla"
-        android:layout_alignParentBottom="true"/>
+        android:padding="20dp"
+        android:src="@drawable/meal_ic_shangla" />
 
 
 </RelativeLayout>

@@ -109,7 +109,7 @@
                             android:id="@+id/iv_nosatisfaction"
                             android:layout_width="26dp"
                             android:layout_height="26dp"
-                            android:background="@drawable/pingjia_ic_bumanyi" />
+                            android:background="@drawable/selected_crying_face" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -137,7 +137,7 @@
                             android:id="@+id/iv_satisfaction"
                             android:layout_width="26dp"
                             android:layout_height="26dp"
-                            android:background="@drawable/pingjia_ic_manyi1" />
+                            android:background="@drawable/selected_smiley_face" />
 
                         <TextView
                             android:layout_width="wrap_content"

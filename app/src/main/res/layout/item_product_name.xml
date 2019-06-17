@@ -81,9 +81,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="￥666"
+                android:text="￥6"
                 android:textColor="@color/red"
-                android:textSize="10sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -95,7 +95,7 @@
                 android:layout_toRightOf="@id/tv_money"
                 android:text="￥14.9"
                 android:textColor="@color/hint_text_color"
-                android:textSize="10sp" />
+                android:textSize="11sp" />
 
             <ImageView
                 android:id="@+id/iv_delete"

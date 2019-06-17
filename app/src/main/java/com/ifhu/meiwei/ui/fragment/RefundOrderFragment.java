@@ -23,6 +23,8 @@ import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.OrdersService;
+import com.ifhu.meiwei.ui.activity.home.EditaddressActivity;
+import com.ifhu.meiwei.ui.activity.home.ShopHomeActivity;
 import com.ifhu.meiwei.ui.activity.order.EvaluationActivity;
 import com.ifhu.meiwei.ui.activity.order.OrdertrackingActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
@@ -98,8 +100,15 @@ public class RefundOrderFragment extends BaseFragment {
         lvList.setAdapter(orderAdapter);
         lvList.setVerticalScrollBarEnabled(false);
         orderAdapter.setOnClickItem(new OrderAdapter.OnClickItem() {
+
+            @Override
+            public void shopping(int position) {
+                EventBus.getDefault().post(new MessageEvent(GOTOHOMEPAGE));
+            }
+
             @Override
             public void shopHomePage(int position) {
+                goToActivity(ShopHomeActivity.class);
 
             }
 
@@ -110,11 +119,15 @@ public class RefundOrderFragment extends BaseFragment {
 
             @Override
             public void evaluation(int position) {
-                goToActivity(EvaluationActivity.class, orderBeanList.get(position).getOrder_id());
+                goToActivity(EditaddressActivity.class, orderBeanList.get(position).getOrder_id());
             }
 
             @Override
             public void oneMore(int position) {
+
+            }
+            @Override
+            public void payOrder(int position) {
 
             }
         });

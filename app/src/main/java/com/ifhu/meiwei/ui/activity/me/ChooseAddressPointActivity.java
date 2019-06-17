@@ -62,10 +62,7 @@ import butterknife.OnClick;
  */
 public class ChooseAddressPointActivity extends BaseActivity implements LocationSource,
         AMapLocationListener, GeocodeSearch.OnGeocodeSearchListener, PoiSearch.OnPoiSearchListener {
-    @BindView(R.id.tv_title)
-    TextView mTvTitle; // Inputtips.InputtipsListener
-    @BindView(R.id.tv_text)
-    TextView mTvText;
+
 
 
     private ListView listView;
@@ -100,14 +97,22 @@ public class ChooseAddressPointActivity extends BaseActivity implements Location
     private List<Tip> autoTips;
     private boolean isfirstinput = true;
     private PoiItem firstItem;
-    public static final String ADDRESS= "ADDRESS";
+    public static final String ADDRESS = "ADDRESS";
     String address = "";
+    @BindView(R.id.tv_title)
+    TextView mTvTitle; // Inputtips.InputtipsListener
+    @BindView(R.id.tv_text)
+    TextView mTvText;
+    @BindView(R.id.tv_return)
+    TextView tvReturn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_choose_address_point);
         ButterKnife.bind(this);
+        tvReturn.setVisibility(View.INVISIBLE);
+        mTvTitle.setText("选择收货地址");
 
         mapView = (MapView) findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);
@@ -117,8 +122,8 @@ public class ChooseAddressPointActivity extends BaseActivity implements Location
         mTvText.setText("完成");
         mTvText.setOnClickListener(v -> {
             Intent intent = new Intent();
-            intent.putExtra("ADDRESS",address);
-            setResult(RESULT_OK,intent);
+            intent.putExtra("ADDRESS", address);
+            setResult(RESULT_OK, intent);
             finish();
         });
     }
@@ -435,7 +440,7 @@ public class ChooseAddressPointActivity extends BaseActivity implements Location
                 aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curLatlng, 16f));
                 searchResultAdapter.setSelectedPosition(position);
                 searchResultAdapter.notifyDataSetChanged();
-                address = poiItem.getCityName() + poiItem.getAdName() + poiItem.getSnippet()+poiItem.getTitle();
+                address = poiItem.getCityName() + poiItem.getAdName() + poiItem.getSnippet() + poiItem.getTitle();
             }
         }
     };

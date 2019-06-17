@@ -24,8 +24,9 @@ import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.OrdersService;
+import com.ifhu.meiwei.ui.activity.home.MainActivity;
+import com.ifhu.meiwei.ui.activity.home.ShopHomeActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
-import com.ifhu.meiwei.ui.fragment.HomeFragment;
 import com.jaeger.library.StatusBarUtil;
 
 import java.util.ArrayList;
@@ -117,7 +118,7 @@ public class OrdertrackingActivity extends BaseActivity {
         ButterKnife.bind(this);
         views.add(mLlOrderStatus);
         views.add(mSvOrderDetail);
-        hideOrShowView(views,true);
+        hideOrShowView(views, true);
         orderDetails();
     }
 
@@ -137,7 +138,7 @@ public class OrdertrackingActivity extends BaseActivity {
             protected void onSuccees(BaseEntity<OrderinfoBean> t) throws Exception {
                 initView(t.getData());
                 handleCategoryDataInit(t.getData().getOrder_detail());
-                hideOrShowView(views,false);
+                hideOrShowView(views, false);
             }
         });
     }
@@ -202,7 +203,7 @@ public class OrdertrackingActivity extends BaseActivity {
                 tvButtonThree.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        goToActivity(HomeFragment.class);
+                        goToActivity(MainActivity.class);
                     }
                 });
                 break;
@@ -214,6 +215,12 @@ public class OrdertrackingActivity extends BaseActivity {
                 tvButtonOne.setText("取消订单");
                 tvButtonTwo.setVisibility(View.GONE);
                 tvButtonThree.setText("立即支付");
+                tvButtonThree.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        goToActivity(ConfirmOrderActivity.class, getDataInt());
+                    }
+                });
                 break;
             case 3:// 3:"等待商家接单";
                 mIvBgView.setBackgroundResource(R.drawable.order_bnt_jiedan);
@@ -280,6 +287,10 @@ public class OrdertrackingActivity extends BaseActivity {
         }
     }
 
+    @OnClick(R.id.rl_store)
+    public void onRlStoreClicked() {
+    }
+
     public void handleCategoryDataInit(List<OrderinfoBean.OrderDetailBean> gcsort_data) {
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         // 定义LayoutParam
@@ -321,7 +332,6 @@ public class OrdertrackingActivity extends BaseActivity {
                     llGoodsItem.addView(categoryView);
                 }
             }
-
         }
     }
 

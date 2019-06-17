@@ -143,7 +143,7 @@ public class ShippingAddressActivity extends BaseActivity {
     @OnClick(R.id.tv_re_locate)
     public void onMTvReLocateClicked() {
         EventBus.getDefault().post(new MessageEvent(RELOCATION));
-        mTvReLocate.setText("正在定位...");
+        mTvReLocate.setText("正在定位");
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
