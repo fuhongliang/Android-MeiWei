@@ -170,7 +170,7 @@ public class MenuListFragment extends BaseFragment {
             LinearSmoothScroller linearSmoothScroller = new TopSmoothScroller(getActivity());
             linearSmoothScroller.setTargetPosition(totalItem);
             mRecyclerView.getLayoutManager().startSmoothScroll(linearSmoothScroller);
-            mCategoryAdapter.notifyDataSetChanged();
+            //mCategoryAdapter.notifyDataSetChanged();列表刷新操作交由联动列表进行刷新
         });
         mLvCategory.setAdapter(mCategoryAdapter);
         mTvAtLess.setOnClickListener(v -> goToActivity(ConfirmOrderActivity.class, mStoreId));
