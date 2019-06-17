@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.bugtags.library.plugin'
 android {
     compileSdkVersion 28
 
@@ -70,6 +70,13 @@ def releaseTime() {
     return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 }
 
+bugtags {
+    //自动上传符号表功能配置，如果需要根据 build varint 配置，请参考帮助中心->符号表->Android 符号表->配置自动上传符号表
+    appKey "38f0770549185acf5becd95baf2459b5"  //这里是你的 appKey
+    appSecret "90ce7695683c7ba5d39f8e326f1b737d"    //这里是你的 appSecret，管理员在设置页可以查看
+    mappingUploadEnabled true
+}
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:28.0.0'
@@ -138,6 +145,6 @@ dependencies {
     implementation project(path: ':matise')
     implementation 'com.github.yalantis:ucrop:2.2.3-native'
     implementation files('libs/libammsdk.jar')
-
+    implementation 'com.bugtags.library:bugtags-lib:3.1.1'
 
 }

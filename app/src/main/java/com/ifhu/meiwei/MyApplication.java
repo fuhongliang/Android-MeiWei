@@ -2,6 +2,7 @@ package com.ifhu.meiwei;
 
 import android.app.Application;
 
+import com.bugtags.library.Bugtags;
 import com.ifhu.meiwei.utils.AppInfo;
 import com.ifhu.meiwei.utils.SharedPreUtil;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -29,6 +30,8 @@ public class MyApplication extends Application {
         instance = this;
         initLogger();
         SharedPreUtil.getInstance();
+        //在这里初始化
+        Bugtags.start("38f0770549185acf5becd95baf2459b5", this, Bugtags.BTGInvocationEventBubble);
     }
 
     public void initLogger(){
