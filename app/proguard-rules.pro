@@ -310,3 +310,15 @@ public <init>(android.content.Context, android.util.AttributeSet, int);
 -keepclassmembers  class **$** extends com.chad.library.adapter.base.BaseViewHolder {
      <init>(...);
 }
+
+# ProGuard configurations for Bugtags
+  -keepattributes LineNumberTable,SourceFile
+
+  -keep class com.bugtags.library.** {*;}
+  -dontwarn com.bugtags.library.**
+  -keep class io.bugtags.** {*;}
+  -dontwarn io.bugtags.**
+  -dontwarn org.apache.http.**
+  -dontwarn android.net.http.AndroidHttpClient
+
+  # End Bugtags

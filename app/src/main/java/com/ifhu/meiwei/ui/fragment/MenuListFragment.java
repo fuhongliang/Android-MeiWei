@@ -216,7 +216,6 @@ public class MenuListFragment extends BaseFragment {
                 addItemType(BaseHeaderAdapter.TYPE_HEADER, R.layout.item_pinned_header);
                 addItemType(BaseHeaderAdapter.TYPE_DATA, R.layout.item_product_name);
             }
-
             @Override
             protected void convert(BaseViewHolder holder, final PinnedHeaderEntity<MerchantBean.GoodsListBean.GoodsBeanX> item) {
                 switch (holder.getItemViewType()) {
@@ -259,11 +258,10 @@ public class MenuListFragment extends BaseFragment {
                             ((TextView) holder.getView(R.id.tv_amount)).setText("" + amount);
                         }
 
-                        holder.setText(R.id.tv_money, item.getData().getGoods_marketprice() + "");
-                        holder.setText(R.id.tv_price, item.getData().getGoods_price() + "");
+                        holder.setText(R.id.tv_money, item.getData().getGoods_price() + "");
+                        holder.setText(R.id.tv_price, item.getData().getGoods_marketprice() + "");
                         holder.setText(R.id.tv_description, item.getData().getGoods_desc() + "");
                         holder.setText(R.id.tv_sell_amount, "月售" + item.getData().getGoods_salenum() + "|点赞" + item.getData().getZan());
-
                         break;
                     default:
                         break;
@@ -292,7 +290,6 @@ public class MenuListFragment extends BaseFragment {
                 }
             }
         });
-
     }
 
     public void handleGoodListScroll(int position) {

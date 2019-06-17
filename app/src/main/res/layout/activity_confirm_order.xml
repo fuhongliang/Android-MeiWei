@@ -7,13 +7,15 @@
     <ImageView
         android:id="@+id/iv_bg"
         android:layout_width="match_parent"
-        android:layout_height="196dp"
-        android:background="@drawable/bg_menu_gradient" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_menu_gradient"
+        android:minHeight="196dp" />
 
     <LinearLayout
         android:id="@+id/ll_address"
         android:layout_width="match_parent"
-        android:layout_height="196dp"
+        android:layout_height="wrap_content"
+        android:minHeight="196dp"
         android:orientation="vertical">
 
         <RelativeLayout
