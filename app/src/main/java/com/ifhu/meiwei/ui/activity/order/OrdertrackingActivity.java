@@ -215,6 +215,12 @@ public class OrdertrackingActivity extends BaseActivity {
                 tvButtonOne.setText("取消订单");
                 tvButtonTwo.setVisibility(View.GONE);
                 tvButtonThree.setText("立即支付");
+                tvButtonThree.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        goToActivity(ConfirmOrderActivity.class, getDataInt());
+                    }
+                });
                 break;
             case 3:// 3:"等待商家接单";
                 mIvBgView.setBackgroundResource(R.drawable.order_bnt_jiedan);

@@ -18,11 +18,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/header"
+        android:layout_marginTop="15dp"
         android:divider="@null"
         android:dividerHeight="15dp"
-        android:headerDividersEnabled="true"
         android:footerDividersEnabled="false"
-        tools:listitem="@layout/item_my_address"/>
+        android:headerDividersEnabled="true"
+        tools:listitem="@layout/item_my_address" />
 
     <LinearLayout
         android:id="@+id/ll_address"
