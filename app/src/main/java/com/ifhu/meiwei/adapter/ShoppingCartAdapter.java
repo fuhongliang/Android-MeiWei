@@ -1,7 +1,6 @@
 package com.ifhu.meiwei.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class ShoppingCartAdapter extends BaseAdapter {
@@ -89,15 +89,22 @@ public class ShoppingCartAdapter extends BaseAdapter {
         viewHolder.tvCurrentPrice.setText(shoppingCartBeanList.get(position).getAmount());
         getCommodity(shoppingCartBeanList.get(position).getList(), viewHolder.llCommodity, shoppingCartBeanList.get(position).isExpend());
 
+
         if (shoppingCartBeanList.get(position).isExpend()){
-            viewHolder.rlExpand.setVisibility(View.GONE);
+            //viewHolder.rlExpand.setVisibility(View.GONE);
+            viewHolder.tvExpand.setText("收起"+(shoppingCartBeanList.get(position).getList().size()-2)+"商品");
+            viewHolder.ivArrow.loadDrawable(R.drawable.meal_ic_shangla);
+
         }else {
-            viewHolder.rlExpand.setVisibility(View.VISIBLE);
+            //viewHolder.rlExpand.setVisibility(View.VISIBLE);
             viewHolder.tvExpand.setText("展开其他"+(shoppingCartBeanList.get(position).getList().size()-2)+"商品");
+            viewHolder.ivArrow.loadDrawable(R.drawable.common_xiala);
+
+
         }
 
         viewHolder.rlExpand.setOnClickListener(v -> {
-            shoppingCartBeanList.get(position).setExpend(true);
+            shoppingCartBeanList.get(position).setExpend(!shoppingCartBeanList.get(position).isExpend());
             notifyDataSetChanged();
         });
         viewHolder.ivDelete.setOnClickListener(v -> {
@@ -165,6 +172,8 @@ public class ShoppingCartAdapter extends BaseAdapter {
         TextView tvCurrentPrice;
         @BindView(R.id.tv_settlement)
         TextView tvSettlement;
+        @BindView(R.id.iv_arrow)
+        GlideImageView ivArrow;
 
 
         ViewHolder(View view) {

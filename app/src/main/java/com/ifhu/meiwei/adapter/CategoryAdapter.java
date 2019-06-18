@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -64,24 +65,40 @@ public class CategoryAdapter  extends BaseAdapter {
             convertView = inflater.inflate(R.layout.item_category, null);
             viewHolder = new ViewHolder();
             viewHolder.imageView = convertView.findViewById(R.id.iv_line);
+            viewHolder.imgIcon = convertView.findViewById(R.id.iv_icon);
             viewHolder.textView = convertView.findViewById(R.id.tv_categroy);
-            viewHolder.linearLayout = convertView.findViewById(R.id.ll_content);
+            viewHolder.frameLayout = convertView.findViewById(R.id.ll_content);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+        switch (mDataList.get(position).getStc_name()){
+            case "热销":
+                viewHolder.imgIcon.setImageResource(R.drawable.meal_ic_cd_rx);
+                break;
+            case "折扣":
+                viewHolder.imgIcon.setImageResource(R.drawable.meal_ic_cd_zk);
+                break;
+            case "优惠":
+                viewHolder.imgIcon.setImageResource(R.drawable.meal_ic_cd_yh);
+                break;
+            default:
+                viewHolder.imgIcon.setVisibility(View.GONE);
+                break;
+        }
+
         if (mCurPosition == position) {
             viewHolder.imageView.setVisibility(View.VISIBLE);
             viewHolder.textView.setTextColor(mContext.getResources().getColor(R.color.black));
-            viewHolder.linearLayout.setBackgroundColor(Color.WHITE);
+            viewHolder.frameLayout.setBackgroundColor(Color.WHITE);
         } else {
-            viewHolder.linearLayout.setBackgroundColor(mContext.getResources().getColor(R.color.category_color));
+            viewHolder.frameLayout.setBackgroundColor(mContext.getResources().getColor(R.color.category_color));
             viewHolder.imageView.setVisibility(View.GONE);
             viewHolder.textView.setTextColor(mContext.getResources().getColor(R.color.navigation_color));
         }
         viewHolder.textView.setText(mDataList.get(position).getStc_name());
-        viewHolder.linearLayout.setOnClickListener(v -> {
+        viewHolder.frameLayout.setOnClickListener(v -> {
             mCurPosition = position;
             itemOnclick.onClickItem(position);
         });
@@ -92,7 +109,8 @@ public class CategoryAdapter  extends BaseAdapter {
     static class ViewHolder {
         TextView textView;
         ImageView imageView;
-        LinearLayout linearLayout;
+        ImageView imgIcon;
+        FrameLayout frameLayout;
     }
 
     public interface ItemOnclick {

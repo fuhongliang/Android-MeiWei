@@ -10,11 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <com.baba.GlideImageView
+            android:id="@+id/iv_store_img"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_margin="15dp"
-            android:background="@drawable/pingjia_ic_bumanyi1" />
+            android:layout_margin="15dp"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -23,6 +23,7 @@
             android:layout_marginTop="17dp">
 
             <TextView
+                android:id="@+id/tv_store_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="果实先生（新安店）"
@@ -30,6 +31,7 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@+id/tv_merchant_describe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -39,6 +41,7 @@
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/tv_evaluation"
             android:layout_width="32dp"
             android:layout_height="36dp"
             android:layout_alignParentEnd="true"
@@ -114,6 +117,7 @@
             android:background="@drawable/meal_ic_yh_jian" />
 
         <TextView
+            android:id="@+id/tv_full_cut"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
@@ -138,6 +142,7 @@
             android:background="@drawable/meal_ic_yh_zhe" />
 
         <TextView
+            android:id="@+id/tv_discount"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
@@ -162,6 +167,7 @@
             android:background="@drawable/meal_ic_yh_tao" />
 
         <TextView
+            android:id="@+id/tv_package"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
@@ -186,6 +192,7 @@
             android:background="@drawable/meal_ic_yh_ling" />
 
         <TextView
+            android:id="@+id/tv_voucher2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
@@ -206,6 +213,7 @@
         android:textSize="15sp" />
 
     <TextView
+        android:id="@+id/tv_announcement_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_announcement"

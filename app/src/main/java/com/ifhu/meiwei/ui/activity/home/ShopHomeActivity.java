@@ -1,6 +1,8 @@
 package com.ifhu.meiwei.ui.activity.home;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import com.baba.GlideImageView;
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.bean.BaseEntity;
 import com.ifhu.meiwei.bean.MerchantBean;
+import com.ifhu.meiwei.bean.MessageEvent;
 import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
@@ -23,6 +26,7 @@ import com.ifhu.meiwei.net.service.HomeService;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.ui.fragment.MenuListFragment;
 import com.ifhu.meiwei.ui.fragment.XWebViewFragment;
+import com.ifhu.meiwei.ui.nicedialog.ConfirmDialog;
 import com.ifhu.meiwei.ui.nicedialog.ConfirmInputDialog;
 import com.ifhu.meiwei.ui.nicedialog.DialogUtils;
 import com.ifhu.meiwei.ui.view.MySmartTabLayout;
@@ -35,11 +39,20 @@ import com.jaeger.library.StatusBarUtil;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.ifhu.meiwei.utils.Constants.GOTOHOMEPAGE;
+import static com.ifhu.meiwei.utils.Constants.LOGOUT;
+import static com.ifhu.meiwei.utils.Constants.MERPHONENUMBER;
+import static com.ifhu.meiwei.utils.Constants.RELOCATION;
 
 
 /**
@@ -77,6 +90,8 @@ public class ShopHomeActivity extends BaseActivity {
     @BindView(R.id.ll_full_cut)
     LinearLayout mLlFullCut;
 
+    MerchantBean.StoreInfoBean storeInfoBean;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +100,11 @@ public class ShopHomeActivity extends BaseActivity {
         ButterKnife.bind(this);
         initView();
         getShopDetailData();
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
     }
+
 
     FragmentPagerItemAdapter adapter;
     public void initView() {
@@ -119,10 +138,21 @@ public class ShopHomeActivity extends BaseActivity {
                 reviewFragment.setUrl(t.getData().getComment_url());
                 merchantInfoFragment.setUrl(t.getData().getStore_info_url());
             }
+
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                if (isNetWorkError){
+                    // 设置网络缺省图
+                    ((MenuListFragment) adapter.getPage(0)).setEmptyDisplay(true);
+                    ((XWebViewFragment) adapter.getPage(1)).setEmptyDisplay(true);
+                    ((XWebViewFragment) adapter.getPage(2)).setEmptyDisplay(true);
+                }
+            }
         });
     }
 
     public void initMerchantInfo(MerchantBean.StoreInfoBean storeInfoBean, List<MerchantBean.ManjianBean> manjianBeanList) {
+        this.storeInfoBean = storeInfoBean;
         tvStoreName.setText(storeInfoBean.getStore_name());
         mTvMerchantDescribe.setText("起送￥15｜配送￥3｜月售 " + storeInfoBean.getStore_sales());
         tvEvaluation.setText(storeInfoBean.getStore_credit() + "\n评分");
@@ -175,10 +205,43 @@ public class ShopHomeActivity extends BaseActivity {
 
     @OnClick(R.id.iv_expand_info)
     public void onMIvExpandInfoClicked() {
-        View view = getLayoutInflater().inflate(R.layout.dialog_menu_expand, null);
-        DialogUtils.showExpandMerchantInfoDialog("","", getSupportFragmentManager(), discount_price -> {
+//        View view = getLayoutInflater().inflate(R.layout.dialog_menu_expand, null);
+//        String merchantDescribe = mTvMerchantDescribe.getText().toString();
+//        ((TextView)view.findViewById(R.id.tv_merchant_describe)).setText(merchantDescribe);
+        DialogUtils.showExpandMerchantInfoDialog(storeInfoBean, getSupportFragmentManager(), discount_price -> {
 
         });
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void Event(MessageEvent messageEvent) {
+        switch (messageEvent.getMessage()) {
+            case MERPHONENUMBER:
+                callPhone(messageEvent.getData());
+                break;
+            default:
+        }
+    }
+
+    public void callPhone(String phoneNumber){
+        DialogUtils.showConfirmDialog("温馨提示", "是否拨打商家电话",  getSupportFragmentManager(),  new ConfirmDialog.ButtonOnclick() {
+            @Override
+            public void cancel() {
+            }
+
+            @Override
+            public void ok() {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                Uri data = Uri.parse("tel:" + phoneNumber);
+                intent.setData(data);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }
