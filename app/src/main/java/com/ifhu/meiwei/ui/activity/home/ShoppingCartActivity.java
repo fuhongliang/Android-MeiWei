@@ -183,7 +183,6 @@ public class ShoppingCartActivity extends BaseActivity {
     }
 
 
-
     @OnClick(R.id.iv_back)
     public void onIvBackClicked() {
         finish();
