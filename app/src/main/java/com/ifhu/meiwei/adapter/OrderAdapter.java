@@ -37,6 +37,11 @@ public class OrderAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void clearList(){
+        this.orderBeanList = null;
+        notifyDataSetChanged();
+    }
+
     public void setOnClickItem(OnClickItem onClickItem) {
         this.onClickItem = onClickItem;
     }
