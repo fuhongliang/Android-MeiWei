@@ -77,6 +77,8 @@ public class ShopHomeActivity extends BaseActivity {
     @BindView(R.id.ll_full_cut)
     LinearLayout mLlFullCut;
 
+    MerchantBean.StoreInfoBean storeInfoBean;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,7 +125,7 @@ public class ShopHomeActivity extends BaseActivity {
             @Override
             protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
                 if (isNetWorkError){
-                    // TODO: 2019-06-18 页面处理设置网络缺省
+                    // 设置网络缺省图
                     ((MenuListFragment) adapter.getPage(0)).setEmptyDisplay(true);
                     ((XWebViewFragment) adapter.getPage(1)).setEmptyDisplay(true);
                     ((XWebViewFragment) adapter.getPage(2)).setEmptyDisplay(true);
@@ -133,6 +135,7 @@ public class ShopHomeActivity extends BaseActivity {
     }
 
     public void initMerchantInfo(MerchantBean.StoreInfoBean storeInfoBean, List<MerchantBean.ManjianBean> manjianBeanList) {
+        this.storeInfoBean = storeInfoBean;
         tvStoreName.setText(storeInfoBean.getStore_name());
         mTvMerchantDescribe.setText("起送￥15｜配送￥3｜月售 " + storeInfoBean.getStore_sales());
         tvEvaluation.setText(storeInfoBean.getStore_credit() + "\n评分");
@@ -185,8 +188,10 @@ public class ShopHomeActivity extends BaseActivity {
 
     @OnClick(R.id.iv_expand_info)
     public void onMIvExpandInfoClicked() {
-        View view = getLayoutInflater().inflate(R.layout.dialog_menu_expand, null);
-        DialogUtils.showExpandMerchantInfoDialog("","", getSupportFragmentManager(), discount_price -> {
+//        View view = getLayoutInflater().inflate(R.layout.dialog_menu_expand, null);
+//        String merchantDescribe = mTvMerchantDescribe.getText().toString();
+//        ((TextView)view.findViewById(R.id.tv_merchant_describe)).setText(merchantDescribe);
+        DialogUtils.showExpandMerchantInfoDialog(storeInfoBean, getSupportFragmentManager(), discount_price -> {
 
         });
     }
