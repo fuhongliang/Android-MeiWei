@@ -64,7 +64,6 @@ public class ChooseAddressPointActivity extends BaseActivity implements Location
         AMapLocationListener, GeocodeSearch.OnGeocodeSearchListener, PoiSearch.OnPoiSearchListener {
 
 
-
     private ListView listView;
     private AutoCompleteTextView searchText;
     private AMap aMap;
@@ -105,6 +104,7 @@ public class ChooseAddressPointActivity extends BaseActivity implements Location
     TextView mTvText;
     @BindView(R.id.tv_return)
     TextView tvReturn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -440,7 +440,8 @@ public class ChooseAddressPointActivity extends BaseActivity implements Location
                 aMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curLatlng, 16f));
                 searchResultAdapter.setSelectedPosition(position);
                 searchResultAdapter.notifyDataSetChanged();
-                address = poiItem.getCityName() + poiItem.getAdName() + poiItem.getSnippet() + poiItem.getTitle();
+//                address = poiItem.getCityName() + poiItem.getAdName() + poiItem.getSnippet() + poiItem.getTitle();
+                address = poiItem.getTitle();
             }
         }
     };
