@@ -2,6 +2,8 @@ package com.ifhu.meiwei.ui.nicedialog;
 
 import android.support.v4.app.FragmentManager;
 
+import com.ifhu.meiwei.bean.MerchantBean;
+
 /**
  * @author KevinFu
  * @date 2019-06-10
@@ -14,6 +16,15 @@ public class DialogUtils {
 
     public static void showExpandMerchantInfoDialog(String title, String message, FragmentManager manager, MerchantInfoExpandDialog.ButtonOnclick buttonOnclick) {
         MerchantInfoExpandDialog confirmDialog = MerchantInfoExpandDialog.newInstance(title, message);
+        confirmDialog.setMargin(15);
+        confirmDialog.setMarginTop(50);
+        confirmDialog.setOutCancel(true);
+        confirmDialog.setButtonOnclick(buttonOnclick);
+        confirmDialog.show(manager);
+    }
+
+    public static void showExpandMerchantInfoDialog(MerchantBean.StoreInfoBean storeInfoBean, FragmentManager manager, MerchantInfoExpandDialog.ButtonOnclick buttonOnclick) {
+        MerchantInfoExpandDialog confirmDialog = MerchantInfoExpandDialog.newInstance(storeInfoBean);
         confirmDialog.setMargin(15);
         confirmDialog.setMarginTop(50);
         confirmDialog.setOutCancel(true);

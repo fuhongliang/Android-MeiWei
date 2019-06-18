@@ -16,7 +16,10 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.ui.base.BaseFragment;
@@ -40,6 +43,12 @@ public class XWebViewFragment extends BaseFragment {
     ProgressBar mProgressWeb;
     @BindView(R.id.wv_view)
     X5WebView mWvView;
+    @BindView(R.id.rl_empty)
+    RelativeLayout mRlEmpty;
+    @BindView(R.id.iv_photo)
+    ImageView mIvPhoto;
+    @BindView(R.id.tv_title_one)
+    TextView mTvTitleOne;
     Unbinder unbinder;
     public String url = "";
     public static XWebViewFragment newInstance() {
@@ -48,6 +57,14 @@ public class XWebViewFragment extends BaseFragment {
 
     public XWebViewFragment() {
         // Required empty public constructor
+    }
+
+    public void setEmptyDisplay(boolean emptyDisplay){
+        if (emptyDisplay){
+            mRlEmpty.setVisibility(View.VISIBLE);
+        } else {
+            mRlEmpty.setVisibility(View.INVISIBLE);
+        }
     }
 
     public void setUrl(String url) {
@@ -90,6 +107,8 @@ public class XWebViewFragment extends BaseFragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(true);
         }
+        mIvPhoto.setImageResource(R.drawable.quesehng_ic_wlljsb);
+        mTvTitleOne.setText("网络好像出了点问题呢！");
     }
 
     public void loadURL(boolean needToken,String url){
