@@ -50,4 +50,6 @@ public class Constants {
 
     public static final String CHOOSECITY = "CHOOSECITY";
 
+    public static final String MERPHONENUMBER = "MERPHONENUMBER";
+
 }

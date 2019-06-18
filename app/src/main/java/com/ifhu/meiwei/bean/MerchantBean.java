@@ -1,11 +1,15 @@
 package com.ifhu.meiwei.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author fuhongliang
  */
-public class MerchantBean {
+public class MerchantBean implements Parcelable {
 
 
     /**
@@ -25,6 +29,28 @@ public class MerchantBean {
     private String store_info_url;
     private List<ManjianBean> manjian;
     private List<GoodsListBean> goods_list;
+
+
+    protected MerchantBean(Parcel in) {
+        store_info = in.readParcelable(StoreInfoBean.class.getClassLoader());
+        is_collect = in.readByte() != 0;
+        comment_url = in.readString();
+        store_info_url = in.readString();
+        manjian = in.createTypedArrayList(ManjianBean.CREATOR);
+        goods_list = in.createTypedArrayList(GoodsListBean.CREATOR);
+    }
+
+    public static final Creator<MerchantBean> CREATOR = new Creator<MerchantBean>() {
+        @Override
+        public MerchantBean createFromParcel(Parcel in) {
+            return new MerchantBean(in);
+        }
+
+        @Override
+        public MerchantBean[] newArray(int size) {
+            return new MerchantBean[size];
+        }
+    };
 
     public StoreInfoBean getStore_info() {
         return store_info;
@@ -82,7 +108,19 @@ public class MerchantBean {
         this.goods_list = goods_list;
     }
 
-    public static class StoreInfoBean {
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeByte((byte) (is_collect ? 1 : 0));
+        parcel.writeString(comment_url);
+        parcel.writeString(store_info_url);
+    }
+
+    public static class StoreInfoBean implements Parcelable{
         /**
          * store_id : 2
          * store_name : 多味丫
@@ -98,6 +136,27 @@ public class MerchantBean {
         private int store_sales;
         private int store_credit;
         private String store_description;
+
+        protected StoreInfoBean(Parcel in) {
+            store_id = in.readInt();
+            store_name = in.readString();
+            store_avatar = in.readString();
+            store_sales = in.readInt();
+            store_credit = in.readInt();
+            store_description = in.readString();
+        }
+
+        public static final Creator<StoreInfoBean> CREATOR = new Creator<StoreInfoBean>() {
+            @Override
+            public StoreInfoBean createFromParcel(Parcel in) {
+                return new StoreInfoBean(in);
+            }
+
+            @Override
+            public StoreInfoBean[] newArray(int size) {
+                return new StoreInfoBean[size];
+            }
+        };
 
         public int getStore_id() {
             return store_id;
@@ -145,6 +204,21 @@ public class MerchantBean {
 
         public void setStore_description(String store_description) {
             this.store_description = store_description;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeInt(store_id);
+            parcel.writeString(store_name);
+            parcel.writeString(store_avatar);
+            parcel.writeInt(store_sales);
+            parcel.writeInt(store_credit);
+            parcel.writeString(store_description);
         }
     }
 
@@ -229,7 +303,7 @@ public class MerchantBean {
         }
     }
 
-    public static class ManjianBean {
+    public static class ManjianBean implements Parcelable{
         /**
          * price : 1000
          * discount : 900
@@ -237,6 +311,34 @@ public class MerchantBean {
 
         private int price;
         private int discount;
+
+        protected ManjianBean(Parcel in) {
+            price = in.readInt();
+            discount = in.readInt();
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(price);
+            dest.writeInt(discount);
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        public static final Creator<ManjianBean> CREATOR = new Creator<ManjianBean>() {
+            @Override
+            public ManjianBean createFromParcel(Parcel in) {
+                return new ManjianBean(in);
+            }
+
+            @Override
+            public ManjianBean[] newArray(int size) {
+                return new ManjianBean[size];
+            }
+        };
 
         public int getPrice() {
             return price;
@@ -255,7 +357,7 @@ public class MerchantBean {
         }
     }
 
-    public static class GoodsListBean {
+    public static class GoodsListBean implements Parcelable{
         /**
          * stc_id : hot
          * stc_name : 热销
@@ -267,6 +369,36 @@ public class MerchantBean {
         private String stc_name;
         private int cart_nums;
         private List<GoodsBeanX> goods;
+
+        protected GoodsListBean(Parcel in) {
+            stc_id = in.readString();
+            stc_name = in.readString();
+            cart_nums = in.readInt();
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(stc_id);
+            dest.writeString(stc_name);
+            dest.writeInt(cart_nums);
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        public static final Creator<GoodsListBean> CREATOR = new Creator<GoodsListBean>() {
+            @Override
+            public GoodsListBean createFromParcel(Parcel in) {
+                return new GoodsListBean(in);
+            }
+
+            @Override
+            public GoodsListBean[] newArray(int size) {
+                return new GoodsListBean[size];
+            }
+        };
 
         public String getStc_id() {
             return stc_id;

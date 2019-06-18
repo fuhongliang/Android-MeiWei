@@ -10,7 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,6 +33,7 @@ import com.ifhu.meiwei.ui.activity.home.ShoppingCartActivity;
 import com.ifhu.meiwei.ui.activity.order.ConfirmOrderActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
 import com.ifhu.meiwei.ui.base.WebViewActivity;
+import com.ifhu.meiwei.utils.DeviceUtil;
 import com.ifhu.meiwei.utils.UserLogic;
 import com.oushangfeng.pinnedsectionitemdecoration.PinnedHeaderItemDecoration;
 
@@ -76,6 +79,17 @@ public class MenuListFragment extends BaseFragment {
     @BindView(R.id.iv_shop_cart_empty)
     ImageView mIvShopCartEmpty;
 
+    @BindView(R.id.rl_empty)
+    RelativeLayout mRlEmpty;
+    @BindView(R.id.ll_category_product)
+    LinearLayout mLlCateGoryProduct;
+    @BindView(R.id.fl_shop_bar)
+    FrameLayout mFlShopBar;
+    @BindView(R.id.iv_photo)
+    ImageView mIvPhoto;
+    @BindView(R.id.tv_title_one)
+    TextView mTvTitleOne;
+
     private BaseHeaderAdapter<PinnedHeaderEntity<MerchantBean.GoodsListBean.GoodsBeanX>> mAdapter;
 
     CategoryAdapter mCategoryAdapter;
@@ -86,6 +100,18 @@ public class MenuListFragment extends BaseFragment {
 
     public MenuListFragment() {
         // Required empty public constructor
+    }
+
+    public void setEmptyDisplay(boolean emptyDisplay){
+        if (emptyDisplay){
+            mLlCateGoryProduct.setVisibility(View.INVISIBLE);
+            mFlShopBar.setVisibility(View.INVISIBLE);
+            mRlEmpty.setVisibility(View.VISIBLE);
+        }else {
+            mLlCateGoryProduct.setVisibility(View.VISIBLE);
+            mFlShopBar.setVisibility(View.VISIBLE);
+            mRlEmpty.setVisibility(View.INVISIBLE);
+        }
     }
 
     public void setData(String storeId, MerchantBean.CartBean cartBean, List<MerchantBean.GoodsListBean> goodsListBeans) {
@@ -261,7 +287,7 @@ public class MenuListFragment extends BaseFragment {
                         holder.setText(R.id.tv_money, item.getData().getGoods_price() + "");
                         holder.setText(R.id.tv_price, item.getData().getGoods_marketprice() + "");
                         holder.setText(R.id.tv_description, item.getData().getGoods_desc() + "");
-                        holder.setText(R.id.tv_sell_amount, "月售" + item.getData().getGoods_salenum() + "|点赞" + item.getData().getZan());
+                        holder.setText(R.id.tv_sell_amount, "月售" + item.getData().getGoods_salenum() + "    |   点赞" + item.getData().getZan());
                         break;
                     default:
                         break;
@@ -290,6 +316,8 @@ public class MenuListFragment extends BaseFragment {
                 }
             }
         });
+        mIvPhoto.setImageResource(R.drawable.quesehng_ic_wlljsb);
+        mTvTitleOne.setText("网络好像出了点问题呢！");
     }
 
     public void handleGoodListScroll(int position) {

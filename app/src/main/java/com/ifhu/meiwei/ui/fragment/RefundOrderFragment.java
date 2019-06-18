@@ -165,6 +165,7 @@ public class RefundOrderFragment extends BaseFragment {
             tvButton.setText("去逛逛");
             tvButton.setVisibility(View.VISIBLE);
             tvButton.setOnClickListener(v -> EventBus.getDefault().post(new MessageEvent(GOTOHOMEPAGE)));
+            orderAdapter.clearList();
         } else {
             rlEmpty.setVisibility(View.GONE);
         }

@@ -172,12 +172,8 @@ public class AllOrderFragment extends BaseFragment {
             tvTitleTwo.setVisibility(View.VISIBLE);
             tvButton.setText("去逛逛");
             tvButton.setVisibility(View.VISIBLE);
-            tvButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    EventBus.getDefault().post(new MessageEvent(GOTOHOMEPAGE));
-                }
-            });
+            tvButton.setOnClickListener(v -> EventBus.getDefault().post(new MessageEvent(GOTOHOMEPAGE)));
+            orderAdapter.clearList();
         } else {
             rlEmpty.setVisibility(View.GONE);
         }
