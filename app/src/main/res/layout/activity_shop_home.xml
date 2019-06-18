@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        >
+        android:layout_height="200dp">
 
         <ImageView
             android:id="@+id/iv_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/meal_bnt_beijing"
-            />
+            android:background="@drawable/meal_bnt_beijing" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="44dp"
@@ -67,8 +66,8 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_margin="15dp"
-                android:scaleType="fitXY"
-                android:background="@drawable/pingjia_ic_bumanyi1" />
+                android:background="@drawable/pingjia_ic_bumanyi1"
+                android:scaleType="fitXY" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -112,7 +111,7 @@
             android:layout_height="19dp"
             android:layout_marginLeft="15dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal"/>
+            android:orientation="horizontal" />
 
         <!--代金券-->
         <LinearLayout
@@ -165,23 +164,24 @@
             android:id="@+id/rl_expand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp">
+            >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:text="公告：欢迎光临，很高兴为您服务~"
+                android:layout_centerVertical="true"
                 android:textColor="@color/hint_text_color"
                 android:textSize="12sp" />
 
             <ImageView
                 android:id="@+id/iv_expand_info"
                 android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_height="47dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:padding="17dp"
+                android:padding="15dp"
                 android:src="@drawable/common_xiala" />
         </RelativeLayout>
     </LinearLayout>
@@ -205,11 +205,10 @@
         app:stl_indicatorThickness="2dp"
         app:stl_indicatorWidth="20dp"
         app:stl_underlineColor="@color/divide_line"
-        app:stl_underlineThickness="0.5dp"
-        />
+        app:stl_underlineThickness="0.5dp" />
 
     <com.ifhu.meiwei.ui.view.MyViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 </LinearLayout>
