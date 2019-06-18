@@ -119,6 +119,16 @@ public class ShopHomeActivity extends BaseActivity {
                 reviewFragment.setUrl(t.getData().getComment_url());
                 merchantInfoFragment.setUrl(t.getData().getStore_info_url());
             }
+
+            @Override
+            protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                if (isNetWorkError){
+                    // TODO: 2019-06-18 页面处理设置网络缺省
+                    ((MenuListFragment) adapter.getPage(0)).setEmptyDisplay(true);
+                    ((XWebViewFragment) adapter.getPage(1)).setEmptyDisplay(true);
+                    ((XWebViewFragment) adapter.getPage(2)).setEmptyDisplay(true);
+                }
+            }
         });
     }
 
