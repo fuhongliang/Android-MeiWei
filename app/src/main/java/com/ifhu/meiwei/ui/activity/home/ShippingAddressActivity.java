@@ -76,13 +76,22 @@ public class ShippingAddressActivity extends BaseActivity {
         tvText.setText("新增地址");
         tvReturn.setVisibility(View.INVISIBLE);
         setTvCurAddress();
-        if (UserLogic.isLogin()) {
-            receivingAddressList();
-        }
+
         myAddressAdapter = new MyAddressAdapter(myAddressBeanList, this);
         lvAddress.setAdapter(myAddressAdapter);
+
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
+        }
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (UserLogic.isLogin()) {
+            receivingAddressList();
         }
     }
 
