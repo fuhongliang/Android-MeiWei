@@ -166,7 +166,8 @@ public class OrdertrackingActivity extends BaseActivity {
         tvPackage.setText(orderinfoBean.getPeisong());
         tvFullReduction.setText(orderinfoBean.getManjian());
         tvVoucher.setText(orderinfoBean.getDaijinquan());
-
+        // TODO: 2019-06-18 跳转信息缺失
+        tvStoreName.setOnClickListener(v -> goToActivity(ShopHomeActivity.class,"2"/*,storelist_data.get(position).getStore_id()+""*/));
         ivStorePhone.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_DIAL);
             Uri data = Uri.parse("tel:" + orderinfoBean.getStore_phone() + "");
@@ -200,12 +201,7 @@ public class OrdertrackingActivity extends BaseActivity {
                 tvButtonTwo.setVisibility(View.GONE);
                 tvButtonThree.setVisibility(View.GONE);
                 llService.setVerticalGravity(View.GONE);
-                tvButtonThree.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        goToActivity(MainActivity.class);
-                    }
-                });
+                tvButtonThree.setOnClickListener(v -> goToActivity(MainActivity.class));
                 break;
             case 2:// 2:"待支付";
                 mIvBgView.setBackgroundResource(R.drawable.order_bnt_daizhfiu);
@@ -215,12 +211,7 @@ public class OrdertrackingActivity extends BaseActivity {
                 tvButtonOne.setText("取消订单");
                 tvButtonTwo.setVisibility(View.GONE);
                 tvButtonThree.setText("立即支付");
-                tvButtonThree.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        goToActivity(ConfirmOrderActivity.class, getDataInt());
-                    }
-                });
+                tvButtonThree.setOnClickListener(v -> goToActivity(ConfirmOrderActivity.class, getDataInt()));
                 break;
             case 3:// 3:"等待商家接单";
                 mIvBgView.setBackgroundResource(R.drawable.order_bnt_jiedan);
@@ -267,12 +258,7 @@ public class OrdertrackingActivity extends BaseActivity {
                 tvButtonOne.setText("申请售后");
                 tvButtonTwo.setText("再来一单");
                 tvButtonThree.setText("立即评价");
-                tvButtonThree.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        goToActivity(EvaluationActivity.class, getDataInt());
-                    }
-                });
+                tvButtonThree.setOnClickListener(v -> goToActivity(EvaluationActivity.class, getDataInt()));
                 break;
             case 8:// 8:退款中
                 break;

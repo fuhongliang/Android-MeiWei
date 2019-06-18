@@ -119,6 +119,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
 
     /**
      * 获取商品列表数据
+     * todo 调整数据加入
      */
     public void getCommodity(List<ShoppingCartBean.ListBean> gcsort_data, LinearLayout linearLayout, boolean isExpend) {
         linearLayout.removeAllViews();
