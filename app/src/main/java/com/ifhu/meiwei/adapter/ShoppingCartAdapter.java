@@ -1,7 +1,6 @@
 package com.ifhu.meiwei.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class ShoppingCartAdapter extends BaseAdapter {
@@ -89,11 +89,11 @@ public class ShoppingCartAdapter extends BaseAdapter {
         viewHolder.tvCurrentPrice.setText(shoppingCartBeanList.get(position).getAmount());
         getCommodity(shoppingCartBeanList.get(position).getList(), viewHolder.llCommodity, shoppingCartBeanList.get(position).isExpend());
 
-        if (shoppingCartBeanList.get(position).isExpend()){
+        if (shoppingCartBeanList.get(position).isExpend()) {
             viewHolder.rlExpand.setVisibility(View.GONE);
-        }else {
+        } else {
             viewHolder.rlExpand.setVisibility(View.VISIBLE);
-            viewHolder.tvExpand.setText("展开其他"+(shoppingCartBeanList.get(position).getList().size()-2)+"商品");
+            viewHolder.tvExpand.setText("展开其他" + (shoppingCartBeanList.get(position).getList().size() - 2) + "商品");
         }
 
         viewHolder.rlExpand.setOnClickListener(v -> {
