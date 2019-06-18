@@ -21,7 +21,6 @@
         android:layout_height="17dp"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="12dp"
-        android:background="@drawable/meal_ic_cd_rx"
         android:visibility="visible" />
 
     <TextView

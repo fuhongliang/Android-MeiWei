@@ -72,10 +72,20 @@ public class CategoryAdapter  extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        if (position==0){
-            viewHolder.imgIcon.setVisibility(View.VISIBLE);
-        } else {
-            viewHolder.imgIcon.setVisibility(View.GONE);
+
+        switch (mDataList.get(position).getStc_name()){
+            case "热销":
+                viewHolder.imgIcon.setImageResource(R.drawable.meal_ic_cd_rx);
+                break;
+            case "折扣":
+                viewHolder.imgIcon.setImageResource(R.drawable.meal_ic_cd_zk);
+                break;
+            case "优惠":
+                viewHolder.imgIcon.setImageResource(R.drawable.meal_ic_cd_yh);
+                break;
+            default:
+                viewHolder.imgIcon.setVisibility(View.GONE);
+                break;
         }
 
         if (mCurPosition == position) {
