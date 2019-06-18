@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_margin="15dp"
+            android:background="@drawable/pingjia_ic_bumanyi1" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginLeft="75dp"
+            android:layout_marginTop="17dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="果实先生（新安店）"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="起送￥15｜配送￥3｜月售9989"
+                android:textColor="@color/hint_text_color"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="32dp"
+            android:layout_height="36dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/meal_ic_pingfen"
+            android:gravity="center"
+            android:text="4.7评分"
+            android:textColor="@color/text_white"
+            android:textSize="12sp" />
+    </RelativeLayout>
+    <!--代金券-->
+    <LinearLayout
+        android:id="@+id/ll_voucher"
+        android:layout_width="128dp"
+        android:layout_height="25dp"
+        android:layout_below="@id/rl_head"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="9dp"
+        android:background="@drawable/meal_ic_youhuiquan">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="7dp"
+            android:gravity="center_vertical"
+            android:text="共"
+            android:textColor="#FEFEFE"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="4dp"
+            android:gravity="center_vertical"
+            android:text="￥10"
+            android:textColor="#FEFEFE"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:gravity="center_vertical"
+            android:text="店铺"
+            android:textColor="#FEFEFE"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginRight="7dp"
+            android:gravity="end|center_vertical"
+            android:text="领取"
+            android:textColor="#FEFEFE"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <!--满立减-->
+    <LinearLayout
+        android:id="@+id/ll_reduction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_voucher"
+        android:layout_marginTop="12dp"
+        android:paddingLeft="15dp">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/meal_ic_yh_jian" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="满20减10，满40减15，满60减30，满95减45"
+            android:textColor="@color/navigation_color"
+            android:textSize="13sp" />
+    </LinearLayout>
+    <!--限时折扣-->
+    <LinearLayout
+        android:id="@+id/ll_discounts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_reduction"
+        android:layout_marginTop="12dp"
+        android:paddingLeft="15dp">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/meal_ic_yh_zhe" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="折扣商品专享2.2折起"
+            android:textColor="@color/navigation_color"
+            android:textSize="13sp" />
+    </LinearLayout>
+    <!--套餐优惠-->
+    <LinearLayout
+        android:id="@+id/ll_package"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_discounts"
+        android:layout_marginTop="12dp"
+        android:paddingLeft="15dp">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/meal_ic_yh_tao" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="优惠套餐商品3.8折起"
+            android:textColor="@color/navigation_color"
+            android:textSize="13sp" />
+    </LinearLayout>
+    <!--代金券-->
+    <LinearLayout
+        android:id="@+id/ll_voucher2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_package"
+        android:layout_marginTop="12dp"
+        android:paddingLeft="15dp">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/meal_ic_yh_ling" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="领取店铺10元代金券"
+            android:textColor="@color/navigation_color"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_announcement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_voucher2"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="25dp"
+        android:text="公告"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_announcement"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="50dp"
+        android:text="公告：欢迎光临，很高兴为您服务~"
+        android:textColor="@color/hint_text_color"
+        android:textSize="13sp" />
+
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="100dp"
+        android:layout_height="52dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:padding="20dp"
+        android:src="@drawable/meal_ic_shangla" />
+
+
+</RelativeLayout>
+
+

@@ -31,6 +31,20 @@ public class UserLogic {
         return null;
     }
 
+    public static String getUserId() {
+        if (getUser() == null || StringUtils.isSpace(getUser().getToken())) {
+            return "";
+        } else {
+            String json = SharedPreUtil.getInstance().getString(USER, "");
+            if (!TextUtils.isEmpty(json)) {
+                Gson gson = new Gson();
+                UserBean mUser = gson.fromJson(json, UserBean.class);
+                return mUser.getMember_id()+"";
+            }
+            return "";
+        }
+    }
+
     public static boolean isLogin() {
         if (getUser() == null || StringUtils.isSpace(getUser().getToken())) {
             return false;

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="@drawable/meal_bnt_yhbj">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:text="￥"
+        android:textColor="@color/red"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="30dp"
+        android:text="5"
+        android:textColor="@color/red"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="11dp"
+        android:layout_toRightOf="@id/tv_money"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="满￥20元通用"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_amount"
+            android:layout_marginTop="10dp"
+            android:text="限领1张，2019-04-30到期"
+            android:textColor="@color/hint_text_color"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_received"
+        android:layout_width="35dp"
+        android:layout_height="27dp"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/meal_ic_yinzhang" />
+
+    <TextView
+        android:id="@+id/tv_coupon"
+        android:layout_width="49dp"
+        android:layout_height="27dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:background="@color/red"
+        android:gravity="center"
+        android:text="领券"
+        android:textColor="@color/text_white" />
+</RelativeLayout>

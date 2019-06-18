@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="44dp">
+    android:layout_height="44dp"
+    android:background="#FFFFFF">
 
     <RelativeLayout
+        android:id="@+id/rl_return"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -11,10 +13,11 @@
             android:id="@+id/iv_back"
             android:layout_width="44dp"
             android:layout_height="44dp"
-            android:src="@drawable/top_icon_fanhui"
-            android:padding="15dp" />
+            android:padding="15dp"
+            android:src="@drawable/top_icon_fanhui" />
 
         <TextView
+            android:id="@+id/tv_return"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_toRightOf="@id/iv_back"
@@ -30,10 +33,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:textColor="@color/black"
         android:text=""
         android:textSize="18dp" />
 
     <TextView
+        android:id="@+id/tv_text"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
@@ -42,4 +47,22 @@
         android:text="密码登录"
         android:textColor="@color/navigation_color"
         android:textSize="17sp" />
+
+    <ImageView
+        android:id="@+id/iv_share_it"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_toLeftOf="@id/iv_collection"
+        android:padding="13dp"
+        android:visibility="invisible"
+        android:src="@drawable/meal_ic_fxhei" />
+
+    <ImageView
+        android:id="@+id/iv_collection"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible"
+        android:padding="13dp"
+        android:src="@drawable/meal_ic_schei" />
 </RelativeLayout>

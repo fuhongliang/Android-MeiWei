@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.ifhu.meiwei.bean.BaseEntity;
 import com.ifhu.meiwei.bean.MessageEvent;
+import com.ifhu.meiwei.utils.GsonUtils;
 import com.ifhu.meiwei.utils.ToastHelper;
 import com.orhanobut.logger.Logger;
 
@@ -45,10 +46,10 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
 
     @Override
     public void onNext(BaseEntity<T> baseEntity) {
+        Logger.d(GsonUtils.convertObject2Json(baseEntity));
         /**
          * 成功或者失败都将打印接口返回数据
          */
-        Logger.json(baseEntity.toString());
         if (baseEntity.isSuccess()) {
             try {
                 onSuccees(baseEntity);
@@ -120,7 +121,6 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
      * 接口处理无论成功与否页面对用的操作，需复写此方法
      *
      * @param
-     * @throws Exception
      */
     protected abstract void onApiComplete();
 
@@ -128,7 +128,6 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
      * 返回成功
      *
      * @param t
-     * @throws Exception
      */
     protected abstract void onSuccees(BaseEntity<T> t) throws Exception;
 
@@ -136,7 +135,6 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
      * 返回成功了,但是code错误
      *
      * @param t
-     * @throws Exception
      */
     protected void onCodeError(BaseEntity<T> t) throws Exception {
     }
@@ -147,7 +145,6 @@ public abstract class BaseObserver<T> implements Observer<BaseEntity<T>> {
      *
      * @param e
      * @param isNetWorkError 是否是网络错误
-     * @throws Exception
      */
     protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
     }

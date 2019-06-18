@@ -1,0 +1,5 @@
+<paths>
+    <external-path
+        name="my_image"
+        path="Android/data/com.ifhu.meiwei.fileprovider/files/Pictures"/>
+</paths>

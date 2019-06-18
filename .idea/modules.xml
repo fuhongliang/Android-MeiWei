@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ZhMeiWei.iml" filepath="$PROJECT_DIR$/ZhMeiWei.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Android-MeiWei.iml" filepath="$PROJECT_DIR$/Android-MeiWei.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/glideImageView/glideImageView.iml" filepath="$PROJECT_DIR$/glideImageView/glideImageView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/matise/matise.iml" filepath="$PROJECT_DIR$/matise/matise.iml" />
     </modules>
   </component>
 </project>

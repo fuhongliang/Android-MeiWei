@@ -7,35 +7,39 @@ package com.ifhu.meiwei.bean;
  * Copyright (c) 2019 KevinFu
  */
 public class BaseEntity<T> {
-    public static int SUCCESS_CODE = 200;
-    public int code = 0;
+    public static String SUCCESS_CODE = "200";
+    public String code = "200";
     public String msg;
     public T data;
     /**
      * Token失效、伪造等
      */
-    public static int TOKENMISSION_CODE = 3001;
-    public static int TOKENTFAKE_CODE = 3000;
-    public static int TOKENTIMEOUT_CODE = 3002;
+    public static final String TOKENMISSION_CODE = "3001";
+    public static final String TOKENTFAKE_CODE = "3000";
+    public static final String TOKENTIMEOUT_CODE = "3002";
     public boolean isTokenTimeOut() {
-        if (code == TOKENTIMEOUT_CODE || code == TOKENMISSION_CODE || code == TOKENTFAKE_CODE) {
-            return true;
+        switch (code){
+            case TOKENMISSION_CODE:
+            case TOKENTFAKE_CODE:
+            case TOKENTIMEOUT_CODE:
+                return true;
+            default:
+                return false;
         }
-        return false;
     }
 
     public boolean isSuccess() {
-        if (code == SUCCESS_CODE) {
+        if (SUCCESS_CODE.equals(code)) {
             return true;
         }
         return false;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

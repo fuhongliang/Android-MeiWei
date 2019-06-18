@@ -1,5 +1,7 @@
 package com.ifhu.meiwei.utils;
 
+import com.ifhu.meiwei.MyApplication;
+
 /**
  * 静态字符串
  * @author KevinFu
@@ -21,5 +23,31 @@ public class Constants {
      */
     public static final String LOGOUT = "logout_event";
 
+    /**
+     * 页面间数据传递字段
+     */
+    public static String DATA = "DATA";
+
+    public static final String LOCATION_DATAUPDATA = "location";
+    public static final String LOCATION_DATAUPDATAFAIL = "LOCATION_DATAUPDATAFAIL";
+    public static final String GOTOHOMEPAGE = "GOTOHOMEPAGE";
+
+    /**
+     * 重新定位事件
+     */
+    public static final String RELOCATION = "RELOCATION";
+
+    public static final String ORDER_DATAUPDATA = "ORDER_DATAUPDATA";
+
+
+    public static final String MONEYUNIT = "￥";
+
+    public  static String FileProviderName = ProviderUtil.getFileProviderName(MyApplication.getApplication());
+    public  static String APP_ID = "wxbcdccb2c1d95e94b";
+
+
+    public static final String PAYSUCCESSWITHWXPAY = "PAYSUCCESSWITHWXPAY";
+
+    public static final String CHOOSECITY = "CHOOSECITY";
 
 }
