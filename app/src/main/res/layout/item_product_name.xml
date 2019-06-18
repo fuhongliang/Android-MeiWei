@@ -40,6 +40,7 @@
             android:textColor="@color/hint_text_color"
             android:textSize="11sp" />
 
+        
         <TextView
             android:id="@+id/tv_sell_amount"
             android:layout_width="match_parent"
