@@ -176,8 +176,12 @@ public class ShoppingCartActivity extends BaseActivity {
                     public void Settlement(int position) {
                         goToActivity(ConfirmOrderActivity.class, shoppingCartBeanList.get(position).getStore().getStore_id() + "");
                     }
+
+                    @Override
+                    public void storeName(int position,int storeId) {
+                        goToActivity(ShopHomeActivity.class,storeId+"");
+                    }
                 });
-                shoppingCartAdapter.setOnClickItem(position -> goToActivity(ConfirmOrderActivity.class, shoppingCartBeanList.get(position).getStore().getStore_id() + ""));
             }
         });
     }

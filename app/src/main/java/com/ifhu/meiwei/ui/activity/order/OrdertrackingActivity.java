@@ -9,10 +9,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,9 +28,9 @@ import com.ifhu.meiwei.ui.activity.home.ShopHomeActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.ui.nicedialog.ConfirmDialog;
 import com.ifhu.meiwei.ui.nicedialog.DialogUtils;
+import com.ifhu.meiwei.utils.SpannableTextUtil;
 import com.ifhu.meiwei.utils.ToastHelper;
 import com.ifhu.meiwei.utils.UserLogic;
-import com.ifhu.meiwei.utils.SpannableTextUtil;
 import com.jaeger.library.StatusBarUtil;
 
 import java.util.ArrayList;
@@ -45,87 +45,88 @@ import butterknife.OnClick;
  * 订单详情页面
  */
 public class OrdertrackingActivity extends BaseActivity {
-    @BindView(R.id.tv_text_status)
-    TextView tvTextStatus;
-    @BindView(R.id.tv_notice)
-    TextView tvNotice;
-    @BindView(R.id.tv_time)
-    TextView tvTime;
-    //    @BindView(R.id.tv_time)
-//    TextView tvTime;
-    @BindView(R.id.tv_button_one)
-    TextView tvButtonOne;
-    @BindView(R.id.tv_button_two)
-    TextView tvButtonTwo;
-    @BindView(R.id.tv_button_three)
-    TextView tvButtonThree;
-    @BindView(R.id.tv_store_name)
-    TextView tvStoreName;
-    @BindView(R.id.iv_back)
-    ImageView ivBack;
-    @BindView(R.id.ll_ring)
-    LinearLayout llRing;
-
-    @BindView(R.id.iv_store_phone)
-    ImageView ivStorePhone;
-    @BindView(R.id.ll_expand)
-    LinearLayout llExpand;
-    @BindView(R.id.tv_package)
-    TextView tvPackage;
-    @BindView(R.id.tv_delivery)
-    TextView tvDelivery;
-    @BindView(R.id.tv_full_reduction)
-    TextView tvFullReduction;
-    @BindView(R.id.tv_voucher)
-    TextView tvVoucher;
-    @BindView(R.id.tv_offer)
-    TextView tvOffer;
-    @BindView(R.id.tv_offer_money)
-    TextView tvOfferMoney;
-    @BindView(R.id.tv_money_string)
-    TextView tvMoneyString;
-    @BindView(R.id.tv_payment_money)
-    TextView tvPaymentMoney;
-    @BindView(R.id.tv_delivery_address)
-    TextView tvDeliveryAddress;
-    @BindView(R.id.tv_order_number)
-    TextView tvOrderNumber;
-    @BindView(R.id.tv_order_time)
-    TextView tvOrderTime;
-    @BindView(R.id.tv_payment_method)
-    TextView tvPaymentMethod;
-    @BindView(R.id.rl_refund)
-    RelativeLayout rlRefund;
-    //    @BindView(R.id.ll_service)
-//    LinearLayout llService;
-//    @BindView(R.id.tv_order_announcement)
-//    TextView tvOrderAnnouncement;
-    @BindView(R.id.tv_order_announcement_time)
-    TextView tvOrderAnnouncementTime;//订单配送时间和商家文本
-    @BindView(R.id.ll_goods_item)
-    LinearLayout llGoodsItem;
-    @BindView(R.id.iv_bg_view)
-    ImageView mIvBgView;
-    @BindView(R.id.ll_state)
-    LinearLayout mLlState;
-    @BindView(R.id.tv_announcement_one)
-    TextView tvAnnouncementOne;
-    @BindView(R.id.tv_announcement_two)
-    TextView tvAnnouncementTwo;
-    @BindView(R.id.ll_order_status)
-    RelativeLayout mLlOrderStatus;
-    @BindView(R.id.sv_order_detail)
-    ScrollView mSvOrderDetail;
-    @BindView(R.id.tv_watch_more)
-    TextView tvWatchMore;
-    @BindView(R.id.iv_arrow)
-    ImageView ivArrow;
+//    @BindView(R.id.tv_text_status)
+//    TextView tvTextStatus;
+//    @BindView(R.id.tv_notice)
+//    TextView tvNotice;
+//
+//    @BindView(R.id.tv_store_name)
+//    TextView tvStoreName;
+//    @BindView(R.id.iv_back)
+//    ImageView ivBack;
+//    @BindView(R.id.ll_ring)
+//    LinearLayout llRing;
+//
+//    @BindView(R.id.iv_store_phone)
+//    ImageView ivStorePhone;
+//    @BindView(R.id.ll_expand)
+//    LinearLayout llExpand;
+//    @BindView(R.id.tv_package)
+//    TextView tvPackage;
+//    @BindView(R.id.tv_delivery)
+//    TextView tvDelivery;
+//    @BindView(R.id.tv_full_reduction)
+//    TextView tvFullReduction;
+//    @BindView(R.id.tv_voucher)
+//    TextView tvVoucher;
+//    @BindView(R.id.tv_offer)
+//    TextView tvOffer;
+//    @BindView(R.id.tv_offer_money)
+//    TextView tvOfferMoney;
+//    @BindView(R.id.tv_money_string)
+//    TextView tvMoneyString;
+//    @BindView(R.id.tv_payment_money)
+//    TextView tvPaymentMoney;
+//    @BindView(R.id.tv_delivery_address)
+//    TextView tvDeliveryAddress;
+//    @BindView(R.id.tv_order_number)
+//    TextView tvOrderNumber;
+//    @BindView(R.id.tv_order_time)
+//    TextView tvOrderTime;
+//    @BindView(R.id.tv_payment_method)
+//    TextView tvPaymentMethod;
+//    @BindView(R.id.rl_refund)
+//    RelativeLayout rlRefund;
+//    //    @BindView(R.id.ll_service)
+////    LinearLayout llService;
+////    @BindView(R.id.tv_order_announcement)
+////    TextView tvOrderAnnouncement;
+//    @BindView(R.id.tv_order_announcement_time)
+//    TextView tvOrderAnnouncementTime;//订单配送时间和商家文本
+//    @BindView(R.id.ll_goods_item)
+//    LinearLayout llGoodsItem;
+//    @BindView(R.id.iv_bg_view)
+//    ImageView mIvBgView;
+//    @BindView(R.id.ll_state)
+//    LinearLayout mLlState;
+//    @BindView(R.id.tv_announcement_one)
+//    TextView tvAnnouncementOne;
+//    @BindView(R.id.tv_announcement_two)
+//    TextView tvAnnouncementTwo;
+//    @BindView(R.id.ll_order_status)
+//    RelativeLayout mLlOrderStatus;
+//    @BindView(R.id.sv_order_detail)
+//    ScrollView mSvOrderDetail;
+//    @BindView(R.id.tv_watch_more)
+//    TextView tvWatchMore;
+//    @BindView(R.id.iv_arrow)
+//    ImageView ivArrow;
 
     List<View> views = new ArrayList<>();
     List<OrderinfoBean.OrderDetailBean> orderDetailBeans = new ArrayList<>();
     boolean isOpen = false;//展开商品标记
-
-
+    @BindView(R.id.iv_bg_view)
+    ImageView ivBgView;
+    @BindView(R.id.iv_back)
+    ImageView ivBack;
+    @BindView(R.id.tv_text_status)
+    TextView tvTextStatus;
+    @BindView(R.id.tv_notice)
+    TextView tvNotice;
+    @BindView(R.id.ll_ring)
+    LinearLayout llRing;
+    @BindView(R.id.tv_order_announcement_time)
+    TextView tvOrderAnnouncementTime;
     @BindView(R.id.tv_cancel_order)
     TextView tvCancelOrder;
     @BindView(R.id.tv_after_sale)
@@ -150,16 +151,88 @@ public class OrdertrackingActivity extends BaseActivity {
     TextView tvConfirmReceipt;
     @BindView(R.id.tv_pay)
     TextView tvPay;
+    @BindView(R.id.rl_refund)
+    FrameLayout rlRefund;
+    @BindView(R.id.tv_store_name)
+    TextView tvStoreName;
+    @BindView(R.id.iv_store_phone)
+    ImageView ivStorePhone;
+    @BindView(R.id.rl_store)
+    RelativeLayout rlStore;
+    @BindView(R.id.ll_goods_item)
+    LinearLayout llGoodsItem;
+    @BindView(R.id.tv_watch_more)
+    TextView tvWatchMore;
+    @BindView(R.id.iv_arrow)
+    ImageView ivArrow;
+    @BindView(R.id.ll_expand)
+    LinearLayout llExpand;
+    @BindView(R.id.tv_package)
+    TextView tvPackage;
+    @BindView(R.id.tv_delivery)
+    TextView tvDelivery;
+    @BindView(R.id.tv_full_reduction)
+    TextView tvFullReduction;
+    @BindView(R.id.tv_voucher)
+    TextView tvVoucher;
+    @BindView(R.id.tv_offer)
+    TextView tvOffer;
+    @BindView(R.id.tv_offer_money)
+    TextView tvOfferMoney;
+    @BindView(R.id.tv_money_string)
+    TextView tvMoneyString;
+    @BindView(R.id.tv_payment_money)
+    TextView tvPaymentMoney;
+    @BindView(R.id.tv_delivery_address)
+    TextView tvDeliveryAddress;
+    @BindView(R.id.tv_announcement_one)
+    TextView tvAnnouncementOne;
+    @BindView(R.id.tv_announcement_two)
+    TextView tvAnnouncementTwo;
+    @BindView(R.id.tv_order_number)
+    TextView tvOrderNumber;
+    @BindView(R.id.tv_copy)
+    TextView tvCopy;
+    @BindView(R.id.tv_order_time)
+    TextView tvOrderTime;
+    @BindView(R.id.tv_payment_method)
+    TextView tvPaymentMethod;
+
+
+//    @BindView(R.id.tv_cancel_order)
+//    TextView tvCancelOrder;
+//    @BindView(R.id.tv_after_sale)
+//    TextView tvAfterSale;
+//    @BindView(R.id.tv_call_store)
+//    TextView tvCallStore;
+//    @BindView(R.id.tv_store_information)
+//    TextView tvStoreInformation;
+//    @BindView(R.id.tv_call_rider)
+//    TextView tvCallRider;
+//    @BindView(R.id.tv_rider_information)
+//    TextView tvRiderInformation;
+//    @BindView(R.id.tv_reminders)
+//    TextView tvReminders;
+//    @BindView(R.id.tv_one_more)
+//    TextView tvOneMore;
+//    @BindView(R.id.tv_shopping)
+//    TextView tvShopping;
+//    @BindView(R.id.tv_evaluation)
+//    TextView tvEvaluation;
+//    @BindView(R.id.tv_confirm_receipt)
+//    TextView tvConfirmReceipt;
+//    @BindView(R.id.tv_pay)
+//    TextView tvPay;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_tracking);
-        StatusBarUtil.setTranslucentForImageView(OrdertrackingActivity.this, 0, mIvBgView);
+        StatusBarUtil.setTranslucentForImageView(OrdertrackingActivity.this, 0, ivBgView);
         ButterKnife.bind(this);
-        views.add(mLlOrderStatus);
-        views.add(mSvOrderDetail);
+//        views.add(mLlOrderStatus);
+//        views.add(mSvOrderDetail);
         hideOrShowView(views, true);
         orderDetails();
     }
@@ -205,8 +278,8 @@ public class OrdertrackingActivity extends BaseActivity {
 
 
     public void setOrderInfo(int color, boolean tips, String orderState, String tipMsg) {
-        mIvBgView.setBackgroundResource(R.color.category_color);
-        rlRefund.setVerticalGravity(View.VISIBLE);
+        ivBgView.setBackgroundResource(R.color.category_color);
+//        rlRefund.setVerticalGravity(View.VISIBLE);
         tvTextStatus.setText("订单已取消");
         llRing.setVerticalGravity(View.GONE);
         llRing.setVerticalGravity(View.GONE);
@@ -277,15 +350,15 @@ public class OrdertrackingActivity extends BaseActivity {
         tvOrderAnnouncementTime.setText(SpannableTextUtil.setTextContactStyle(stringArray, styleArray));
         switch (orderinfoBean.getOrder_state()) {
             case 1:// 1:"订单已取消";
-                mIvBgView.setBackgroundResource(R.color.category_color);
-                rlRefund.setVerticalGravity(View.VISIBLE);
+                ivBgView.setBackgroundResource(R.color.category_color);
+//                rlRefund.setVerticalGravity(View.VISIBLE);
                 tvTextStatus.setText("订单已取消");
-                llRing.setVerticalGravity(View.GONE);
+                llRing.setVisibility(View.GONE);
                 setmButtonList(textViewList, false, false, false, false, false, false, false, false, true, false, false, false);
-                llRing.setVerticalGravity(View.GONE);
+                llRing.setVisibility(View.GONE);
                 break;
             case 2:// 2:"待支付";
-                mIvBgView.setBackgroundResource(R.drawable.order_bnt_daizhfiu);
+                ivBgView.setBackgroundResource(R.drawable.order_bnt_daizhfiu);
                 tvTextStatus.setText("等待支付");
 
                 //----
@@ -293,28 +366,28 @@ public class OrdertrackingActivity extends BaseActivity {
                 setmButtonList(textViewList, true, false, false, false, false, false, false, false, false, false, false, true);
                 break;
             case 3:// 3:"等待商家接单";
-                mIvBgView.setBackgroundResource(R.drawable.order_bnt_jiedan);
+                ivBgView.setBackgroundResource(R.drawable.order_bnt_jiedan);
                 tvTextStatus.setText("等待商家接单");
                 tvNotice.setText("5分钟内商家未接单，将自动取消订单");
                 setmButtonList(textViewList, true, false, false, false, false, false, false, false, false, false, false, false);
                 //测试tvOrderAnnouncement.setText("由商家提供配送服务");
                 break;
             case 4:// 4:"商家已接单，正准备商品";
-                mIvBgView.setBackgroundResource(R.drawable.order_bnt_yjiedan);
+                ivBgView.setBackgroundResource(R.drawable.order_bnt_yjiedan);
                 tvTextStatus.setText("商家已接单");
                 tvNotice.setText("商家正在准备商品，请耐心等待");
                 setmButtonList(textViewList, true, false, true, true, false, false, true, false, false, false, true, false);
                 //测试tvOrderAnnouncement.setText("由商家提供配送服务");
                 break;
             case 5:// 5:"骑手正赶往商家";
-                mIvBgView.setBackgroundResource(R.drawable.order_bnt_ganwsj);
+                ivBgView.setBackgroundResource(R.drawable.order_bnt_ganwsj);
                 tvTextStatus.setText("骑手正赶往商家");
                 llRing.setVisibility(View.GONE);
                 setmButtonList(textViewList, false, true, false, false, true, true, false, false, false, false, false, false);
                 //测试tvOrderAnnouncement.setText("由邻邻發骑手配送");
                 break;
             case 6://6:"骑手正在送货";
-                mIvBgView.setBackgroundResource(R.drawable.order_bnt_songhuo);
+                ivBgView.setBackgroundResource(R.drawable.order_bnt_songhuo);
                 tvTextStatus.setText("骑手正在送货");
                 llRing.setVisibility(View.GONE);
                 setmButtonList(textViewList, false, true, false, false, true, true, false, false, false, false, false, false);
@@ -322,7 +395,7 @@ public class OrdertrackingActivity extends BaseActivity {
 
                 break;
             case 7:// 7:"订单已完成";
-                mIvBgView.setBackgroundResource(R.drawable.order_bnt_wancheng);
+                ivBgView.setBackgroundResource(R.drawable.order_bnt_wancheng);
                 tvTextStatus.setText("订单已完成");
                 llRing.setVisibility(View.GONE);
                 setmButtonList(textViewList, false, true, false, false, false, false, false, true, false, true, false, false);
@@ -425,7 +498,7 @@ public class OrdertrackingActivity extends BaseActivity {
             } else {
                 llExpand.setVisibility(View.GONE);
             }
-            for (int i = 0; i < (isOpen == 0 || gcsort_data.size() > 3 ? 2 : gcsort_data.size()); i++) {
+            for (int i = 0; i < (isOpen == 0 ? 2 : gcsort_data.size()); i++) {
                 View categoryView = layoutInflater.inflate(R.layout.item_tracking_commodity, null);
                 GlideImageView imageView = categoryView.findViewById(R.id.iv_avatar);//商品图片
                 TextView product_name = categoryView.findViewById(R.id.tv_product_name);//商品名称
@@ -436,7 +509,7 @@ public class OrdertrackingActivity extends BaseActivity {
                 product_name.setText(gcsort_data.get(i).getGoods_name());
                 now_price.setText("￥" + gcsort_data.get(i).getGoods_price());
 //                original_price.getPaint().setAntiAlias(true);
-                original_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG);//中划线
+                original_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);//中划线
                 original_price.setText("￥" + gcsort_data.get(i).getGoods_marketprice());
                 tv_number.setText("x " + gcsort_data.get(i).getGoods_num() + "");
                 llGoodsItem.addView(categoryView);
@@ -451,15 +524,15 @@ public class OrdertrackingActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.ll_expand:
+                isOpen = !isOpen;
                 handleCategoryDataInit(orderDetailBeans, isOpen ? 1 : 0);
-                if (isOpen){
+                if (isOpen) {
                     tvWatchMore.setText("收起更多");
                     ivArrow.setImageResource(R.drawable.common_xiala1);
                 } else {
                     tvWatchMore.setText("查看更多");
                     ivArrow.setImageResource(R.drawable.common_xiala);
                 }
-                isOpen = !isOpen;
                 break;
 
         }

@@ -24,10 +24,7 @@ import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.OrdersService;
 import com.ifhu.meiwei.ui.activity.home.EditaddressActivity;
-import com.ifhu.meiwei.ui.activity.home.MainActivity;
 import com.ifhu.meiwei.ui.activity.home.ShopHomeActivity;
-import com.ifhu.meiwei.ui.activity.order.ConfirmOrderActivity;
-import com.ifhu.meiwei.ui.activity.order.EvaluationActivity;
 import com.ifhu.meiwei.ui.activity.order.OrdertrackingActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
 import com.ifhu.meiwei.utils.UserLogic;
@@ -111,7 +108,8 @@ public class AllOrderFragment extends BaseFragment {
 
             @Override
             public void shopHomePage(int position) {
-                goToActivity(ShopHomeActivity.class);
+                // TODO: 2019-06-19 待添加商家ID 
+                goToActivity(ShopHomeActivity.class/*,orderBeanList.get(position).getOrder_id()*/);
 
             }
 
