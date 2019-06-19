@@ -182,7 +182,7 @@
                 android:layout_height="47dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:padding="17dp"
+                android:padding="@dimen/sp_14"
                 android:src="@drawable/common_xiala" />
         </RelativeLayout>
     </LinearLayout>

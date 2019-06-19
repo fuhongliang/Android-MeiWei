@@ -110,49 +110,55 @@
                         android:background="@drawable/order_ic_tzhuai" />
                 </RelativeLayout>
 
-
-                <LinearLayout
-                    android:id="@+id/ll_service"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="预计"
-                        android:textColor="@color/black"
-                        android:textSize="21sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tv_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="12:40"
-                        android:textColor="@color/main_color"
-                        android:textSize="21sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="送达"
-                        android:textColor="@color/black"
-                        android:textSize="21sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
                 <TextView
-                    android:id="@+id/tv_order_announcement"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tv_order_announcement_time"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="10dp"
-                    android:text=""
                     android:textColor="@color/hint_text_color"
-                    android:textSize="15sp" />
+                    android:layout_marginStart="15dp"/>
+
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/ll_service"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="15dp"-->
+                    <!--android:orientation="horizontal">-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="预计"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--android:textSize="21sp"-->
+                        <!--android:textStyle="bold" />-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_time"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="12:40"-->
+                        <!--android:textColor="@color/main_color"-->
+                        <!--android:textSize="21sp"-->
+                        <!--android:textStyle="bold" />-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="送达"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--android:textSize="21sp"-->
+                        <!--android:textStyle="bold" />-->
+                <!--</LinearLayout>-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_order_announcement"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="15dp"-->
+                    <!--android:layout_marginTop="10dp"-->
+                    <!--android:text=""-->
+                    <!--android:textColor="@color/hint_text_color"-->
+                    <!--android:textSize="15sp" />-->
                 <!--订单按钮-->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -291,6 +297,7 @@
                     android:gravity="center">
 
                     <TextView
+                        android:id="@+id/tv_watch_more"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:gravity="center"
@@ -299,10 +306,11 @@
                         android:textSize="14sp" />
 
                     <ImageView
+                        android:id="@+id/iv_arrow"
                         android:layout_width="8dp"
                         android:layout_height="5dp"
                         android:layout_gravity="center"
-                        android:background="@drawable/common_xiala" />
+                        android:src="@drawable/common_xiala" />
                 </LinearLayout>
                 <!--包装费-->
                 <RelativeLayout
@@ -330,7 +338,7 @@
                         android:textSize="17sp" />
                 </RelativeLayout>
                 <!--配送费-->
-                <RelativeLayout
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
@@ -349,13 +357,13 @@
                         android:id="@+id/tv_delivery"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
+                        android:layout_gravity="end"
                         android:text="￥3"
                         android:textColor="@color/black"
                         android:textSize="17sp" />
-                </RelativeLayout>
+                </FrameLayout>
                 <!--满减优惠-->
-                <RelativeLayout
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
@@ -374,13 +382,13 @@
                         android:id="@+id/tv_full_reduction"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
+                        android:layout_gravity="end"
                         android:text="-￥233"
                         android:textColor="@color/red"
                         android:textSize="17sp" />
-                </RelativeLayout>
+                </FrameLayout>
                 <!--代金券优惠-->
-                <RelativeLayout
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp">
@@ -396,11 +404,11 @@
                         android:id="@+id/tv_voucher"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
+                        android:layout_gravity="end"
                         android:text="￥25"
                         android:textColor="@color/red"
                         android:textSize="17sp" />
-                </RelativeLayout>
+                </FrameLayout>
 
                 <TextView
                     style="@style/line_fff"
@@ -489,7 +497,7 @@
                         android:textStyle="bold" />
                 </RelativeLayout>
                 <!--配送服务-->
-                <RelativeLayout
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_marginLeft="15dp"
@@ -498,7 +506,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
                         android:text="配送服务"
                         android:textColor="@color/hint_text_color"
                         android:textSize="15sp" />
@@ -507,15 +515,14 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical|end"
                         android:text="邻邻發配送"
                         android:textColor="@color/typed_text_color"
                         android:textSize="15sp" />
 
-                </RelativeLayout>
+                </FrameLayout>
                 <!--期望时间-->
-                <RelativeLayout
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_marginLeft="15dp"
@@ -524,7 +531,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
                         android:text="期望时间"
                         android:textColor="@color/hint_text_color"
                         android:textSize="15sp" />
@@ -532,13 +539,12 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical|end"
                         android:text="立即送达"
                         android:textColor="@color/typed_text_color"
                         android:textSize="15sp" />
 
-                </RelativeLayout>
+                </FrameLayout>
                 <!--配送地址-->
                 <RelativeLayout
                     android:layout_width="match_parent"

@@ -2,14 +2,14 @@ package com.ifhu.meiwei.ui.nicedialog;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.widget.EditText;
-import android.widget.ImageView;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.TextView;
 
 import com.baba.GlideImageView;
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.bean.MerchantBean;
-import com.ifhu.meiwei.utils.StringUtils;
+import com.ifhu.meiwei.utils.FullReductionUtils;
 
 
 /**
@@ -20,9 +20,9 @@ public class MerchantInfoExpandDialog extends BaseNiceDialog {
     public String title;
     public String message;
     public String ok;
-    public MerchantBean.StoreInfoBean storeInfo;
+    public MerchantBean storeInfo;
 
-    public static MerchantInfoExpandDialog newInstance(MerchantBean.StoreInfoBean storeInfoBean) {
+    public static MerchantInfoExpandDialog newInstance(MerchantBean storeInfoBean) {
         Bundle bundle = new Bundle();
         bundle.putParcelable("data",storeInfoBean);
         MerchantInfoExpandDialog dialog = new MerchantInfoExpandDialog();
@@ -79,11 +79,16 @@ public class MerchantInfoExpandDialog extends BaseNiceDialog {
 //        }
 //
         if (storeInfo!=null){
-            ((TextView)holder.getView(R.id.tv_store_name)).setText(storeInfo.getStore_name());
-            ((TextView)holder.getView(R.id.tv_merchant_describe)).setText("起送￥15｜配送￥3｜月售 " + storeInfo.getStore_sales());
-            ((TextView)holder.getView(R.id.tv_announcement_content)).setText("公告"+storeInfo.getStore_description());
-            ((TextView)holder.getView(R.id.tv_evaluation)).setText(storeInfo.getStore_credit()+"\n"+"评分");
-            ((GlideImageView)holder.getView(R.id.iv_store_img)).load(storeInfo.getStore_avatar());
+            if (storeInfo.getManjian()==null || storeInfo.getManjian().size()<=0){
+                (holder.getView(R.id.ll_reduction)).setVisibility(View.GONE);
+            } else {
+                FullReductionUtils.showShopFullReduction((holder.getView(R.id.tv_full_cut)), storeInfo.getManjian(), LayoutInflater.from(getActivity()));
+            }
+            ((TextView)holder.getView(R.id.tv_store_name)).setText(storeInfo.getStore_info().getStore_name());
+            ((TextView)holder.getView(R.id.tv_merchant_describe)).setText("起送￥15｜配送￥3｜月售 " + storeInfo.getStore_info().getStore_sales());
+            ((TextView)holder.getView(R.id.tv_announcement_content)).setText("公告"+storeInfo.getStore_info().getStore_description());
+            ((TextView)holder.getView(R.id.tv_evaluation)).setText(storeInfo.getStore_info().getStore_credit()+"\n"+"评分");
+            ((GlideImageView)holder.getView(R.id.iv_store_img)).load(storeInfo.getStore_info().getStore_avatar());
         }
 
         holder.setOnClickListener(R.id.iv_close, v -> {

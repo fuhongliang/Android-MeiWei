@@ -116,14 +116,14 @@
             android:layout_marginRight="8dp"
             android:background="@drawable/meal_ic_yh_jian" />
 
-        <TextView
+        <LinearLayout
             android:id="@+id/tv_full_cut"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="满20减10，满40减15，满60减30，满95减45"
             android:textColor="@color/navigation_color"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            android:orientation="horizontal"/>
     </LinearLayout>
     <!--限时折扣-->
     <LinearLayout

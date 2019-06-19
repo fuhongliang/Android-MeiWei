@@ -2,9 +2,9 @@ package com.ifhu.meiwei.utils;
 
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
 import com.ifhu.meiwei.R;
 
 /**
@@ -27,6 +27,7 @@ public class StarUtils {
                     imageView.setSelected(false);
                 }
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(DeviceUtil.dip2px(11), DeviceUtil.dip2px(11));
+                params.setMarginEnd(4);
                 layout.addView(imageView,params);
             }
         }

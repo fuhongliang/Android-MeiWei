@@ -27,6 +27,7 @@ import com.ifhu.meiwei.net.service.OrdersService;
 import com.ifhu.meiwei.ui.activity.home.MainActivity;
 import com.ifhu.meiwei.ui.activity.home.ShopHomeActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
+import com.ifhu.meiwei.utils.SpannableTextUtil;
 import com.jaeger.library.StatusBarUtil;
 
 import java.util.ArrayList;
@@ -45,8 +46,8 @@ public class OrdertrackingActivity extends BaseActivity {
     TextView tvTextStatus;
     @BindView(R.id.tv_notice)
     TextView tvNotice;
-    @BindView(R.id.tv_time)
-    TextView tvTime;
+    //    @BindView(R.id.tv_time)
+//    TextView tvTime;
     @BindView(R.id.tv_button_one)
     TextView tvButtonOne;
     @BindView(R.id.tv_button_two)
@@ -90,10 +91,12 @@ public class OrdertrackingActivity extends BaseActivity {
     TextView tvPaymentMethod;
     @BindView(R.id.rl_refund)
     RelativeLayout rlRefund;
-    @BindView(R.id.ll_service)
-    LinearLayout llService;
-    @BindView(R.id.tv_order_announcement)
-    TextView tvOrderAnnouncement;
+    //    @BindView(R.id.ll_service)
+//    LinearLayout llService;
+//    @BindView(R.id.tv_order_announcement)
+//    TextView tvOrderAnnouncement;
+    @BindView(R.id.tv_order_announcement_time)
+    TextView tvOrderAnnouncementTime;//订单配送时间和商家文本
     @BindView(R.id.ll_goods_item)
     LinearLayout llGoodsItem;
     @BindView(R.id.iv_bg_view)
@@ -108,7 +111,15 @@ public class OrdertrackingActivity extends BaseActivity {
     RelativeLayout mLlOrderStatus;
     @BindView(R.id.sv_order_detail)
     ScrollView mSvOrderDetail;
+    @BindView(R.id.tv_watch_more)
+    TextView tvWatchMore;
+    @BindView(R.id.iv_arrow)
+    ImageView ivArrow;
+
     List<View> views = new ArrayList<>();
+    List<OrderinfoBean.OrderDetailBean> orderDetailBeans = new ArrayList<>();
+    boolean isOpen = false;//展开商品标记
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -137,10 +148,24 @@ public class OrdertrackingActivity extends BaseActivity {
             @Override
             protected void onSuccees(BaseEntity<OrderinfoBean> t) throws Exception {
                 initView(t.getData());
-                handleCategoryDataInit(t.getData().getOrder_detail());
+                orderDetailBeans = t.getData().getOrder_detail();
+                handleCategoryDataInit(t.getData().getOrder_detail(), 0);
                 hideOrShowView(views, false);
             }
         });
+//        RetrofitApiManager.createUpload(OrdersService.class).orderState(5, getDataInt())
+//                .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<OrderStateBean>(true) {
+//            @Override
+//            protected void onApiComplete() {
+//                setLoadingMessageIndicator(false);
+//            }
+//
+//            @Override
+//            protected void onSuccees(BaseEntity<OrderStateBean> t) throws Exception {
+//                // TODO: 2019-06-19 待写设置文本
+//            }
+//        });
+
     }
 
     String[] mStatusList = {"订单已取消", "等待支付", "等待商家接单", "商家已接单", "骑手正赶往商家", "骑手正在送货", "订单已完成"};
@@ -152,12 +177,12 @@ public class OrdertrackingActivity extends BaseActivity {
         mIvBgView.setBackgroundResource(R.color.category_color);
         rlRefund.setVerticalGravity(View.VISIBLE);
         tvTextStatus.setText("订单已取消");
-        tvOrderAnnouncement.setText("您的订单已申请取消");
+        //测试tvOrderAnnouncement.setText("您的订单已申请取消");
         tvButtonOne.setText("逛逛别家");
         llRing.setVerticalGravity(View.GONE);
         tvButtonTwo.setVisibility(View.GONE);
         tvButtonThree.setVisibility(View.GONE);
-        llService.setVerticalGravity(View.GONE);
+        //测试llService.setVerticalGravity(View.GONE);
         ivStorePhone.setVisibility(View.GONE);
     }
 
@@ -167,7 +192,7 @@ public class OrdertrackingActivity extends BaseActivity {
         tvFullReduction.setText(orderinfoBean.getManjian());
         tvVoucher.setText(orderinfoBean.getDaijinquan());
         // TODO: 2019-06-18 跳转信息缺失
-        tvStoreName.setOnClickListener(v -> goToActivity(ShopHomeActivity.class,"2"/*,storelist_data.get(position).getStore_id()+""*/));
+        tvStoreName.setOnClickListener(v -> goToActivity(ShopHomeActivity.class, "2"/*,storelist_data.get(position).getStore_id()+""*/));
         ivStorePhone.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_DIAL);
             Uri data = Uri.parse("tel:" + orderinfoBean.getStore_phone() + "");
@@ -190,23 +215,32 @@ public class OrdertrackingActivity extends BaseActivity {
         tvOrderNumber.setText(orderinfoBean.getOrder_info().getOrder_sn() + "");//订单号码
         tvOrderTime.setText(orderinfoBean.getOrder_info().getAdd_time());//下单时间
         tvPaymentMethod.setText(orderinfoBean.getOrder_info().getPayment_code());//支付方式
+
         switch (orderinfoBean.getOrder_state()) {
             case 1:// 1:"订单已取消";
                 mIvBgView.setBackgroundResource(R.color.category_color);
                 rlRefund.setVerticalGravity(View.VISIBLE);
                 tvTextStatus.setText("订单已取消");
-                tvOrderAnnouncement.setText("您的订单已申请取消");
+                //测试tvOrderAnnouncement.setText("您的订单已申请取消");
                 tvButtonOne.setText("逛逛别家");
                 llRing.setVerticalGravity(View.GONE);
                 tvButtonTwo.setVisibility(View.GONE);
                 tvButtonThree.setVisibility(View.GONE);
-                llService.setVerticalGravity(View.GONE);
+                //测试llService.setVerticalGravity(View.GONE);
                 tvButtonThree.setOnClickListener(v -> goToActivity(MainActivity.class));
                 break;
             case 2:// 2:"待支付";
                 mIvBgView.setBackgroundResource(R.drawable.order_bnt_daizhfiu);
                 tvTextStatus.setText("等待支付");
-                tvOrderAnnouncement.setText("由商家提供配送服务");
+                //测试tvOrderAnnouncement.setText("由商家提供配送服务");
+
+                String[] stringArray = new String[]{"预计", "12:30", "送到", "\n由邻邻發骑手配送"};
+                int[] styleArray = new int[]{R.style.spannable_bold_big_black,
+                        R.style.spannable_bold_big_yellow,
+                        R.style.spannable_bold_big_black,
+                        R.style.spannable_default};
+                tvOrderAnnouncementTime.setText(SpannableTextUtil.setTextContactStyle(stringArray, styleArray));
+                //----
                 tvNotice.setText("超过15分钟未支付，订单将自动取消咯");
                 tvButtonOne.setText("取消订单");
                 tvButtonTwo.setVisibility(View.GONE);
@@ -217,7 +251,7 @@ public class OrdertrackingActivity extends BaseActivity {
                 mIvBgView.setBackgroundResource(R.drawable.order_bnt_jiedan);
                 tvTextStatus.setText("等待商家接单");
                 tvNotice.setText("5分钟内商家未接单，将自动取消订单");
-                tvOrderAnnouncement.setText("由商家提供配送服务");
+                //测试tvOrderAnnouncement.setText("由商家提供配送服务");
                 tvButtonOne.setText("取消订单");
                 tvButtonTwo.setVisibility(View.GONE);
                 tvButtonThree.setVisibility(View.GONE);
@@ -226,7 +260,7 @@ public class OrdertrackingActivity extends BaseActivity {
                 mIvBgView.setBackgroundResource(R.drawable.order_bnt_yjiedan);
                 tvTextStatus.setText("商家已接单");
                 tvNotice.setText("商家正在准备商品，请耐心等待");
-                tvOrderAnnouncement.setText("由商家提供配送服务");
+                //测试tvOrderAnnouncement.setText("由商家提供配送服务");
                 tvButtonOne.setText("取消订单");
                 tvButtonTwo.setText("催单");
                 tvButtonThree.setVisibility(View.GONE);
@@ -235,7 +269,7 @@ public class OrdertrackingActivity extends BaseActivity {
                 mIvBgView.setBackgroundResource(R.drawable.order_bnt_ganwsj);
                 tvTextStatus.setText("骑手正赶往商家");
                 llRing.setVisibility(View.GONE);
-                tvOrderAnnouncement.setText("由邻邻發骑手配送");
+                //测试tvOrderAnnouncement.setText("由邻邻發骑手配送");
                 tvButtonOne.setText("申请售后");
                 tvButtonTwo.setText("致电骑手");
                 tvButtonThree.setVisibility(View.GONE);
@@ -244,7 +278,8 @@ public class OrdertrackingActivity extends BaseActivity {
                 mIvBgView.setBackgroundResource(R.drawable.order_bnt_songhuo);
                 tvTextStatus.setText("骑手正在送货");
                 llRing.setVisibility(View.GONE);
-                tvOrderAnnouncement.setText("由邻邻發骑手配送");
+                //测试tvOrderAnnouncement.setText("由邻邻發骑手配送");
+
                 tvButtonOne.setText("申请售后");
                 tvButtonTwo.setText("致电骑手");
                 tvButtonThree.setVisibility(View.GONE);
@@ -253,8 +288,8 @@ public class OrdertrackingActivity extends BaseActivity {
                 mIvBgView.setBackgroundResource(R.drawable.order_bnt_wancheng);
                 tvTextStatus.setText("订单已完成");
                 llRing.setVisibility(View.GONE);
-                llService.setVisibility(View.GONE);
-                tvOrderAnnouncement.setText("感谢您对邻邻發的信任，期待再次光临");
+                //测试llService.setVisibility(View.GONE);
+                //测试tvOrderAnnouncement.setText("感谢您对邻邻發的信任，期待再次光临");
                 tvButtonOne.setText("申请售后");
                 tvButtonTwo.setText("再来一单");
                 tvButtonThree.setText("立即评价");
@@ -277,55 +312,61 @@ public class OrdertrackingActivity extends BaseActivity {
     public void onRlStoreClicked() {
     }
 
-    public void handleCategoryDataInit(List<OrderinfoBean.OrderDetailBean> gcsort_data) {
+    /**
+     * 添加布局中商家的商品
+     *
+     * @param gcsort_data 商品数据
+     * @param isOpen      是否展开状态 0->未展开 1->展开
+     */
+    public void handleCategoryDataInit(List<OrderinfoBean.OrderDetailBean> gcsort_data, int isOpen) {
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         // 定义LayoutParam
         llGoodsItem.removeAllViews();
         if (gcsort_data != null && gcsort_data.size() > 0) {
             if (gcsort_data.size() > 2) {
                 llExpand.setVisibility(View.VISIBLE);
-                for (int i = 0; i < 2; i++) {
-                    View categoryView = layoutInflater.inflate(R.layout.item_tracking_commodity, null);
-                    GlideImageView imageView = categoryView.findViewById(R.id.iv_avatar);//商品图片
-                    TextView product_name = categoryView.findViewById(R.id.tv_product_name);//商品名称
-                    TextView now_price = categoryView.findViewById(R.id.tv_now_price);//商品现价
-                    TextView original_price = categoryView.findViewById(R.id.tv_original_price);//商品原价
-                    TextView tv_number = categoryView.findViewById(R.id.tv_number);//商品数量
-                    imageView.load(gcsort_data.get(i).getGoods_image());
-                    product_name.setText(gcsort_data.get(i).getGoods_name());
-                    now_price.setText("￥" + gcsort_data.get(i).getGoods_price());
-                    original_price.setText("￥" + gcsort_data.get(i).getGoods_marketprice());
-                    original_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);//中划线
-                    tv_number.setText("x " + gcsort_data.get(i).getGoods_num() + "");
-                    llGoodsItem.addView(categoryView);
-                }
-
             } else {
                 llExpand.setVisibility(View.GONE);
-                for (int i = 0; i < gcsort_data.size(); i++) {
-                    View categoryView = layoutInflater.inflate(R.layout.item_tracking_commodity, null);
-                    GlideImageView imageView = categoryView.findViewById(R.id.iv_avatar);//商品图片
-                    TextView product_name = categoryView.findViewById(R.id.tv_product_name);//商品名称
-                    TextView now_price = categoryView.findViewById(R.id.tv_now_price);//商品现价
-                    TextView original_price = categoryView.findViewById(R.id.tv_original_price);//商品原价
-                    TextView tv_number = categoryView.findViewById(R.id.tv_number);//商品数量
-                    imageView.load(gcsort_data.get(i).getGoods_image());
-                    product_name.setText(gcsort_data.get(i).getGoods_name());
-                    now_price.setText("￥" + gcsort_data.get(i).getGoods_price());
-                    original_price.setText("￥" + gcsort_data.get(i).getGoods_marketprice());
-                    original_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);//中划线
-                    tv_number.setText("x " + gcsort_data.get(i).getGoods_num() + "");
-                    llGoodsItem.addView(categoryView);
-                }
+            }
+            for (int i = 0; i < (isOpen == 0 || gcsort_data.size() > 3 ? 2 : gcsort_data.size()); i++) {
+                View categoryView = layoutInflater.inflate(R.layout.item_tracking_commodity, null);
+                GlideImageView imageView = categoryView.findViewById(R.id.iv_avatar);//商品图片
+                TextView product_name = categoryView.findViewById(R.id.tv_product_name);//商品名称
+                TextView now_price = categoryView.findViewById(R.id.tv_now_price);//商品现价
+                TextView original_price = categoryView.findViewById(R.id.tv_original_price);//商品原价
+                TextView tv_number = categoryView.findViewById(R.id.tv_number);//商品数量
+                imageView.load(gcsort_data.get(i).getGoods_image());
+                product_name.setText(gcsort_data.get(i).getGoods_name());
+                now_price.setText("￥" + gcsort_data.get(i).getGoods_price());
+//                original_price.getPaint().setAntiAlias(true);
+                original_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG|Paint.ANTI_ALIAS_FLAG);//中划线
+                original_price.setText("￥" + gcsort_data.get(i).getGoods_marketprice());
+                tv_number.setText("x " + gcsort_data.get(i).getGoods_num() + "");
+                llGoodsItem.addView(categoryView);
             }
         }
     }
 
-    @OnClick(R.id.iv_back)
-    public void onIvBackClicked() {
-        finish();
-    }
+    @OnClick({R.id.iv_back, R.id.ll_expand})
+    public void onIvBackClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_back:
+                finish();
+                break;
+            case R.id.ll_expand:
+                handleCategoryDataInit(orderDetailBeans, isOpen ? 1 : 0);
+                if (isOpen){
+                    tvWatchMore.setText("收起更多");
+                    ivArrow.setImageResource(R.drawable.common_xiala1);
+                } else {
+                    tvWatchMore.setText("查看更多");
+                    ivArrow.setImageResource(R.drawable.common_xiala);
+                }
+                isOpen = !isOpen;
+                break;
 
+        }
+    }
 
     @OnClick(R.id.tv_copy)
     public void onTvCopyClicked() {

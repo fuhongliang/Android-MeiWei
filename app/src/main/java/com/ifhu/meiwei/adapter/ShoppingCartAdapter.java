@@ -18,7 +18,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 
 public class ShoppingCartAdapter extends BaseAdapter {
@@ -120,6 +119,9 @@ public class ShoppingCartAdapter extends BaseAdapter {
     /**
      * 获取商品列表数据
      * todo 调整数据加入
+     * @param gcsort_data 数据
+     * @param linearLayout 父布局
+     * @param isExpend 是否展开
      */
     public void getCommodity(List<ShoppingCartBean.ListBean> gcsort_data, LinearLayout linearLayout, boolean isExpend) {
         linearLayout.removeAllViews();
