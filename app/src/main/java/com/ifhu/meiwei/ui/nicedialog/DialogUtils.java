@@ -23,7 +23,7 @@ public class DialogUtils {
         confirmDialog.show(manager);
     }
 
-    public static void showExpandMerchantInfoDialog(MerchantBean.StoreInfoBean storeInfoBean, FragmentManager manager, MerchantInfoExpandDialog.ButtonOnclick buttonOnclick) {
+    public static void showExpandMerchantInfoDialog(MerchantBean storeInfoBean, FragmentManager manager, MerchantInfoExpandDialog.ButtonOnclick buttonOnclick) {
         MerchantInfoExpandDialog confirmDialog = MerchantInfoExpandDialog.newInstance(storeInfoBean);
         confirmDialog.setMargin(15);
         confirmDialog.setMarginTop(50);

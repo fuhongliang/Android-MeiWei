@@ -32,6 +32,9 @@ public interface OrdersService {
     @POST("order_info")
     public Observable<BaseEntity<OrderinfoBean>> orderInfo(@Field("order_id") int order_id);
 
+    @POST("get_order_state")
+    public Observable<BaseEntity<Object>> orderState(@Field("member_id") int member_id,@Field("order_id") int order_id);
+
     @FormUrlEncoded
     @POST("go_settlement")
     public Observable<BaseEntity<ComformOrderBean>> goSettlement(@Field("member_id") String member_id, @Field("store_id") String store_id);

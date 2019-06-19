@@ -4,26 +4,28 @@
     android:layout_height="match_parent"
     android:background="@color/category_color"
     android:orientation="vertical">
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/layout_swipe_refresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <RelativeLayout
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ListView
-            android:id="@+id/lv_list"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/layout_swipe_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@color/category_color"
-            android:dividerHeight="15dp"
-            android:paddingStart="15dp"
-            android:paddingEnd="15dp"
-            tools:listitem="@layout/item_order" />
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/lv_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@color/category_color"
+                android:dividerHeight="15dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                tools:listitem="@layout/item_order" />
+        </android.support.v4.widget.SwipeRefreshLayout>
 
         <include layout="@layout/item_empty" />
 
-    </RelativeLayout>
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </FrameLayout>
 </LinearLayout>

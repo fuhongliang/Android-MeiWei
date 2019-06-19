@@ -1,13 +1,11 @@
 package com.ifhu.meiwei.ui.activity.home;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -27,12 +25,10 @@ import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.ui.fragment.MenuListFragment;
 import com.ifhu.meiwei.ui.fragment.XWebViewFragment;
 import com.ifhu.meiwei.ui.nicedialog.ConfirmDialog;
-import com.ifhu.meiwei.ui.nicedialog.ConfirmInputDialog;
 import com.ifhu.meiwei.ui.nicedialog.DialogUtils;
 import com.ifhu.meiwei.ui.view.MySmartTabLayout;
 import com.ifhu.meiwei.ui.view.MyViewPager;
 import com.ifhu.meiwei.utils.FullReductionUtils;
-import com.ifhu.meiwei.utils.StringUtils;
 import com.ifhu.meiwei.utils.ToastHelper;
 import com.ifhu.meiwei.utils.UserLogic;
 import com.jaeger.library.StatusBarUtil;
@@ -49,10 +45,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.ifhu.meiwei.utils.Constants.GOTOHOMEPAGE;
-import static com.ifhu.meiwei.utils.Constants.LOGOUT;
 import static com.ifhu.meiwei.utils.Constants.MERPHONENUMBER;
-import static com.ifhu.meiwei.utils.Constants.RELOCATION;
 
 
 /**
@@ -90,7 +83,7 @@ public class ShopHomeActivity extends BaseActivity {
     @BindView(R.id.ll_full_cut)
     LinearLayout mLlFullCut;
 
-    MerchantBean.StoreInfoBean storeInfoBean;
+    MerchantBean storeInfoBean;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -130,6 +123,7 @@ public class ShopHomeActivity extends BaseActivity {
 
             @Override
             protected void onSuccees(BaseEntity<MerchantBean> t) {
+                storeInfoBean = t.getData();
                 initMerchantInfo(t.getData().getStore_info(), t.getData().getManjian());
                 MenuListFragment menuListFragment = (MenuListFragment) adapter.getPage(0);
                 XWebViewFragment reviewFragment = (XWebViewFragment) adapter.getPage(1);
@@ -152,7 +146,6 @@ public class ShopHomeActivity extends BaseActivity {
     }
 
     public void initMerchantInfo(MerchantBean.StoreInfoBean storeInfoBean, List<MerchantBean.ManjianBean> manjianBeanList) {
-        this.storeInfoBean = storeInfoBean;
         tvStoreName.setText(storeInfoBean.getStore_name());
         mTvMerchantDescribe.setText("起送￥15｜配送￥3｜月售 " + storeInfoBean.getStore_sales());
         tvEvaluation.setText(storeInfoBean.getStore_credit() + "\n评分");
