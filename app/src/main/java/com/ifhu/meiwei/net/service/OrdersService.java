@@ -42,4 +42,13 @@ public interface OrdersService {
     @POST("store_com")
     public Observable<BaseEntity<Object>> storeCom(@Body PostReviewsForm reviewsForm);
 
+    @FormUrlEncoded
+    @POST("cancel_order")
+    public Observable<BaseEntity<Object>> cancelOrder(@Field("member_id") int member_id,@Field("order_id") int order_id);
+
+    @FormUrlEncoded
+    @POST("confirm_order")
+    public Observable<BaseEntity<Object>> confirmOrder(@Field("member_id") int member_id,@Field("order_id") int order_id);
+
+
 }

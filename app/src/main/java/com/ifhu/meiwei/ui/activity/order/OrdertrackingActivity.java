@@ -24,9 +24,12 @@ import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.OrdersService;
-import com.ifhu.meiwei.ui.activity.home.MainActivity;
 import com.ifhu.meiwei.ui.activity.home.ShopHomeActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
+import com.ifhu.meiwei.ui.nicedialog.ConfirmDialog;
+import com.ifhu.meiwei.ui.nicedialog.DialogUtils;
+import com.ifhu.meiwei.utils.ToastHelper;
+import com.ifhu.meiwei.utils.UserLogic;
 import com.jaeger.library.StatusBarUtil;
 
 import java.util.ArrayList;
@@ -47,12 +50,6 @@ public class OrdertrackingActivity extends BaseActivity {
     TextView tvNotice;
     @BindView(R.id.tv_time)
     TextView tvTime;
-    @BindView(R.id.tv_button_one)
-    TextView tvButtonOne;
-    @BindView(R.id.tv_button_two)
-    TextView tvButtonTwo;
-    @BindView(R.id.tv_button_three)
-    TextView tvButtonThree;
     @BindView(R.id.tv_store_name)
     TextView tvStoreName;
     @BindView(R.id.iv_back)
@@ -110,6 +107,32 @@ public class OrdertrackingActivity extends BaseActivity {
     ScrollView mSvOrderDetail;
     List<View> views = new ArrayList<>();
 
+    @BindView(R.id.tv_cancel_order)
+    TextView tvCancelOrder;
+    @BindView(R.id.tv_after_sale)
+    TextView tvAfterSale;
+    @BindView(R.id.tv_call_store)
+    TextView tvCallStore;
+    @BindView(R.id.tv_store_information)
+    TextView tvStoreInformation;
+    @BindView(R.id.tv_call_rider)
+    TextView tvCallRider;
+    @BindView(R.id.tv_rider_information)
+    TextView tvRiderInformation;
+    @BindView(R.id.tv_reminders)
+    TextView tvReminders;
+    @BindView(R.id.tv_one_more)
+    TextView tvOneMore;
+    @BindView(R.id.tv_shopping)
+    TextView tvShopping;
+    @BindView(R.id.tv_evaluation)
+    TextView tvEvaluation;
+    @BindView(R.id.tv_confirm_receipt)
+    TextView tvConfirmReceipt;
+    @BindView(R.id.tv_pay)
+    TextView tvPay;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,10 +176,7 @@ public class OrdertrackingActivity extends BaseActivity {
         rlRefund.setVerticalGravity(View.VISIBLE);
         tvTextStatus.setText("订单已取消");
         tvOrderAnnouncement.setText("您的订单已申请取消");
-        tvButtonOne.setText("逛逛别家");
         llRing.setVerticalGravity(View.GONE);
-        tvButtonTwo.setVisibility(View.GONE);
-        tvButtonThree.setVisibility(View.GONE);
         llService.setVerticalGravity(View.GONE);
         ivStorePhone.setVisibility(View.GONE);
     }
@@ -167,12 +187,23 @@ public class OrdertrackingActivity extends BaseActivity {
         tvFullReduction.setText(orderinfoBean.getManjian());
         tvVoucher.setText(orderinfoBean.getDaijinquan());
         // TODO: 2019-06-18 跳转信息缺失
-        tvStoreName.setOnClickListener(v -> goToActivity(ShopHomeActivity.class,"2"/*,storelist_data.get(position).getStore_id()+""*/));
+        tvStoreName.setOnClickListener(v -> goToActivity(ShopHomeActivity.class, "2"/*,storelist_data.get(position).getStore_id()+""*/));
         ivStorePhone.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_DIAL);
-            Uri data = Uri.parse("tel:" + orderinfoBean.getStore_phone() + "");
-            intent.setData(data);
-            startActivity(intent);
+            DialogUtils.showConfirmDialog("温馨提示", "是否对本人号码加密呼出", "取消", "立即呼叫", getSupportFragmentManager(), new ConfirmDialog.ButtonOnclick() {
+                @Override
+                public void cancel() {
+
+                }
+
+                @Override
+                public void ok() {
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    Uri data = Uri.parse("tel:" + orderinfoBean.getStore_phone() + "");
+                    intent.setData(data);
+                    startActivity(intent);
+                }
+            });
+
         });
 
         try {
@@ -182,6 +213,20 @@ public class OrdertrackingActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        List<TextView> textViewList = new ArrayList<>();
+        textViewList.add(tvCancelOrder);
+        textViewList.add(tvAfterSale);
+        textViewList.add(tvCallStore);
+        textViewList.add(tvStoreInformation);
+        textViewList.add(tvCallRider);
+        textViewList.add(tvRiderInformation);
+        textViewList.add(tvReminders);
+        textViewList.add(tvOneMore);
+        textViewList.add(tvShopping);
+        textViewList.add(tvEvaluation);
+        textViewList.add(tvConfirmReceipt);
+        textViewList.add(tvPay);
 
         tvPaymentMoney.setText(orderinfoBean.getTotal());//实付金额
         String sex = orderinfoBean.getPeisong_info().getSex() == 1 ? "先生" : "女士";
@@ -196,58 +241,44 @@ public class OrdertrackingActivity extends BaseActivity {
                 rlRefund.setVerticalGravity(View.VISIBLE);
                 tvTextStatus.setText("订单已取消");
                 tvOrderAnnouncement.setText("您的订单已申请取消");
-                tvButtonOne.setText("逛逛别家");
                 llRing.setVerticalGravity(View.GONE);
-                tvButtonTwo.setVisibility(View.GONE);
-                tvButtonThree.setVisibility(View.GONE);
                 llService.setVerticalGravity(View.GONE);
-                tvButtonThree.setOnClickListener(v -> goToActivity(MainActivity.class));
+                setmButtonList(textViewList, false, false, false, false, false, false, false, false, true, false, false, false);
                 break;
             case 2:// 2:"待支付";
                 mIvBgView.setBackgroundResource(R.drawable.order_bnt_daizhfiu);
                 tvTextStatus.setText("等待支付");
                 tvOrderAnnouncement.setText("由商家提供配送服务");
                 tvNotice.setText("超过15分钟未支付，订单将自动取消咯");
-                tvButtonOne.setText("取消订单");
-                tvButtonTwo.setVisibility(View.GONE);
-                tvButtonThree.setText("立即支付");
-                tvButtonThree.setOnClickListener(v -> goToActivity(ConfirmOrderActivity.class, getDataInt()));
+                setmButtonList(textViewList, true, false, false, false, false, false, false, false, false, false, false, true);
                 break;
             case 3:// 3:"等待商家接单";
                 mIvBgView.setBackgroundResource(R.drawable.order_bnt_jiedan);
                 tvTextStatus.setText("等待商家接单");
                 tvNotice.setText("5分钟内商家未接单，将自动取消订单");
                 tvOrderAnnouncement.setText("由商家提供配送服务");
-                tvButtonOne.setText("取消订单");
-                tvButtonTwo.setVisibility(View.GONE);
-                tvButtonThree.setVisibility(View.GONE);
+                setmButtonList(textViewList, true, false, false, false, false, false, false, false, false, false, false, false);
                 break;
             case 4:// 4:"商家已接单，正准备商品";
                 mIvBgView.setBackgroundResource(R.drawable.order_bnt_yjiedan);
                 tvTextStatus.setText("商家已接单");
                 tvNotice.setText("商家正在准备商品，请耐心等待");
                 tvOrderAnnouncement.setText("由商家提供配送服务");
-                tvButtonOne.setText("取消订单");
-                tvButtonTwo.setText("催单");
-                tvButtonThree.setVisibility(View.GONE);
+                setmButtonList(textViewList, true, false, true, true, false, false, true, false, false, false, true, false);
                 break;
             case 5:// 5:"骑手正赶往商家";
                 mIvBgView.setBackgroundResource(R.drawable.order_bnt_ganwsj);
                 tvTextStatus.setText("骑手正赶往商家");
                 llRing.setVisibility(View.GONE);
                 tvOrderAnnouncement.setText("由邻邻發骑手配送");
-                tvButtonOne.setText("申请售后");
-                tvButtonTwo.setText("致电骑手");
-                tvButtonThree.setVisibility(View.GONE);
+                setmButtonList(textViewList, false, true, false, false, true, true, false, false, false, false, false, false);
                 break;
             case 6://6:"骑手正在送货";
                 mIvBgView.setBackgroundResource(R.drawable.order_bnt_songhuo);
                 tvTextStatus.setText("骑手正在送货");
                 llRing.setVisibility(View.GONE);
                 tvOrderAnnouncement.setText("由邻邻發骑手配送");
-                tvButtonOne.setText("申请售后");
-                tvButtonTwo.setText("致电骑手");
-                tvButtonThree.setVisibility(View.GONE);
+                setmButtonList(textViewList, false, true, false, false, true, true, false, false, false, false, false, false);
                 break;
             case 7:// 7:"订单已完成";
                 mIvBgView.setBackgroundResource(R.drawable.order_bnt_wancheng);
@@ -255,22 +286,82 @@ public class OrdertrackingActivity extends BaseActivity {
                 llRing.setVisibility(View.GONE);
                 llService.setVisibility(View.GONE);
                 tvOrderAnnouncement.setText("感谢您对邻邻發的信任，期待再次光临");
-                tvButtonOne.setText("申请售后");
-                tvButtonTwo.setText("再来一单");
-                tvButtonThree.setText("立即评价");
-                tvButtonThree.setOnClickListener(v -> goToActivity(EvaluationActivity.class, getDataInt()));
+                setmButtonList(textViewList, false, true, false, false, false, false, false, true, false, true, false, false);
                 break;
             case 8:// 8:退款中
+                setmButtonList(textViewList, false, false, false, false, false, false, false, false, false, false, false, false);
                 break;
             case 9://9:退款已完成
+                setmButtonList(textViewList, false, false, false, false, false, false, false, false, false, false, false, false);
                 break;
             case 10://10:"待评价";
+                setmButtonList(textViewList, false, false, false, false, false, false, false, false, false, false, false, false);
                 break;
             case 11://11:"已评价";
+                setmButtonList(textViewList, false, false, false, false, false, false, false, false, false, false, false, false);
                 break;
             default:
+                setmButtonList(textViewList, false, false, false, false, false, false, false, false, false, false, false, false);
                 break;
         }
+    }
+
+    public void setmButtonList(List<TextView> textViews,
+                               boolean tvCancelOrder,
+                               boolean tvAfterSale,
+                               boolean tvCallStore,
+                               boolean tvStoreInformation,
+                               boolean tvCallRider,
+                               boolean tvRiderInformation,
+                               boolean tvReminders,
+                               boolean tvOneMore,
+                               boolean tvShopping,
+                               boolean tvEvaluation,
+                               boolean tvConfirmReceipt,
+                               boolean tvPay) {
+        for (int i = 0; i < textViews.size(); i++) {
+            switch (i) {
+                case 0:
+                    textViews.get(i).setVisibility(tvCancelOrder ? View.VISIBLE : View.GONE);
+                    break;
+                case 1:
+                    textViews.get(i).setVisibility(tvAfterSale ? View.VISIBLE : View.GONE);
+                    break;
+                case 2:
+                    textViews.get(i).setVisibility(tvCallStore ? View.VISIBLE : View.GONE);
+                    break;
+                case 3:
+                    textViews.get(i).setVisibility(tvStoreInformation ? View.VISIBLE : View.GONE);
+                    break;
+                case 4:
+                    textViews.get(i).setVisibility(tvCallRider ? View.VISIBLE : View.GONE);
+                    break;
+                case 5:
+                    textViews.get(i).setVisibility(tvRiderInformation ? View.VISIBLE : View.GONE);
+                    break;
+                case 6:
+                    textViews.get(i).setVisibility(tvReminders ? View.VISIBLE : View.GONE);
+                    break;
+                case 7:
+                    textViews.get(i).setVisibility(tvOneMore ? View.VISIBLE : View.GONE);
+                    break;
+                case 8:
+                    textViews.get(i).setVisibility(tvShopping ? View.VISIBLE : View.GONE);
+                    break;
+                case 9:
+                    textViews.get(i).setVisibility(tvEvaluation ? View.VISIBLE : View.GONE);
+                    break;
+                case 10:
+                    textViews.get(i).setVisibility(tvConfirmReceipt ? View.VISIBLE : View.GONE);
+                    break;
+                case 11:
+                    textViews.get(i).setVisibility(tvPay ? View.VISIBLE : View.GONE);
+                    break;
+                default:
+                    break;
+            }
+        }
+
     }
 
     @OnClick(R.id.rl_store)
@@ -338,4 +429,71 @@ public class OrdertrackingActivity extends BaseActivity {
     }
 
 
+    @OnClick({R.id.tv_cancel_order, R.id.tv_after_sale, R.id.tv_call_store, R.id.tv_store_information, R.id.tv_call_rider, R.id.tv_rider_information, R.id.tv_reminders, R.id.tv_one_more, R.id.tv_shopping, R.id.tv_evaluation, R.id.tv_confirm_receipt, R.id.tv_pay})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_cancel_order:
+                DialogUtils.showConfirmDialog("温馨提示", "是否取消订单", "取消", "确定", getSupportFragmentManager(), new ConfirmDialog.ButtonOnclick() {
+                    @Override
+                    public void cancel() {
+
+                    }
+
+                    @Override
+                    public void ok() {
+                        setLoadingMessageIndicator(true);
+                        RetrofitApiManager.create(OrdersService.class).cancelOrder(UserLogic.getUser().getMember_id(), getDataInt())
+                                .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<Object>(true) {
+                            @Override
+                            protected void onApiComplete() {
+                                setLoadingMessageIndicator(false);
+                            }
+
+                            @Override
+                            protected void onSuccees(BaseEntity t) throws Exception {
+                                ToastHelper.makeText(t.getMessage()).show();
+                                finish();
+                            }
+                        });
+                    }
+                });
+                break;
+            case R.id.tv_after_sale:
+                break;
+            case R.id.tv_call_store:
+                break;
+            case R.id.tv_store_information:
+                break;
+            case R.id.tv_call_rider:
+                break;
+            case R.id.tv_rider_information:
+                break;
+            case R.id.tv_reminders:
+                break;
+            case R.id.tv_one_more:
+                break;
+            case R.id.tv_shopping:
+                break;
+            case R.id.tv_evaluation:
+                break;
+            case R.id.tv_confirm_receipt:
+                setLoadingMessageIndicator(true);
+                RetrofitApiManager.create(OrdersService.class).confirmOrder(UserLogic.getUser().getMember_id(), getDataInt())
+                        .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<Object>(true) {
+                    @Override
+                    protected void onApiComplete() {
+                        setLoadingMessageIndicator(false);
+                    }
+
+                    @Override
+                    protected void onSuccees(BaseEntity t) throws Exception {
+                        ToastHelper.makeText(t.getMessage()).show();
+                        finish();
+                    }
+                });
+                break;
+            case R.id.tv_pay:
+                break;
+        }
+    }
 }
