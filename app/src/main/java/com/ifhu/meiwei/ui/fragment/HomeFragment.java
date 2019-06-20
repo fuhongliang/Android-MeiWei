@@ -14,20 +14,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baba.GlideImageView;
-import com.baba.transformation.RadiusTransformation;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.ifhu.meiwei.MyApplication;
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.adapter.HomeStoreAdapter;
 import com.ifhu.meiwei.bean.BaseEntity;
@@ -37,7 +31,6 @@ import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.HomeService;
-import com.ifhu.meiwei.ui.activity.home.MainActivity;
 import com.ifhu.meiwei.ui.activity.home.ShippingAddressActivity;
 import com.ifhu.meiwei.ui.activity.home.ShopHomeActivity;
 import com.ifhu.meiwei.ui.activity.home.ShoppingCartActivity;
@@ -46,12 +39,12 @@ import com.ifhu.meiwei.ui.base.WebViewActivity;
 import com.ifhu.meiwei.ui.view.ExpandListView;
 import com.ifhu.meiwei.ui.view.MyScrollView;
 import com.ifhu.meiwei.utils.AppInfo;
-import com.ifhu.meiwei.utils.Constants;
 import com.ifhu.meiwei.utils.DeviceUtil;
 import com.ifhu.meiwei.utils.GlideRoundTransform;
 import com.ifhu.meiwei.utils.SharedPreUtil;
 import com.ifhu.meiwei.utils.StringUtils;
 import com.ifhu.meiwei.utils.UserLogic;
+import com.orhanobut.logger.Logger;
 import com.stx.xhb.xbanner.XBanner;
 
 import org.greenrobot.eventbus.EventBus;
@@ -60,6 +53,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -131,15 +126,17 @@ public class HomeFragment extends BaseFragment {
     LinearLayout mLlCategoryTwo;
     @BindView(R.id.xbanner)
     XBanner mXbanner;
-    private int lastY = 0;
-    private int touchEventId = -9983761;
-    boolean isOut = false;
     @BindView(R.id.fab)
     FloatingActionButton mFab;
     Unbinder unbinder;
     @BindView(R.id.scrollView)
     MyScrollView mScrollView;
     HomeStoreAdapter mHomeStoreAdapter;
+    private long upTime;
+    private float startY;
+    private int lastY = 0;
+    private int touchEventId = -9983761;
+    boolean isOut = false;
     private List<HomeBean.StorelistDataBean> storelist_data = new ArrayList<>();
     private List<HomeBean.BannerDataBean> banner_data = new ArrayList<>();
     /**
@@ -174,9 +171,38 @@ public class HomeFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
         initBanner();
         mScrollView.setOnTouchListener((v, event) -> {
-            if (event.getAction() == MotionEvent.ACTION_UP) {
-                handler.sendMessageDelayed(handler.obtainMessage(touchEventId, v), 5);
+            switch (event.getAction()){
+                case MotionEvent.ACTION_DOWN:
+                    if (System.currentTimeMillis()-upTime<2000) {
+                        handler.sendEmptyMessage(MotionEvent.ACTION_DOWN);
+                        timer.cancel();
+                    }
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    if (Math.abs(startY-event.getY())>20) {
+                        handler.sendEmptyMessage(MotionEvent.ACTION_MOVE);
+                    }
+                    startY = event.getY();
+                    break;
+                case MotionEvent.ACTION_OUTSIDE:
+                    handler.sendEmptyMessageDelayed(MotionEvent.ACTION_OUTSIDE,2000);
+                    break;
+                case MotionEvent.ACTION_CANCEL:
+                    handler.sendEmptyMessageDelayed(MotionEvent.ACTION_CANCEL,2000);
+                    break;
+                case MotionEvent.ACTION_UP:
+
+                    timer = new Timer();
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            handler.sendEmptyMessage(MotionEvent.ACTION_UP);
+                        }
+                    },2000);
+                    upTime = System.currentTimeMillis();
+                    break;
             }
+
             return false;
         });
         EventBus.getDefault().register(this);
@@ -385,34 +411,49 @@ public class HomeFragment extends BaseFragment {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            View scroller = (View) msg.obj;
-            if (msg.what == touchEventId) {
-                if (lastY == scroller.getScrollY()) {
-                    if (isOut) {
-                        animateIn(mFab);
-                    }
-                } else {
-                    handler.sendMessageDelayed(handler.obtainMessage(touchEventId, scroller), 1000);
-                    lastY = scroller.getScrollY();
-                    if (!isOut) {
+            switch (msg.what){
+                case MotionEvent.ACTION_DOWN:
                         animateOut(mFab);
-                    }
-                }
+                        Logger.d("ACTION_DOWN","按下出来");
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    animateOut(mFab);
+                    Logger.d("ACTION_MOVE","按住滑动");
+                    break;
+                case MotionEvent.ACTION_OUTSIDE:
+                    animateIn(mFab);
+                    Logger.d("ACTION_OUTSIDE","屏幕外取消");
+                    break;
+                case MotionEvent.ACTION_CANCEL:
+                    animateIn(mFab);
+                    Logger.d("ACTION_CANCEL","事件取消");
+                    break;
+                case MotionEvent.ACTION_UP:
+                        animateIn(mFab);
+                        Logger.d("ACTION_UP","抬起回去");
+
+
+                    break;
             }
         }
     };
 
+    Timer timer;
 
     private void animateOut(FloatingActionButton fab) {
-        isOut = true;
-        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) fab.getLayoutParams();
-        int rightMargin = layoutParams.rightMargin;
-        fab.animate().translationX(fab.getWidth() / 2 + rightMargin).setInterpolator(new LinearInterpolator()).start();
+        if (!isOut) {
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) fab.getLayoutParams();
+            int rightMargin = layoutParams.rightMargin;
+            fab.animate().translationX(fab.getWidth() / 2 + rightMargin).setInterpolator(new LinearInterpolator()).start();
+            isOut = true;
+        }
     }
 
     private void animateIn(FloatingActionButton fab) {
-        isOut = false;
-        fab.animate().translationX(0).setInterpolator(new LinearInterpolator()).start();
+        if (isOut) {
+            fab.animate().translationX(0).setInterpolator(new LinearInterpolator()).start();
+            isOut = false;
+        }
     }
 
     @Override

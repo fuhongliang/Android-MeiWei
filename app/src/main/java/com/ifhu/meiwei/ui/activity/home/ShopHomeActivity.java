@@ -34,6 +34,7 @@ import com.ifhu.meiwei.utils.UserLogic;
 import com.jaeger.library.StatusBarUtil;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -88,6 +89,8 @@ public class ShopHomeActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        long time = System.currentTimeMillis();
+        Logger.d("onCreate:ShopHomeActivity开始事件" + time);
         setContentView(R.layout.activity_shop_home);
         StatusBarUtil.setTranslucentForImageView(ShopHomeActivity.this, 0, mIvBg);
         ButterKnife.bind(this);
@@ -96,6 +99,8 @@ public class ShopHomeActivity extends BaseActivity {
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
+        Logger.d("onCreate:ShopHomeActivity结束事件" + (System.currentTimeMillis()-time));
+
     }
 
 

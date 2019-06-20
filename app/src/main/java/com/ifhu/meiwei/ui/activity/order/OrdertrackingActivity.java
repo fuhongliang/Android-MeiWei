@@ -45,72 +45,6 @@ import butterknife.OnClick;
  * 订单详情页面
  */
 public class OrdertrackingActivity extends BaseActivity {
-//    @BindView(R.id.tv_text_status)
-//    TextView tvTextStatus;
-//    @BindView(R.id.tv_notice)
-//    TextView tvNotice;
-//
-//    @BindView(R.id.tv_store_name)
-//    TextView tvStoreName;
-//    @BindView(R.id.iv_back)
-//    ImageView ivBack;
-//    @BindView(R.id.ll_ring)
-//    LinearLayout llRing;
-//
-//    @BindView(R.id.iv_store_phone)
-//    ImageView ivStorePhone;
-//    @BindView(R.id.ll_expand)
-//    LinearLayout llExpand;
-//    @BindView(R.id.tv_package)
-//    TextView tvPackage;
-//    @BindView(R.id.tv_delivery)
-//    TextView tvDelivery;
-//    @BindView(R.id.tv_full_reduction)
-//    TextView tvFullReduction;
-//    @BindView(R.id.tv_voucher)
-//    TextView tvVoucher;
-//    @BindView(R.id.tv_offer)
-//    TextView tvOffer;
-//    @BindView(R.id.tv_offer_money)
-//    TextView tvOfferMoney;
-//    @BindView(R.id.tv_money_string)
-//    TextView tvMoneyString;
-//    @BindView(R.id.tv_payment_money)
-//    TextView tvPaymentMoney;
-//    @BindView(R.id.tv_delivery_address)
-//    TextView tvDeliveryAddress;
-//    @BindView(R.id.tv_order_number)
-//    TextView tvOrderNumber;
-//    @BindView(R.id.tv_order_time)
-//    TextView tvOrderTime;
-//    @BindView(R.id.tv_payment_method)
-//    TextView tvPaymentMethod;
-//    @BindView(R.id.rl_refund)
-//    RelativeLayout rlRefund;
-//    //    @BindView(R.id.ll_service)
-////    LinearLayout llService;
-////    @BindView(R.id.tv_order_announcement)
-////    TextView tvOrderAnnouncement;
-//    @BindView(R.id.tv_order_announcement_time)
-//    TextView tvOrderAnnouncementTime;//订单配送时间和商家文本
-//    @BindView(R.id.ll_goods_item)
-//    LinearLayout llGoodsItem;
-//    @BindView(R.id.iv_bg_view)
-//    ImageView mIvBgView;
-//    @BindView(R.id.ll_state)
-//    LinearLayout mLlState;
-//    @BindView(R.id.tv_announcement_one)
-//    TextView tvAnnouncementOne;
-//    @BindView(R.id.tv_announcement_two)
-//    TextView tvAnnouncementTwo;
-//    @BindView(R.id.ll_order_status)
-//    RelativeLayout mLlOrderStatus;
-//    @BindView(R.id.sv_order_detail)
-//    ScrollView mSvOrderDetail;
-//    @BindView(R.id.tv_watch_more)
-//    TextView tvWatchMore;
-//    @BindView(R.id.iv_arrow)
-//    ImageView ivArrow;
 
     List<View> views = new ArrayList<>();
     List<OrderinfoBean.OrderDetailBean> orderDetailBeans = new ArrayList<>();
@@ -198,41 +132,13 @@ public class OrdertrackingActivity extends BaseActivity {
     @BindView(R.id.tv_payment_method)
     TextView tvPaymentMethod;
 
-
-//    @BindView(R.id.tv_cancel_order)
-//    TextView tvCancelOrder;
-//    @BindView(R.id.tv_after_sale)
-//    TextView tvAfterSale;
-//    @BindView(R.id.tv_call_store)
-//    TextView tvCallStore;
-//    @BindView(R.id.tv_store_information)
-//    TextView tvStoreInformation;
-//    @BindView(R.id.tv_call_rider)
-//    TextView tvCallRider;
-//    @BindView(R.id.tv_rider_information)
-//    TextView tvRiderInformation;
-//    @BindView(R.id.tv_reminders)
-//    TextView tvReminders;
-//    @BindView(R.id.tv_one_more)
-//    TextView tvOneMore;
-//    @BindView(R.id.tv_shopping)
-//    TextView tvShopping;
-//    @BindView(R.id.tv_evaluation)
-//    TextView tvEvaluation;
-//    @BindView(R.id.tv_confirm_receipt)
-//    TextView tvConfirmReceipt;
-//    @BindView(R.id.tv_pay)
-//    TextView tvPay;
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_tracking);
         StatusBarUtil.setTranslucentForImageView(OrdertrackingActivity.this, 0, ivBgView);
         ButterKnife.bind(this);
-//        views.add(mLlOrderStatus);
-//        views.add(mSvOrderDetail);
+
         hideOrShowView(views, true);
         orderDetails();
     }
@@ -279,11 +185,9 @@ public class OrdertrackingActivity extends BaseActivity {
 
     public void setOrderInfo(int color, boolean tips, String orderState, String tipMsg) {
         ivBgView.setBackgroundResource(R.color.category_color);
-//        rlRefund.setVerticalGravity(View.VISIBLE);
         tvTextStatus.setText("订单已取消");
         llRing.setVerticalGravity(View.GONE);
         llRing.setVerticalGravity(View.GONE);
-        //测试llService.setVerticalGravity(View.GONE);
         ivStorePhone.setVisibility(View.GONE);
     }
 

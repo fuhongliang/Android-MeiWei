@@ -33,7 +33,6 @@ import com.ifhu.meiwei.ui.activity.home.ShoppingCartActivity;
 import com.ifhu.meiwei.ui.activity.order.ConfirmOrderActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
 import com.ifhu.meiwei.ui.base.WebViewActivity;
-import com.ifhu.meiwei.utils.DeviceUtil;
 import com.ifhu.meiwei.utils.UserLogic;
 import com.oushangfeng.pinnedsectionitemdecoration.PinnedHeaderItemDecoration;
 
@@ -103,11 +102,11 @@ public class MenuListFragment extends BaseFragment {
     }
 
     public void setEmptyDisplay(boolean emptyDisplay){
-        if (emptyDisplay){
+        if(emptyDisplay){
             mLlCateGoryProduct.setVisibility(View.INVISIBLE);
             mFlShopBar.setVisibility(View.INVISIBLE);
             mRlEmpty.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             mLlCateGoryProduct.setVisibility(View.VISIBLE);
             mFlShopBar.setVisibility(View.VISIBLE);
             mRlEmpty.setVisibility(View.INVISIBLE);
@@ -192,15 +191,36 @@ public class MenuListFragment extends BaseFragment {
             } else {
                 isCurCategoryGoodEmpty = false;
             }
-
-            LinearSmoothScroller linearSmoothScroller = new TopSmoothScroller(getActivity());
-            linearSmoothScroller.setTargetPosition(totalItem);
-            mRecyclerView.getLayoutManager().startSmoothScroll(linearSmoothScroller);
-            //mCategoryAdapter.notifyDataSetChanged();列表刷新操作交由联动列表进行刷新
+            if (isVisBottom()) {
+                mCategoryAdapter.notifyDataSetChanged();//如果商品列表滑动到底部，点击事件由自己来刷新
+            } else {
+                LinearSmoothScroller linearSmoothScroller = new TopSmoothScroller(getActivity());
+                linearSmoothScroller.setTargetPosition(totalItem);
+                mRecyclerView.getLayoutManager().startSmoothScroll(linearSmoothScroller);
+            }
         });
         mLvCategory.setAdapter(mCategoryAdapter);
         mTvAtLess.setOnClickListener(v -> goToActivity(ConfirmOrderActivity.class, mStoreId));
         mIvShopCat.setOnClickListener(v -> goToActivity(ShoppingCartActivity.class));
+
+    }
+
+    /**
+     * 判断列表是否滑动到底部
+     * 可以提取成工具 参数添加一个RecyclerView
+     * @return
+     */
+    public boolean isVisBottom(){
+        LinearLayoutManager layoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+        //屏幕中最后一个可见子项的position
+        int lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition();
+        //当前屏幕所看到的子项个数
+        int visibleItemCount = layoutManager.getChildCount();
+        //当前RecyclerView的所有子项个数
+        int totalItemCount = layoutManager.getItemCount();
+        //RecyclerView的滑动状态
+        int state = mRecyclerView.getScrollState();
+        return visibleItemCount > 0 && lastVisibleItemPosition == totalItemCount - 1 && state == mRecyclerView.SCROLL_STATE_IDLE;
     }
 
     public void addToShopingCar(int goods_id, int amount) {
