@@ -17,10 +17,22 @@ public class ConfirmDialog extends BaseNiceDialog {
     public String cancel;
     public String ok;
 
+    public int messageColor = 0x333333;
+
     public static ConfirmDialog newInstance(String title, String message) {
         Bundle bundle = new Bundle();
         bundle.putString("title", title);
         bundle.putString("message", message);
+        ConfirmDialog dialog = new ConfirmDialog();
+        dialog.setArguments(bundle);
+        return dialog;
+    }
+
+    public static ConfirmDialog newInstance(String title, String message,int messageColor) {
+        Bundle bundle = new Bundle();
+        bundle.putString("title", title);
+        bundle.putString("message", message);
+        bundle.putInt("messageColor", messageColor);
         ConfirmDialog dialog = new ConfirmDialog();
         dialog.setArguments(bundle);
         return dialog;
@@ -36,6 +48,20 @@ public class ConfirmDialog extends BaseNiceDialog {
         dialog.setArguments(bundle);
         return dialog;
     }
+
+    public static ConfirmDialog newInstance(String title, String message,String cancel,String ok,int messageColor) {
+        Bundle bundle = new Bundle();
+        bundle.putString("title", title);
+        bundle.putString("message", message);
+        bundle.putString("cancel", cancel);
+        bundle.putString("ok", ok);
+        bundle.putInt("messageColor", messageColor);
+        ConfirmDialog dialog = new ConfirmDialog();
+        dialog.setArguments(bundle);
+        return dialog;
+    }
+
+
     public void setButtonOnclick(ButtonOnclick buttonOnclick) {
         this.buttonOnclick = buttonOnclick;
     }
@@ -51,6 +77,7 @@ public class ConfirmDialog extends BaseNiceDialog {
         message = bundle.getString("message");
         cancel = bundle.getString("cancel");
         ok = bundle.getString("ok");
+        messageColor = bundle.getInt("messageColor");
     }
 
     @Override
@@ -62,6 +89,7 @@ public class ConfirmDialog extends BaseNiceDialog {
     public void convertView(ViewHolder holder, final BaseNiceDialog dialog) {
         holder.setText(R.id.title, title);
         holder.setText(R.id.message, message);
+        holder.setTextColor(R.id.tv_message,messageColor);
         if (!StringUtils.isEmpty(ok) && !StringUtils.isEmpty(cancel)){
             holder.setText(R.id.cancel, cancel);
             holder.setText(R.id.ok, ok);
