@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.baba.GlideImageView;
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.bean.BaseEntity;
+import com.ifhu.meiwei.bean.MessageEvent;
 import com.ifhu.meiwei.bean.OrderinfoBean;
 import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
@@ -33,12 +34,16 @@ import com.ifhu.meiwei.utils.ToastHelper;
 import com.ifhu.meiwei.utils.UserLogic;
 import com.jaeger.library.StatusBarUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.ifhu.meiwei.utils.Constants.GOTOHOMEPAGE;
 
 /**
  * @author fuhongliang
@@ -134,7 +139,7 @@ public class OrdertrackingActivity extends BaseActivity {
     TextView tvPaymentMethod;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_tracking);
         StatusBarUtil.setTranslucentForImageView(OrdertrackingActivity.this, 0, ivBgView);
@@ -497,6 +502,8 @@ public class OrdertrackingActivity extends BaseActivity {
             case R.id.tv_one_more:
                 break;
             case R.id.tv_shopping:
+                EventBus.getDefault().post(new MessageEvent(GOTOHOMEPAGE));
+                finish();
                 break;
             case R.id.tv_evaluation:
                 break;

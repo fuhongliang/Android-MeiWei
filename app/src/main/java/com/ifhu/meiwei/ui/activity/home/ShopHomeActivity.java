@@ -112,7 +112,7 @@ public class ShopHomeActivity extends BaseActivity {
                 .add("评价", XWebViewFragment.class)
                 .add("商家", XWebViewFragment.class)
                 .create());
-        mViewpager.setOffscreenPageLimit(2);
+        mViewpager.setOffscreenPageLimit(3);
         mViewpager.setAdapter(adapter);
         mViewpagertab.setViewPager(mViewpager);
     }

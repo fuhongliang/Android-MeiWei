@@ -142,21 +142,23 @@ public class MenuListFragment extends BaseFragment {
         mCategoryAdapter.setmDataList(mGoodsListBeans);
     }
 
+    /**
+     * 处理购物车的图片和价格数量
+     */
     public void handleCarBean() {
-        if (mCartBean.getGoods().size() > 0) {
+
+        int mCarAmount = 0;
+        double mTotalPrice = 0;
+        for (MerchantBean.CartBean.GoodsBean goods:mCartBean.getGoods()) {
+            //外层循环判断已经选中的商品数量
+            mCarAmount = mCarAmount + goods.getGoods_num();
+            //把返回的购物车的总价格加起来
+            mTotalPrice = mTotalPrice + goods.getGoods_num() * Double.parseDouble(goods.getGoods_price());
+        }
+        if (mCarAmount > 0) {
             mIvShopCat.setVisibility(View.VISIBLE);
             mIvShopCartEmpty.setVisibility(View.INVISIBLE);
             mTvCarAmount.setVisibility(View.VISIBLE);
-            int mCarAmount = 0;
-            double mTotalPrice = 0;
-            try {
-                for (MerchantBean.CartBean.GoodsBean goodsBean : mCartBean.getGoods()) {
-                    mCarAmount = mCarAmount + goodsBean.getGoods_num();
-                    mTotalPrice = mTotalPrice + goodsBean.getGoods_num() * Double.parseDouble(goodsBean.getGoods_price());
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
             mTvCarAmount.setText(mCarAmount + "");
             mRlPrice.setVisibility(View.VISIBLE);
             mTvTotalPrice.setText("￥" + mTotalPrice);
@@ -168,7 +170,6 @@ public class MenuListFragment extends BaseFragment {
         } else {
             mIvShopCat.setVisibility(View.INVISIBLE);
             mTvCarAmount.setVisibility(View.INVISIBLE);
-
             mIvShopCartEmpty.setVisibility(View.VISIBLE);
             mTvTips.setVisibility(View.VISIBLE);
             mRlPrice.setVisibility(View.INVISIBLE);

@@ -10,11 +10,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -23,13 +18,13 @@ import android.widget.TextView;
 
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.ui.base.BaseFragment;
-import com.ifhu.meiwei.ui.base.WebViewActivity;
 import com.ifhu.meiwei.ui.view.X5WebView;
 import com.ifhu.meiwei.utils.JsJavaBridge;
 import com.ifhu.meiwei.utils.UserLogic;
 import com.tencent.smtt.sdk.WebViewClient;
 
 import java.util.HashMap;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -75,7 +70,7 @@ public class XWebViewFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_web_view, container, false);
+        View view = inflater.inflate(R.layout.fragment_web_view, null, false);
         unbinder = ButterKnife.bind(this, view);
         return view;
     }
