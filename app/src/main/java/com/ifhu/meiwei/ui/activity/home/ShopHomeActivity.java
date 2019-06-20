@@ -90,7 +90,7 @@ public class ShopHomeActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         long time = System.currentTimeMillis();
-        Logger.d("onCreate:ShopHomeActivity开始事件" + time);
+        Logger.d("onCreate:ShopHomeActivity开始事件"+time);
         setContentView(R.layout.activity_shop_home);
         StatusBarUtil.setTranslucentForImageView(ShopHomeActivity.this, 0, mIvBg);
         ButterKnife.bind(this);
@@ -99,7 +99,7 @@ public class ShopHomeActivity extends BaseActivity {
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
-        Logger.d("onCreate:ShopHomeActivity结束事件" + (System.currentTimeMillis()-time));
+        Logger.d("onCreate:ShopHomeActivity开始事件"+(System.currentTimeMillis()-time));
 
     }
 
@@ -112,7 +112,7 @@ public class ShopHomeActivity extends BaseActivity {
                 .add("评价", XWebViewFragment.class)
                 .add("商家", XWebViewFragment.class)
                 .create());
-        mViewpager.setOffscreenPageLimit(4);
+        mViewpager.setOffscreenPageLimit(2);
         mViewpager.setAdapter(adapter);
         mViewpagertab.setViewPager(mViewpager);
     }

@@ -207,6 +207,7 @@ public class HomeFragment extends BaseFragment {
         });
         EventBus.getDefault().register(this);
         setRefreshLayout();
+        // TODO: 2019-06-20 内存泄漏 getActivity()
         mHomeStoreAdapter = new HomeStoreAdapter(getActivity(), storelist_data);
         mListviewStore.setAdapter(mHomeStoreAdapter);
         mTvTotal.setSelected(true);

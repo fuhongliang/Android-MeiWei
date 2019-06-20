@@ -106,12 +106,12 @@
         android:layout_marginStart="29dp"
         android:visibility="invisible"
         android:src="@drawable/meal_bnt_gouwuche1"
-        />
+        android:layout_marginTop="-13dp"/>
     <ImageView
         android:id="@+id/iv_shop_cart_empty"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="29dp"
+        android:layout_marginStart="29dp"
         android:src="@drawable/meal_bnt_gouwuche"
         />
     <TextView

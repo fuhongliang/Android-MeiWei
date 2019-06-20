@@ -85,7 +85,7 @@ public class HomeStoreAdapter extends BaseAdapter {
         return convertView;
     }
 
-    static class ViewHolder {
+    class ViewHolder {
         @BindView(R.id.iv_commodity)
         GlideImageView mIvCommodity;
         @BindView(R.id.tv_commodity_name)
