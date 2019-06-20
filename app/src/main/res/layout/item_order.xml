@@ -24,7 +24,7 @@
             android:layout_marginLeft="12dp"
             android:gravity="center_vertical"
             android:maxWidth="156dp"
-            android:text=""
+            android:text="东方闪电"
             android:textColor="@color/black"
             android:textSize="16sp" />
 

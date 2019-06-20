@@ -23,6 +23,7 @@
             android:layout_toRightOf="@id/iv_back"
             android:gravity="center_vertical"
             android:text="返回"
+            android:visibility="invisible"
             android:textColor="@color/typed_text_color"
             android:textSize="17sp" />
     </RelativeLayout>

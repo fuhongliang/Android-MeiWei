@@ -19,11 +19,13 @@ import android.widget.Toast;
 import com.baba.GlideImageView;
 import com.ifhu.meiwei.R;
 import com.ifhu.meiwei.bean.BaseEntity;
+import com.ifhu.meiwei.bean.MessageEvent;
 import com.ifhu.meiwei.bean.OrderinfoBean;
 import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.OrdersService;
+import com.ifhu.meiwei.ui.activity.home.EditaddressActivity;
 import com.ifhu.meiwei.ui.activity.home.ShopHomeActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.ui.nicedialog.ConfirmDialog;
@@ -33,12 +35,16 @@ import com.ifhu.meiwei.utils.ToastHelper;
 import com.ifhu.meiwei.utils.UserLogic;
 import com.jaeger.library.StatusBarUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.ifhu.meiwei.utils.Constants.GOTOHOMEPAGE;
 
 /**
  * @author fuhongliang
@@ -499,6 +505,7 @@ public class OrdertrackingActivity extends BaseActivity {
             case R.id.tv_shopping:
                 break;
             case R.id.tv_evaluation:
+                goToActivity(EvaluationActivity.class, getDataInt());
                 break;
             case R.id.tv_confirm_receipt:
                 setLoadingMessageIndicator(true);

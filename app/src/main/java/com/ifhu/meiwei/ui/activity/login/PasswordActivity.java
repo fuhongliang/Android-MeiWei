@@ -18,7 +18,6 @@ import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.UserService;
-import com.ifhu.meiwei.ui.activity.me.MyAddressListActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.utils.StringUtils;
 import com.ifhu.meiwei.utils.ToastHelper;
@@ -45,11 +44,14 @@ public class PasswordActivity extends BaseActivity {
     RelativeLayout rlReturn;
     @BindView(R.id.et_password)
     EditText etPassword;
+    @BindView(R.id.tv_return)
+    TextView tvReturn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_login);
+        tvReturn.setText("返回");
         ButterKnife.bind(this);
         tvText.setText("验证码登录");
         /**

@@ -25,6 +25,7 @@ import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.OrdersService;
 import com.ifhu.meiwei.ui.activity.home.EditaddressActivity;
 import com.ifhu.meiwei.ui.activity.home.ShopHomeActivity;
+import com.ifhu.meiwei.ui.activity.order.EvaluationActivity;
 import com.ifhu.meiwei.ui.activity.order.OrdertrackingActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
 import com.ifhu.meiwei.utils.UserLogic;
@@ -99,6 +100,10 @@ public class AllOrderFragment extends BaseFragment {
         lvList.setAdapter(orderAdapter);
         lvList.setVerticalScrollBarEnabled(false);
         orderAdapter.setOnClickItem(new OrderAdapter.OnClickItem() {
+            @Override
+            public void Return(int position) {
+
+            }
 
             @Override
             public void shopping(int position) {
@@ -109,7 +114,7 @@ public class AllOrderFragment extends BaseFragment {
             @Override
             public void shopHomePage(int position) {
                 // TODO: 2019-06-19 待添加商家ID 
-                goToActivity(ShopHomeActivity.class/*,orderBeanList.get(position).getOrder_id()*/);
+                goToActivity(ShopHomeActivity.class,"2"/*,orderBeanList.get(position).getOrder_id()*/);
 
             }
 
@@ -120,7 +125,7 @@ public class AllOrderFragment extends BaseFragment {
 
             @Override
             public void evaluation(int position) {
-                goToActivity(EditaddressActivity.class, orderBeanList.get(position).getOrder_id());
+                goToActivity(EvaluationActivity.class, orderBeanList.get(position).getOrder_id());
             }
 
             @Override
