@@ -78,9 +78,9 @@ public class HomeStoreAdapter extends BaseAdapter {
             viewHolder.mTvLimitDiscounts.setVisibility(View.GONE);
         }
         if (storelist_data.get(position).getXianshi() != null && storelist_data.get(position).getManjian().size()>0){
-            viewHolder.mTvFullReduction.setVisibility(View.VISIBLE);
+            viewHolder.mLlReduction.setVisibility(View.VISIBLE);
         }else {
-            viewHolder.mTvFullReduction.setVisibility(View.GONE);
+            viewHolder.mLlReduction.setVisibility(View.GONE);
         }
         return convertView;
     }
@@ -93,7 +93,7 @@ public class HomeStoreAdapter extends BaseAdapter {
         @BindView(R.id.ll_star)
         LinearLayout mLlStar;
         @BindView(R.id.iv_line)
-        ImageView mIvLine;
+        View mIvLine;
         @BindView(R.id.tv_limit_discounts)
         TextView mTvLimitDiscounts;
         @BindView(R.id.tv_full_reduction)

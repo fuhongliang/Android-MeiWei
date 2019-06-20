@@ -37,7 +37,7 @@ public class OrderAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public void clearList(){
+    public void clearList() {
         this.orderBeanList = null;
         notifyDataSetChanged();
     }
@@ -89,6 +89,12 @@ public class OrderAdapter extends BaseAdapter {
          * @param position
          */
         void payOrder(int position);
+
+        /**
+         * 退款详情
+         * @param position
+         */
+        void Return(int position);
 
     }
 
@@ -189,8 +195,9 @@ public class OrderAdapter extends BaseAdapter {
         viewHolder.tvOneMore.setOnClickListener(v -> onClickItem.oneMore(position));
         viewHolder.tvEvaluation.setOnClickListener(v -> onClickItem.evaluation(position));
         viewHolder.tvShopping.setOnClickListener(v -> onClickItem.shopping(position));
-        viewHolder.tvReturn.setOnClickListener(v -> onClickItem.orderDetail(position));
+        viewHolder.rlAnnouncement.setOnClickListener(v -> onClickItem.orderDetail(position));
         viewHolder.tvPay.setOnClickListener(v -> onClickItem.payOrder(position));
+        viewHolder.tvReturn.setOnClickListener(v -> onClickItem.Return(position));
 
 
         if (orderBeanList.get(position).getGoods_list().size() > 1) {

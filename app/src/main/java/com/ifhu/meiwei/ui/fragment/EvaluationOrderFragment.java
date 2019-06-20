@@ -99,6 +99,10 @@ public class EvaluationOrderFragment extends BaseFragment {
         lvList.setAdapter(orderAdapter);
         lvList.setVerticalScrollBarEnabled(false);
         orderAdapter.setOnClickItem(new OrderAdapter.OnClickItem() {
+            @Override
+            public void Return(int position) {
+
+            }
 
             @Override
             public void shopping(int position) {

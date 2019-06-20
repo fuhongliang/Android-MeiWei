@@ -79,6 +79,7 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        mTvNumber.setText("返回");
         ButterKnife.bind(this);
         addTextChangedListener();
         initView();
@@ -260,9 +261,9 @@ public class LoginActivity extends BaseActivity {
     @OnClick(R.id.tv_login)
     public void onTvLoginClicked() {
         if (checkContent(true)) {
-            if (isCodeLogin){
+            if (isCodeLogin) {
                 smsLogin();
-            }else {
+            } else {
                 accountPassword();
             }
         }

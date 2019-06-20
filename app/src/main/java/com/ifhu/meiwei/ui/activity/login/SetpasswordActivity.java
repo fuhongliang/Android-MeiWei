@@ -1,6 +1,5 @@
 package com.ifhu.meiwei.ui.activity.login;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -18,7 +17,6 @@ import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.UserService;
 import com.ifhu.meiwei.ui.activity.home.MainActivity;
-import com.ifhu.meiwei.ui.activity.home.ShippingAddressActivity;
 import com.ifhu.meiwei.ui.base.BaseActivity;
 import com.ifhu.meiwei.utils.StringUtils;
 import com.ifhu.meiwei.utils.ToastHelper;
@@ -42,11 +40,14 @@ public class SetpasswordActivity extends BaseActivity {
     EditText etPassword;
     @BindView(R.id.tv_login)
     TextView tvLogin;
+    @BindView(R.id.tv_return)
+    TextView tvReturn;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_password);
+        tvReturn.setText("返回");
         ButterKnife.bind(this);
         tvText.setVisibility(View.INVISIBLE);
         /**
@@ -95,10 +96,10 @@ public class SetpasswordActivity extends BaseActivity {
      * @return
      */
     public boolean checkPassword(EditText etPassword, EditText etNewPassword) {
-        if (StringUtils.isEmpty(etPassword.getText().toString()) || etPassword.getText().toString().length() < 6 || etPassword.getText().toString().length() >16 ) {
+        if (StringUtils.isEmpty(etPassword.getText().toString()) || etPassword.getText().toString().length() < 6 || etPassword.getText().toString().length() > 16) {
             return false;
         }
-        if (StringUtils.isEmpty(etNewPassword.getText().toString()) || etNewPassword.getText().toString().length() < 6  || etNewPassword.getText().toString().length() > 16) {
+        if (StringUtils.isEmpty(etNewPassword.getText().toString()) || etNewPassword.getText().toString().length() < 6 || etNewPassword.getText().toString().length() > 16) {
             return false;
         }
         return true;
@@ -128,7 +129,7 @@ public class SetpasswordActivity extends BaseActivity {
      */
     public void setPassword() {
         setLoadingMessageIndicator(true);
-        RetrofitApiManager.createUpload(UserService.class).userAddPwd(UserLogic.getUser().getMember_id()+"", etNumber.getText().toString())
+        RetrofitApiManager.createUpload(UserService.class).userAddPwd(UserLogic.getUser().getMember_id() + "", etNumber.getText().toString())
                 .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<Object>(true) {
             @Override
             protected void onApiComplete() {

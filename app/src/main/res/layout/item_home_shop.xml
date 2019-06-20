@@ -73,13 +73,14 @@
             android:textSize="12sp" />
     </RelativeLayout>
 
-    <ImageView
+    <View
         android:id="@+id/iv_line"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@id/iv_commodity"
         android:layout_marginLeft="92dp"
         android:layout_marginRight="15dp"
+        android:layerType="software"
         android:background="@drawable/shop_line" />
 
     <TextView
@@ -99,12 +100,13 @@
         android:id="@+id/tv_full_reduction"
         android:layout_width="50dp"
         android:layout_height="17dp"
-        android:layout_below="@id/iv_line"
-        android:layout_toEndOf="@id/tv_limit_discounts"
         android:layout_marginTop="11dp"
+        android:layout_below="@id/tv_limit_discounts"
         android:background="@drawable/bg_limit_discounts"
+        android:layout_marginStart="92dp"
         android:gravity="center"
         android:text="满立减"
+        android:visibility="gone"
         android:textColor="#FF853C"
         android:textSize="10sp" />
 
