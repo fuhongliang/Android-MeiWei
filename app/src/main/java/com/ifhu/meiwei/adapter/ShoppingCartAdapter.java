@@ -47,6 +47,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
 
     public interface OnClickItem {
         void Settlement(int position);
+        void storeName(int position,int storId);
 
     }
 
@@ -85,6 +86,7 @@ public class ShoppingCartAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         viewHolder.tvName.setText(shoppingCartBeanList.get(position).getStore().getStore_name());
+        viewHolder.tvName.setOnClickListener(view -> onClickItem.storeName(position,shoppingCartBeanList.get(position).getStore().getStore_id()));
         viewHolder.tvCurrentPrice.setText(shoppingCartBeanList.get(position).getAmount());
         getCommodity(shoppingCartBeanList.get(position).getList(), viewHolder.llCommodity, shoppingCartBeanList.get(position).isExpend());
 
