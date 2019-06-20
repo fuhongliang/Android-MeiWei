@@ -9,8 +9,8 @@
         android:id="@+id/rl_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginRight="63dp">
 
         <TextView

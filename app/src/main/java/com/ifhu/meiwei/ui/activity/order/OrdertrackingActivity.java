@@ -57,6 +57,9 @@ public class OrdertrackingActivity extends BaseActivity {
     TextView tvTextStatus;
     @BindView(R.id.tv_notice)
     TextView tvNotice;
+
+    @BindView(R.id.tv_store_name)
+    TextView tvStoreName;
     @BindView(R.id.ll_ring)
     LinearLayout llRing;
     @BindView(R.id.tv_order_announcement_time)
@@ -87,8 +90,6 @@ public class OrdertrackingActivity extends BaseActivity {
     TextView tvPay;
     @BindView(R.id.rl_refund)
     FrameLayout rlRefund;
-    @BindView(R.id.tv_store_name)
-    TextView tvStoreName;
     @BindView(R.id.iv_store_phone)
     ImageView ivStorePhone;
     @BindView(R.id.rl_store)
@@ -462,7 +463,6 @@ public class OrdertrackingActivity extends BaseActivity {
                     public void cancel() {
 
                     }
-
                     @Override
                     public void ok() {
                         setLoadingMessageIndicator(true);

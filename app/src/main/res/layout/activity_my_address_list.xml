@@ -13,17 +13,19 @@
         android:id="@+id/header"
         layout="@layout/layout_header" />
 
-    <ListView
-        android:id="@+id/lv_address"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/header"
-        android:layout_marginTop="15dp"
-        android:divider="@null"
-        android:dividerHeight="15dp"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="true"
-        tools:listitem="@layout/item_my_address" />
+
+        <ListView
+            android:id="@+id/lv_address"
+            android:layout_below="@id/header"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:divider="@null"
+            android:dividerHeight="15dp"
+            android:footerDividersEnabled="false"
+            android:headerDividersEnabled="true"
+            tools:listitem="@layout/item_my_address" />
+
 
     <LinearLayout
         android:id="@+id/ll_address"
