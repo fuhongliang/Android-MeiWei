@@ -89,7 +89,7 @@ public class ConfirmDialog extends BaseNiceDialog {
     public void convertView(ViewHolder holder, final BaseNiceDialog dialog) {
         holder.setText(R.id.title, title);
         holder.setText(R.id.message, message);
-        holder.setTextColor(R.id.tv_message,messageColor);
+//        holder.setTextColor(R.id.tv_message,messageColor);
         if (!StringUtils.isEmpty(ok) && !StringUtils.isEmpty(cancel)){
             holder.setText(R.id.cancel, cancel);
             holder.setText(R.id.ok, ok);

@@ -47,6 +47,7 @@ public class SetpasswordActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_password);
+        tvReturn.setVisibility(View.VISIBLE);
         tvReturn.setText("返回");
         ButterKnife.bind(this);
         tvText.setVisibility(View.INVISIBLE);

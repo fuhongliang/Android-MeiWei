@@ -85,9 +85,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_below="@id/ll_product_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/ll_product_name"
         android:layout_alignParentEnd="true"
         android:orientation="horizontal">
 
@@ -140,6 +140,7 @@
             android:text="评价"
             android:textColor="@color/main_color"
             android:textSize="14sp" />
+
         <TextView
             android:id="@+id/tv_pay"
             android:layout_width="74dp"
@@ -154,7 +155,6 @@
             android:textSize="14sp" />
 
     </LinearLayout>
-
 
 
 </RelativeLayout>

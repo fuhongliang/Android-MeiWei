@@ -2,11 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_empty"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
     <ImageView
         android:id="@id/iv_line"
         style="@style/dividing_line"
+        android:visibility="gone"
         android:layout_marginLeft="0dp" />
 
     <ImageView
