@@ -99,7 +99,14 @@ public class ShopHomeActivity extends BaseActivity {
         if (!EventBus.getDefault().isRegistered(this)) {
             EventBus.getDefault().register(this);
         }
+        updateLocalShoppingCart();
         Logger.d("onCreate:ShopHomeActivity开始事件"+(System.currentTimeMillis()-time));
+    }
+
+    /**
+     * 检查本地购物车存储是否有缓存
+     */
+    private void updateLocalShoppingCart() {
 
     }
 

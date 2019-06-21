@@ -25,14 +25,18 @@ import com.ifhu.meiwei.adapter.CategoryAdapter;
 import com.ifhu.meiwei.bean.BaseEntity;
 import com.ifhu.meiwei.bean.MerchantBean;
 import com.ifhu.meiwei.bean.PinnedHeaderEntity;
+import com.ifhu.meiwei.bean.ShoppingCartBean;
 import com.ifhu.meiwei.net.BaseObserver;
 import com.ifhu.meiwei.net.RetrofitApiManager;
 import com.ifhu.meiwei.net.SchedulerUtils;
 import com.ifhu.meiwei.net.service.HomeService;
 import com.ifhu.meiwei.ui.activity.home.ShoppingCartActivity;
+import com.ifhu.meiwei.ui.activity.login.LoginActivity;
 import com.ifhu.meiwei.ui.activity.order.ConfirmOrderActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
 import com.ifhu.meiwei.ui.base.WebViewActivity;
+import com.ifhu.meiwei.utils.LocalShopHelper;
+import com.ifhu.meiwei.utils.ToastHelper;
 import com.ifhu.meiwei.utils.UserLogic;
 import com.oushangfeng.pinnedsectionitemdecoration.PinnedHeaderItemDecoration;
 
@@ -149,11 +153,26 @@ public class MenuListFragment extends BaseFragment {
 
         int mCarAmount = 0;
         double mTotalPrice = 0;
-        for (MerchantBean.CartBean.GoodsBean goods:mCartBean.getGoods()) {
+        for (MerchantBean.CartBean.GoodsBean goods : mCartBean.getGoods()) {
             //外层循环判断已经选中的商品数量
             mCarAmount = mCarAmount + goods.getGoods_num();
             //把返回的购物车的总价格加起来
             mTotalPrice = mTotalPrice + goods.getGoods_num() * Double.parseDouble(goods.getGoods_price());
+        }
+
+        ShoppingCartBean localCartBean = LocalShopHelper.getShoppingCartBean(mStoreId);
+
+        // TODO: 2019-06-21 未写批量上传购物车接口
+        // 暂时本地添加商品和价格
+        for (int i = 0; localCartBean!=null && i < localCartBean.getList().size(); i++) {
+            ShoppingCartBean.ListBean localListBean = localCartBean.getList().get(i);
+            mTotalPrice += localListBean.getGoods_num()*Double.valueOf(localListBean.getGoods_price());
+            mCarAmount += localListBean.getGoods_num();
+        }
+
+        if (UserLogic.isLogin()) {
+            //当前已登录并且把本地购物车提交到后台后就删除本地缓存
+            LocalShopHelper.clearLoaclShopCart(mStoreId);
         }
         if (mCarAmount > 0) {
             mIvShopCat.setVisibility(View.VISIBLE);
@@ -181,6 +200,7 @@ public class MenuListFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         initRecyclerView();
         mCategoryAdapter = new CategoryAdapter(mGoodsListBeans, getActivity(), position -> {
             int totalItem = 0;
@@ -192,7 +212,7 @@ public class MenuListFragment extends BaseFragment {
             } else {
                 isCurCategoryGoodEmpty = false;
             }
-            if (isVisBottom()) {
+            if (isVisBottom() && position==mGoodsListBeans.size()-1) {
                 mCategoryAdapter.notifyDataSetChanged();//如果商品列表滑动到底部，点击事件由自己来刷新
             } else {
                 LinearSmoothScroller linearSmoothScroller = new TopSmoothScroller(getActivity());
@@ -201,7 +221,15 @@ public class MenuListFragment extends BaseFragment {
             }
         });
         mLvCategory.setAdapter(mCategoryAdapter);
-        mTvAtLess.setOnClickListener(v -> goToActivity(ConfirmOrderActivity.class, mStoreId));
+        mTvAtLess.setOnClickListener(v -> {
+            if (!UserLogic.isLogin()){
+                //如果未登录，就跳转到登录页面
+                ToastHelper.makeText("未登录！");
+                goToActivity(LoginActivity.class);
+            } else {
+                goToActivity(ConfirmOrderActivity.class, mStoreId);
+            }
+        });
         mIvShopCat.setOnClickListener(v -> goToActivity(ShoppingCartActivity.class));
 
     }
@@ -221,10 +249,38 @@ public class MenuListFragment extends BaseFragment {
         int totalItemCount = layoutManager.getItemCount();
         //RecyclerView的滑动状态
         int state = mRecyclerView.getScrollState();
-        return visibleItemCount > 0 && lastVisibleItemPosition == totalItemCount - 1 && state == mRecyclerView.SCROLL_STATE_IDLE;
+        return visibleItemCount > 0 && lastVisibleItemPosition == totalItemCount - 1 && state == RecyclerView.SCROLL_STATE_IDLE;
     }
 
-    public void addToShopingCar(int goods_id, int amount) {
+    /**
+     * 添加购物车商品
+     *
+     * @param goods_id 商品ID
+     * @param amount 添加数量
+     */
+    public void addToShopingCar(int goods_id,String goodsPrice, int amount) {
+        if (!UserLogic.isLogin()){
+            // TODO: 2019-06-21 批量添加购物车商品
+            if (checkGoodsInLocalShop(goods_id) == -2){
+                addShopToLocal(goods_id,goodsPrice,amount);
+            } else if (checkGoodsInLocalShop(goods_id) == -1){
+                addGoodsInLocalShop(goods_id,goodsPrice);
+            } else {
+                updateGoodsInLocalShop(goods_id,amount,checkGoodsInLocalShop(goods_id));
+            }
+            handleCarBean();
+            mAdapter.notifyDataSetChanged();
+        }else {
+            handleAddToShoppingCart(goods_id,amount);
+        }
+    }
+
+    /**
+     * 添加商品到购物车
+     * @param goods_id 商品ID
+     * @param amount 数量
+     */
+    public void handleAddToShoppingCart(int goods_id, int amount){
         setLoadingMessageIndicator(true);
         RetrofitApiManager.create(HomeService.class).addCart(mStoreId, UserLogic.getUserId(), mStoreId, goods_id, amount)
                 .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<MerchantBean.CartBean>(true) {
@@ -242,17 +298,130 @@ public class MenuListFragment extends BaseFragment {
         });
     }
 
+
+
+    /**
+     * 更新购物车中的商品
+     * @param goods_id 商品ID
+     * @param currentCount 商品数量
+     */
+    public void updateGoodsInLocalShop(int goods_id, int currentCount, int index){
+        ShoppingCartBean shoppingCartBean = LocalShopHelper.getShoppingCartBean(mStoreId);
+        if (shoppingCartBean != null) {//如果获取不到购物车
+            List<ShoppingCartBean.ListBean> list = shoppingCartBean.getList();
+            ShoppingCartBean.ListBean localListBean = list.get(index);
+            if (currentCount == 1){
+                localListBean.setGoods_num(localListBean.getGoods_num() + currentCount);
+                shoppingCartBean.setList(list);
+                LocalShopHelper.saveShoppingCartBean(shoppingCartBean,mStoreId);
+            } else {
+                if (localListBean.getGoods_num() <= 0){
+                    list.remove(localListBean);
+                }else {
+                    localListBean.setGoods_num(localListBean.getGoods_num() + currentCount);
+                    shoppingCartBean.setList(list);
+                    LocalShopHelper.saveShoppingCartBean(shoppingCartBean,mStoreId);
+                }
+            }
+        }
+
+        if (LocalShopHelper.isShoppingCartEmpty(mStoreId)){
+            LocalShopHelper.clearLoaclShopCart(mStoreId);
+        }
+
+    }
+
+    /**
+     * 往已经存在的购物车添加一个商品
+     * @param goodsId 商品ID
+     */
+    public void addGoodsInLocalShop(int goodsId,String goodsPrice){
+        ShoppingCartBean shoppingCartBean = LocalShopHelper.getShoppingCartBean(mStoreId);
+        if (shoppingCartBean != null) {//如果获取不到购物车
+            List<ShoppingCartBean.ListBean> list = shoppingCartBean.getList();
+            ShoppingCartBean.ListBean localListBean = new ShoppingCartBean.ListBean();
+            localListBean.setGoods_id(goodsId);
+            localListBean.setGoods_price(goodsPrice);
+            localListBean.setGoods_num(1);
+            list.add(localListBean);
+            shoppingCartBean.setList(list);
+            LocalShopHelper.saveShoppingCartBean(shoppingCartBean,mStoreId);
+        }
+    }
+
+    /**
+     * 新增一个商店购物车
+     * @param goods_id 商品ID
+     * @param goodsPrice 商品价格
+     * @param currentCount 商品数量
+     */
+    public void addShopToLocal(int goods_id, String goodsPrice, int currentCount){
+        ShoppingCartBean shoppingCartBean = new ShoppingCartBean();
+        ShoppingCartBean.StoreBean storeBean = new ShoppingCartBean.StoreBean();
+        storeBean.setStore_id(Integer.valueOf(mStoreId));
+        shoppingCartBean.setStore(storeBean);
+        List<ShoppingCartBean.ListBean> mGoodslist = new ArrayList<>();
+        ShoppingCartBean.ListBean goodsBean = new ShoppingCartBean.ListBean();
+        goodsBean.setGoods_id(goods_id);
+        goodsBean.setGoods_num(currentCount);
+        goodsBean.setGoods_price(goodsPrice);
+        mGoodslist.add(goodsBean);
+        shoppingCartBean.setList(mGoodslist);
+        LocalShopHelper.saveShoppingCartBean(shoppingCartBean,mStoreId);
+    }
+
+    /**
+     * 判断商品是否在本地购物车
+     * @param goodsId 商品ID
+     * @return 返回商品所在的位置下角标
+     */
+    public int checkGoodsInLocalShop(int goodsId){
+        ShoppingCartBean shoppingCartBean = LocalShopHelper.getShoppingCartBean(mStoreId);
+
+        if (shoppingCartBean == null){
+            return -2;
+        }
+
+        List<ShoppingCartBean.ListBean> list = shoppingCartBean.getList();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getGoods_id() == goodsId) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
+
+    /**
+     * 获取购物车中的指定的商品数量
+     * @param goodsId 商品ID
+     * @return
+     */
     public int getGoodsInCartNumber(int goodsId) {
+        // TODO: 2019-06-21 判断购物车登录问题
+        int localGoodsNum = 0;
+        ShoppingCartBean localCartBean = LocalShopHelper.getShoppingCartBean(mStoreId);
+        if (!UserLogic.isLogin() && localCartBean!=null){
+            for (ShoppingCartBean.ListBean listBean: localCartBean.getList()) {
+                if (goodsId == listBean.getGoods_id()){
+                    localGoodsNum += listBean.getGoods_num();
+                    break;
+                }
+            }
+        }
+
         try {
             for (MerchantBean.CartBean.GoodsBean goodsBean : mCartBean.getGoods()) {
                 if (goodsBean.getGoods_id().equals(goodsId + "")) {
-                    return goodsBean.getGoods_num();
+                    // TODO: 2019-06-21 到时可以去掉相加的
+                    return goodsBean.getGoods_num() + localGoodsNum;
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return 0;
+        return localGoodsNum;//return 0
     }
 
     public void initRecyclerView() {
@@ -263,6 +432,7 @@ public class MenuListFragment extends BaseFragment {
                 addItemType(BaseHeaderAdapter.TYPE_HEADER, R.layout.item_pinned_header);
                 addItemType(BaseHeaderAdapter.TYPE_DATA, R.layout.item_product_name);
             }
+
             @Override
             protected void convert(BaseViewHolder holder, final PinnedHeaderEntity<MerchantBean.GoodsListBean.GoodsBeanX> item) {
                 switch (holder.getItemViewType()) {
@@ -274,28 +444,30 @@ public class MenuListFragment extends BaseFragment {
                         Glide.with(getActivity()).load(item.getData().getImg_name()).into((ImageView) holder.getView(R.id.iv_image));
                         holder.getView(R.id.iv_delete).setVisibility(View.INVISIBLE);
                         holder.getView(R.id.tv_amount).setVisibility(View.INVISIBLE);
-                        holder.getView(R.id.ll_goods_description).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                WebViewActivity.start(true, getActivity(), item.getData().getGoods_detail_url(), "商品详情");
-                            }
+                        holder.getView(R.id.ll_goods_description).setOnClickListener(v -> {
+                            WebViewActivity.start(true, getActivity(), item.getData().getGoods_detail_url(), "商品详情");
                         });
                         //暂时处理
                         holder.getView(R.id.iv_add).setOnClickListener(v -> {
-                            addToShopingCar(item.getData().getGoods_id(), 1);
+                            // TODO: 2019-06-21 处理登录和未登录时的购物车
+
+                            addToShopingCar(item.getData().getGoods_id(),item.getData().getGoods_price(), 1);
+
                             holder.getView(R.id.iv_delete).setVisibility(View.VISIBLE);
                             holder.getView(R.id.tv_amount).setVisibility(View.VISIBLE);
-                            ((TextView) holder.getView(R.id.tv_amount)).setText("" + (item.getData().getGoods_number_in_cart() + 1));
+
+                            //如果已登录就通过上传本地购物车来获取具体的购物车数据
+                            ((TextView) holder.getView(R.id.tv_amount)).setText("" + (getGoodsInCartNumber(item.getData().getGoods_id())));
                         });
 
                         holder.getView(R.id.iv_delete).setOnClickListener(v -> {
-                            addToShopingCar(item.getData().getGoods_id(), -1);
+                            addToShopingCar(item.getData().getGoods_id(),item.getData().getGoods_price(),-1);
                             holder.getView(R.id.iv_delete).setVisibility(View.VISIBLE);
                             holder.getView(R.id.tv_amount).setVisibility(View.VISIBLE);
-                            ((TextView) holder.getView(R.id.tv_amount)).setText("" + (item.getData().getGoods_number_in_cart() - 1));
+                            ((TextView) holder.getView(R.id.tv_amount)).setText("" + (getGoodsInCartNumber(item.getData().getGoods_id())));
                         });
                         int amount = getGoodsInCartNumber(item.getData().getGoods_id());
-                        item.getData().setGoods_number_in_cart(amount);
+//                        item.getData().setGoods_number_in_cart(amount);
                         if (amount == 0) {
                             holder.getView(R.id.iv_delete).setVisibility(View.INVISIBLE);
                             holder.getView(R.id.tv_amount).setVisibility(View.INVISIBLE);

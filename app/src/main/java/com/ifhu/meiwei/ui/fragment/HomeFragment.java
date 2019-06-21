@@ -173,7 +173,7 @@ public class HomeFragment extends BaseFragment {
         mScrollView.setOnTouchListener((v, event) -> {
             switch (event.getAction()){
                 case MotionEvent.ACTION_DOWN:
-                    if (System.currentTimeMillis()-upTime<2000) {
+                    if (System.currentTimeMillis()-upTime<1000) {
                         handler.sendEmptyMessage(MotionEvent.ACTION_DOWN);
                         timer.cancel();
                     }
@@ -185,10 +185,10 @@ public class HomeFragment extends BaseFragment {
                     startY = event.getY();
                     break;
                 case MotionEvent.ACTION_OUTSIDE:
-                    handler.sendEmptyMessageDelayed(MotionEvent.ACTION_OUTSIDE,2000);
+                    handler.sendEmptyMessageDelayed(MotionEvent.ACTION_OUTSIDE,1000);
                     break;
                 case MotionEvent.ACTION_CANCEL:
-                    handler.sendEmptyMessageDelayed(MotionEvent.ACTION_CANCEL,2000);
+                    handler.sendEmptyMessageDelayed(MotionEvent.ACTION_CANCEL,1000);
                     break;
                 case MotionEvent.ACTION_UP:
 
@@ -198,7 +198,7 @@ public class HomeFragment extends BaseFragment {
                         public void run() {
                             handler.sendEmptyMessage(MotionEvent.ACTION_UP);
                         }
-                    },2000);
+                    },1000);
                     upTime = System.currentTimeMillis();
                     break;
             }

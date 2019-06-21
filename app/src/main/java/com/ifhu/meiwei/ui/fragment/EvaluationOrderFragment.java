@@ -27,6 +27,7 @@ import com.ifhu.meiwei.ui.activity.home.ShopHomeActivity;
 import com.ifhu.meiwei.ui.activity.order.EvaluationActivity;
 import com.ifhu.meiwei.ui.activity.order.OrdertrackingActivity;
 import com.ifhu.meiwei.ui.base.BaseFragment;
+import com.ifhu.meiwei.utils.ToastHelper;
 import com.ifhu.meiwei.utils.UserLogic;
 
 import org.greenrobot.eventbus.EventBus;
@@ -184,6 +185,11 @@ public class EvaluationOrderFragment extends BaseFragment {
     }
 
     public void getData(boolean showIndicator) {
+        if (UserLogic.getUser()==null){
+            ToastHelper.makeText("未登录").show();
+            mLayoutSwipeRefresh.setRefreshing(false);
+            return;
+        }
         setLoadingMessageIndicator(showIndicator);
         RetrofitApiManager.createUpload(OrdersService.class).orderList(UserLogic.getUser().getMember_id(), type)
                 .compose(SchedulerUtils.ioMainScheduler()).subscribe(new BaseObserver<List<OrderBean>>(true) {

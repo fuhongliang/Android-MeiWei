@@ -18,6 +18,12 @@ public class Constants {
      * 保存用户对象
      */
     public static final String USER = "mei_wei_user";
+
+    /**
+     * 保存本地购物车对象
+     */
+    public static final String LOCALSHOPCART = "shopCartLocal_";
+
     /**
      * 退出登录
      */
