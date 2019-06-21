@@ -53,7 +53,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="-120dp"
         android:layout_marginRight="15dp"
-        android:background="@drawable/meal_bnt_baisebj"
+        android:background="@drawable/bg_evaluation_white"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -191,6 +191,7 @@
         android:layout_width="match_parent"
         android:layout_height="38dp"
         android:background="#FFF"
+        android:layout_marginTop="3dp"
         app:stl_defaultTabBackground="@android:color/transparent"
         app:stl_defaultTabTextColor="@drawable/tab_title_selector"
         app:stl_defaultTabTextHorizontalPadding="10dp"

@@ -20,6 +20,7 @@
                 android:layout_height="match_parent"
                 android:divider="@color/category_color"
                 android:dividerHeight="15dp"
+                android:paddingTop="15dp"
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
                 tools:listitem="@layout/item_order" />

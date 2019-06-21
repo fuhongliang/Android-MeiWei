@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -51,6 +52,7 @@ public class PasswordActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_login);
+        tvReturn.setVisibility(View.VISIBLE);
         tvReturn.setText("返回");
         ButterKnife.bind(this);
         tvText.setText("验证码登录");

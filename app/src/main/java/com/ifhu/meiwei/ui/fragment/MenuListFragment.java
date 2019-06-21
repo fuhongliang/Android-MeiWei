@@ -479,8 +479,13 @@ public class MenuListFragment extends BaseFragment {
 
                         holder.setText(R.id.tv_money, item.getData().getGoods_price() + "");
                         holder.setText(R.id.tv_price, item.getData().getGoods_marketprice() + "");
-                        holder.setText(R.id.tv_description, item.getData().getGoods_desc() + "");
                         holder.setText(R.id.tv_sell_amount, "月售" + item.getData().getGoods_salenum() + "    |   点赞" + item.getData().getZan());
+
+                        if (item.getData().getGoods_desc()==null||item.getData().getGoods_desc().equals("")){
+                            holder.setGone(R.id.tv_description,false);
+                        }else {
+                            holder.setText(R.id.tv_description, item.getData().getGoods_desc() + "");
+                        }
                         break;
                     default:
                         break;
@@ -511,6 +516,7 @@ public class MenuListFragment extends BaseFragment {
         });
         mIvPhoto.setImageResource(R.drawable.quesehng_ic_wlljsb);
         mTvTitleOne.setText("网络好像出了点问题呢！");
+
     }
 
     public void handleGoodListScroll(int position) {

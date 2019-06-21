@@ -80,7 +80,8 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        mTvNumber.setText("返回");
+        mTvReturn.setVisibility(View.VISIBLE);
+        mTvReturn.setText("返回");
         addTextChangedListener();
         initView();
     }
